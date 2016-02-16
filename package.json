@@ -1,0 +1,24 @@
+{
+  "name": "ucgames",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cruzj6/UpcomingGames.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cruzj6/UpcomingGames/issues"
+  },
+  "homepage": "https://github.com/cruzj6/UpcomingGames#readme",
+  "dependencies": {
+    "bootstrap": "^3.3.6",
+    "express": "^4.13.4",
+    "express-handlebars": "^3.0.0"
+  }
+}
