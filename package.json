@@ -17,8 +17,11 @@
   },
   "homepage": "https://github.com/cruzj6/UpcomingGames#readme",
   "dependencies": {
+    "body-parser": "^1.15.0",
     "bootstrap": "^3.3.6",
     "express": "^4.13.4",
-    "express-handlebars": "^3.0.0"
+    "express-handlebars": "^3.0.0",
+    "request": "^2.69.0",
+    "underscore-node": "^0.1.2"
   }
 }
