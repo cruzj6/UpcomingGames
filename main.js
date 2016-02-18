@@ -3,7 +3,7 @@ var exphbs = require('express-handlebars');
 var path = require('path');
 var app = express();
 var bodyparser = require('body-parser');
-var gameAPI = require(__dirname + '/giantAPI.js');
+var gameData = require(__dirname + '/gameDataProcessor.js');
 
 //Public Static Resources
 app.use(express.static(path.join(__dirname, 'WebVC')));
@@ -23,24 +23,14 @@ app.get('/', function(req, res){
 app.get('/searchGames', function(req, res)
 {
     var searchTerm = req.query.searchTerm;
-    gameAPI.searchForUpcomingGame(searchTerm, function(response){
-       res.send(response);
-    });
-
-});
-
-
-//Use here to test our API stuff
-app.get('/testAPI', function(req, res)
-{
-
-    gameAPI.searchForUpcomingGame('uncharted', function(searchTest){
-        res.render('APITest', {
-            Testing: "Hello Test",
-            testImage: searchTest[0].imageLink
+    gameData.searchUpcomingGames(searchTerm, function(data)
+    {
+        res.send(data);
+        //TEST CODE
+        gameData.getNewsArticleInfo(data[0].name, function(res){
+           console.log(res);
         });
     });
-
 });
 
 app.listen('3000');
