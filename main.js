@@ -5,6 +5,9 @@ var app = express();
 var bodyparser = require('body-parser');
 var gameData = require(__dirname + '/gameDataProcessor.js');
 
+//Test
+var dbm = require(__dirname + '/DatabaseManager.js');
+
 //Public Static Resources
 app.use(express.static(path.join(__dirname, 'WebVC')));
 
@@ -30,6 +33,14 @@ app.get('/searchGames', function(req, res)
         gameData.getNewsArticleInfo(data[0].name, function(res){
            console.log(res);
         });
+    });
+});
+
+app.get('/test', function(req,res){
+   dbm.addGameIDToUser(2314, 1111);
+    dbm.getUsersTrackedGameIds(1111, function(res)
+    {
+        console.log(res);
     });
 });
 
