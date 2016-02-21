@@ -38,9 +38,9 @@ app.get('/searchGames', function(req, res)
 
 app.get('/test', function(req,res){
    dbm.addGameIDToUser(2314, 1111);
-    dbm.getUsersTrackedGameIds(1111, function(res)
+    dbm.getUsersTrackedGameIds(1111, function(gameIds)
     {
-        console.log(res);
+        res.send(gameIds);
     });
 });
 
