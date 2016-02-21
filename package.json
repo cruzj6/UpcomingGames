@@ -1,7 +1,6 @@
 {
   "name": "ucgames",
   "version": "1.0.0",
-  "description": "",
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -17,13 +16,18 @@
   },
   "homepage": "https://github.com/cruzj6/UpcomingGames#readme",
   "dependencies": {
+    "babelify": "^7.2.0",
     "body-parser": "^1.15.0",
     "bootstrap": "^3.3.6",
     "express": "^4.13.4",
     "express-handlebars": "^3.0.0",
     "node-bing-api": "^2.3.0",
+    "react": "^0.14.7",
+    "react-dom": "^0.14.7",
     "request": "^2.69.0",
     "sqlite3": "^3.1.1",
     "underscore-node": "^0.1.2"
-  }
+  },
+  "devDependencies": {},
+  "description": ""
 }
