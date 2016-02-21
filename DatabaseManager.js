@@ -19,7 +19,6 @@ function addGameIDToUser(gameId, userId)
 
         stmt.run(userId, gameId);
         stmt.finalize();
-
     });
 
     db.close();
