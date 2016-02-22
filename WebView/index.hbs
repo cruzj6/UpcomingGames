@@ -2,8 +2,7 @@
 <html>
 <header>
     <meta charset="UTF-8">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-    <script src='index.js'></script>
+
 
     <!--Bootstrap stuff-->
     <!-- Latest compiled and minified CSS -->
@@ -12,29 +11,38 @@
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
 
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-
-    <!--React-->
-
 </header>
 
-<input id="searchGamesIn">
-<button id="searchGamesButton" onclick="searchGames()">Search</button>
-<div style="display: none;" id="searchingIndicator">Searching...</div>
-<div id="searchResults"></div>
+<body>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<script src='index.js'></script>
 
-<div id="reactTest"/>
-<script type="text/jsx">
-    var testComp = React.createClass({
-        render: function(){
-            return (
-              <h2>Hello Testing</h2>
-            );
-        }
-    });
+    <div ng-app="upcomingGames" ng-controller="mainCtrl">
+        <div class="row">
+            <div class="col-md-5">
+                <input id="searchGamesIn">
+                <button id="searchGamesButton" ng-click='searchGames()'>Search</button>
+                <div style="display: none;" id="searchingIndicator">Searching...</div>
 
-    React.render(<textComp/>, document.getElementById('reactTest'));
-</script>
+                <ul id="searchRes" ng-if="searchResults" class="list-group">
+                    <li class="list-group-item" ng-repeat='res in searchResults' ng-click='getArticles(res)'>
+                        <img height ="80" width="80" ng-src="{[{res.imageLink}]}">
+                        <p>{[{res.name}]}</p>
+                    </li>
+                </ul>
+
+            </div>
+            <div class="col-md-7">
+                <ul class="list-group">
+                    <li class="list-group-item" ng-if="newsArticles" ng-repeat='art in newsArticles'>
+                        <p>{[{art.title}]}</p>
+                        <p>{[{art.desc}]}</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</body>
 
 </html>
