@@ -11,6 +11,7 @@ var dbm = require(__dirname + '/DatabaseManager.js');
 //Public Static Resources
 app.use(express.static(path.join(__dirname, 'WebVC')));
 
+
 //Set up handlebars view engine
 app.set('views',path.join(__dirname, '/WebView'));
 app.engine('hbs', exphbs({defaultLayout: 'main',
@@ -29,10 +30,13 @@ app.get('/searchGames', function(req, res)
     gameData.searchUpcomingGames(searchTerm, function(data)
     {
         res.send(data);
-        //TEST CODE
-        gameData.getNewsArticleInfo(data[0].name, function(res){
-           console.log(res);
-        });
+    });
+});
+
+app.get('/getArticles', function(req, res){
+    var gameName = req.query.gameName;
+    gameData.getNewsArticleInfo(gameName, function(data){
+        res.send(data);
     });
 });
 
