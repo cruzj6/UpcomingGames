@@ -93,26 +93,38 @@ function searchForUpcomingGame(searchTerms, callback)
     });
 }
 
-function getDataForGameByID(gameId, callback)
+function getDataForGameByID(gameId, handleIdGameData)
 {
-    var queryString = giantBombAPI + "/game/" + gameId + "/?api_key=" + apiKey;
-    request(queryString, function(err, res, body){
-        var jsonRes = JSON.parse(body);
+    if(gameId) {
+        var queryString = giantBombAPI + "/game/" + gameId + "/?api_key=" + apiKey + '&format=json';
+        request.get({
+            uri: queryString,
+            headers: {'user-agent': 'UpcomingAwesomeGamesWoo'}
+        }, function (err, repond, body) {
+            if (!err) {
+                var jsonRes = JSON.parse(body);
 
-        //Should be only one result since we are getting specific game by id not games
-        var result = jsonRes.results;
-        var response = {
-            name: result.name,
-            imageLink: result.image != null ? result.image.icon_url :
-                "https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg",
-            platforms: _.pluck(result.platforms, 'name'),
-            releaseMonth: result.expected_release_month,
-            releaseYear: result.expected_release_year,
-            releaseDay: result.expected_release_day,
-            gbGameId: result.id //We can store just this in db
-        };
+                //Should be only one result since we are getting specific game by id not games
+                var result = jsonRes.results;
+                var gameDatas = {
+                    name: result.name,
+                    imageLink: result.image != null ? result.image.icon_url :
+                        "https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg",
+                    platforms: _.pluck(result.platforms, 'name'),
+                    releaseMonth: result.expected_release_month,
+                    releaseYear: result.expected_release_year,
+                    releaseDay: result.expected_release_day,
+                    gbGameId: result.id //We can store just this in db
+                };
 
-        callback(response);
-    });
+                handleIdGameData(gameDatas);
+            }
+            else(handleIdGameData(null));
+        });
+    }
+    else
+    {
+        handleIdGameData(null);
+    }
 }
 

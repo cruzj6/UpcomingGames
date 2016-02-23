@@ -5,12 +5,16 @@ var app = express();
 var bodyparser = require('body-parser');
 var gameData = require(__dirname + '/gameDataProcessor.js');
 
+app.use(bodyparser.urlencoded({ extended: false }))
+
+// parse application/json
+app.use(bodyparser.json())
+
 //Test
 var dbm = require(__dirname + '/DatabaseManager.js');
 
 //Public Static Resources
 app.use(express.static(path.join(__dirname, 'WebVC')));
-
 
 //Set up handlebars view engine
 app.set('views',path.join(__dirname, '/WebView'));
@@ -40,12 +44,22 @@ app.get('/getArticles', function(req, res){
     });
 });
 
-app.get('/test', function(req,res){
-   dbm.addGameIDToUser(2314, 1111);
-    dbm.getUsersTrackedGameIds(1111, function(gameIds)
-    {
-        res.send(gameIds);
+
+//TODO: This should be based on Auth user
+app.get('/userTrackedGames', function(req, res){
+    gameData.getUserTrackedGameData(1111, function(gameDatas){
+        res.send(gameDatas);
     });
+});
+
+app.post('/addTrackedGame', function(req,res)
+{
+    gameData.addTrackedGameId(req.body.gameid);
+    res.end();
+});
+
+app.get('/test', function(req,res){
+
 });
 
 app.listen('3000');
