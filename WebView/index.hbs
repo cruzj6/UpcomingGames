@@ -27,7 +27,7 @@
 <body>
 
 <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-<script src='index.js'></script>
+<script src="index.js"></script>
 <div ng-app="upcomingGames" ng-controller="mainCtrl">
   <div class="container">
     <div class="row">
@@ -39,16 +39,16 @@
     <div class="row">
     </div>
     <div class="row">
-      <div class="col-md-4" style="background-color: lightblue; height: 500px; overflow-y: scroll;">
+      <div class="col-md-4" style="background-color: lightblue; height: 500px;">
           Search:
           <div class="dropdown">
               <input id="searchGamesIn">
-              <button id="searchGamesButton" ng-click='searchGames()' data-toggle="dropdown"
+              <button id="searchGamesButton" ng-click="searchGames()" data-toggle="dropdown"
                       aria-haspopup="true" aria-expanded="false">Search</button>
               <div style="display: none;" id="searchingIndicator">Searching...</div>
 
-              <ul class="dropdown-menu" aria-labelledby="dLabel" id="searchRes" ng-if="searchResults">
-                  <li class="list-group-item" ng-repeat='res in searchResults' ng-click='getArticles(res)'>
+              <ul class="dropdown-menu" aria-labelledby="dLabel" id="searchRes" ng-if="searchResults" style="overflow-y: scroll; height: 440px;">
+                  <li class="list-group-item" ng-repeat="res in searchResults" ng-click="getArticles(res)">
                       <div class="row">
                           <div class="col-md-8">
                               <img height ="80" width="80" ng-src="{[{res.imageLink}]}">
@@ -69,30 +69,30 @@
               </th>
             </tr>
           </thead>
-          <tbody>
+          <tbody style="overflow-y: scroll; display: block; height: 410px;">
             <tr>
               <td>
                 <br/>
               </td>
             </tr>
-            <tr class="active" ng-repeat='game in trackedGames' ng-click='getArticles(game)'>
+            <tr class="active" ng-repeat="game in trackedGames" ng-click="getArticles(game)">
               <td>
                 {[{game.name}]}
                 <br/>
                 Updates: 5
               </td>
               <td>
-                <img ng-src='{[{game.imageLink}]}'>
+                <img ng-src="{[{game.imageLink}]}">
               </td>
             </tr>
 
-            </tr>
+
           </tbody>
         </table>
       </div>
       <div class="col-md-1">
       </div>
-      <div class="col-md-7" style="background-color: white; height: 500px; overflow-y: scroll;">
+      <div class="col-md-7" style="background-color: white; height: 500px;">
         <ul class="nav nav-tabs" id="news-table">
           <li>
             <a href="#1" data-toggle="tab">Popular News</a>
@@ -106,13 +106,13 @@
 
         </ul>
 
-        <div class="tab-content">
+        <div class="tab-content" style="overflow-y: scroll; height: 450px;">
           <div class="tab-pane" id="1">
             <table class="table">
               <thead>
               </thead>
               <tbody>
-                <tr ng-if="newsArticles" ng-repeat='art in newsArticles'>
+                <tr ng-if="newsArticles" ng-repeat="art in newsArticles">
                   <td>
                     <p>{[{art.date}]}</p>
                   </td>
