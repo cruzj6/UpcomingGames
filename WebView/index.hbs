@@ -46,9 +46,9 @@
               <button id="searchGamesButton" ng-click='searchGames()' data-toggle="dropdown"
                       aria-haspopup="true" aria-expanded="false">Search</button>
               <div style="display: none;" id="searchingIndicator">Searching...</div>
-
+              
               <ul class="dropdown-menu" aria-labelledby="dLabel" id="searchRes" ng-if="searchResults">
-                  <li class="list-group-item" ng-repeat='res in searchResults' ng-click='getArticles(res)'>
+                  <li class="list-group-item" ng-repeat='res in searchResults' ng-click='ggetArticles(res)'>
                       <div class="row">
                           <div class="col-md-8">
                               <img height ="80" width="80" ng-src="{[{res.imageLink}]}">
