@@ -24,13 +24,13 @@ function addGameIDToUser(gameId, userId)
     db.close();
 }
 
-function getUsersTrackedGameIds(userid, callback)
+function getUsersTrackedGameIds(userid, handleUserIds)
 {
     var db = new sqlite3.Database('data.db');
     db.serialize(function() {
 
         db.all("SELECT gameId FROM tracked_games WHERE userid=(?)", userid, function(err, rows){
-            callback(rows);
+            handleUserIds(rows);
         });
 
     });

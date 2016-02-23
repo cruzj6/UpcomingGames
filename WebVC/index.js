@@ -6,6 +6,7 @@ app.config(function($interpolateProvider) {
 
 app.controller('mainCtrl', function($scope, $http){
 
+    getTrackedGames($scope, $http);
     $scope.searchGames = function() {
         var searchInValue =  encodeURIComponent(document.getElementById('searchGamesIn').value.trim());
         var searchingText = document.getElementById('searchingIndicator');
@@ -26,7 +27,29 @@ app.controller('mainCtrl', function($scope, $http){
     $scope.getArticles = function(res){
         searchForArticles($scope, $http, res);
     };
+
+    $scope.addTrackedGame = function(game)
+    {
+        addTrackedGamePost($scope, $http, game);
+    };
 });
+
+function addTrackedGamePost($scope, $http, game)
+{
+    $http.post('/addTrackedGame', {
+        gameid: game.gbGameId
+    }).then(function(){
+        getTrackedGames($scope, $http);
+    });
+}
+
+function getTrackedGames($scope, $http)
+{
+    $http.get('/userTrackedGames').then(function(resp){
+        $scope.trackedGames = resp.data;
+
+    });
+}
 
 function searchForArticles($scope, $http, res)
 {

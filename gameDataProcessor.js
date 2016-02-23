@@ -8,6 +8,7 @@
  */
 var gameAPI = require(__dirname + '/giantAPI.js');
 var bingAPI = require(__dirname + '/newsAPI.js');
+var dbm = require(__dirname + '/DatabaseManager.js');
 
 module.exports = {
     //"public" functions
@@ -22,6 +23,15 @@ module.exports = {
     },
     getNewsArticleInfo: function(gameName, callback){
         getNewsArticleInfo(gameName, callback);
+    },
+
+    getUserTrackedGameData: function(userId, callback)
+    {
+        getUserTrackedGameData(userId, callback);
+    },
+
+    addTrackedGameId: function(gameId){
+        addTrackedGameId(gameId);
     }
 
 };
@@ -58,6 +68,36 @@ function getUpdatedReleaseDate(gameid, callback)
             callback(null);
         }
     });
+}
+
+function addTrackedGameId(gameId)
+{
+    dbm.addGameIDToUser(gameId, 1111);
+}
+
+function getUserTrackedGameData(userId, handleTrackedGameData)
+{
+    dbm.getUsersTrackedGameIds(userId, function(ids){
+        if(ids){
+        var returnGameData = [];
+        var successfulGets = 0;
+        var attempts = 0;
+        for (var i = 0; i < ids.length; i++)
+        {
+            gameAPI.getDataForGameById(ids[i].gameId, function(gameData){
+                //Track attempts to get game data, and number actually gotten (successful)
+                attempts++;
+                if(gameData) {
+                    returnGameData.push(gameData);
+                    successfulGets++;
+                }
+                if(returnGameData.length == successfulGets && attempts == ids.length)
+                    handleTrackedGameData(returnGameData);
+
+            });
+        }
+    }});
+
 }
 
 function getNewsArticleInfo(gameName, callback)
