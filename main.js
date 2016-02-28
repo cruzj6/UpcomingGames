@@ -4,11 +4,45 @@ var path = require('path');
 var app = express();
 var bodyparser = require('body-parser');
 var gameData = require(__dirname + '/gameDataProcessor.js');
+var passport = require('passport');
+var SteamStrategy = require('passport-steam').Strategy;
+var session = require('express-session');
 
 app.use(bodyparser.urlencoded({ extended: false }))
 
 // parse application/json
-app.use(bodyparser.json())
+app.use(bodyparser.json());
+
+app.use(session({
+    secret: 'test',
+    name: 'steamSession',
+    resave: true,
+    saveUninitialized: true}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new SteamStrategy({
+        returnURL: 'http://localhost:3000/auth/steam/return',
+        realm: 'http://localhost:3000/',
+        apiKey: '***REMOVED***'
+    },
+    function(identifier, profile, done) {
+        process.nextTick(function () {
+
+            //TODO: here we need to add user to DB if they don't exist
+            profile.identifier = identifier;
+            return done(null, profile);
+        });
+    }
+));
+
+passport.serializeUser(function(user, done) {
+    done(null, user);
+});
+
+passport.deserializeUser(function(user, done) {
+    done(null, user);
+});
 
 //Test
 var dbm = require(__dirname + '/DatabaseManager.js');
@@ -24,7 +58,15 @@ app.engine('hbs', exphbs({defaultLayout: 'main',
 }));
 app.set('view engine', 'hbs');
 app.get('/', function(req, res){
-    res.render('index');
+    if(req.isAuthenticated()) {
+        res.render('index',{
+            userName: req.user.displayName
+        });
+    }
+    else{
+        //TODO: Need a page here telling them to sign in
+        res.render('welcomePage');
+    }
 });
 
 //Ajax request is made here to search for games
@@ -47,15 +89,44 @@ app.get('/getArticles', function(req, res){
 
 //TODO: This should be based on Auth user
 app.get('/userTrackedGames', function(req, res){
-    gameData.getUserTrackedGameData(1111, function(gameDatas){
+    gameData.getUserTrackedGameData(req.user.identifier, function(gameDatas){
         res.send(gameDatas);
     });
 });
 
 app.post('/addTrackedGame', function(req,res)
 {
-    gameData.addTrackedGameId(req.body.gameid);
+    gameData.addTrackedGameId(req.body.gameid, req.user.identifier);
     res.end();
+});
+
+app.get('/auth/steam', passport.authenticate('steam'),
+    function(req, res)
+    {
+        //This will not be called
+        res.redirect('/');
+    }
+);
+
+app.get('/auth/steam/return',
+    passport.authenticate('steam', { failureRedirect: '/login' }),
+    function(req, res) {
+        // Successful authentication, redirect home.
+        res.redirect('/');
+    });
+
+app.get('/logout', function(req, res){
+    req.logout();
+    req.session.destroy(function(){
+
+    });
+    res.redirect('/');
+});
+
+app.get('/gameMedia', function(req, res){
+    gameData.getMediaData(req.query.gameName, function(data){
+        res.send(data);
+    });
 });
 
 app.get('/test', function(req,res){
