@@ -30,10 +30,12 @@ module.exports = {
         getUserTrackedGameData(userId, callback);
     },
 
-    addTrackedGameId: function(gameId){
-        addTrackedGameId(gameId);
+    addTrackedGameId: function(gameId, userid){
+        addTrackedGameId(gameId, userid);
+    },
+    getMediaData: function(gameName, callback){
+        getMediaData(gameName, callback);
     }
-
 };
 
 function searchUpcomingGames(searchTerm, callback)
@@ -70,9 +72,9 @@ function getUpdatedReleaseDate(gameid, callback)
     });
 }
 
-function addTrackedGameId(gameId)
+function addTrackedGameId(gameId, userid)
 {
-    dbm.addGameIDToUser(gameId, 1111);
+    dbm.addGameIDToUser(gameId, userid);
 }
 
 function getUserTrackedGameData(userId, handleTrackedGameData)
@@ -98,6 +100,13 @@ function getUserTrackedGameData(userId, handleTrackedGameData)
         }
     }});
 
+}
+
+function getMediaData(gameName, callback)
+{
+    bingAPI.getGameMedia(gameName, function(res){
+        callback(res);
+    });
 }
 
 function getNewsArticleInfo(gameName, callback)
