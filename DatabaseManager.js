@@ -2,6 +2,7 @@
  * Created by Joey on 2/19/16.
  */
 var sqlite3 = require('sqlite3').verbose();
+var _=require('underscore-node');
 
 //Public functions
 module.exports = {
@@ -15,13 +16,19 @@ function addGameIDToUser(gameId, userId)
     db.serialize(function() {
 
         db.run("CREATE TABLE if not exists tracked_games (userid TEXT, gameId TEXT)");
-        var stmt = db.prepare("INSERT INTO tracked_games VALUES (?, ?)");
 
-        stmt.run(userId, gameId);
-        stmt.finalize();
+        getUsersTrackedGameIds(userId, function(ids)
+        {
+            if(!_.contains(ids, gameId))
+            {
+                var stmt = db.prepare("INSERT INTO tracked_games VALUES (?, ?)");
+
+                stmt.run(userId, gameId);
+                stmt.finalize();
+            }
+            db.close();
+        });
     });
-
-    db.close();
 }
 
 function getUsersTrackedGameIds(userid, handleUserIds)

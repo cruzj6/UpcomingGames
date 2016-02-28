@@ -14,9 +14,41 @@ var request = require('request').defaults({
 module.exports = {
     getGameNews: function(gameName, callback) {
         getGameNews(gameName, callback);
+    },
+    getGameMedia: function(gameName, mediaDataHandler)
+    {
+        getGameMedia(gameName, mediaDataHandler);
     }
 
 };
+
+function getGameMedia(gameName, mediaDataHandler)
+{
+    var searchString = rootUri + '/Video';
+    request.get({
+        uri: searchString,
+        qs:{
+            $format:'json',
+            Query: "'" + gameName + "'"
+        }
+    }, function(err, res, body)
+    {
+        var resultsArray = [];
+        var jsonRes = JSON.parse(body);
+        var results = jsonRes.d.results;
+
+        for(var i = 0; i < results.length; i++)
+        {
+            var curRes = results[i];
+            resultsArray.push({
+                title: curRes.Title,
+                url: curRes.MediaUrl,
+                thumbnail: curRes.Thumbnail
+            });
+        }
+        mediaDataHandler(resultsArray);
+    });
+}
 
 function getGameNews(gameName, callback)
 {
@@ -34,7 +66,7 @@ function getGameNews(gameName, callback)
         var results = jsonRes.d.results;
 
         //Process each result into something usable for us
-        for(var i = 0; i<results.length;i++){
+        for(var i = 0; i < results.length;i++){
             var curRes = results[i];
             resultsArray.push(
                 {
