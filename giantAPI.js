@@ -1,5 +1,6 @@
 /**
  * Created by Joey on 2/16/16.
+ * This module handles all requests to the GiantBomb API
  */
 var apiKey = 'c14fff77465764e0e79d64ed7b5e1bd380808165';
 var giantBombAPI = 'http://www.giantbomb.com/api';
@@ -17,7 +18,7 @@ var returnDataStruct =
     gbGameId: null //GB database game id
 };
 
-//All of our "public" functions
+//All of our module functions usable by requiring this file
 module.exports = {
 
     //Searches for a game and returns relevant info to callback
@@ -97,15 +98,19 @@ function getDataForGameByID(gameId, handleIdGameData)
 {
     if(gameId) {
         var queryString = giantBombAPI + "/game/" + gameId + "/?api_key=" + apiKey + '&format=json';
+
+        //Make our http request to the API
         request.get({
             uri: queryString,
-            headers: {'user-agent': 'UpcomingAwesomeGamesWoo'}
+            headers: {'user-agent': 'UpcomingAwesomeGamesWoo'}//Required by API
         }, function (err, repond, body) {
             if (!err) {
                 var jsonRes = JSON.parse(body);
 
                 //Should be only one result since we are getting specific game by id not games
                 var result = jsonRes.results;
+
+                //Format our response JSON object
                 var gameDatas = {
                     name: result.name,
                     imageLink: result.image != null ? result.image.icon_url :
@@ -117,6 +122,7 @@ function getDataForGameByID(gameId, handleIdGameData)
                     gbGameId: result.id //We can store just this in db
                 };
 
+                //callback
                 handleIdGameData(gameDatas);
             }
             else(handleIdGameData(null));
