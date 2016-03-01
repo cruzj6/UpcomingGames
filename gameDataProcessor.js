@@ -116,4 +116,10 @@ function getNewsArticleInfo(gameName, callback)
     });
 }
 
+function removeTrackedGameId(gameId, userId)
+{
+    dbm.removeGameIDFromUser(gameId, userId);
+}
+
+
 
