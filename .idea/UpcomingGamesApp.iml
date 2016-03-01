@@ -9,5 +9,8 @@
     <orderEntry type="library" name="angular-odata-resources-DefinitelyTyped" level="application" />
     <orderEntry type="library" name="angular-ui-router-DefinitelyTyped" level="application" />
     <orderEntry type="library" name="angular" level="application" />
+    <orderEntry type="library" name="angular" level="application" />
+    <orderEntry type="library" name="jquery" level="application" />
+    <orderEntry type="library" name="bootstrap" level="application" />
   </component>
 </module>

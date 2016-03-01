@@ -55,12 +55,15 @@
       <div class="col-md-4" style="background-color: lightblue; height: 500px;">
           Search:
           <div class="dropdown">
-              <input id="searchGamesIn">
+              <form style="display: inline" ng-submit="searchGames(); toggleRes()">
+                <input id="searchGamesIn">
+              </form>
               <button id="searchGamesButton" ng-click="searchGames()" data-toggle="dropdown"
                       aria-haspopup="true" aria-expanded="false">Search</button>
               <div style="display: none;" id="searchingIndicator">Searching...</div>
+              <div style="display: none;" id="noResultsIndicator">No Results...</div>
 
-              <ul class="dropdown-menu" aria-labelledby="dLabel" id="searchRes" ng-if="searchResults" style="overflow-y: scroll; height: 440px;">
+              <ul class="dropdown-menu" aria-labelledby="dLabel" id="searchRes" ng-if="searchResults.length > 0" style="overflow-y: scroll; height: 440px;">
                   <li class="list-group-item" ng-repeat="res in searchResults">
                       <div class="row">
                           <div class="col-md-8">
@@ -68,7 +71,7 @@
                               <p>{[{res.name}]}</p>
                           </div>
                           <div class="col-md-4">
-                              <button ng-click="addTrackedGame(res)">Add</button>
+                              <button name="AddButton" ng-click="addTrackedGame(res)">Add</button>
                           </div>
                       </div>
                   </li>
