@@ -86,12 +86,15 @@ app.get('/getArticles', function(req, res){
     });
 });
 
-
-//TODO: This should be based on Auth user
 app.get('/userTrackedGames', function(req, res){
     gameData.getUserTrackedGameData(req.user.identifier, function(gameDatas){
         res.send(gameDatas);
     });
+});
+
+app.post('/removeTrackedGame', function(req,res){
+    gameData.removeGameIDFromUser(req.body.gameid, req.user.identifier);
+    res.end();
 });
 
 app.post('/addTrackedGame', function(req,res)

@@ -7,7 +7,8 @@ var _=require('underscore-node');
 //Public functions
 module.exports = {
     addGameIDToUser: function(gameId, userId){addGameIDToUser(gameId, userId)},
-    getUsersTrackedGameIds:function(userid, callback){getUsersTrackedGameIds(userid, callback)}
+    getUsersTrackedGameIds:function(userid, callback){getUsersTrackedGameIds(userid, callback)},
+    removeGameIDFromUser:function(gameId, userId){removeGameIDFromUser(gameId, userId)}
 };
 
 function addGameIDToUser(gameId, userId)
@@ -29,6 +30,22 @@ function addGameIDToUser(gameId, userId)
             db.close();
         });
     });
+}
+
+function removeGameIDFromUser(gameId, userId)
+{
+    var db = new sqlite3.Database('data.db');
+    db.serialize(function() {
+
+        db.run("CREATE TABLE if not exists tracked_games (userid TEXT, gameId TEXT)");
+
+       var stmt = db.prepare("DELETE FROM tracked_games WHERE userid=(?) AND gameId=(?)")
+
+        stmt.run(userId, gameId);
+        stmt.finalize();
+    });
+
+    db.close();
 }
 
 function getUsersTrackedGameIds(userid, handleUserIds)
