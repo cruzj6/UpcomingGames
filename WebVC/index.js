@@ -6,25 +6,51 @@ app.config(function($interpolateProvider) {
 
 app.controller('mainCtrl', function($scope, $http){
 
+    //When user first enters site get their tracked games
     getTrackedGames($scope, $http);
+
+    //Used for form submission, if user doesn't use button
+    $scope.toggleRes = function(){
+        ddToggle();
+    };
+
+    //When user uses search box
     $scope.searchGames = function() {
+        //Toggle our no results text if it's displaying
+        var noResText = document.getElementById('noResultsIndicator');
+        noResText.style.display = 'none';
+
+        //Encode the spaces in the search text
         var searchInValue =  encodeURIComponent(document.getElementById('searchGamesIn').value.trim());
         var searchingText = document.getElementById('searchingIndicator');
         searchingText.style.display = 'inline-block';
 
-        var httppromise = $http.get('/searchgames', {
+        //Get our promise, make the request
+        var httppromise = $http.get('/info/searchgames', {
             params:{
                 //Additional data here ie->
                 searchTerm: searchInValue
             }
         });
 
+        //When we come back assign the result to the scope parameter for results
         httppromise.then(function(res){
             searchingText.style.display = 'none';
-            $scope.searchResults = res.data;
+            if(res.data.length > 0)
+                $scope.searchResults = res.data;
+            else {
+                //If no results show our no results text
+                $scope.searchResults = [];
+                var noResText = document.getElementById('noResultsIndicator');
+                noResText.style.display = 'inline-block';
+            }
         });
     };
+
+    //When user selects a game from their tracked games list
     $scope.getGameInfo= function(res){
+
+        //We set the color of the selected item and de-color the others
         for(var i = 0; i < $scope.trackedGames.length; i++)
         {
             $scope.trackedGames[i].curColor = 'white';
@@ -44,7 +70,7 @@ app.controller('mainCtrl', function($scope, $http){
 
 function addTrackedGamePost($scope, $http, game)
 {
-    $http.post('/addTrackedGame', {
+    $http.post('/userdata/addTrackedGame', {
         gameid: game.gbGameId
     }).then(function(){
         getTrackedGames($scope, $http);
@@ -53,7 +79,7 @@ function addTrackedGamePost($scope, $http, game)
 
 function getTrackedGames($scope, $http)
 {
-    $http.get('/userTrackedGames').then(function(resp){
+    $http.get('/userdata/userTrackedGames').then(function(resp){
         $scope.trackedGames = resp.data;
 
     });
@@ -61,12 +87,15 @@ function getTrackedGames($scope, $http)
 
 function searchForArticles($scope, $http, res)
 {
+    //set up our options, we send the server the game name
     var options = {
         params:{
             gameName: res.name
         }
     };
-    $http.get('/getArticles', options).then(function(resp){
+    //Make the request, and assign the result to the newsArticles scope param
+    //So that the view is updated
+    $http.get('/info/getArticles', options).then(function(resp){
         $scope.newsArticles = resp.data;
     });
 }
@@ -78,7 +107,8 @@ function searchForMedia($scope, $http, res)
             gameName: res.name
         }
     };
-    $http.get('/gameMedia', options).then(function(resp){
+    //Make the request
+    $http.get('/info/gameMedia', options).then(function(resp){
         //Filter out the video id to use it for the thumbnail
         var mediaDatas = [];
 
@@ -112,6 +142,7 @@ function searchForMedia($scope, $http, res)
                 //Get the v parameter which is the youtube video id
                 var vidId = QueryItems.v;
 
+                //Set up a custom object with the data and add it to the returned JSON array
                 var mediaData = {
                     url: respItem.url,
                     title: respItem.title,
@@ -126,6 +157,7 @@ function searchForMedia($scope, $http, res)
     });
 }
 
-function searchForGames($scope, $http)
-{
+function ddToggle(){
+    //Toggle results dropdown window
+    angular.element('#searchGamesButton').dropdown('toggle');
 }
