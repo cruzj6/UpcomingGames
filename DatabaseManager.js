@@ -6,13 +6,13 @@ var _=require('underscore-node');
 
 //Public functions
 module.exports = {
-    addGameIDToUser: function(gameId, userId){addGameIDToUser(gameId, userId)},
+    addGameIDToUser: function(gameId, userId, doneCallback){addGameIDToUser(gameId, userId, doneCallback)},
     getUsersTrackedGameIds:function(userid, callback){getUsersTrackedGameIds(userid, callback)},
-    removeGameIDFromUser:function(gameId, userId){removeGameIDFromUser(gameId, userId)}
+    removeGameIDFromUser:function(gameId, userId, doneCallback){removeGameIDFromUser(gameId, userId, doneCallback)}
 };
 
 //Add a gameId to the database for a user that they wish to track
-function addGameIDToUser(gameId, userId)
+function addGameIDToUser(gameId, userId, doneCallback)
 {
     var db = new sqlite3.Database('data.db');
     db.serialize(function() {
@@ -34,12 +34,13 @@ function addGameIDToUser(gameId, userId)
                 stmt.finalize();
             }
             db.close();
+            doneCallback();
         });
     });
 }
 
 //Remove a game from the database for a userId
-function removeGameIDFromUser(gameId, userId)
+function removeGameIDFromUser(gameId, userId, doneCallback)
 {
     var db = new sqlite3.Database('data.db');
     db.serialize(function() {
@@ -51,9 +52,9 @@ function removeGameIDFromUser(gameId, userId)
         //Fill in gameId to be removed and userId
         stmt.run(userId, gameId);
         stmt.finalize();
+        db.close();
+        doneCallback();
     });
-
-    db.close();
 }
 
 function getUsersTrackedGameIds(userid, handleUserIds)
