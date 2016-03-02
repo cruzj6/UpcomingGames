@@ -2,14 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2d30fa5a-c68f-4716-bc16-75631d47793e" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DatabaseManager.js" afterPath="$PROJECT_DIR$/DatabaseManager.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gameDataProcessor.js" afterPath="$PROJECT_DIR$/gameDataProcessor.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebView/index.hbs" afterPath="$PROJECT_DIR$/WebView/index.hbs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebVC/index.js" afterPath="$PROJECT_DIR$/WebVC/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.js" afterPath="$PROJECT_DIR$/main.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Router/userDataRouter.js" afterPath="$PROJECT_DIR$/Router/userDataRouter.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="UpcomingGamesApp.iws" />
@@ -80,11 +72,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="userDataRouter.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="userDataRouter.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Router/userDataRouter.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-2.4107144">
-              <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.1682243">
+              <caret line="8" column="77" selection-start-line="8" selection-start-column="77" selection-end-line="8" selection-end-column="77" />
               <folding>
                 <element signature="e#0#39#0" expanded="false" />
               </folding>
@@ -92,10 +84,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="gameDataProcessor.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="gameDataProcessor.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/gameDataProcessor.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.41495326">
+            <state vertical-scroll-proportion="-6.642857">
               <caret line="110" column="38" selection-start-line="110" selection-start-column="38" selection-end-line="110" selection-end-column="38" />
               <folding />
             </state>
@@ -169,10 +161,10 @@
         <option value="$PROJECT_DIR$/giantAPI.js" />
         <option value="$PROJECT_DIR$/main.js" />
         <option value="$PROJECT_DIR$/WebView/index.hbs" />
-        <option value="$PROJECT_DIR$/Router/userDataRouter.js" />
         <option value="$PROJECT_DIR$/DatabaseManager.js" />
         <option value="$PROJECT_DIR$/WebVC/index.js" />
         <option value="$PROJECT_DIR$/gameDataProcessor.js" />
+        <option value="$PROJECT_DIR$/Router/userDataRouter.js" />
       </list>
     </option>
   </component>
@@ -755,16 +747,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Router/userDataRouter.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-2.4107144">
-          <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#39#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Router/externalDataRouter.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -777,9 +759,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/gameDataProcessor.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.41495326">
+        <state vertical-scroll-proportion="-6.642857">
           <caret line="110" column="38" selection-start-line="110" selection-start-column="38" selection-end-line="110" selection-end-column="38" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Router/userDataRouter.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.1682243">
+          <caret line="8" column="77" selection-start-line="8" selection-start-column="77" selection-end-line="8" selection-end-column="77" />
+          <folding>
+            <element signature="e#0#39#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
