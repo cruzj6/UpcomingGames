@@ -1,4 +1,6 @@
 var app = angular.module('upcomingGames', []);
+var removeMode = false;
+
 app.config(function($interpolateProvider) {
     $interpolateProvider.startSymbol('{[{');
     $interpolateProvider.endSymbol('}]}');
@@ -6,6 +8,9 @@ app.config(function($interpolateProvider) {
 
 app.controller('mainCtrl', function($scope, $http){
 
+    //We are not in remove mode at start, set to remove games text
+    $scope.remToggle = removeMode;
+    $scope.remStyle = "display: none";
     //When user first enters site get their tracked games
     getTrackedGames($scope, $http);
 
@@ -66,22 +71,42 @@ app.controller('mainCtrl', function($scope, $http){
     {
         addTrackedGamePost($scope, $http, game);
     };
+
+    $scope.removeTrackedGame = function(game){
+      removeTrackedGamePost($scope, $http, game);
+    };
+
+    $scope.toggleRemGames = function(){
+        removeGamesToggle($scope);
+    };
 });
+
+function removeTrackedGamePost($scope, $http, game)
+{
+    $http.post('/userData/removeTrackedGame',{
+        gameid: game.gbGameId
+    }).success(function(){
+        getTrackedGames($scope, $http);
+    });
+}
 
 function addTrackedGamePost($scope, $http, game)
 {
     $http.post('/userdata/addTrackedGame', {
         gameid: game.gbGameId
-    }).then(function(){
+    }).success(function(){
         getTrackedGames($scope, $http);
     });
 }
 
 function getTrackedGames($scope, $http)
 {
+
     $http.get('/userdata/userTrackedGames').then(function(resp){
         $scope.trackedGames = resp.data;
 
+        //Make sure view still reflects mode
+        setRemoveView($scope, removeMode);
     });
 }
 
@@ -155,6 +180,41 @@ function searchForMedia($scope, $http, res)
         //TODO: Other media platforms besides youtube
         $scope.mediaItems = mediaDatas;
     });
+}
+
+function  setRemoveView($scope, isRemove)
+{
+    var removeButtons = document.getElementsByName('removeGameButton');
+    if(isRemove) {
+        //Make each remove button visible
+        for (var i = 0; i < removeButtons.length; i++) {
+            removeButtons[i].style.display = "inline-block";
+        }
+        //Let user click done when they are done
+        $scope.remToggleText = "Done";
+    }
+    else
+    {
+        //Make each remove button in-visible
+        for (var j = 0; j < removeButtons.length; j++) {
+            removeButtons[j].style.display = "none";
+        }
+        //Set the button text
+        $scope.remToggleText = "Remove Games"
+    }
+}
+
+function removeGamesToggle($scope){
+    if(!removeMode) {
+        removeMode = true;
+        $scope.remToggle = removeMode;
+    }
+    else
+    {
+        removeMode = false;
+        $scope.remToggle = removeMode;
+    }
+    $scope.remStyle = removeMode ? "display: inline-block" : "display: none"
 }
 
 function ddToggle(){

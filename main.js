@@ -18,7 +18,8 @@ app.use(session({
     secret: 'test',
     name: 'steamSession',
     resave: true,
-    saveUninitialized: true}));
+    saveUninitialized: true})
+);
 
 //Passport middleware
 app.use(passport.initialize());
