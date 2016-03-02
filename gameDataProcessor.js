@@ -30,11 +30,14 @@ module.exports = {
         getUserTrackedGameData(userId, callback);
     },
 
-    addTrackedGameId: function(gameId, userid){
-        addTrackedGameId(gameId, userid);
+    addTrackedGameId: function(gameId, userid, doneCallback){
+        addTrackedGameId(gameId, userid, doneCallback);
     },
     getMediaData: function(gameName, callback){
         getMediaData(gameName, callback);
+    },
+    removeTrackedGameId: function(gameId, userId, doneCallback){
+        removeTrackedGameId(gameId, userId, doneCallback);
     }
 };
 
@@ -77,7 +80,7 @@ function getUserTrackedGameData(userId, handleTrackedGameData)
 {
     dbm.getUsersTrackedGameIds(userId, function(ids){
         //If we get any track gameIds
-        if(ids){
+        if(ids && ids.length > 0){
             //Init our return array
             var returnGameData = [];
             var successfulGets = 0;//Number of successful requests
@@ -100,10 +103,14 @@ function getUserTrackedGameData(userId, handleTrackedGameData)
                     //and send it all of the tracked games data
                     if(returnGameData.length == successfulGets && attempts == ids.length)
                         handleTrackedGameData(returnGameData);
-
                 });
             }
-        }});
+        }
+        else
+        {
+            handleTrackedGameData([]);
+        }
+        });
 }
 
 //Use bing API module to get media data
@@ -123,15 +130,15 @@ function getNewsArticleInfo(gameName, callback)
 }
 
 //Use database manager module to remove a tracked game
-function removeTrackedGameId(gameId, userId)
+function removeTrackedGameId(gameId, userId, doneCallback)
 {
-    dbm.removeGameIDFromUser(gameId, userId);
+    dbm.removeGameIDFromUser(gameId, userId, doneCallback);
 }
 
 //Use database manager module to add a tracked game for a user
-function addTrackedGameId(gameId, userid)
+function addTrackedGameId(gameId, userid, doneCallback)
 {
-    dbm.addGameIDToUser(gameId, userid);
+    dbm.addGameIDToUser(gameId, userid, doneCallback);
 }
 
 
