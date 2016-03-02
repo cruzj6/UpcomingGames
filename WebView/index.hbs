@@ -99,10 +99,12 @@
               </td>
               <td>
                 <img ng-src="{[{game.imageLink}]}">
+                  <button style={[{remStyle}]} name="removeGameButton" ng-click="removeTrackedGame(game)">Remove</button>
               </td>
             </tr>
           </tbody>
         </table>
+        <button id="removeGamesToggle" name="removeGamesToggle" ng-click="toggleRemGames()">{[{remToggle ? "Done" : "Remove Games"}]}</button>
       </div>
       <div class="col-md-1">
       </div>

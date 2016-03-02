@@ -12,14 +12,21 @@ router.get('/userTrackedGames', function(req, res){
 });
 
 router.post('/removeTrackedGame', function(req,res){
-    gameData.removeGameIDFromUser(req.body.gameid, req.user.identifier);
-    res.end();
+    gameData.removeTrackedGameId(req.body.gameid, req.user.identifier, function()
+    {
+        res.sendStatus(200);
+        res.end();
+    });
+
 });
 
 router.post('/addTrackedGame', function(req,res)
 {
-    gameData.addTrackedGameId(req.body.gameid, req.user.identifier);
-    res.end();
+    gameData.addTrackedGameId(req.body.gameid, req.user.identifier, function(){
+        res.sendStatus(200);
+        res.end();
+    });
+
 });
 
 module.exports = router;
