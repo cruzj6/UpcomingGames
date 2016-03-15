@@ -62,7 +62,7 @@ app.controller('mainCtrl', function($scope, $http){
             $scope.trackedGames[i].textColor = 'black';
         }
         res.textColor = 'white';
-        res.curColor = 'blue';
+        res.curColor = 'darkslategray';
         searchForArticles($scope, $http, res);
         searchForMedia($scope, $http, res);
     };
