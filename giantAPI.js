@@ -70,7 +70,8 @@ function searchForUpcomingGame(searchTerms, callback)
             var islater = curResult.expected_release_year >= todaysDate.getYear() &&
                 curResult.expected_release_month >= todaysDate.getMonth() + 1 &&
                 curResult.expected_release_day >= todaysDate.getDay() + 1;
-            var isTBD = (curResult.original_release_date == null);
+            var isTBD = (curResult.expected_release_year == null || curResult.expected_release_month == null ||
+                        curResult.expected_release_day == null) && curResult.original_release_date == null;
 
             if(islater || isTBD) {
                 //Just need the name from each platform
