@@ -52,9 +52,8 @@
     <div class="row">
     </div>
     <div class="row">
-      <div class="col-md-4" style="background-color: lightblue; height: 500px;">
-          Search:
-          <div class="dropdown">
+      <div class="col-md-4" style="border-color: black; border: 2px solid; border-radius: 3px;background-color: lightslategray; height: 500px;">
+          <div style="margin-top: 5px;" class="dropdown">
               <form style="display: inline" ng-submit="searchGames(); toggleRes()">
                 <input id="searchGamesIn">
               </form>
@@ -77,11 +76,11 @@
                   </li>
               </ul>
               </div>
-        <table class="table">
+          <table class="table">
           <thead>
             <tr>
-              <th>
-                Upcoming Games
+              <th style='font-size: 20px; font-family: "Helvetica"';>
+                Tracked Unreleased Games
               </th>
             </tr>
           </thead>
@@ -91,7 +90,7 @@
                 <br/>
               </td>
             </tr>
-            <tr class="active"  ng-repeat="game in trackedGames" ng-click="getGameInfo(game)">
+            <tr class="active"  style="border: 2px solid black; border-radius: 3px;" ng-repeat="game in trackedGames" ng-click="getGameInfo(game)">
               <td style="color: {[{game.textColor}]}; background-color: {[{game.curColor}]};">
                {[{game.name}]}
                 <br/>
@@ -99,16 +98,17 @@
               </td>
               <td>
                 <img ng-src="{[{game.imageLink}]}">
-                  <button style={[{remStyle}]} name="removeGameButton" ng-click="removeTrackedGame(game)">Remove</button>
+                  <button style="{[{remStyle}]}" name="removeGameButton" ng-click="removeTrackedGame(game)">Remove</button>
               </td>
             </tr>
           </tbody>
         </table>
-        <button id="removeGamesToggle" name="removeGamesToggle" ng-click="toggleRemGames()">{[{remToggle ? "Done" : "Remove Games"}]}</button>
+          <button style="display: inline;" id="removeGamesToggle" type="button" class="btn btn-primary-outline" name="removeGamesToggle" ng-click="toggleRemGames()">{[{remToggle ? "Done" : "Remove Games"}]}</button>
+
       </div>
       <div class="col-md-1">
       </div>
-      <div class="col-md-7" style="background-color: white; height: 500px;">
+      <div class="col-md-7" style="padding-top: 3px; border: 2px solid black;border-radius: 4px;background-color: white; height: 500px;">
         <ul class="nav nav-tabs" id="news-table">
           <li>
             <a href="#1" data-toggle="tab">Popular News</a>
@@ -234,7 +234,14 @@
 
       <div class="col-md-9"/>
     </div>
+
   </div>
+    <div style="border-top: 2px solid; border-color: black; color: grey; background-color: white; font-size: 11px;margin-top: 50px;" class="row" name="footerRow">
+        <p>Powered by Steam: <a href="http://steampowered.com">http://steampowered.com</a> <br>
+        GiantBomb's Game database: <a href="http://giantbomb.com">http://GiantBomb.com</a><br>
+        Microsoft's Bing Search Engine: <a href="http://bing.com">http://Bing.com</a></p>
+
+    </div>
 </div>
 </body>
 </html>

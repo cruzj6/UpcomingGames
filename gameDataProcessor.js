@@ -47,7 +47,7 @@ module.exports = {
         });
     },
 
-    getUserTrackedGameData: function(userId, callback)
+    getUserTrackedGameData: function(userId, handleTrackedGameData)
     {
         dbm.getUsersTrackedGameIds(userId, function(ids){
             //If we get any track gameIds
