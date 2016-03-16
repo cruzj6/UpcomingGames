@@ -101,7 +101,6 @@ function addTrackedGamePost($scope, $http, game)
 
 function getTrackedGames($scope, $http)
 {
-
     $http.get('/userdata/userTrackedGames').then(function(resp){
         $scope.trackedGames = resp.data;
 
