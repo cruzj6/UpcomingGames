@@ -1,0 +1,30 @@
+body {
+    background-color: dodgerblue;
+}
+
+img.loginService{
+    background-color: black; width:100px;padding:10px;
+}
+
+#trackedGamesBox{
+    border-color: black;
+    border: 2px solid;
+    border-radius: 3px;
+    background-color: lightslategray;
+    height: 500px;
+}
+
+#gameInfoTabs{
+    padding-top: 3px;
+    border: 2px solid black;
+    border-radius: 4px;
+    background-color: white;
+    height: 500px;
+}
+
+#logout{
+    float:right;
+    color: white;
+    font-weight: bold;
+    text-decoration: underline
+}
