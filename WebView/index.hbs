@@ -7,17 +7,15 @@
   <!-- jQuery library -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 
-  <!-- Latest compiled JavaScript -->
+  <!-- Latest compiled JavaScript For bootstrap -->
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
   <title>Upcoming</title>
 
-  <style>
-  body {
-    background-color: dodgerblue;
-  }
-  </style>
+  <!--Import our stylesheets-->
+  <link rel="stylesheet" type="text/css" href="MainAppStyle.css">
 
+  <!--Select tab to show on start in game info area-->
   <script>
   $(document).ready(function(){
     $('#news-table a[href="#1"]').tab('show');
@@ -26,9 +24,12 @@
 </head>
 <body>
 
+<!--Import angular.js and other scripts-->
 <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
 <script src="underscore.js"></script>
 <script src="index.js"></script>
+
+<!--Top Head area-->
 <div ng-app="upcomingGames" ng-controller="mainCtrl">
   <div class="container">
     <div class="row">
@@ -36,33 +37,48 @@
       <div class="row" style="color: white">
           <div class="col-md-9"></div>
 
+          <!--Logged in user information and service used to authenticate-->
           <div class="col-md-3 rounded">
               <div align="right"><b>Signed in with:</b>
-              <img style="background-color: black; width:100px;padding:10px;" src="http://store.akamai.steamstatic.com/public/shared/images/header/globalheader_logo.png">
+              <img class="loginService" src="http://store.akamai.steamstatic.com/public/shared/images/header/globalheader_logo.png">
               </div>
               <div align="right">UserName: <b>{{userName}}</b></div>
-                  <a style="float:right; color: white; font-weight: bold; text-decoration: underline" href="/logout">Logout</a>
+                  <a id="logout" href="/logout">Logout</a>
               <br/>
           </div>
       </div>
       <br/>
   </div>
 
+  <!--Main Content-->
   <div class="container">
     <div class="row">
     </div>
     <div class="row">
-      <div class="col-md-4" style="border-color: black; border: 2px solid; border-radius: 3px;background-color: lightslategray; height: 500px;">
+
+      <!--Box that contains tracked games and searching (On left of page)-->
+      <div class="col-md-4" id="trackedGamesBox">
+
+          <!--Search Games area-->
           <div style="margin-top: 5px;" class="dropdown">
               <form style="display: inline" ng-submit="searchGames(); toggleRes()">
                 <input id="searchGamesIn">
               </form>
               <button id="searchGamesButton" ng-click="searchGames()" data-toggle="dropdown"
                       aria-haspopup="true" aria-expanded="false">Search</button>
+
+              <!--Searching indicators-->
               <div style="display: none;" id="searchingIndicator">Searching...</div>
               <div style="display: none;" id="noResultsIndicator">No Results...</div>
 
-              <ul class="dropdown-menu" aria-labelledby="dLabel" id="searchRes" ng-if="searchResults.length > 0" style="overflow-y: scroll; height: 440px;">
+              <!--Search results dropdown-->
+              <ul class="dropdown-menu"
+                  aria-labelledby="dLabel"
+                  id="searchRes"
+                  ng-if="searchResults.length > 0"
+                  style="overflow-y: scroll; height: 440px;">
+
+                  <!--Search result item-->
                   <li class="list-group-item" ng-repeat="res in searchResults">
                       <div class="row">
                           <div class="col-md-8">
@@ -76,6 +92,8 @@
                   </li>
               </ul>
               </div>
+
+          <!--Contains the tracked games elements-->
           <table class="table">
           <thead>
             <tr>
@@ -84,31 +102,43 @@
               </th>
             </tr>
           </thead>
+
+          <!--List of tracked games-->
           <tbody style="overflow-y: scroll; display: block; height: 410px;">
-            <tr>
-              <td>
-                <br/>
-              </td>
-            </tr>
+
+            <!--Element that contains one tracked game, this is repeated for each tracked game-->
             <tr class="active"  style="border: 2px solid black; border-radius: 3px;" ng-repeat="game in trackedGames" ng-click="getGameInfo(game)">
               <td style="color: {[{game.textColor}]}; background-color: {[{game.curColor}]};">
-               {[{game.name}]}
-                <br/>
+               <p style="font-weight: bold;">{[{game.name}]}</p>
                 Updates: 5
+                <br/>
+
+                <!--Release date text-->
+                <p ng-if="game.releaseMonth != null && game.releaseDay != null && game.releaseYear != null">
+                    Release Date: {[{game.releaseMonth}]}/{[{game.releaseDay}]}/{[{game.releaseYear}]}
+                    <br/>
+                    <!--Release countdown-->
+                    TTR:
+                </p>
               </td>
               <td>
+
+                <!--Image of the game-->
                 <img ng-src="{[{game.imageLink}]}">
-                  <button style="{[{remStyle}]}" name="removeGameButton" ng-click="removeTrackedGame(game)">Remove</button>
+                <button style="{[{remStyle}]}" name="removeGameButton" ng-click="removeTrackedGame(game)">Remove</button>
               </td>
             </tr>
           </tbody>
         </table>
-          <button style="display: inline;" id="removeGamesToggle" type="button" class="btn btn-primary-outline" name="removeGamesToggle" ng-click="toggleRemGames()">{[{remToggle ? "Done" : "Remove Games"}]}</button>
 
+        <!--Button that toggles the remove games mode-->
+        <button style="display: inline;" id="removeGamesToggle" type="button" class="btn btn-primary-outline" name="removeGamesToggle" ng-click="toggleRemGames()">{[{remToggle ? "Done" : "Remove Games"}]}</button>
       </div>
       <div class="col-md-1">
       </div>
-      <div class="col-md-7" style="padding-top: 3px; border: 2px solid black;border-radius: 4px;background-color: white; height: 500px;">
+
+      <!--Tabs area that contains Media, news, etc. when game is selected-->
+      <div class="col-md-7" id="gameInfoTabs">
         <ul class="nav nav-tabs" id="news-table">
           <li>
             <a href="#1" data-toggle="tab">Popular News</a>
@@ -119,15 +149,18 @@
           <li>
             <a href="#3" data-toggle="tab">Pre-Order Info</a>
           </li>
-
         </ul>
 
         <div class="tab-content" style="overflow-y: scroll; height: 450px;">
+
+          <!--News tab-->
           <div class="tab-pane" id="1">
             <table class="table">
               <thead>
               </thead>
               <tbody>
+
+                <!--Element for each news article-->
                 <tr ng-if="newsArticles" ng-repeat="art in newsArticles">
                   <td>
                     <p>{[{art.date}]}</p>
@@ -140,14 +173,17 @@
               </tbody>
             </table>
           </div>
+
+          <!--Media/video tab-->
           <div class="tab-pane" id="2">
             <table class="table">
               <thead>
                 <tr>
-
                 </tr>
               </thead>
               <tbody>
+
+              <!--Element for each Media item-->
                 <tr ng-if="mediaItems" ng-repeat="media in mediaItems">
                   <td>
                     <img ng-src="{[{media.imgsrc}]}"/>
@@ -156,15 +192,15 @@
                       <a ng-href="{[{media.url}]}" style="font-weight: bold">{[{media.title}]}</a>
                   </td>
                 </tr>
-
               </tbody>
             </table>
           </div>
+
+          <!--Pre-Order Info tab-->
           <div class="tab-pane" id="3">
             <table class="table">
               <thead>
                 <tr>
-
                 </tr>
               </thead>
               <tbody>
@@ -228,14 +264,12 @@
     <div class="row">
       <div class="col-md-5" style="align: middle;">
         <br/>
-
-
       </div>
-
       <div class="col-md-9"/>
     </div>
-
   </div>
+
+    <!--Contributions, and references footer-->
     <div style="border-top: 2px solid; border-color: black; color: grey; background-color: white; font-size: 11px;margin-top: 50px;" class="row" name="footerRow">
         <p>Powered by Steam: <a href="http://steampowered.com">http://steampowered.com</a> <br>
         GiantBomb's Game database: <a href="http://giantbomb.com">http://GiantBomb.com</a><br>
