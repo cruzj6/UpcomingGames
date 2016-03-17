@@ -11,6 +11,7 @@ app.controller('mainCtrl', function($scope, $http){
     //We are not in remove mode at start, set to remove games text
     $scope.remToggle = removeMode;
     $scope.remStyle = "display: none";
+
     //When user first enters site get their tracked games
     getTrackedGames($scope, $http);
 
@@ -79,6 +80,9 @@ app.controller('mainCtrl', function($scope, $http){
     $scope.toggleRemGames = function(){
         removeGamesToggle($scope);
     };
+    $scope.getTTR = function (relMon, relDay, relYear) {
+        return getTTR(relMon, relDay, relYear);
+    }
 });
 
 function removeTrackedGamePost($scope, $http, game)
@@ -219,4 +223,25 @@ function removeGamesToggle($scope){
 function ddToggle(){
     //Toggle results dropdown window
     angular.element('#searchGamesButton').dropdown('toggle');
+}
+
+function getTTR(relMon, relDay, relYear)
+{
+    var date = new Date();
+    var numSecRem = 59 - date.getSeconds();
+    var numMinRem = 59 - date.getMinutes();
+    var numHourRem = 23 - date.getHours();
+    var numMon = relMon - date.getMonth();
+    var numDay = relDay - date.getDay();
+    var numYear = relYear - date.getFullYear();
+
+
+    return{
+        sec: numSecRem,
+        min: numMinRem,
+        hrs: numHourRem,
+        yrs: numYear,
+        days: numDay,
+        mons: numMon
+    }
 }
