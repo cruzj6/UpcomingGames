@@ -114,11 +114,13 @@
                 <br/>
 
                 <!--Release date text-->
-                <p ng-if="game.releaseMonth != null && game.releaseDay != null && game.releaseYear != null">
+                <p ng-if="game.releaseMonth != null && game.releaseDay != null && game.releaseYear != null"
+                   ng-init="ttr = getTTR(game.releaseMonth, game.releaseDay, game.releaseYear)">
                     Release Date: {[{game.releaseMonth}]}/{[{game.releaseDay}]}/{[{game.releaseYear}]}
                     <br/>
                     <!--Release countdown-->
-                    TTR:
+                    TTR:{[{ttr.yrs}]}yr. {[{ttr.mons}]} mon. {[{ttr.days}]} days {[{ttr.hrs}]} hrs. {[{ttr.min}]} min.
+                    {[{ttr.sec}]} secs.
                 </p>
               </td>
               <td>
