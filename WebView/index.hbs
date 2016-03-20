@@ -94,14 +94,13 @@
               </div>
 
           <!--Contains the tracked games elements-->
+          <div class="panel panel-default">
+              <div class="panel-heading" style="font-size: 24px; font-weight: bold;">Tracked Unreleased Games</div>
           <table class="table">
-          <thead>
-            <tr>
-              <th style='font-size: 20px; font-family: "Helvetica"';>
-                Tracked Unreleased Games
-              </th>
-            </tr>
-          </thead>
+
+
+
+
 
           <!--List of tracked games-->
           <tbody style="overflow-y: scroll; display: block; height: 410px;">
@@ -132,6 +131,7 @@
             </tr>
           </tbody>
         </table>
+        </div>
 
         <!--Button that toggles the remove games mode-->
         <button style="display: inline;" id="removeGamesToggle" type="button" class="btn btn-primary-outline" name="removeGamesToggle" ng-click="toggleRemGames()">{[{remToggle ? "Done" : "Remove Games"}]}</button>
