@@ -1,6 +1,3 @@
-/**
- * Created by Joey on 3/1/2016.
- */
 var express = require('express');
 var router = express.Router();
 var gameData = require('../gameDataProcessor.js');

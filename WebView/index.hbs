@@ -27,6 +27,8 @@
 <!--Import angular.js and other scripts-->
 <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
 <script src="underscore.js"></script>
+<script src="dataManagerService.js"></script>
+<script src="httpRequestService.js"></script>
 <script src="index.js"></script>
 
 <!--Top Head area-->
@@ -121,17 +123,14 @@
               <div style="display: inline-block; height: 100px; width: 200px;">
                <h4 class="list-group-item-heading">{[{game.name}]}</h4>
 
-
-
                 <!--Release date text-->
-                <div ng-if="game.releaseMonth != null && game.releaseDay != null && game.releaseYear != null"
-                   ng-init="ttr = getTTR(game.releaseMonth, game.releaseDay, game.releaseYear)">
+                <div ng-if="game.releaseMonth != null && game.releaseDay != null && game.releaseYear != null">
 
                     Release Date: {[{game.releaseMonth}]}/{[{game.releaseDay}]}/{[{game.releaseYear}]}
 
                     <!--Release countdown-->
-                    TTR:{[{ttr.yrs}]}yr. {[{ttr.mons}]} mon. {[{ttr.days}]} days {[{ttr.hrs}]} hrs. {[{ttr.min}]} min.
-                    {[{ttr.sec}]} secs.
+                    TTR:{[{game.ttr.yrs}]}yr. {[{game.ttr.mons}]} mon. {[{game.ttr.days}]} days {[{game.ttr.hrs}]} hrs. {[{game.ttr.min}]} min.
+                    {[{game.ttr.sec}]} secs.
                 </div>
               </div>
                 <div style="{[{remStyle + ';margin-left: 10px;'}]}" class="btn btn-danger pull-right" role="button" name="removeGameButton" ng-click="removeTrackedGame(game)">
