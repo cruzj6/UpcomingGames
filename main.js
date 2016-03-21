@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 var express = require('express');
 var exphbs = require('express-handlebars');
 var path = require('path');
@@ -6,6 +8,9 @@ var bodyparser = require('body-parser');
 var passport = require('passport');
 var SteamStrategy = require('passport-steam').Strategy;
 var session = require('express-session');
+/**
+ * Created by Joey on 3/1/2016.
+ */
 
 //Set up body parser for post requests
 app.use(bodyparser.urlencoded({ extended: false }))
@@ -27,9 +32,10 @@ app.use(passport.session());
 
 //Set up our strategies, starting with steam strategy
 passport.use(new SteamStrategy({
+        //TODO: CHANGE TO REAL URL ON DEPLOY
         returnURL: 'http://localhost:3000/auth/steam/return',
         realm: 'http://localhost:3000/',
-        apiKey: 'CDFE5EDDA78BCA4292CD44BE043BD6FF'
+        apiKey: process.env.STEAM_API_KEY
     },
     function(identifier, profile, done) {
         process.nextTick(function () {
