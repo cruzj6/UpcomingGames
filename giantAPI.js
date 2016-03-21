@@ -2,7 +2,8 @@
  * Created by Joey on 2/16/16.
  * This module handles all requests to the GiantBomb API
  */
-var apiKey = 'c14fff77465764e0e79d64ed7b5e1bd380808165';
+require('dotenv').config();
+var apiKey = process.env.GB_KEY;
 var giantBombAPI = 'http://www.giantbomb.com/api';
 var request = require('request');
 var _ = require('underscore-node');

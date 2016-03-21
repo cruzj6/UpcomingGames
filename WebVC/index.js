@@ -1,4 +1,3 @@
-var app = angular.module('upcomingGames', []);
 var removeMode = false;
 
 app.config(function($interpolateProvider) {
@@ -6,14 +5,16 @@ app.config(function($interpolateProvider) {
     $interpolateProvider.endSymbol('}]}');
 });
 
-app.controller('mainCtrl', function($interval, $scope, $http){
+app.controller('mainCtrl', function(httpReqService, dataService, $interval, $scope, $http){
+
+    $scope.trackedGames = [];
 
     //We are not in remove mode at start, set to remove games text
     $scope.remToggle = removeMode;
     $scope.remStyle = "display: none";
 
     //When user first enters site get their tracked games
-    getTrackedGames($scope, $http);
+    getTrackedGames($scope, httpReqService);
 
     //Used for form submission, if user doesn't use button
     $scope.toggleRes = function(){
@@ -26,49 +27,54 @@ app.controller('mainCtrl', function($interval, $scope, $http){
         var noResText = document.getElementById('noResultsIndicator');
         noResText.style.display = 'none';
 
-        //Encode the spaces in the search text
-        var searchInValue =  encodeURIComponent(document.getElementById('searchGamesIn').value.trim());
+        var searchInValue =  document.getElementById('searchGamesIn').value.trim();
         var searchingText = document.getElementById('searchingIndicator');
         searchingText.style.display = 'inline-block';
 
-        //Get our promise, make the request
-        var httppromise = $http.get('/info/searchgames', {
-            params:{
-                //Additional data here ie->
-                searchTerm: searchInValue
-            }
-        });
-
-        //When we come back assign the result to the scope parameter for results
-        httppromise.then(function(res){
+        httpReqService.searchForGames(searchInValue, function(foundGames){
             searchingText.style.display = 'none';
-            if(res.data.length > 0)
-                $scope.searchResults = res.data;
-            else {
-                //If no results show our no results text
-                $scope.searchResults = [];
+
+            if(foundGames.length <= 0) {
                 var noResText = document.getElementById('noResultsIndicator');
                 noResText.style.display = 'inline-block';
             }
+            else
+            {
+                $scope.searchResults = foundGames;
+            }
         });
+
     };
 
     //When user selects a game from their tracked games list
     $scope.getGameInfo= function($index, res){
+        //Set our item that is selected
         $scope.selectedIndex = $index;
 
-        searchForArticles($scope, $http, res);
-        searchForMedia($scope, $http, res);
+        //Gett the news Article data from our http service for the item
+        httpReqService.searchForArticles(res.name, function(newsData){
+            $scope.newsArticles = newsData;
+        });
+
+        //Now get media Data for the item
+        httpReqService.searchForMedia(res.name, function(mediaData){
+            $scope.mediaItems = mediaData;
+        });
+
     };
 
     $scope.addTrackedGame = function(game)
     {
-        addTrackedGamePost($scope, $http, game);
+        httpReqService.addTrackedGamePost(game.gbGameId, function(){
+            getTrackedGames($scope, httpReqService);
+        });
     };
 
     $scope.removeTrackedGame = function(game){
         $scope.trackedGames = _.without($scope.trackedGames, game);
-        removeTrackedGamePost($scope, $http, game);
+        httpReqService.removeTrackedGamePost(game.gbGameId, function(){
+            getTrackedGames($scope, httpReqService);
+        });
     };
 
     $scope.toggleRemGames = function(){
@@ -80,114 +86,33 @@ app.controller('mainCtrl', function($interval, $scope, $http){
 
     };
 
-
+    //Repeatedly update the countdown to how long is left until game release
+    $interval(function(){
+        for(var i=0; i <$scope.trackedGames.length; i++)
+        {
+            var trackedGame = $scope.trackedGames[i];
+            $scope.trackedGames[i].ttr =
+                dataService.getTimeToRelease(trackedGame.releaseMonth, trackedGame.releaseDay, trackedGame.releaseYear);
+        }
+    }, 1000);
 
 });
 
-function removeTrackedGamePost($scope, $http, game)
+function getTrackedGames($scope, httpReqService)
 {
-    $http.post('/userData/removeTrackedGame',{
-        gameid: game.gbGameId
-    }).success(function(){
-        getTrackedGames($scope, $http);
-
-    });
-}
-
-function addTrackedGamePost($scope, $http, game)
-{
-    $http.post('/userdata/addTrackedGame', {
-        gameid: game.gbGameId
-    }).success(function(){
-        getTrackedGames($scope, $http);
-    });
-}
-
-function getTrackedGames($scope, $http)
-{
-    $http.get('/userdata/userTrackedGames').then(function(resp){
-        $scope.trackedGames = resp.data;
+    setRemoveView($scope, removeMode);
+    httpReqService.getTrackedGames(function(data){
+        $scope.trackedGames = data;
 
         //Remove our loading indicator
         angular.element("#loadingListIcon").remove();
         //Make sure view still reflects mode
         setRemoveView($scope, removeMode);
+
     });
 }
 
-function searchForArticles($scope, $http, res)
-{
-    //set up our options, we send the server the game name
-    var options = {
-        params:{
-            gameName: res.name
-        }
-    };
-    //Make the request, and assign the result to the newsArticles scope param
-    //So that the view is updated
-    $http.get('/info/getArticles', options).then(function(resp){
-        $scope.newsArticles = resp.data;
-    });
-}
-
-function searchForMedia($scope, $http, res)
-{
-    var options = {
-        params:{
-            gameName: res.name
-        }
-    };
-    //Make the request
-    $http.get('/info/gameMedia', options).then(function(resp){
-        //Filter out the video id to use it for the thumbnail
-        var mediaDatas = [];
-
-        for(var i = 0; i < resp.data.length; i++) {
-            var respItem = resp.data[i];
-            var urlSplit = respItem.url.split('/');
-
-            //If this is a youtube video
-            if(urlSplit[2].indexOf('youtube.com') > -1) {
-                var QueryItems = function () {
-                    var query_string = {};
-                    var query = respItem.url;
-                    var vars = query.split("?");
-                    for (var i = 0; i < vars.length; i++) {
-                        var pair = vars[i].split("=");
-                        // If first entry with this name
-                        if (typeof query_string[pair[0]] === "undefined") {
-                            query_string[pair[0]] = decodeURIComponent(pair[1]);
-                            // If second entry with this name
-                        } else if (typeof query_string[pair[0]] === "string") {
-                            var arr = [query_string[pair[0]], decodeURIComponent(pair[1])];
-                            query_string[pair[0]] = arr;
-                            // If third or later entry with this name
-                        } else {
-                            query_string[pair[0]].push(decodeURIComponent(pair[1]));
-                        }
-                    }
-                    return query_string;
-                }();
-
-                //Get the v parameter which is the youtube video id
-                var vidId = QueryItems.v;
-
-                //Set up a custom object with the data and add it to the returned JSON array
-                var mediaData = {
-                    url: respItem.url,
-                    title: respItem.title,
-                    imgsrc: "https://img.youtube.com/vi/" + vidId + "/1.jpg"
-                };
-                mediaDatas.push(mediaData);
-            }
-
-        }
-        //TODO: Other media platforms besides youtube
-        $scope.mediaItems = mediaDatas;
-    });
-}
-
-function  setRemoveView($scope, isRemove)
+function setRemoveView($scope, isRemove)
 {
     var removeButtons = document.getElementsByName('removeGameButton');
     if(isRemove) {
@@ -225,25 +150,4 @@ function removeGamesToggle($scope){
 function ddToggle(){
     //Toggle results dropdown window
     angular.element('#searchGamesButton').dropdown('toggle');
-}
-
-function getTTR(relMon, relDay, relYear)
-{
-    var date = new Date();
-    var numSecRem = 59 - date.getSeconds();
-    var numMinRem = 59 - date.getMinutes();
-    var numHourRem = 23 - date.getHours();
-    var numMon = relMon - date.getMonth() - 1;
-    var numDay = relDay - date.getDay();
-    var numYear = relYear - date.getFullYear();
-
-
-    return{
-        sec: numSecRem,
-        min: numMinRem,
-        hrs: numHourRem,
-        yrs: numYear,
-        days: numDay,
-        mons: numMon
-    }
 }
