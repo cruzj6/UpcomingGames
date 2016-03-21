@@ -6,8 +6,6 @@ workspace.xml
 .idea
 .idea*
 .env
-<<<<<<< HEAD
 bfg*
-=======
->>>>>>> 881c647172cfd299c4d0476ff335c06555ecc20d
+
 replace.txt
