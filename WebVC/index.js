@@ -1,4 +1,6 @@
+require('./httpRequestService.js');
 var removeMode = false;
+var app = angular.module('upcomingGames');
 
 app.config(function($interpolateProvider) {
     $interpolateProvider.startSymbol('{[{');

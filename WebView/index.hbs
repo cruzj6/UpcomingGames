@@ -1,310 +1,323 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <!-- Latest compiled and minified CSS -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+          integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 
-  <!-- jQuery library -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 
-  <!-- Latest compiled JavaScript For bootstrap -->
-  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-  <title>Upcoming</title>
+    <!-- Latest compiled JavaScript For bootstrap -->
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <title>Upcoming</title>
 
-  <!--Import our stylesheets-->
-  <link rel="stylesheet" type="text/css" href="MainAppStyle.css">
+    <!--Import our stylesheets-->
+    <link rel="stylesheet" type="text/css" href="MainAppStyle.css">
 
-  <!--Select tab to show on start in game info area-->
-  <script>
-  $(document).ready(function(){
-    $('#news-table a[href="#1"]').tab('show');
-  });
-  </script>
+    <!--Select tab to show on start in game info area-->
+    <script>
+        $(document).ready(function () {
+            $('#news-table a[href="#1"]').tab('show');
+        });
+    </script>
 </head>
 <body>
 
 <!--Import angular.js and other scripts-->
-<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-<script src="underscore.js"></script>
-<script src="dataManagerService.js"></script>
-<script src="httpRequestService.js"></script>
-<script src="index.js"></script>
+<script src="angular.min.js"></script>
+<script src="bundle.js"></script>
 
 <!--Top Head area-->
 <div ng-app="upcomingGames" ng-controller="mainCtrl">
-  <div class="container" >
-    <div class="row" >
+    <div class="container">
+        <div class="row">
+        </div>
+        <div class="row" style="color: black">
+            <div class="col-md-3">
+                <img style="margin-top: -40px;margin-bottom: -33px;height: 250px" src="logo.png"/>
+            </div>
+
+            <div class="col-md-6"></div>
+
+            <!--Logged in user information and service used to authenticate-->
+            <div class="col-md-3 rounded pull-down">
+                <div class="panel panel-default" style="vertical-align: bottom;">
+                    <div align="right"><b>Signed in with:</b>
+                        <img class="loginService"
+                             src="http://store.akamai.steamstatic.com/public/shared/images/header/globalheader_logo.png">
+                    </div>
+                    <div align="right">UserName: <b>{{userName}}</b></div>
+                    <a id="logout" href="/logout" style="color: black">Logout</a>
+                    <br/>
+                </div>
+            </div>
+        </div>
     </div>
-      <div class="row" style="color: black">
-          <div class="col-md-3">
-                  <img style="margin-top: -40px;margin-bottom: -33px;height: 250px" src="logo.png"/>
-          </div>
 
-          <div class="col-md-6"></div>
-
-          <!--Logged in user information and service used to authenticate-->
-          <div class="col-md-3 rounded pull-down" >
-              <div class="panel panel-default" style="vertical-align: bottom;">
-                  <div align="right"><b>Signed in with:</b>
-                  <img class="loginService" src="http://store.akamai.steamstatic.com/public/shared/images/header/globalheader_logo.png">
-                  </div>
-                  <div align="right">UserName: <b>{{userName}}</b></div>
-                      <a id="logout" href="/logout" style="color: black">Logout</a>
-                  <br/>
-              </div>
-          </div>
-      </div>
-  </div>
-
-  <!--Main Content-->
+    <!--Main Content-->
     <div class="row" id="mainContent">
-  <div class="container" >
+        <div class="container">
 
 
-      <!--Box that contains tracked games and searching (On left of page)-->
-      <div class="col-md-5" >
-<div class="panel panel-default">
-    <div class="panel-heading" style="font-size: 24px; font-weight: bold;">Tracked Unreleased Games</div>
-          <!--Search Games area-->
-          <div style="margin-top: 5px; margin-bottom: 5px;" class="dropdown">
-              <div class="col-md-7">
-              <form style="display: inline" ng-submit="searchGames(); toggleRes()">
-                 <input class="form-control" id="searchGamesIn" placeholder="Add Game...">
-              </form>
-                  </div>
-              <button id="searchGamesButton" class="btn btn-primary-outline" ng-click="searchGames()" data-toggle="dropdown"
-                      aria-haspopup="true" aria-expanded="false">Search</button>
+            <!--Box that contains tracked games and searching (On left of page)-->
+            <div class="col-md-5">
+                <div class="panel panel-default">
+                    <div class="panel-heading" style="font-size: 24px; font-weight: bold;">Tracked Unreleased Games
+                    </div>
+                    <!--Search Games area-->
+                    <div style="margin-top: 5px; margin-bottom: 5px;" class="dropdown">
+                        <div class="col-md-7">
+                            <form style="display: inline" ng-submit="searchGames(); toggleRes()">
+                                <input class="form-control" id="searchGamesIn" placeholder="Add Game...">
+                            </form>
+                        </div>
+                        <button id="searchGamesButton" class="btn btn-primary-outline" ng-click="searchGames()"
+                                data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">Search
+                        </button>
 
-              <!--Searching indicators-->
-              <div style="display: none;" id="searchingIndicator">Searching...</div>
-              <div style="display: none;" id="noResultsIndicator">No Results...</div>
+                        <!--Searching indicators-->
+                        <div style="display: none;" id="searchingIndicator">Searching...</div>
+                        <div style="display: none;" id="noResultsIndicator">No Results...</div>
 
-              <!--Search results dropdown-->
-              <ul class="dropdown-menu"
-                  aria-labelledby="dLabel"
-                  id="searchRes"
-                  ng-if="searchResults.length > 0"
-                  style="overflow-y: scroll; height: 440px;">
+                        <!--Search results dropdown-->
+                        <ul class="dropdown-menu"
+                            aria-labelledby="dLabel"
+                            id="searchRes"
+                            ng-if="searchResults.length > 0"
+                            style="overflow-y: scroll; height: 440px;">
 
-                  <!--Search result item-->
-                  <li class="list-group-item" ng-repeat="res in searchResults">
-                      <div class="row">
-                          <div class="col-md-8">
-                              <img height ="80" width="80" ng-src="{[{res.imageLink}]}">
-                              <p>{[{res.name}]}</p>
-                          </div>
-                          <div class="col-md-4">
-                              <button name="AddButton" ng-click="addTrackedGame(res)">Add</button>
-                          </div>
-                      </div>
-                  </li>
-              </ul>
-              </div>
+                            <!--Search result item-->
+                            <li class="list-group-item" ng-repeat="res in searchResults">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <img height="80" width="80" ng-src="{[{res.imageLink}]}">
 
-          <!--Contains the tracked games elements-->
-          <div class="panel panel-default">
+                                        <p>{[{res.name}]}</p>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <button name="AddButton" ng-click="addTrackedGame(res)">Add</button>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!--Contains the tracked games elements-->
+                    <div class="panel panel-default">
 
 
-          <!--List of tracked games-->
+                        <!--List of tracked games-->
 
-              <div id="loadingListIcon" style="text-align: center">
-                  <div class="col-md-4"></div>
-                  <div class="col-md-4">
-                      <span style="margin-top: 205px" class="glyphicon glyphicon-refresh spinning " ></span>
-                  </div>
-                  <div class="col-md-4"></div>
-              </div>
+                        <div id="loadingListIcon" style="text-align: center">
+                            <div class="col-md-4"></div>
+                            <div class="col-md-4">
+                                <span style="margin-top: 205px" class="glyphicon glyphicon-refresh spinning "></span>
+                            </div>
+                            <div class="col-md-4"></div>
+                        </div>
 
-          <ul class="list-group" style="{[{'visibility: ' + (trackedGames ? 'visible' : 'hidden') + ';overflow-y: scroll; display: block; height: 410px;'}]}" ng-init="selectedIndex = -1">
+                        <ul class="list-group"
+                            style="{[{'visibility: ' + (trackedGames ? 'visible' : 'hidden') + ';overflow-y: scroll; display: block; height: 410px;'}]}"
+                            ng-init="selectedIndex = -1">
 
-            <!--Element that contains one tracked game, this is repeated for each tracked game-->
-            <li class="list-group-item"  ng-repeat="game in trackedGames" ng-class="{'active': $index === selectedIndex}" ng-click="getGameInfo($index, game);">
-              <div style="display: inline-block; height: 100px; width: 200px;">
-               <h4 class="list-group-item-heading">{[{game.name}]}</h4>
+                            <!--Element that contains one tracked game, this is repeated for each tracked game-->
+                            <li class="list-group-item" ng-repeat="game in trackedGames"
+                                ng-class="{'active': $index === selectedIndex}" ng-click="getGameInfo($index, game);">
+                                <div style="display: inline-block; height: 100px; width: 200px;">
+                                    <h4 class="list-group-item-heading">{[{game.name}]}</h4>
 
-                <!--Release date text-->
-                <div ng-if="game.releaseMonth != null && game.releaseDay != null && game.releaseYear != null">
+                                    <!--Release date text-->
+                                    <div ng-if="game.releaseMonth != null && game.releaseDay != null && game.releaseYear != null">
 
-                    Release Date: {[{game.releaseMonth}]}/{[{game.releaseDay}]}/{[{game.releaseYear}]}
+                                        Release Date:
+                                        {[{game.releaseMonth}]}/{[{game.releaseDay}]}/{[{game.releaseYear}]}
 
-                    <!--Release countdown-->
-                    TTR:{[{game.ttr.yrs}]}yr. {[{game.ttr.mons}]} mon. {[{game.ttr.days}]} days {[{game.ttr.hrs}]} hrs. {[{game.ttr.min}]} min.
-                    {[{game.ttr.sec}]} secs.
+                                        <!--Release countdown-->
+                                        TTR:{[{game.ttr.yrs}]}yr. {[{game.ttr.mons}]} mon. {[{game.ttr.days}]} days
+                                        {[{game.ttr.hrs}]} hrs. {[{game.ttr.min}]} min.
+                                        {[{game.ttr.sec}]} secs.
+                                    </div>
+                                </div>
+                                <div style="{[{remStyle + ';margin-left: 10px;'}]}" class="btn btn-danger pull-right"
+                                     role="button" name="removeGameButton" ng-click="removeTrackedGame(game)">
+                                    X
+                                </div>
+                                <div class="panel panel-primary pull-right" style="display: inline">
+
+                                    <!--Image of the game-->
+                                    <img ng-src="{[{game.imageLink}]}">
+
+                                </div>
+
+
+                            </li>
+                        </ul>
+                    </div>
+
+
+                    <!--Button that toggles the remove games mode-->
+                    <button style="display: inline; margin-left: 10px; margin-bottom: 10px;" id="removeGamesToggle"
+                            type="button"
+                            class="btn btn-primary-outline" name="removeGamesToggle" ng-click="toggleRemGames()">
+                        {[{remToggle ? "Done" : "Remove Games"}]}
+                    </button>
+
                 </div>
-              </div>
-                <div style="{[{remStyle + ';margin-left: 10px;'}]}" class="btn btn-danger pull-right" role="button" name="removeGameButton" ng-click="removeTrackedGame(game)">
-                    X
+            </div>
+            <div class="col-md-1">
+            </div>
+
+            <!--Tabs area that contains Media, news, etc. when game is selected-->
+            <div class="col-md-6" id="gameInfoTabs">
+                <ul class="nav nav-tabs" id="news-table">
+                    <li>
+                        <a href="#1" data-toggle="tab">Popular News</a>
+                    </li>
+                    <li>
+                        <a href="#2" data-toggle="tab">Media</a>
+                    </li>
+                    <li>
+                        <a href="#3" data-toggle="tab">Pre-Order Info</a>
+                    </li>
+                </ul>
+
+                <div class="tab-content" style="overflow-y: scroll; height: 450px;">
+
+                    <!--News tab-->
+                    <div class="tab-pane" id="1">
+                        <table class="table">
+                            <thead>
+                            </thead>
+                            <tbody>
+
+                            <!--Element for each news article-->
+                            <tr ng-if="newsArticles" ng-repeat="art in newsArticles">
+                                <td>
+                                    <p>{[{art.date}]}</p>
+                                </td>
+                                <td>
+                                    <a ng-href="{[{art.url}]}" style="font-weight: bold">{[{art.title}]}</a>
+
+                                    <p>{[{art.desc}]}</p>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!--Media/video tab-->
+                    <div class="tab-pane" id="2">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            <!--Element for each Media item-->
+                            <tr ng-if="mediaItems" ng-repeat="media in mediaItems">
+                                <td>
+                                    <img ng-src="{[{media.imgsrc}]}"/>
+                                </td>
+                                <td>
+                                    <a ng-href="{[{media.url}]}" style="font-weight: bold">{[{media.title}]}</a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!--Pre-Order Info tab-->
+                    <div class="tab-pane" id="3">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>
+                                    Image here3
+                                </td>
+                                <td>
+                                    https://www.google.com
+                                    <br/>
+                                    Description here3
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Image here3
+                                </td>
+                                <td>
+                                    https://www.google.com
+                                    <br/>
+                                    Description here3
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Image here3
+                                </td>
+                                <td>
+                                    https://www.google.com
+                                    <br/>
+                                    Description here3
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Image here3
+                                </td>
+                                <td>
+                                    https://www.google.com
+                                    <br/>
+                                    Description here3
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Image here3
+                                </td>
+                                <td>
+                                    https://www.google.com
+                                    <br/>
+                                    Description here3
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-              <div class="panel panel-primary pull-right" style="display: inline">
-
-                <!--Image of the game-->
-                <img ng-src="{[{game.imageLink}]}">
-
-              </div>
-
-
-            </li>
-          </ul>
-
-
+            </div>
         </div>
 
-
-        <!--Button that toggles the remove games mode-->
-        <button style="display: inline; margin-left: 10px; margin-bottom: 10px;" id="removeGamesToggle" type="button"
-                class="btn btn-primary-outline" name="removeGamesToggle" ng-click="toggleRemGames()">{[{remToggle ? "Done" : "Remove Games"}]}</button>
-
-</div>
-      </div>
-      <div class="col-md-1">
-      </div>
-
-      <!--Tabs area that contains Media, news, etc. when game is selected-->
-      <div class="col-md-6" id="gameInfoTabs">
-        <ul class="nav nav-tabs" id="news-table">
-          <li>
-            <a href="#1" data-toggle="tab">Popular News</a>
-          </li>
-          <li>
-            <a href="#2" data-toggle="tab">Media</a>
-          </li>
-          <li>
-            <a href="#3" data-toggle="tab">Pre-Order Info</a>
-          </li>
-        </ul>
-
-        <div class="tab-content" style="overflow-y: scroll; height: 450px;">
-
-          <!--News tab-->
-          <div class="tab-pane" id="1">
-            <table class="table">
-              <thead>
-              </thead>
-              <tbody>
-
-                <!--Element for each news article-->
-                <tr ng-if="newsArticles" ng-repeat="art in newsArticles">
-                  <td>
-                    <p>{[{art.date}]}</p>
-                  </td>
-                  <td>
-                      <a ng-href="{[{art.url}]}" style="font-weight: bold">{[{art.title}]}</a>
-                      <p>{[{art.desc}]}</p>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <!--Media/video tab-->
-          <div class="tab-pane" id="2">
-            <table class="table">
-              <thead>
-                <tr>
-                </tr>
-              </thead>
-              <tbody>
-
-              <!--Element for each Media item-->
-                <tr ng-if="mediaItems" ng-repeat="media in mediaItems">
-                  <td>
-                    <img ng-src="{[{media.imgsrc}]}"/>
-                  </td>
-                  <td>
-                      <a ng-href="{[{media.url}]}" style="font-weight: bold">{[{media.title}]}</a>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <!--Pre-Order Info tab-->
-          <div class="tab-pane" id="3">
-            <table class="table">
-              <thead>
-                <tr>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>
-                    Image here3
-                  </td>
-                  <td>
-                    https://www.google.com
-                    <br/>
-                    Description here3
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    Image here3
-                  </td>
-                  <td>
-                    https://www.google.com
-                    <br/>
-                    Description here3
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    Image here3
-                  </td>
-                  <td>
-                    https://www.google.com
-                    <br/>
-                    Description here3
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    Image here3
-                  </td>
-                  <td>
-                    https://www.google.com
-                    <br/>
-                    Description here3
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    Image here3
-                  </td>
-                  <td>
-                    https://www.google.com
-                    <br/>
-                    Description here3
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+        <div class="row">
+            <div class="col-md-5" style="align: middle;">
+                <br/>
+            </div>
+            <div class="col-md-9"/>
         </div>
-      </div>
     </div>
-
-    <div class="row">
-      <div class="col-md-5" style="align: middle;">
-        <br/>
-      </div>
-      <div class="col-md-9"/>
-    </div>
-  </div>
 
     <!--Contributions, and references footer-->
-    <div style="border-top: 2px solid; border-color: white; color: grey; background-color:#072039; font-size: 11px;margin-top: 50px;" class="row" name="footerRow">
+    <div style="border-top: 2px solid; border-color: white; color: grey; background-color:#072039; font-size: 11px;margin-top: 50px;"
+         class="row" name="footerRow">
         <div class="col-md-2"></div>
         <div class="col-md-8">
-        <p>Powered by Steam: <a href="http://steampowered.com">http://steampowered.com</a> <br>
-        GiantBomb's Game database: <a href="http://giantbomb.com">http://GiantBomb.com</a><br>
-        Microsoft's Bing Search Engine: <a href="http://bing.com">http://Bing.com</a></p>
-        <p>Logo Image Credits: <br/>
-            Game,Xbox,Scholastics,Game graphics by
-            <a href="http://www.freepik.com/">Freepik</a> from
-            <a href="http://www.flaticon.com/">Flaticon</a> are licensed under
-            <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a>.
-            Made with <a href="http://logomakr.com" title="Logo Maker">Logo Maker</a></p>
+            <p>Powered by Steam: <a href="http://steampowered.com">http://steampowered.com</a> <br>
+                GiantBomb's Game database: <a href="http://giantbomb.com">http://GiantBomb.com</a><br>
+                Microsoft's Bing Search Engine: <a href="http://bing.com">http://Bing.com</a></p>
+
+            <p>Logo Image Credits: <br/>
+                Game,Xbox,Scholastics,Game graphics by
+                <a href="http://www.freepik.com/">Freepik</a> from
+                <a href="http://www.flaticon.com/">Flaticon</a> are licensed under
+                <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a>.
+                Made with <a href="http://logomakr.com" title="Logo Maker">Logo Maker</a></p>
         </div>
         <div class="col-md-2"></div>
 

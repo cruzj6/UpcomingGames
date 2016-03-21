@@ -7,4 +7,8 @@ workspace.xml
 .idea*
 .env
 bfg*
+
 replace.txt
+
+angular.min.js
+angular.min.js.map
