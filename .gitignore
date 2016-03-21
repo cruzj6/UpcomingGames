@@ -6,3 +6,4 @@ workspace.xml
 .idea
 .idea*
 .env
+bfg*
