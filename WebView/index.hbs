@@ -31,40 +31,47 @@
 
 <!--Top Head area-->
 <div ng-app="upcomingGames" ng-controller="mainCtrl">
-  <div class="container">
-    <div class="row">
+  <div class="container" >
+    <div class="row" >
     </div>
-      <div class="row" style="color: white">
-          <div class="col-md-9"></div>
+      <div class="row" style="color: black">
+          <div class="col-md-3">
+                  <img style="margin-top: -40px;margin-bottom: -33px;height: 250px" src="logo.png"/>
+          </div>
+
+          <div class="col-md-6"></div>
 
           <!--Logged in user information and service used to authenticate-->
-          <div class="col-md-3 rounded">
-              <div align="right"><b>Signed in with:</b>
-              <img class="loginService" src="http://store.akamai.steamstatic.com/public/shared/images/header/globalheader_logo.png">
+          <div class="col-md-3 rounded pull-down" >
+              <div class="panel panel-default" style="vertical-align: bottom;">
+                  <div align="right"><b>Signed in with:</b>
+                  <img class="loginService" src="http://store.akamai.steamstatic.com/public/shared/images/header/globalheader_logo.png">
+                  </div>
+                  <div align="right">UserName: <b>{{userName}}</b></div>
+                      <a id="logout" href="/logout" style="color: black">Logout</a>
+                  <br/>
               </div>
-              <div align="right">UserName: <b>{{userName}}</b></div>
-                  <a id="logout" href="/logout">Logout</a>
-              <br/>
           </div>
       </div>
-      <br/>
   </div>
 
   <!--Main Content-->
-  <div class="container">
-    <div class="row">
-    </div>
-    <div class="row">
+    <div class="row" id="mainContent">
+  <div class="container" >
+
 
       <!--Box that contains tracked games and searching (On left of page)-->
-      <div class="col-md-4" id="trackedGamesBox">
-
+      <div class="col-md-5" >
+<div class="panel panel-default">
+    <div class="panel-heading" style="font-size: 24px; font-weight: bold;">Tracked Unreleased Games</div>
           <!--Search Games area-->
-          <div style="margin-top: 5px;" class="dropdown">
+          <div style="margin-top: 5px; margin-bottom: 5px;" class="dropdown">
+              <div class="col-md-7">
               <form style="display: inline" ng-submit="searchGames(); toggleRes()">
-                <input id="searchGamesIn">
+                 <input class="form-control" id="searchGamesIn" placeholder="Add Game...">
               </form>
-              <button id="searchGamesButton" ng-click="searchGames()" data-toggle="dropdown"
+                  </div>
+              <button id="searchGamesButton" class="btn btn-primary-outline" ng-click="searchGames()" data-toggle="dropdown"
                       aria-haspopup="true" aria-expanded="false">Search</button>
 
               <!--Searching indicators-->
@@ -95,52 +102,67 @@
 
           <!--Contains the tracked games elements-->
           <div class="panel panel-default">
-              <div class="panel-heading" style="font-size: 24px; font-weight: bold;">Tracked Unreleased Games</div>
-          <table class="table">
-
-
-
 
 
           <!--List of tracked games-->
-          <tbody style="overflow-y: scroll; display: block; height: 410px;">
+
+              <div id="loadingListIcon" style="text-align: center">
+                  <div class="col-md-4"></div>
+                  <div class="col-md-4">
+                      <span style="margin-top: 205px" class="glyphicon glyphicon-refresh spinning " ></span>
+                  </div>
+                  <div class="col-md-4"></div>
+              </div>
+
+          <ul class="list-group" style="{[{'visibility: ' + (trackedGames ? 'visible' : 'hidden') + ';overflow-y: scroll; display: block; height: 410px;'}]}" ng-init="selectedIndex = -1">
 
             <!--Element that contains one tracked game, this is repeated for each tracked game-->
-            <tr class="active"  style="border: 2px solid black; border-radius: 3px;" ng-repeat="game in trackedGames" ng-click="getGameInfo(game)">
-              <td style="color: {[{game.textColor}]}; background-color: {[{game.curColor}]};">
-               <p style="font-weight: bold;">{[{game.name}]}</p>
-                Updates: 5
-                <br/>
+            <li class="list-group-item"  ng-repeat="game in trackedGames" ng-class="{'active': $index === selectedIndex}" ng-click="getGameInfo($index, game);">
+              <div style="display: inline-block; height: 100px; width: 200px;">
+               <h4 class="list-group-item-heading">{[{game.name}]}</h4>
+
+
 
                 <!--Release date text-->
-                <p ng-if="game.releaseMonth != null && game.releaseDay != null && game.releaseYear != null"
+                <div ng-if="game.releaseMonth != null && game.releaseDay != null && game.releaseYear != null"
                    ng-init="ttr = getTTR(game.releaseMonth, game.releaseDay, game.releaseYear)">
+
                     Release Date: {[{game.releaseMonth}]}/{[{game.releaseDay}]}/{[{game.releaseYear}]}
-                    <br/>
+
                     <!--Release countdown-->
                     TTR:{[{ttr.yrs}]}yr. {[{ttr.mons}]} mon. {[{ttr.days}]} days {[{ttr.hrs}]} hrs. {[{ttr.min}]} min.
                     {[{ttr.sec}]} secs.
-                </p>
-              </td>
-              <td>
+                </div>
+              </div>
+                <div style="{[{remStyle + ';margin-left: 10px;'}]}" class="btn btn-danger pull-right" role="button" name="removeGameButton" ng-click="removeTrackedGame(game)">
+                    X
+                </div>
+              <div class="panel panel-primary pull-right" style="display: inline">
 
                 <!--Image of the game-->
                 <img ng-src="{[{game.imageLink}]}">
-                <button style="{[{remStyle}]}" name="removeGameButton" ng-click="removeTrackedGame(game)">Remove</button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+
+              </div>
+
+
+            </li>
+          </ul>
+
+
         </div>
 
+
         <!--Button that toggles the remove games mode-->
-        <button style="display: inline;" id="removeGamesToggle" type="button" class="btn btn-primary-outline" name="removeGamesToggle" ng-click="toggleRemGames()">{[{remToggle ? "Done" : "Remove Games"}]}</button>
+        <button style="display: inline; margin-left: 10px; margin-bottom: 10px;" id="removeGamesToggle" type="button"
+                class="btn btn-primary-outline" name="removeGamesToggle" ng-click="toggleRemGames()">{[{remToggle ? "Done" : "Remove Games"}]}</button>
+
+</div>
       </div>
       <div class="col-md-1">
       </div>
 
       <!--Tabs area that contains Media, news, etc. when game is selected-->
-      <div class="col-md-7" id="gameInfoTabs">
+      <div class="col-md-6" id="gameInfoTabs">
         <ul class="nav nav-tabs" id="news-table">
           <li>
             <a href="#1" data-toggle="tab">Popular News</a>
@@ -272,12 +294,23 @@
   </div>
 
     <!--Contributions, and references footer-->
-    <div style="border-top: 2px solid; border-color: black; color: grey; background-color: white; font-size: 11px;margin-top: 50px;" class="row" name="footerRow">
+    <div style="border-top: 2px solid; border-color: white; color: grey; background-color:#072039; font-size: 11px;margin-top: 50px;" class="row" name="footerRow">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
         <p>Powered by Steam: <a href="http://steampowered.com">http://steampowered.com</a> <br>
         GiantBomb's Game database: <a href="http://giantbomb.com">http://GiantBomb.com</a><br>
         Microsoft's Bing Search Engine: <a href="http://bing.com">http://Bing.com</a></p>
+        <p>Logo Image Credits: <br/>
+            Game,Xbox,Scholastics,Game graphics by
+            <a href="http://www.freepik.com/">Freepik</a> from
+            <a href="http://www.flaticon.com/">Flaticon</a> are licensed under
+            <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a>.
+            Made with <a href="http://logomakr.com" title="Logo Maker">Logo Maker</a></p>
+        </div>
+        <div class="col-md-2"></div>
 
     </div>
+
 </div>
 </body>
 </html>

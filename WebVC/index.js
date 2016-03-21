@@ -6,7 +6,7 @@ app.config(function($interpolateProvider) {
     $interpolateProvider.endSymbol('}]}');
 });
 
-app.controller('mainCtrl', function($scope, $http){
+app.controller('mainCtrl', function($interval, $scope, $http){
 
     //We are not in remove mode at start, set to remove games text
     $scope.remToggle = removeMode;
@@ -54,16 +54,9 @@ app.controller('mainCtrl', function($scope, $http){
     };
 
     //When user selects a game from their tracked games list
-    $scope.getGameInfo= function(res){
+    $scope.getGameInfo= function($index, res){
+        $scope.selectedIndex = $index;
 
-        //We set the color of the selected item and de-color the others
-        for(var i = 0; i < $scope.trackedGames.length; i++)
-        {
-            $scope.trackedGames[i].curColor = 'white';
-            $scope.trackedGames[i].textColor = 'black';
-        }
-        res.textColor = 'white';
-        res.curColor = 'darkslategray';
         searchForArticles($scope, $http, res);
         searchForMedia($scope, $http, res);
     };
@@ -74,15 +67,21 @@ app.controller('mainCtrl', function($scope, $http){
     };
 
     $scope.removeTrackedGame = function(game){
-      removeTrackedGamePost($scope, $http, game);
+        $scope.trackedGames = _.without($scope.trackedGames, game);
+        removeTrackedGamePost($scope, $http, game);
     };
 
     $scope.toggleRemGames = function(){
         removeGamesToggle($scope);
     };
+
     $scope.getTTR = function (relMon, relDay, relYear) {
-        return getTTR(relMon, relDay, relYear);
-    }
+            return getTTR(relMon, relDay, relYear);
+
+    };
+
+
+
 });
 
 function removeTrackedGamePost($scope, $http, game)
@@ -91,6 +90,7 @@ function removeTrackedGamePost($scope, $http, game)
         gameid: game.gbGameId
     }).success(function(){
         getTrackedGames($scope, $http);
+
     });
 }
 
@@ -108,6 +108,8 @@ function getTrackedGames($scope, $http)
     $http.get('/userdata/userTrackedGames').then(function(resp){
         $scope.trackedGames = resp.data;
 
+        //Remove our loading indicator
+        angular.element("#loadingListIcon").remove();
         //Make sure view still reflects mode
         setRemoveView($scope, removeMode);
     });
@@ -231,7 +233,7 @@ function getTTR(relMon, relDay, relYear)
     var numSecRem = 59 - date.getSeconds();
     var numMinRem = 59 - date.getMinutes();
     var numHourRem = 23 - date.getHours();
-    var numMon = relMon - date.getMonth();
+    var numMon = relMon - date.getMonth() - 1;
     var numDay = relDay - date.getDay();
     var numYear = relYear - date.getFullYear();
 
