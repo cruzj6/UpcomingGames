@@ -1,5 +1,6 @@
-body {
-    background-color: dodgerblue;
+#mainContent{
+    padding-top: 25px;
+    background-color: #072039;
 }
 
 img.loginService{
@@ -11,7 +12,7 @@ img.loginService{
     border: 2px solid;
     border-radius: 3px;
     background-color: lightslategray;
-    height: 500px;
+    height: 580px;
 }
 
 #gameInfoTabs{
@@ -19,7 +20,7 @@ img.loginService{
     border: 2px solid black;
     border-radius: 4px;
     background-color: white;
-    height: 500px;
+    height: 580px;
 }
 
 #logout{
@@ -27,4 +28,48 @@ img.loginService{
     color: white;
     font-weight: bold;
     text-decoration: underline
+}
+
+.panel > .panel-heading {
+    background-image: none;
+    background-color: #262626;
+    color: white;
+
+}
+
+.btn-primary-outline:hover{
+    background-color: #262626;
+    color: rgba(194, 188, 218, 0.96)
+}
+
+.btn-primary-outline{
+    background-color: #262626;
+    color: white;
+}
+
+.list-group-item.active:hover{
+    background-color: rgba(53, 53, 54, 0.67);
+}
+
+.list-group-item:hover{
+    background-color: #b6b6b6;
+}
+
+.list-group-item.active{
+    background-color: rgba(53, 53, 54, 0.67);
+}
+
+.glyphicon.spinning {
+    animation: spin 1s infinite linear;
+    -webkit-animation: spin2 1s infinite linear;
+}
+
+@keyframes spin {
+    from { transform: scale(1) rotate(0deg); }
+    to { transform: scale(1) rotate(360deg); }
+}
+
+@-webkit-keyframes spin2 {
+    from { -webkit-transform: rotate(0deg); }
+    to { -webkit-transform: rotate(360deg); }
 }
