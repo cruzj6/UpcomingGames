@@ -1,6 +1,7 @@
+var app = angular.module('upcomingGames', []);
+
 require('./httpRequestService.js');
 var removeMode = false;
-var app = angular.module('upcomingGames');
 
 app.config(function($interpolateProvider) {
     $interpolateProvider.startSymbol('{[{');
@@ -67,6 +68,7 @@ app.controller('mainCtrl', function(httpReqService, dataService, $interval, $sco
 
     $scope.addTrackedGame = function(game)
     {
+        //Use giantbomb game id
         httpReqService.addTrackedGamePost(game.gbGameId, function(){
             getTrackedGames($scope, httpReqService);
         });

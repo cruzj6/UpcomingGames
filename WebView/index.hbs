@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <title>Upcoming</title>
+    <meta charset="UTF-8">
+
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
           integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
@@ -11,7 +14,6 @@
     <!-- Latest compiled JavaScript For bootstrap -->
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-    <title>Upcoming</title>
 
     <!--Import our stylesheets-->
     <link rel="stylesheet" type="text/css" href="MainAppStyle.css">
@@ -27,6 +29,7 @@
 
 <!--Import angular.js and other scripts-->
 <script src="angular.min.js"></script>
+<script src="underscore.js"></script>
 <script src="bundle.js"></script>
 
 <!--Top Head area-->
@@ -141,10 +144,10 @@
                                         {[{game.ttr.sec}]} secs.
                                     </div>
                                 </div>
-                                <div style="{[{remStyle + ';margin-left: 10px;'}]}" class="btn btn-danger pull-right"
-                                     role="button" name="removeGameButton" ng-click="removeTrackedGame(game)">
+                                <button style="{[{remStyle + ';margin-left: 10px;'}]}" class="btn btn-danger pull-right"
+                                     role="button" ng-click="removeTrackedGame(game)">
                                     X
-                                </div>
+                                </button>
                                 <div class="panel panel-primary pull-right" style="display: inline">
 
                                     <!--Image of the game-->
