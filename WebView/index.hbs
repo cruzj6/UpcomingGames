@@ -30,7 +30,16 @@
 <!--Import angular.js and other scripts-->
 <script src="angular.min.js"></script>
 <script src="underscore.js"></script>
-<script src="bundle.js"></script>
+
+<!--TODO: debug scripts, get rid of these in production-->
+<script src="index.js"></script>
+<script src="httpRequestService.js"></script>
+<script src="countdown.min.js"></script>
+<script src="datamanagerservice.js"></script>
+
+
+<!--Non-Debug/ For Production-->
+<!--script src="bundle.js"></script-->
 
 <!--Top Head area-->
 <div ng-app="upcomingGames" ng-controller="mainCtrl">
@@ -62,7 +71,6 @@
     <!--Main Content-->
     <div class="row" id="mainContent">
         <div class="container">
-
 
             <!--Box that contains tracked games and searching (On left of page)-->
             <div class="col-md-5">
@@ -113,7 +121,6 @@
 
 
                         <!--List of tracked games-->
-
                         <div id="loadingListIcon" style="text-align: center">
                             <div class="col-md-4"></div>
                             <div class="col-md-4">
@@ -185,52 +192,38 @@
                     <li>
                         <a href="#3" data-toggle="tab">Pre-Order Info</a>
                     </li>
+                    <li>
+                        <a href="#4" data-toggle="tab">Friend's Tracked Games</a>
+                    </li>
                 </ul>
-
-                <div class="tab-content" style="overflow-y: scroll; height: 450px;">
+                <div class="tab-content" style="overflow-y: scroll; height: 500px;">
 
                     <!--News tab-->
-                    <div class="tab-pane" id="1">
-                        <table class="table">
-                            <thead>
-                            </thead>
-                            <tbody>
+                    <div class="tab-pane newsTab" id="1">
+                        <ul class="list-group">
 
                             <!--Element for each news article-->
-                            <tr ng-if="newsArticles" ng-repeat="art in newsArticles">
-                                <td>
-                                    <p>{[{art.date}]}</p>
-                                </td>
-                                <td>
-                                    <a ng-href="{[{art.url}]}" style="font-weight: bold">{[{art.title}]}</a>
-
-                                    <p>{[{art.desc}]}</p>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
+                            <li id="newsArtLi" ng-if="newsArticles" ng-repeat="art in newsArticles">
+                                <h4> <a ng-href="{[{art.url}]}" style="font-weight: bold">{[{art.title}]}</a></h4>
+                                <p>Date: {[{art.date.split('T')[0]}]}</p>
+                                <p>{[{art.desc}]}</p>
+                            </li>
+                        </ul>
                     </div>
 
                     <!--Media/video tab-->
-                    <div class="tab-pane" id="2">
-                        <table class="table">
-                            <thead>
-                            <tr>
-                            </tr>
-                            </thead>
-                            <tbody>
+                    <div class="tab-pane newsTab" id="2">
+                        <ul class="list-group">
 
                             <!--Element for each Media item-->
-                            <tr ng-if="mediaItems" ng-repeat="media in mediaItems">
-                                <td>
-                                    <img ng-src="{[{media.imgsrc}]}"/>
-                                </td>
-                                <td>
-                                    <a ng-href="{[{media.url}]}" style="font-weight: bold">{[{media.title}]}</a>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
+                            <li ng-if="mediaItems" ng-repeat="media in mediaItems|limitTo:15">
+                                <h4><a ng-href="{[{media.url}]}" style="font-weight: bold">{[{media.title}]}</a></h4>
+                                <iframe title="YouTube video player" class="youtube-player" type="text/html"
+                                        width="400" height="300"
+                                        ng-src="{[{media.url.replace('watch?v=', 'embed/')}]}"
+                                        frameborder="0" allowFullScreen></iframe>
+                            </li>
+                        </ul>
                     </div>
 
                     <!--Pre-Order Info tab-->
@@ -294,6 +287,14 @@
                             </tbody>
                         </table>
                     </div>
+
+                    <!--Friend's tracked games tab-->
+                    <div class="tab-pane newsTab" id="4">
+                        <ul class="list-group">
+
+
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
@@ -323,7 +324,6 @@
                 Made with <a href="http://logomakr.com" title="Logo Maker">Logo Maker</a></p>
         </div>
         <div class="col-md-2"></div>
-
     </div>
 
 </div>

@@ -73,3 +73,17 @@ img.loginService{
     from { -webkit-transform: rotate(0deg); }
     to { -webkit-transform: rotate(360deg); }
 }
+
+#newsArtLi{
+    border-bottom: 1px solid black;
+}
+
+#news-table{
+
+}
+
+#gameInfoTabs{
+}
+
+.newsTab{
+}

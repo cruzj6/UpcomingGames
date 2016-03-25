@@ -1,3 +1,6 @@
+/**
+ * Created by Joey on 3/1/2016.
+ */
 require('dotenv').config();
 var express = require('express');
 var exphbs = require('express-handlebars');
@@ -7,9 +10,6 @@ var bodyparser = require('body-parser');
 var passport = require('passport');
 var SteamStrategy = require('passport-steam').Strategy;
 var session = require('express-session');
-/**
- * Created by Joey on 3/1/2016.
- */
 
 //Set up body parser for post requests
 app.use(bodyparser.urlencoded({ extended: false }))

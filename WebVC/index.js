@@ -1,11 +1,15 @@
 var app = angular.module('upcomingGames', []);
 
-require('./httpRequestService.js');
+//require('./httpRequestService.js');
 var removeMode = false;
 
-app.config(function($interpolateProvider) {
+app.config(function($interpolateProvider, $sceDelegateProvider) {
     $interpolateProvider.startSymbol('{[{');
     $interpolateProvider.endSymbol('}]}');
+    $sceDelegateProvider.resourceUrlWhitelist([
+        'self',
+        'https://www.youtube.com/**'
+    ]);
 });
 
 app.controller('mainCtrl', function(httpReqService, dataService, $interval, $scope, $http){
