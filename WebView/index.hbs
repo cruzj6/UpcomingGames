@@ -17,13 +17,6 @@
 
     <!--Import our stylesheets-->
     <link rel="stylesheet" type="text/css" href="MainAppStyle.css">
-
-    <!--Select tab to show on start in game info area-->
-    <script>
-        $(document).ready(function () {
-            $('#news-table a[href="#1"]').tab('show');
-        });
-    </script>
 </head>
 <body>
 
@@ -182,7 +175,7 @@
             <!--Tabs area that contains Media, news, etc. when game is selected-->
             <div class="col-md-6" id="gameInfoTabs">
                 <ul class="nav nav-tabs" id="news-table">
-                    <li>
+                    <li class="active">
                         <a href="#1" data-toggle="tab">Popular News</a>
                     </li>
                     <li>
