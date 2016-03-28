@@ -9,7 +9,4 @@ workspace.xml
 bfg*
 
 replace.txt
-
-angular.min.js
-angular.min.js.map
 testDBScript.sh
