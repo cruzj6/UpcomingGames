@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "main.js",
   "scripts": {
+    "postinstall": "./node_modules/.bin/webpack",
     "start": "node main.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
