@@ -1,7 +1,7 @@
 /**
  * Created by Joey on 3/23/16.
  */
-require('dotenv').config();
+//require('dotenv').config();
 var request = require('request');
 var apiKey = process.env.STEAM_API_KEY;
 

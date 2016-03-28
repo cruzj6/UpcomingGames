@@ -2,7 +2,7 @@
  * Created by Joey on 2/17/16.
  * Handles all requests to the BingAPI
  */
-require('dotenv').config();
+//require('dotenv').config();
 var apiKey = process.env.BING_KEY;
 var rootUri = 'https://api.datamarket.azure.com/Bing/Search';
 var auth = new Buffer([ apiKey, apiKey ].join(':')).toString('base64');

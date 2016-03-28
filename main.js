@@ -1,7 +1,7 @@
 /**
  * Created by Joey on 3/1/2016.
  */
-require('dotenv').config();
+//require('dotenv').config();
 var express = require('express');
 var exphbs = require('express-handlebars');
 var path = require('path');
