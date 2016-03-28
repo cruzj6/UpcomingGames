@@ -62,11 +62,11 @@ function getUsersTrackedGameIds(userid, handleUserIds)
 
         console.log('GETTING USER TRACKED GAMES');
         //Select all tracked gameId's for that userId
-        client.query("SELECT gameId FROM tracked_games WHERE userid=($1);", [userid], function(err, rows)
+        client.query("SELECT gameId FROM tracked_games WHERE userid=($1);", [userid], function(err, res)
         {
-            console.log("got FROM DATABASE: " + JSON.stringify(rows));
+            console.log("got FROM DATABASE: " + JSON.stringify(res.rows));
             //Send back the rows
-            handleUserIds(rows);
+            handleUserIds(res.rows);
         });
     });
 }
