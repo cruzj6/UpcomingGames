@@ -37,4 +37,13 @@ router.get('/gameMedia', function(req, res){
     });
 });
 
+router.get('/getFriendsTrackedGames', function(req,res){
+    gameData.getSteamFriendsTrackedGames(req.user.id, function(tGames){
+        //Use this to show list on front end
+        console.log("Friends Tracked Games for " + req.user.id + ": " + JSON.stringify(tGames));
+        res.send(tGames);
+        res.end();
+    });
+});
+
 module.exports = router;

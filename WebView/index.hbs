@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <title>Upcoming</title>
+    <meta charset="UTF-8">
+
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
           integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
@@ -11,7 +14,6 @@
     <!-- Latest compiled JavaScript For bootstrap -->
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-    <title>Upcoming</title>
 
     <!--Import our stylesheets-->
     <link rel="stylesheet" type="text/css" href="MainAppStyle.css">
@@ -27,6 +29,16 @@
 
 <!--Import angular.js and other scripts-->
 <script src="angular.min.js"></script>
+<script src="underscore.js"></script>
+
+<!--TODO: debug scripts, get rid of these in production-->
+<!--script src="index.js"></script>
+<script src="httpRequestService.js"></script>
+<script src="countdown.min.js"></script>
+<script src="datamanagerservice.js"></script-->
+
+
+<!--Non-Debug/ For Production-->
 <script src="bundle.js"></script>
 
 <!--Top Head area-->
@@ -57,9 +69,8 @@
     </div>
 
     <!--Main Content-->
-    <div class="row" id="mainContent">
+    <div class="row" id="mainContent" ng-init="selectedTrackedGameIndex = -1">
         <div class="container">
-
 
             <!--Box that contains tracked games and searching (On left of page)-->
             <div class="col-md-5">
@@ -106,11 +117,10 @@
                     </div>
 
                     <!--Contains the tracked games elements-->
-                    <div class="panel panel-default">
+                    <div class="panel panel-default" >
 
 
                         <!--List of tracked games-->
-
                         <div id="loadingListIcon" style="text-align: center">
                             <div class="col-md-4"></div>
                             <div class="col-md-4">
@@ -120,12 +130,11 @@
                         </div>
 
                         <ul class="list-group"
-                            style="{[{'visibility: ' + (trackedGames ? 'visible' : 'hidden') + ';overflow-y: scroll; display: block; height: 410px;'}]}"
-                            ng-init="selectedIndex = -1">
+                            style="{[{'visibility: ' + (trackedGames ? 'visible' : 'hidden') + ';overflow-y: scroll; display: block; height: 410px;'}]}">
 
                             <!--Element that contains one tracked game, this is repeated for each tracked game-->
                             <li class="list-group-item" ng-repeat="game in trackedGames"
-                                ng-class="{'active': $index === selectedIndex}" ng-click="getGameInfo($index, game);">
+                                ng-class="{'active': $index === selectedTrackedGameIndex}" ng-click="getGameInfo($index, game);">
                                 <div style="display: inline-block; height: 100px; width: 200px;">
                                     <h4 class="list-group-item-heading">{[{game.name}]}</h4>
 
@@ -141,10 +150,10 @@
                                         {[{game.ttr.sec}]} secs.
                                     </div>
                                 </div>
-                                <div style="{[{remStyle + ';margin-left: 10px;'}]}" class="btn btn-danger pull-right"
-                                     role="button" name="removeGameButton" ng-click="removeTrackedGame(game)">
+                                <button style="{[{remStyle + ';margin-left: 10px;'}]}" class="btn btn-danger pull-right"
+                                     role="button" ng-click="removeTrackedGame(game)">
                                     X
-                                </div>
+                                </button>
                                 <div class="panel panel-primary pull-right" style="display: inline">
 
                                     <!--Image of the game-->
@@ -182,52 +191,55 @@
                     <li>
                         <a href="#3" data-toggle="tab">Pre-Order Info</a>
                     </li>
+                    <li>
+                        <a href="#4" data-toggle="tab">Friend's Tracked Games</a>
+                    </li>
                 </ul>
+                <div class="tab-content" style="overflow-y: scroll; height: 500px;">
 
-                <div class="tab-content" style="overflow-y: scroll; height: 450px;">
-
+                    <div ng-if="selectedTrackedGameIndex === -1">
+                        <p>Select a tracked game...</p>
+                    </div>
                     <!--News tab-->
-                    <div class="tab-pane" id="1">
-                        <table class="table">
-                            <thead>
-                            </thead>
-                            <tbody>
+                    <div class="tab-pane newsTab" id="1">
+                        <div id="loadingNewsIcon" ng-if="loadingNews" style="text-align: center">
+                            <div class="col-md-4"></div>
+                            <div class="col-md-4">
+                                <span style="margin-top: 205px" class="glyphicon glyphicon-refresh spinning "></span>
+                            </div>
+                            <div class="col-md-4"></div>
+                        </div>
+                        <ul class="list-group">
 
                             <!--Element for each news article-->
-                            <tr ng-if="newsArticles" ng-repeat="art in newsArticles">
-                                <td>
-                                    <p>{[{art.date}]}</p>
-                                </td>
-                                <td>
-                                    <a ng-href="{[{art.url}]}" style="font-weight: bold">{[{art.title}]}</a>
-
-                                    <p>{[{art.desc}]}</p>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
+                            <li id="newsArtLi" ng-if="newsArticles" ng-repeat="art in newsArticles">
+                                <h4> <a ng-href="{[{art.url}]}" style="font-weight: bold">{[{art.title}]}</a></h4>
+                                <p>Date: {[{art.date.split('T')[0]}]}</p>
+                                <p>{[{art.desc}]}</p>
+                            </li>
+                        </ul>
                     </div>
 
                     <!--Media/video tab-->
-                    <div class="tab-pane" id="2">
-                        <table class="table">
-                            <thead>
-                            <tr>
-                            </tr>
-                            </thead>
-                            <tbody>
+                    <div class="tab-pane newsTab" id="2">
+                        <div id="loadingMediaIcon" ng-if="loadingMedia" style="text-align: center">
+                            <div class="col-md-4"></div>
+                            <div class="col-md-4">
+                                <span style="margin-top: 205px" class="glyphicon glyphicon-refresh spinning "></span>
+                            </div>
+                            <div class="col-md-4"></div>
+                        </div>
+                        <ul class="list-group">
 
                             <!--Element for each Media item-->
-                            <tr ng-if="mediaItems" ng-repeat="media in mediaItems">
-                                <td>
-                                    <img ng-src="{[{media.imgsrc}]}"/>
-                                </td>
-                                <td>
-                                    <a ng-href="{[{media.url}]}" style="font-weight: bold">{[{media.title}]}</a>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
+                            <li ng-if="mediaItems" ng-repeat="media in mediaItems|limitTo:10">
+                                <h4><a ng-href="{[{media.url}]}" style="font-weight: bold">{[{media.title}]}</a></h4>
+                                <iframe title="YouTube video player" class="youtube-player" type="text/html"
+                                        width="400" height="300"
+                                        ng-src="{[{media.url.replace('watch?v=', 'embed/')}]}"
+                                        frameborder="0" allowFullScreen></iframe>
+                            </li>
+                        </ul>
                     </div>
 
                     <!--Pre-Order Info tab-->
@@ -291,6 +303,23 @@
                             </tbody>
                         </table>
                     </div>
+
+                    <!--Friend's tracked games tab-->
+                    <div class="tab-pane newsTab" id="4">
+                        <div class="panel panel-primary" ng-repeat="friend in friends" ng-if="friend.gameData.length > 0">
+                            <div class="panel-heading">
+                                <img style="border: 1px solid white; border-radius: 3px; display: inline;" ng-src="{[{friend.avatar}]}"/> {[{friend.userid}]}</div>
+                            <ul class="list-group">
+
+                                <!--Each game friend is tracking-->
+                                <li class="list-group-item" ng-repeat="game in friend.gameData">
+                                    <img style="display: inline; margin-right: 50px;" ng-src="{[{game.imageLink}]}"/>
+                                    <h4 style="display: inline;">{[{game.name}]}</h4>
+                                    <button class="btn btn-primary-outline pull-right" style="display: inline;" ng-click="addTrackedGame(game)">Add</button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -320,7 +349,6 @@
                 Made with <a href="http://logomakr.com" title="Logo Maker">Logo Maker</a></p>
         </div>
         <div class="col-md-2"></div>
-
     </div>
 
 </div>

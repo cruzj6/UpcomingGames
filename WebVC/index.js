@@ -1,15 +1,23 @@
-require('./httpRequestService.js');
-var removeMode = false;
-var app = angular.module('upcomingGames');
+var app = angular.module('upcomingGames', []);
 
-app.config(function($interpolateProvider) {
+//require('./httpRequestService.js');
+var removeMode = false;
+
+app.config(function($interpolateProvider, $sceDelegateProvider) {
     $interpolateProvider.startSymbol('{[{');
     $interpolateProvider.endSymbol('}]}');
+    $sceDelegateProvider.resourceUrlWhitelist([
+        'self',
+        'https://www.youtube.com/**'
+    ]);
 });
 
 app.controller('mainCtrl', function(httpReqService, dataService, $interval, $scope, $http){
+    $scope.loadingNews = false;
+    $scope.loadingMedia = false;
 
     $scope.trackedGames = [];
+    $scope.friends = [];
 
     //We are not in remove mode at start, set to remove games text
     $scope.remToggle = removeMode;
@@ -51,22 +59,29 @@ app.controller('mainCtrl', function(httpReqService, dataService, $interval, $sco
     //When user selects a game from their tracked games list
     $scope.getGameInfo= function($index, res){
         //Set our item that is selected
-        $scope.selectedIndex = $index;
+        $scope.selectedTrackedGameIndex = $index;
+        $scope.newsArticles = [];
+        $scope.mediaItems = [];
+        $scope.loadingMedia = true;
+        $scope.loadingNews = true;
 
         //Gett the news Article data from our http service for the item
         httpReqService.searchForArticles(res.name, function(newsData){
             $scope.newsArticles = newsData;
+            $scope.loadingNews = false;
         });
 
         //Now get media Data for the item
         httpReqService.searchForMedia(res.name, function(mediaData){
             $scope.mediaItems = mediaData;
+            $scope.loadingMedia = false;
         });
 
     };
 
     $scope.addTrackedGame = function(game)
     {
+        //Use giantbomb game id
         httpReqService.addTrackedGamePost(game.gbGameId, function(){
             getTrackedGames($scope, httpReqService);
         });
@@ -97,6 +112,11 @@ app.controller('mainCtrl', function(httpReqService, dataService, $interval, $sco
                 dataService.getTimeToRelease(trackedGame.releaseMonth, trackedGame.releaseDay, trackedGame.releaseYear);
         }
     }, 1000);
+
+    httpReqService.getFriendsTrackedGames(function(friendsData)
+    {
+        $scope.friends = friendsData;
+    });
 
 });
 
