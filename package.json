@@ -27,6 +27,7 @@
     "node-bing-api": "^2.3.0",
     "passport": "^0.3.2",
     "passport-steam": "^1.0.1",
+    "pg": "4.5.1",
     "request": "^2.69.0",
     "sqlite3": "^3.1.1",
     "underscore-node": "^0.1.2",
