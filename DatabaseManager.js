@@ -21,19 +21,21 @@ function addGameIDToUser(gameId, userId, doneCallback)
             console.log('Connected to postgres! Getting schemas...');
 
             client.query("CREATE TABLE if not exists tracked_games (userid TEXT, gameId TEXT);");
+        });
 
-            //Make self call to get the tracked games for the user
-            getUsersTrackedGameIds(userId, function(ids)
+        //Make self call to get the tracked games for the user
+        getUsersTrackedGameIds(userId, function(ids)
+        {
+            //If the game isn't already tracked by the user, add its
+            if(!_.contains(ids, gameId))
             {
-                //If the game isn't already tracked by the user, add its
-                if(!_.contains(ids, gameId))
-                {
+                pg.connect(process.env.DATABASE_URL, function(err, client) {
                     //Prep our query
-                    client.query("INSERT INTO tracked_games VALUES ($1, $2);",[userId, gameId], function(){
+                    client.query("INSERT INTO tracked_games VALUES ($1, $2);", [userId, gameId], function () {
                         doneCallback();
                     });
-                }
-            });
+                });
+            }
         });
 }
 
@@ -56,9 +58,11 @@ function getUsersTrackedGameIds(userid, handleUserIds)
     pg.connect(process.env.DATABASE_URL, function(err, client) {
         client.query("CREATE TABLE if not exists tracked_games (userid TEXT, gameId TEXT);");
 
+        console.log('GETTING USER TRACKED GAMES');
         //Select all tracked gameId's for that userId
         client.query("SELECT gameId FROM tracked_games WHERE userid=($1);", [userid], function(err, rows)
         {
+            console.log("got FROM DATABASE: " + rows);
             //Send back the rows
             handleUserIds(rows);
             client.end();
