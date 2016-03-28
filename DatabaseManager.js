@@ -44,7 +44,7 @@ function removeGameIDFromUser(gameId, userId, doneCallback)
 
         client.query("CREATE TABLE if not exists tracked_games (userid TEXT, gameId TEXT);");
 
-        client.query("DELETE FROM tracked_games WHERE userid=($1) AND gameId=($2);", [userId, gameId], function(){
+        client.query("DELETE FROM tracked_games WHERE userid='$1' AND gameId='$2';", [userId, gameId], function(){
             doneCallback();
         });
     });
@@ -57,7 +57,7 @@ function getUsersTrackedGameIds(userid, handleUserIds)
         client.query("CREATE TABLE if not exists tracked_games (userid TEXT, gameId TEXT);");
 
         //Select all tracked gameId's for that userId
-        client.query("SELECT gameId FROM tracked_games WHERE userid=($1);", [userid])
+        client.query("SELECT gameId FROM tracked_games WHERE userid='$1';", [userid])
             .on('end', function(rows) {
                 //Send back the rows
                 handleUserIds(rows);
