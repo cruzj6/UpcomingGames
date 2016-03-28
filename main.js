@@ -56,6 +56,7 @@ passport.deserializeUser(function(user, done) {
 
 //Public Static Resources
 app.use(express.static(path.join(__dirname, 'WebVC')));
+app.use(express.static(path.join(__dirname, 'builds')));
 app.use(express.static(path.join(__dirname, 'WebVC/builds')));
 app.use(express.static(path.join(__dirname, 'Style')));
 
