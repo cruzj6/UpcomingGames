@@ -126,6 +126,13 @@ app.factory('httpReqService', function($http, $sce){
             $http.get('/userdata/userTrackedGames').then(function(resp){
                 trackedGamesHanlder(resp.data);
             });
+        },
+        getFriendsTrackedGames: function(friendsTrackedGamesHandler)
+        {
+            $http.get('/info/getfriendstrackedgames').then(function(resp)
+            {
+               friendsTrackedGamesHandler(resp.data);
+            });
         }
     }
 });

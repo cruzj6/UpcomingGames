@@ -47,5 +47,25 @@ module.exports =
             //for each friend
             handleFriendsData(friendsArray);
         });
+    },
+    getSteamUsersInfo: function(userSteamIdArray, handleFriendUserInfo)
+    {
+        //Build comma delimited list
+        var queryidstring = "";
+        for(var i=0; i < userSteamIdArray.length; i++)
+        {
+            queryidstring += userSteamIdArray[i] + ",";
+        }
+
+        //Build query
+        var query = " http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?" +
+            "key=" + apiKey +
+            "&steamids=" + queryidstring;
+
+        request.get(query, function(err, res, body)
+        {
+            var jsonData = JSON.parse(body);
+            handleFriendUserInfo(jsonData.response);
+        });
     }
 };

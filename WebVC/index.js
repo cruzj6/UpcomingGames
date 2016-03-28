@@ -13,8 +13,11 @@ app.config(function($interpolateProvider, $sceDelegateProvider) {
 });
 
 app.controller('mainCtrl', function(httpReqService, dataService, $interval, $scope, $http){
+    $scope.loadingNews = false;
+    $scope.loadingMedia = false;
 
     $scope.trackedGames = [];
+    $scope.friends = [];
 
     //We are not in remove mode at start, set to remove games text
     $scope.remToggle = removeMode;
@@ -56,16 +59,22 @@ app.controller('mainCtrl', function(httpReqService, dataService, $interval, $sco
     //When user selects a game from their tracked games list
     $scope.getGameInfo= function($index, res){
         //Set our item that is selected
-        $scope.selectedIndex = $index;
+        $scope.selectedTrackedGameIndex = $index;
+        $scope.newsArticles = [];
+        $scope.mediaItems = [];
+        $scope.loadingMedia = true;
+        $scope.loadingNews = true;
 
         //Gett the news Article data from our http service for the item
         httpReqService.searchForArticles(res.name, function(newsData){
             $scope.newsArticles = newsData;
+            $scope.loadingNews = false;
         });
 
         //Now get media Data for the item
         httpReqService.searchForMedia(res.name, function(mediaData){
             $scope.mediaItems = mediaData;
+            $scope.loadingMedia = false;
         });
 
     };
@@ -103,6 +112,11 @@ app.controller('mainCtrl', function(httpReqService, dataService, $interval, $sco
                 dataService.getTimeToRelease(trackedGame.releaseMonth, trackedGame.releaseDay, trackedGame.releaseYear);
         }
     }, 1000);
+
+    httpReqService.getFriendsTrackedGames(function(friendsData)
+    {
+        $scope.friends = friendsData;
+    });
 
 });
 

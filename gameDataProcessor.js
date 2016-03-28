@@ -10,6 +10,7 @@ var gameAPI = require(__dirname + '/giantAPI.js');
 var bingAPI = require(__dirname + '/newsAPI.js');
 var dbm = require(__dirname + '/DatabaseManager.js');
 var steamAPI = require(__dirname + '/steamAPI');
+var _ = require('underscore-node');
 
 //"public" functions, these are usable by any module that "requires" this module
 module.exports = {
@@ -101,30 +102,42 @@ module.exports = {
 
         //Get all of the user's friends from the steam API
         steamAPI.getSteamFriends(usersteamid, function (friendsDataArray) {
-            //Get data for each friend
-            for (var i = 0; i < friendsDataArray.length; i++) {
+            console.log(JSON.stringify(friendsDataArray));
 
-                //The current friend we are getting data for
-                var curFriendid = friendsDataArray[i].steamid;
+             //Get the steam user info for each friend
+             steamAPI.getSteamUsersInfo(_.pluck(friendsDataArray, "steamid"), function(userDatas)
+             {
+                 //Get data for each friend
+                 for (var i = 0; i < friendsDataArray.length; i++) {
 
-                //Make the data request for each user's games
-                (function (userid) {
-                    module.exports.getUserTrackedGameData("http://steamcommunity.com/openid/id/" + userid, function (trackGameData) {
+                     //The current friend we are getting data for
+                     var curFriendid = friendsDataArray[i].steamid;
 
-                        //Push this to the array, each object contains
-                        //firends steamID and array of their tracked games
-                        //each with full data
-                        friendsTrackedGames.push({
-                            userid: userid,
-                            gameData: trackGameData
-                        });
-                        friendsDataGotten++;
-                        if (friendsDataGotten == friendsDataArray.length) {
-                            handleFriendsTrackedGames(friendsTrackedGames);
-                        }
-                    });
-                }(curFriendid));
-            }
+                     //Make the data request for each user's games
+                     (function (userid, userDatas) {
+                         module.exports.getUserTrackedGameData("http://steamcommunity.com/openid/id/" + userid, function (trackGameData) {
+
+                             //Get the info for this user
+                             var userInfo = _.where(userDatas.players, {steamid: userid})[0];
+
+                             //Push this to the array, each object contains
+                             //firends steamID and array of their tracked games
+                             //each with full data
+                             friendsTrackedGames.push({
+                                 avatar: userInfo.avatar,
+                                 userid: userInfo.personaname,
+                                 gameData: trackGameData
+                             });
+                             friendsDataGotten++;
+                             if (friendsDataGotten == friendsDataArray.length) {
+                                 handleFriendsTrackedGames(friendsTrackedGames);
+                             }
+                         });
+                     }(curFriendid, userDatas));
+                 }
+             });
+
+
         });
     }
 };
