@@ -59,9 +59,9 @@ function getUsersTrackedGameIds(userid, handleUserIds)
         //Select all tracked gameId's for that userId
         client.query("SELECT gameId FROM tracked_games WHERE userid=($1);", [userid], function(err, rows)
         {
-            client.end();
             //Send back the rows
             handleUserIds(rows);
+            client.end();
         });
     });
 }
