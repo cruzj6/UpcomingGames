@@ -83,7 +83,7 @@ app.get('/', function(req, res){
     }
     else{
         //If the user is not signed in send them the welcome page
-        res.render('welcomePage');
+        res.render('welcomepage');
     }
 });
 
