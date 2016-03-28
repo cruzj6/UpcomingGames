@@ -32,8 +32,8 @@ app.use(passport.session());
 //Set up our strategies, starting with steam strategy
 passport.use(new SteamStrategy({
         //TODO: CHANGE TO REAL URL ON DEPLOY
-        returnURL: 'http://localhost:3000/auth/steam/return',
-        realm: 'https://polar-ravine-80609.herokuapp.com/steam/return',
+        returnURL: 'https://polar-ravine-80609.herokuapp.com//auth/steam/return',
+        realm: 'https://polar-ravine-80609.herokuapp.com',
         apiKey: process.env.STEAM_API_KEY
     },
     function(identifier, profile, done) {
