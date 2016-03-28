@@ -30,8 +30,9 @@ function addGameIDToUser(gameId, userId, doneCallback)
             if(!_.contains(ids, gameId))
             {
                 pg.connect(process.env.DATABASE_URL, function(err, client) {
+                    console.log('inserting data!!');
                     //Prep our query
-                    client.query("INSERT INTO tracked_games VALUES ($1, $2);", [userId, gameId], function () {
+                    client.query("INSERT INTO tracked_games VALUES ($1, $2);", [userId, gameId], function (err, res) {
                         doneCallback();
                     });
                 });
@@ -62,7 +63,7 @@ function getUsersTrackedGameIds(userid, handleUserIds)
         //Select all tracked gameId's for that userId
         client.query("SELECT gameId FROM tracked_games WHERE userid=($1);", [userid], function(err, rows)
         {
-            console.log("got FROM DATABASE: " + rows);
+            console.log("got FROM DATABASE: " + JSON.stringify(rows));
             //Send back the rows
             handleUserIds(rows);
             client.end();
