@@ -1,7 +1,7 @@
 /**
  * Created by Joey on 3/21/16.
  */
-//require('./dataManagerService.js');
+require('./dataManagerService.js');
 var app = angular.module('upcomingGames');
 app.factory('httpReqService', function($http, $sce){
     return{

@@ -1,7 +1,7 @@
 /**
  * Created by Joey on 3/21/16.
  */
-//require('./countdown.min.js');
+require('./countdown.min.js');
 var app = angular.module('upcomingGames');
 app.factory('dataService', function(){
     return {

@@ -1,6 +1,6 @@
 var app = angular.module('upcomingGames', []);
 
-//require('./httpRequestService.js');
+require('./httpRequestService.js');
 var removeMode = false;
 
 app.config(function($interpolateProvider, $sceDelegateProvider) {
