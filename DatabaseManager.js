@@ -57,10 +57,11 @@ function getUsersTrackedGameIds(userid, handleUserIds)
         client.query("CREATE TABLE if not exists tracked_games (userid TEXT, gameId TEXT);");
 
         //Select all tracked gameId's for that userId
-        client.query("SELECT gameId FROM tracked_games WHERE userid=($1);", [userid])
-            .on('end', function(rows) {
-                //Send back the rows
-                handleUserIds(rows);
-            })
+        client.query("SELECT gameId FROM tracked_games WHERE userid=($1);", [userid], function(err, rows)
+        {
+            client.end();
+            //Send back the rows
+            handleUserIds(rows);
         });
+    });
 }
