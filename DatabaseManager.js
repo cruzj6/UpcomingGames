@@ -26,6 +26,7 @@ function addGameIDToUser(gameId, userId, doneCallback)
         //Make self call to get the tracked games for the user
         getUsersTrackedGameIds(userId, function(ids)
         {
+            console.log('INTO CALLBACK');
             //If the game isn't already tracked by the user, add its
             if(!_.contains(ids, gameId))
             {
@@ -66,7 +67,6 @@ function getUsersTrackedGameIds(userid, handleUserIds)
             console.log("got FROM DATABASE: " + JSON.stringify(rows));
             //Send back the rows
             handleUserIds(rows);
-            client.end();
         });
     });
 }
