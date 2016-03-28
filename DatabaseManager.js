@@ -54,6 +54,7 @@ function removeGameIDFromUser(gameId, userId, doneCallback)
 function getUsersTrackedGameIds(userid, handleUserIds)
 {
     pg.connect(process.env.DATABASE_URL, function(err, client) {
+        client.query("CREATE TABLE if not exists tracked_games (userid TEXT, gameId TEXT);");
 
         //Select all tracked gameId's for that userId
         client.query("SELECT gameId FROM tracked_games WHERE userid=(($1));", [userid])
