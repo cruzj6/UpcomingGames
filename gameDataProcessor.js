@@ -57,7 +57,7 @@ module.exports = {
                 //For each gameId we got back
                 for (var i = 0; i < ids.length; i++) {
                     //Now request data about each game using the ID, and the giantBombAPI Module
-                    gameAPI.getDataForGameById(ids[i].gameId, function (gameData) {
+                    gameAPI.getDataForGameById(ids[i].gameid, function (gameData) {
                         //Track attempts to get game data, and number actually gotten (successful)
                         //We need to keep track since this is Async, so we know when to make callback
                         attempts++;
