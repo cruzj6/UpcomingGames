@@ -300,8 +300,13 @@
 
                     <!--Friend's tracked games tab-->
                     <div class="tab-pane newsTab" id="4">
-                        <div class="panel panel-primary" ng-repeat="friend in friends">
-                            <!--ng-if="friend.gameData.length > 0"-->
+                        <div id="showAllFriends" class="checkbox checked">
+                            <label>
+                                <input type="checkbox"> Show All
+                            </label>
+                        </div>
+                        <div class="panel panel-primary" ng-repeat="friend in friends"
+                            ng-if="friend.gameData.length > 0 || angular.element('showAllFriends').hasClass('checked')">
                             <div class="panel-heading">
                                 <img style="border: 1px solid white; border-radius: 3px; display: inline;" ng-src="{[{friend.avatar}]}"/> {[{friend.userid}]}</div>
                             <ul class="list-group">
