@@ -98,7 +98,7 @@ module.exports = {
 
     getSteamFriendsTrackedGames: function (usersteamid, handleFriendsTrackedGames) {
         var friendsTrackedGames = [];
-        var friendsDataGotten = 1;
+        var friendsDataGotten = 0;
 
         //Get all of the user's friends from the steam API
         steamAPI.getSteamFriends(usersteamid, function (friendsDataArray) {
