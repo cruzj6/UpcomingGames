@@ -302,11 +302,11 @@
                     <div class="tab-pane newsTab" id="4">
                         <div id="showAllFriends" class="checkbox">
                             <label>
-                                <input class="checked" type="checkbox"> Show All
+                                <input type="checkbox" ng-model="allFriends"> Show All
                             </label>
                         </div>
                         <div class="panel panel-primary" ng-repeat="friend in friends"
-                            ng-if="friend.gameData.length > 0 || angular.element('showAllFriends').hasClass('checked')">
+                            ng-if="friend.gameData.length > 0 || allFriends">
                             <div class="panel-heading">
                                 <img style="border: 1px solid white; border-radius: 3px; display: inline;" ng-src="{[{friend.avatar}]}"/> {[{friend.userid}]}</div>
                             <ul class="list-group">

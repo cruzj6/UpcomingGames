@@ -13,6 +13,7 @@ app.config(function($interpolateProvider, $sceDelegateProvider) {
 });
 
 app.controller('mainCtrl', function(httpReqService, dataService, $interval, $scope, $http){
+    $scope.allFriends = false;
     $scope.loadingNews = false;
     $scope.loadingMedia = false;
 
