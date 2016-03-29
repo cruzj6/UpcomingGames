@@ -70,8 +70,8 @@ function getUsersTrackedGameIds(userid, handleUserIds)
         {
             console.log("got FROM DATABASE: " + JSON.stringify(res.rows));
             //Send back the rows
-            handleUserIds(res.rows);
             done();
+            handleUserIds(res.rows);
         });
     });
 }
