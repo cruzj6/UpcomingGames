@@ -43,6 +43,8 @@ module.exports =
             //Get the Friends data
             var friendsArray = friendsList.friends;
 
+            console.log('GetFriendList Request: ' + JSON.stringify(friendsArray));
+
             //Contains "steamid", "relationship" (ie. 'friend'), and "friend_since"
             //for each friend
             handleFriendsData(friendsArray);
@@ -56,6 +58,7 @@ module.exports =
         {
             queryidstring += userSteamIdArray[i] + ",";
         }
+        console.log("Getting user info using query: " + queryidstring);
 
         //Build query
         var query = " http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?" +
@@ -65,6 +68,7 @@ module.exports =
         request.get(query, function(err, res, body)
         {
             var jsonData = JSON.parse(body);
+            console.log("Got all users data: " + JSON.stringify(jsonData));
             handleFriendUserInfo(jsonData.response);
         });
     }
