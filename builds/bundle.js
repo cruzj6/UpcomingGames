@@ -165,9 +165,20 @@
 
 	    httpReqService.getFriendsTrackedGames(function(friendsData)
 	    {
-	        $scope.friends = friendsData;
-	    });
+	        var sortedFriendsGames = friendsData;
 
+	        //Sort each of their games
+	        sortedFriendsGames.gameData = sortedFriendsGames.gameData.sort(function(a,b)
+	        {
+	            return compareStrings(a.userid, b.userid);
+	        });
+
+	        //Sort the friends themselves
+	        $scope.friends = sortedFriendsGames.sort(function(a,b)
+	        {
+	            return compareStrings(a.userid, b.userid);
+	        });
+	    });
 	});
 
 	function getTrackedGames($scope, httpReqService)
