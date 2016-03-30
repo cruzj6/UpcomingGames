@@ -116,12 +116,14 @@
 	        httpReqService.searchForArticles(res.name, function(newsData){
 	            $scope.loadingNews = false;
 	            $scope.newsArticles = newsData;
+	            $scope.$apply();
 	        });
 
 	        //Now get media Data for the item
 	        httpReqService.searchForMedia(res.name, function(mediaData){
 	            $scope.loadingMedia = false;
 	            $scope.mediaItems = mediaData;
+	            $scope.$apply();
 	        });
 
 	    };
