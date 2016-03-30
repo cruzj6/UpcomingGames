@@ -202,10 +202,10 @@
                             </div>
                             <div class="col-md-4"></div>
                         </div>
-                        <ul class="list-group">
+                        <ul class="list-group" ng-if="newsArticles">
 
                             <!--Element for each news article-->
-                            <li id="newsArtLi" ng-if="newsArticles" ng-repeat="art in newsArticles">
+                            <li id="newsArtLi" ng-repeat="art in newsArticles">
                                 <h4> <a ng-href="{[{art.url}]}" style="font-weight: bold">{[{art.title}]}</a></h4>
                                 <p>Date: {[{art.date.split('T')[0]}]}</p>
                                 <p>{[{art.desc}]}</p>
