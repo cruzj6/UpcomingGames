@@ -114,14 +114,14 @@
 
 	        //Gett the news Article data from our http service for the item
 	        httpReqService.searchForArticles(res.name, function(newsData){
-	            $scope.newsArticles = newsData;
 	            $scope.loadingNews = false;
+	            $scope.newsArticles = newsData;
 	        });
 
 	        //Now get media Data for the item
 	        httpReqService.searchForMedia(res.name, function(mediaData){
-	            $scope.mediaItems = mediaData;
 	            $scope.loadingMedia = false;
+	            $scope.mediaItems = mediaData;
 	        });
 
 	    };
