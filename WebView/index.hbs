@@ -309,7 +309,7 @@
                             ng-if="friend.gameData.length > 0 || allFriends">
                             <div class="panel-heading">
                                 <img style="border: 1px solid white; border-radius: 3px; display: inline;" ng-src="{[{friend.avatar}]}"/> {[{friend.userid}]}</div>
-                            <ul class="list-group">
+                            <ul class="list-group" style="max-height: 300px; overflow-y: scroll;">
 
                                 <!--Each game friend is tracking-->
                                 <li class="list-group-item" ng-repeat="game in friend.gameData">
