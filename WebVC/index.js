@@ -13,6 +13,10 @@ app.config(function($interpolateProvider, $sceDelegateProvider) {
 });
 
 app.controller('mainCtrl', function(httpReqService, dataService, $interval, $scope, $http){
+
+    angular.element(document).ready(function () {
+        $('#news-table a[href="#1"]').tab('show');
+    });
     $scope.allFriends = false;
     $scope.loadingNews = false;
     $scope.loadingMedia = false;
