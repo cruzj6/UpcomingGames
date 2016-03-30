@@ -305,7 +305,7 @@
                                 <input type="checkbox" ng-model="allFriends"> Show All
                             </label>
                         </div>
-                        <div class="panel panel-primary" style="max-height: 600px; overflow-y: scroll;" ng-repeat="friend in friends"
+                        <div class="panel panel-primary" style="max-height: 500px;" ng-repeat="friend in friends"
                             ng-if="friend.gameData.length > 0 || allFriends">
                             <div class="panel-heading">
                                 <img style="border: 1px solid white; border-radius: 3px; display: inline;" ng-src="{[{friend.avatar}]}"/> {[{friend.userid}]}</div>
