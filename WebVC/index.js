@@ -89,7 +89,10 @@ app.controller('mainCtrl', function(httpReqService, dataService, $interval, $sco
     };
 
     $scope.removeTrackedGame = function(game){
-        $scope.trackedGames = _.without($scope.trackedGames, game);
+        $scope.trackedGames = _.without($scope.trackedGames, game).sort(function(a,b)
+        {
+            return compareStrings(a.name, b.name);
+        });
         httpReqService.removeTrackedGamePost(game.gbGameId, function(){
             getTrackedGames($scope, httpReqService);
         });
@@ -125,7 +128,10 @@ function getTrackedGames($scope, httpReqService)
 {
     setRemoveView($scope, removeMode);
     httpReqService.getTrackedGames(function(data){
-        $scope.trackedGames = data;
+        $scope.trackedGames = data.sort(function(a,b)
+        {
+            return compareStrings(a.name, b.name);
+        });
 
         //Remove our loading indicator
         angular.element("#loadingListIcon").remove();
@@ -173,4 +179,11 @@ function removeGamesToggle($scope){
 function ddToggle(){
     //Toggle results dropdown window
     angular.element('#searchGamesButton').dropdown('toggle');
+}
+
+function compareStrings(a, b) {
+    a = a.toLowerCase();
+    b = b.toLowerCase();
+
+    return (a < b) ? -1 : (a > b) ? 1 : 0;
 }
