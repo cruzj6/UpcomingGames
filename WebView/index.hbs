@@ -190,12 +190,11 @@
                     </li>
                 </ul>
                 <div class="tab-content" style="overflow-y: scroll; height: 500px;">
-
-                    <div ng-if="selectedTrackedGameIndex === -1">
-                        <p>Select a tracked game...</p>
-                    </div>
                     <!--News tab-->
                     <div class="tab-pane newsTab" id="1">
+                        <div ng-if="selectedTrackedGameIndex === -1">
+                            <p>Select a tracked game...</p>
+                        </div>
                         <div id="loadingNewsIcon" ng-if="loadingNews" style="text-align: center">
                             <div class="col-md-4"></div>
                             <div class="col-md-4">
