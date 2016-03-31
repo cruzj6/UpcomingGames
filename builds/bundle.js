@@ -62,6 +62,7 @@
 
 	    angular.element(document).ready(function () {
 	        $('#news-table a[href="#1"]').tab('show');
+
 	    });
 	    $scope.allFriends = false;
 	    $scope.loadingNews = false;
