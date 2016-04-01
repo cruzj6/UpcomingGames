@@ -60,6 +60,7 @@ function removeGameIDFromUser(gameId, userId, doneCallback)
 
 function getUsersTrackedGameIds(userid, handleUserIds)
 {
+    console.log(process.env.DATABASE_URL);
     console.log("Entered get user tracked games");
     pg.connect(process.env.DATABASE_URL, function(err, client, done) {
         client.query("CREATE TABLE if not exists tracked_games (userid TEXT, gameId TEXT);");
