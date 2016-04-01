@@ -8,7 +8,8 @@ var _=require('underscore-node');
 module.exports = {
     addGameIDToUser: function(gameId, userId, doneCallback){addGameIDToUser(gameId, userId, doneCallback)},
     getUsersTrackedGameIds:function(userid, callback){getUsersTrackedGameIds(userid, callback)},
-    removeGameIDFromUser:function(gameId, userId, doneCallback){removeGameIDFromUser(gameId, userId, doneCallback)}
+    removeGameIDFromUser:function(gameId, userId, doneCallback){removeGameIDFromUser(gameId, userId, doneCallback)},
+    getAllTrackedIdsColumn:function(handleTrackedGameIds){getAllTrackedIdsColumn(handleTrackedGameIds)}
 };
 
 //Add a gameId to the database for a user that they wish to track
@@ -41,6 +42,25 @@ function addGameIDToUser(gameId, userId, doneCallback)
                 });
             }
         });
+}
+
+function getAllTrackedIdsColumn(handleTrackedIds)
+{
+    try {
+        pg.connect(process.env.DATABASE_URL, function (err, client, done) {
+            client.query("CREATE TABLE if not exists tracked_games(userid TEXT, gameId TEXT)");
+
+            client.query("SELECT gameId FROM tracked_games", function (err, res) {
+                done();
+                handleTrackedIds(res.rows);
+            });
+        });
+    }
+    catch(ex)
+    {
+        console.log(ex.trace());
+        console.log(ex);
+    }
 }
 
 //Remove a game from the database for a userId

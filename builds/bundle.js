@@ -190,6 +190,11 @@
 	            return compareStrings(a.userid, b.userid);
 	        });
 	    });
+
+	    httpReqService.getTopTrackedGames(function(topTrackedData)
+	    {
+	        $scope.topGames = topTrackedData;
+	    });
 	});
 
 	function getTrackedGames($scope, httpReqService)
@@ -394,6 +399,13 @@
 	            $http.get('/info/getfriendstrackedgames').then(function(resp)
 	            {
 	               friendsTrackedGamesHandler(resp.data);
+	            });
+	        },
+	        getTopTrackedGames: function(topTrackedHanler)
+	        {
+	            $http.get('/userdata/toptracked').then(function(resp)
+	            {
+	                topTrackedHanler(resp.data);
 	            });
 	        }
 	    }

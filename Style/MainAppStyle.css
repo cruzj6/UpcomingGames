@@ -87,3 +87,12 @@ img.loginService{
 
 .newsTab{
 }
+
+li.topGamesDiv{
+    float: left;
+    width: 200px;
+    height: 200px;
+    margin-left: 1px;
+    margin-top: 1px;
+    margin-bottom: 1px;
+}

@@ -133,6 +133,13 @@ app.factory('httpReqService', function($http, $sce){
             {
                friendsTrackedGamesHandler(resp.data);
             });
+        },
+        getTopTrackedGames: function(topTrackedHanler)
+        {
+            $http.get('/userdata/toptracked').then(function(resp)
+            {
+                topTrackedHanler(resp.data);
+            });
         }
     }
 });

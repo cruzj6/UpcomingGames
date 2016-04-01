@@ -144,6 +144,11 @@ app.controller('mainCtrl', function(httpReqService, dataService, $interval, $sco
             return compareStrings(a.userid, b.userid);
         });
     });
+
+    httpReqService.getTopTrackedGames(function(topTrackedData)
+    {
+        $scope.topGames = topTrackedData;
+    });
 });
 
 function getTrackedGames($scope, httpReqService)

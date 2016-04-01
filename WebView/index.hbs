@@ -324,12 +324,22 @@
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-md-5" style="align: middle;">
-                <br/>
-            </div>
-            <div class="col-md-9"/>
+    <!--Top Games Row of data-->
+    <div class="row" id="topGames">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+            <h1 style="color: white;">Top Tracked Games</h1>
+            <ul class="list-inline">
+                <li ng-repeat="game in topGames" class="topGamesDiv panel panel-default">
+                    <div ng-init="num = $index + 1">
+                        <p align="center" style="height: 50px;">{[{game.name}]}</p>
+                        <img ng-src="{[{game.imageLink}]}">
+                        <button class="btn btn-primary-outline pull-right" style="display: inline;" ng-click="addTrackedGame(game)">Add</button>
+                    </div>
+                </li>
+            </ul>
         </div>
+        <div class="col-md-1"></div>
     </div>
 
     <!--Contributions, and references footer-->

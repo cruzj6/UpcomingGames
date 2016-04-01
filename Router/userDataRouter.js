@@ -26,4 +26,13 @@ router.post('/addTrackedGame', function(req,res)
 
 });
 
+router.get('/topTracked', function(req, res)
+{
+    gameData.getTopTrackedGamesData(5, function(topArray)
+    {
+        console.log("Top Games List: " + topArray);
+        res.send(topArray);
+    });
+});
+
 module.exports = router;
