@@ -47,6 +47,11 @@ img.loginService{
     color: white;
 }
 
+.navbar-default{
+    background-color: #262626;
+    color: white;
+}
+
 .list-group-item.active:hover{
     background-color: rgba(53, 53, 54, 0.67);
 }
