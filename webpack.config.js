@@ -6,6 +6,10 @@ module.exports = {
     },
     module: {
         loaders: [
+            {
+                test: /.*\/app\/.*\.js$/,
+                loader: "uglify"
+            }
         ]
     }
 };

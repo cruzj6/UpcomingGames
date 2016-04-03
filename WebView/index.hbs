@@ -129,7 +129,7 @@
                             <!--Element that contains one tracked game, this is repeated for each tracked game-->
                             <li class="list-group-item" ng-repeat="game in trackedGames"
                                 ng-class="{'active': $index === selectedTrackedGameIndex}" ng-click="getGameInfo($index, game);">
-                                <div style="display: inline-block; height: 100px; width: 200px;">
+                                <div style="display: inline-block; height: 100px; width: 300px;">
                                     <h4 class="list-group-item-heading">{[{game.name}]}</h4>
 
                                     <!--Release date text-->
@@ -139,7 +139,10 @@
                                         {[{game.releaseMonth}]}/{[{game.releaseDay}]}/{[{game.releaseYear}]}
 
                                         <!--Release countdown-->
-                                        TTR:{[{game.ttr.yrs}]}yr. {[{game.ttr.mons}]} mon. {[{game.ttr.days}]} days
+                                        <br/><br/>
+                                        <b style="text-decoration: underline">Time to Release</b>
+                                        <br/>
+                                        {[{game.ttr.yrs}]}yr. {[{game.ttr.mons}]} mon. {[{game.ttr.days}]} days
                                         {[{game.ttr.hrs}]} hrs. {[{game.ttr.min}]} min.
                                         {[{game.ttr.sec}]} secs.
                                     </div>
@@ -326,8 +329,8 @@
 
     <!--Top Games Row of data-->
     <div class="row" id="topGames">
-        <div class="col-md-1"></div>
-        <div class="col-md-10">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
             <h1 style="color: white;">Top Tracked Games</h1>
             <ul class="list-inline">
                 <li ng-repeat="game in topGames" class="topGamesDiv panel panel-default">
@@ -339,7 +342,7 @@
                 </li>
             </ul>
         </div>
-        <div class="col-md-1"></div>
+        <div class="col-md-2"></div>
     </div>
 
     <!--Contributions, and references footer-->
@@ -347,6 +350,8 @@
          class="row" name="footerRow">
         <div class="col-md-2"></div>
         <div class="col-md-8">
+            <p>Created by Joey Cruz, <a href="mailto:cruzjoey94@gmail.com">Contact cruzjoey94@gmail.com</a></p>
+
             <p>Powered by Steam: <a href="http://steampowered.com">http://steampowered.com</a> <br>
                 GiantBomb's Game database: <a href="http://giantbomb.com">http://GiantBomb.com</a><br>
                 Microsoft's Bing Search Engine: <a href="http://bing.com">http://Bing.com</a></p>
