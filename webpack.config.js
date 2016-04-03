@@ -17,8 +17,17 @@ module.exports = {
         ]
     },
 
+    'uglify-loader': {
+        options: {
+            mangle: false
+        }
+    },
+
     plugins: [
-        new webpack.optimize.UglifyJsPlugin()
+       new webpack.optimize.UglifyJsPlugin({
+           mangle: false,
+           sourceMap: false
+       })
     ]
 
 };
