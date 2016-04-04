@@ -6,9 +6,11 @@
  * and Bing News API
  * and provide helper methods to the router files
  */
-var gameAPI = require(__dirname + '/../../giantAPI.js');
-var dbm = require(__dirname + '/userdatamodel.js');
-var steamAPI = require(__dirname + '/../../steamAPI');
+var externalAPIPath = '/../../libs/externalapis/';
+var gameAPI = require(__dirname + externalAPIPath + 'giantAPI');
+var bingAPI = require(__dirname + externalAPIPath + 'newsAPI');
+var steamAPI = require(__dirname + externalAPIPath + 'steamAPI');
+var dbm = require(__dirname + '/userdatamodel');
 var _ = require('underscore-node');
 
 //"public" functions, these are usable by any module that "requires" this module

@@ -4,6 +4,7 @@
  * Created by Joey on 3/1/2016.
  */
 //require('dotenv').config();
+
 require('babel-core/register');
 var express = require('express');
 var exphbs = require('express-handlebars');
@@ -105,3 +106,5 @@ app.get('/logout', function (req, res) {
 });
 
 app.listen(process.env.PORT || 5000);
+
+//# sourceMappingURL=main-compiled.js.map
