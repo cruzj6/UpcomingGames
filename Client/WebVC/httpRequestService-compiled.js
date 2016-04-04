@@ -1,44 +1,44 @@
+'use strict';
+
 /**
  * Created by Joey on 3/21/16.
  */
 require('./dataManagerService.js');
 var app = angular.module('upcomingGames');
-app.factory('httpReqService', function($http, $sce){
-    return{
-        searchForArticles: function(gameName, articleDataHandler)
-        {
+app.factory('httpReqService', function ($http, $sce) {
+    return {
+        searchForArticles: function searchForArticles(gameName, articleDataHandler) {
             //set up our options, we send the server the game name
             var options = {
-                params:{
+                params: {
                     gameName: gameName
                 }
             };
 
             //Make the request, and assign the result to the newsArticles scope param
             //So that the view is updated
-            $http.get('/info/getArticles', options).then(function(resp){
+            $http.get('/info/getArticles', options).then(function (resp) {
                 articleDataHandler(resp.data);
             });
         },
 
-        searchForMedia: function(gameName, mediaDataHandler)
-        {
+        searchForMedia: function searchForMedia(gameName, mediaDataHandler) {
             var options = {
-                params:{
+                params: {
                     gameName: gameName
                 }
             };
             //Make the request
-            $http.get('/info/gameMedia', options).then(function(resp){
+            $http.get('/info/gameMedia', options).then(function (resp) {
                 //Filter out the video id to use it for the thumbnail
                 var mediaDatas = [];
 
-                for(var i = 0; i < resp.data.length; i++) {
+                for (var i = 0; i < resp.data.length; i++) {
                     var respItem = resp.data[i];
                     var urlSplit = respItem.url.split('/');
 
                     //If this is a youtube video
-                    if(urlSplit[2].indexOf('youtube.com') > -1) {
+                    if (urlSplit[2].indexOf('youtube.com') > -1) {
                         var QueryItems = function () {
                             var query_string = {};
                             var query = respItem.url;
@@ -50,12 +50,12 @@ app.factory('httpReqService', function($http, $sce){
                                     query_string[pair[0]] = decodeURIComponent(pair[1]);
                                     // If second entry with this name
                                 } else if (typeof query_string[pair[0]] === "string") {
-                                    var arr = [query_string[pair[0]], decodeURIComponent(pair[1])];
-                                    query_string[pair[0]] = arr;
-                                    // If third or later entry with this name
-                                } else {
-                                    query_string[pair[0]].push(decodeURIComponent(pair[1]));
-                                }
+                                        var arr = [query_string[pair[0]], decodeURIComponent(pair[1])];
+                                        query_string[pair[0]] = arr;
+                                        // If third or later entry with this name
+                                    } else {
+                                            query_string[pair[0]].push(decodeURIComponent(pair[1]));
+                                        }
                             }
                             return query_string;
                         }();
@@ -71,10 +71,8 @@ app.factory('httpReqService', function($http, $sce){
                         };
                         mediaDatas.push(mediaData);
                     }
-
                 }
-                for(var i=0; i< mediaDatas.length; i++)
-                {
+                for (var i = 0; i < mediaDatas.length; i++) {
                     $sce.trustAsResourceUrl(mediaDatas[i].url.replace("watch?v=", "embed/"));
                 }
                 //TODO: Other media platforms besides youtube
@@ -82,64 +80,56 @@ app.factory('httpReqService', function($http, $sce){
             });
         },
 
-        searchForGames: function(searchTerms, searchDataHandler)
-        {
+        searchForGames: function searchForGames(searchTerms, searchDataHandler) {
             var searchInValue = encodeURIComponent(searchTerms);
 
             //Get our promise, make the request
             var httppromise = $http.get('/info/searchgames', {
-                params:{
+                params: {
                     //Additional data here ie->
                     searchTerm: searchInValue
                 }
             });
 
             //When we come back assign the result to the scope parameter for results
-            httppromise.then(function(res){
+            httppromise.then(function (res) {
 
-                if(res.data.length > 0)
-                    searchDataHandler(res.data);
-                else {
+                if (res.data.length > 0) searchDataHandler(res.data);else {
                     //If no results send empty instead of null
                     searchDataHandler([]);
                 }
             });
         },
-        addTrackedGamePost: function(gameId, onSuccessHandler)
-        {
+        addTrackedGamePost: function addTrackedGamePost(gameId, onSuccessHandler) {
             $http.post('/userdata/addTrackedGame', {
                 gameid: gameId
-            }).success(function(){
+            }).success(function () {
                 onSuccessHandler();
             });
         },
-        removeTrackedGamePost: function (gameId, onSuccessHandler)
-        {
-            $http.post('/userData/removeTrackedGame',{
+        removeTrackedGamePost: function removeTrackedGamePost(gameId, onSuccessHandler) {
+            $http.post('/userData/removeTrackedGame', {
                 gameid: gameId
-            }).success(function(){
+            }).success(function () {
                 onSuccessHandler();
             });
         },
-        getTrackedGames: function(trackedGamesHanlder)
-        {
-            $http.get('/userdata/userTrackedGames').then(function(resp){
+        getTrackedGames: function getTrackedGames(trackedGamesHanlder) {
+            $http.get('/userdata/userTrackedGames').then(function (resp) {
                 trackedGamesHanlder(resp.data);
             });
         },
-        getFriendsTrackedGames: function(friendsTrackedGamesHandler)
-        {
-            $http.get('/userdata/getfriendstrackedgames').then(function(resp)
-            {
-               friendsTrackedGamesHandler(resp.data);
+        getFriendsTrackedGames: function getFriendsTrackedGames(friendsTrackedGamesHandler) {
+            $http.get('/userdata/getfriendstrackedgames').then(function (resp) {
+                friendsTrackedGamesHandler(resp.data);
             });
         },
-        getTopTrackedGames: function(topTrackedHanler)
-        {
-            $http.get('/info/toptracked').then(function(resp)
-            {
+        getTopTrackedGames: function getTopTrackedGames(topTrackedHanler) {
+            $http.get('/info/toptracked').then(function (resp) {
                 topTrackedHanler(resp.data);
             });
         }
-    }
+    };
 });
+
+//# sourceMappingURL=httpRequestService-compiled.js.map

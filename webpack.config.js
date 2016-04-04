@@ -1,9 +1,9 @@
 var webpack = require('webpack');
 
 module.exports = {
-    entry: "./webvc/index.js",
+    entry: "./client/webvc/index.js",
     output: {
-        path: __dirname + "/builds",
+        path: __dirname + "/client/builds",
         filename: "bundle.js"
     },
 
