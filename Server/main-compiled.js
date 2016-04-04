@@ -3,7 +3,6 @@
 /**
  * Created by Joey on 3/1/2016.
  */
-//require('dotenv').config();
 
 require('babel-core/register');
 var express = require('express');
@@ -13,8 +12,6 @@ var app = express();
 var bodyparser = require('body-parser');
 var session = require('express-session');
 var passport = require('passport');
-
-require('babel-core/register');
 
 //Set up our express-session middleware
 app.use(session({
@@ -47,9 +44,8 @@ app.engine('hbs', exphbs({ defaultLayout: 'main',
 }));
 app.set('view engine', 'hbs');
 
+//Set up routes
 require('./route').default(app);
-
-app.use('/auth', require(__dirname + '/auth/index.js'));
 
 //Root request hanlder
 app.get('/', function (req, res) {

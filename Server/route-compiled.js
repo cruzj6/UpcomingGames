@@ -13,6 +13,9 @@ exports.default = function (app) {
     var userDataRouter = require('./api/userdata');
     app.use('/info', extDataRouter);
     app.use('/userdata', userDataRouter);
+
+    //Authentication Route
+    app.use('/auth', require('./auth'));
 };
 
 var _path = require('path');
