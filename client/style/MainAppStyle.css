@@ -1,0 +1,107 @@
+#mainContent{
+    padding-top: 25px;
+    background-color: #072039;
+}
+
+img.loginService{
+    background-color: black; width:100px;padding:10px;
+}
+
+#trackedGamesBox{
+    border-color: black;
+    border: 2px solid;
+    border-radius: 3px;
+    background-color: lightslategray;
+    height: 580px;
+}
+
+#gameInfoTabs{
+    padding-top: 3px;
+    border: 2px solid black;
+    border-radius: 4px;
+    background-color: white;
+    height: 580px;
+}
+
+#logout{
+    float:right;
+    color: white;
+    font-weight: bold;
+    text-decoration: underline
+}
+
+.panel > .panel-heading {
+    background-image: none;
+    background-color: #262626;
+    color: white;
+
+}
+
+.btn-primary-outline:hover{
+    background-color: #262626;
+    color: rgba(194, 188, 218, 0.96)
+}
+
+.btn-primary-outline{
+    background-color: #262626;
+    color: white;
+}
+
+.navbar-default{
+    background-color: #262626;
+    color: white;
+}
+
+.list-group-item.active:hover{
+    background-color: rgba(53, 53, 54, 0.67);
+}
+
+.list-group-item:hover{
+    background-color: #b6b6b6;
+}
+
+.list-group-item.active{
+    background-color: rgba(53, 53, 54, 0.67);
+}
+
+.glyphicon.spinning {
+    animation: spin 1s infinite linear;
+    -webkit-animation: spin2 1s infinite linear;
+}
+
+@keyframes spin {
+    from { transform: scale(1) rotate(0deg); }
+    to { transform: scale(1) rotate(360deg); }
+}
+
+@-webkit-keyframes spin2 {
+    from { -webkit-transform: rotate(0deg); }
+    to { -webkit-transform: rotate(360deg); }
+}
+
+#newsArtLi{
+    border-bottom: 1px solid black;
+}
+
+#news-table{
+
+}
+
+#gameInfoTabs{
+}
+
+.newsTab{
+}
+
+li.topGamesDiv{
+    float: left;
+    width: 170px;
+    height: 170px;
+    margin-left: 1px;
+    margin-top: 1px;
+    margin-bottom: 1px;
+}
+
+#topGames{
+    background-color: #072039;
+}
