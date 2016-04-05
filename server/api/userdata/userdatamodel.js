@@ -21,8 +21,22 @@ export function addGameIDToUser(gameId, userId, doneCallback)
     getUsersTrackedGameIds(userId, function(ids)
     {
         console.log('INTO CALLBACK');
+        var pluckedIds = _.pluck(ids, 'gameid');
+        console.log("gameid: " + gameId + "\r\nids : " + JSON.stringify(pluckedIds));
+
+        var isAlreadyContained = false;
+
+        for(var i=0; i<ids.length; i++)
+        {
+           if(ids[i].gameid.indexOf(gameId) > -1)
+           {
+               isAlreadyContained = true;
+               break;
+           }
+        }
+
         //If the game isn't already tracked by the user, add its
-        if(!_.contains(ids, gameId))
+        if(!isAlreadyContained)
         {
             pg.connect(process.env.DATABASE_URL, function(err, client, done) {
                 console.log('inserting data!!');

@@ -59,7 +59,7 @@
             <!--Element that contains one tracked game, this is repeated for each tracked game-->
             <li class="list-group-item" ng-repeat="game in trackedGames"
                 ng-class="{'active': $index === selectedTrackedGameIndex}" ng-click="selectActiveGame($index, game);">
-                <div style="display: inline-block; height: 100px; width: 300px;">
+                <div style="display: inline-block; height: 100px; width: 250px;">
                     <h4 class="list-group-item-heading">{[{game.name}]}</h4>
 
                     <!--Release date text-->
@@ -73,15 +73,15 @@
                         <b style="text-decoration: underline">Time to Release</b>
                         <br/>
                         {[{game.ttr.yrs}]}yr. {[{game.ttr.mons}]} mon. {[{game.ttr.days}]} days
-                        {[{game.ttr.hrs}]} hrs. {[{game.ttr.min}]} min.
-                        {[{game.ttr.sec}]} secs.
+                        {[{game.ttr.hrs}]} hr. {[{game.ttr.min}]} min.
+                        {[{game.ttr.sec}]} s.
                     </div>
                 </div>
                 <button style="{[{remStyle + ';margin-left: 10px;'}]}" class="btn btn-danger pull-right"
                         role="button" ng-click="removeTrackedGame(game)">
                     X
                 </button>
-                <div class="panel panel-primary pull-right" style="display: inline">
+                <div class="panel panel-primary pull-right" style="display: inline;">
 
                     <!--Image of the game-->
                     <img ng-src="{[{game.imageLink}]}">
