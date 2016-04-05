@@ -102,6 +102,9 @@ export function getTopTrackedGamesIds(numToGet, handleTopTrackedGames) {
             return game.numTrack;
         });
 
+        //log the array
+        console.log("Top Tracked array Sorted: " + JSON.stringify(cArraySorted));
+
         //Build array to return with only the required number of elements
         var limitedArray = [];
         for (var k = 0; k < numToGet; k++) {
