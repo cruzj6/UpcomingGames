@@ -101,3 +101,7 @@ li.topGamesDiv{
     margin-top: 1px;
     margin-bottom: 1px;
 }
+
+#topGames{
+    background-color: #072039;
+}

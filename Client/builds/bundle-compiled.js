@@ -7,75 +7,16 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     if (installedModules[moduleId]) return installedModules[moduleId].exports;var module = installedModules[moduleId] = { exports: {}, id: moduleId, loaded: !1 };return modules[moduleId].call(module.exports, module, module.exports, __webpack_require__), module.loaded = !0, module.exports;
   }var installedModules = {};return __webpack_require__.m = modules, __webpack_require__.c = installedModules, __webpack_require__.p = "", __webpack_require__(0);
 }([function (module, exports, __webpack_require__) {
-  function getTrackedGames($scope, httpReqService) {
-    setRemoveView($scope, removeMode), httpReqService.getTrackedGames(function (data) {
-      $scope.trackedGames = data.sort(function (a, b) {
-        return compareStrings(a.name, b.name);
-      }), angular.element("#loadingListIcon").remove(), setRemoveView($scope, removeMode);
-    });
-  }function setRemoveView($scope, isRemove) {
-    var removeButtons = document.getElementsByName("removeGameButton");if (isRemove) {
-      for (var i = 0; i < removeButtons.length; i++) {
-        removeButtons[i].style.display = "inline-block";
-      }$scope.remToggleText = "Done";
-    } else {
-      for (var j = 0; j < removeButtons.length; j++) {
-        removeButtons[j].style.display = "none";
-      }$scope.remToggleText = "Remove Games";
-    }
-  }function removeGamesToggle($scope) {
-    removeMode ? (removeMode = !1, $scope.remToggle = removeMode) : (removeMode = !0, $scope.remToggle = removeMode), $scope.remStyle = removeMode ? "display: inline-block" : "display: none";
-  }function ddToggle() {
-    angular.element("#searchGamesButton").dropdown("toggle");
-  }function compareStrings(a, b) {
-    return a = a.toLowerCase(), b = b.toLowerCase(), b > a ? -1 : a > b ? 1 : 0;
-  }var app = angular.module("upcomingGames", []);__webpack_require__(1);var removeMode = !1;app.config(function ($interpolateProvider, $sceDelegateProvider) {
+  var app = angular.module("upcomingGames", []);__webpack_require__(1), __webpack_require__(4), __webpack_require__(5), app.config(function ($interpolateProvider, $sceDelegateProvider) {
     $interpolateProvider.startSymbol("{[{"), $interpolateProvider.endSymbol("}]}"), $sceDelegateProvider.resourceUrlWhitelist(["self", "https://www.youtube.com/**"]);
   }), app.controller("mainCtrl", function (httpReqService, dataService, $interval, $scope, $http) {
-    angular.element(document).ready(function () {
-      $('#news-table a[href="#1"]').tab("show");
-    }), $scope.allFriends = !1, $scope.loadingNews = !1, $scope.loadingMedia = !1, $scope.trackedGames = [], $scope.friends = [], $scope.remToggle = removeMode, $scope.remStyle = "display: none", getTrackedGames($scope, httpReqService), $scope.toggleRes = function () {
-      ddToggle();
-    }, $scope.searchGames = function () {
-      var noResText = document.getElementById("noResultsIndicator");noResText.style.display = "none";var searchInValue = document.getElementById("searchGamesIn").value.trim(),
-          searchingText = document.getElementById("searchingIndicator");searchingText.style.display = "inline-block", httpReqService.searchForGames(searchInValue, function (foundGames) {
-        if (searchingText.style.display = "none", foundGames.length <= 0) {
-          var noResText = document.getElementById("noResultsIndicator");noResText.style.display = "inline-block";
-        } else $scope.searchResults = foundGames;
-      });
-    }, $scope.getGameInfo = function ($index, res) {
-      $scope.selectedTrackedGameIndex = $index, $scope.newsArticles = [], $scope.mediaItems = [], $scope.loadingMedia = !0, $scope.loadingNews = !0, httpReqService.searchForArticles(res.name, function (newsData) {
-        $scope.loadingNews = !1, $scope.newsArticles = newsData;
-      }), httpReqService.searchForMedia(res.name, function (mediaData) {
-        $scope.loadingMedia = !1, $scope.mediaItems = mediaData;
-      });
+    $scope.selectActiveGame = function ($index, res) {
+      $scope.$broadcast("selectedGame", { index: $index, res: res }), $scope.selectedTrackedGameIndex = $index;
     }, $scope.addTrackedGame = function (game) {
       httpReqService.addTrackedGamePost(game.gbGameId, function () {
         getTrackedGames($scope, httpReqService);
       });
-    }, $scope.removeTrackedGame = function (game) {
-      $scope.trackedGames = _.without($scope.trackedGames, game).sort(function (a, b) {
-        return compareStrings(a.name, b.name);
-      }), httpReqService.removeTrackedGamePost(game.gbGameId, function () {
-        getTrackedGames($scope, httpReqService);
-      });
-    }, $scope.toggleRemGames = function () {
-      removeGamesToggle($scope);
-    }, $scope.getTTR = function (relMon, relDay, relYear) {
-      return getTTR(relMon, relDay, relYear);
-    }, $interval(function () {
-      for (var i = 0; i < $scope.trackedGames.length; i++) {
-        var trackedGame = $scope.trackedGames[i];$scope.trackedGames[i].ttr = dataService.getTimeToRelease(trackedGame.releaseMonth, trackedGame.releaseDay, trackedGame.releaseYear);
-      }
-    }, 1e3), httpReqService.getFriendsTrackedGames(function (friendsData) {
-      for (var sortedFriendsGames = friendsData, i = 0; i < sortedFriendsGames.length; i++) {
-        sortedFriendsGames[i].gameData && (sortedFriendsGames[i].gameData = sortedFriendsGames[i].gameData.sort(function (a, b) {
-          return compareStrings(a.name, b.name);
-        }));
-      }$scope.friends = sortedFriendsGames.sort(function (a, b) {
-        return compareStrings(a.userid, b.userid);
-      });
-    }), httpReqService.getTopTrackedGames(function (topTrackedData) {
+    }, httpReqService.getTopTrackedGames(function (topTrackedData) {
       $scope.topGames = topTrackedData;
     });
   });
@@ -223,6 +164,84 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
       return d;
     }), d;
   })(module);
+}, function (module, exports) {
+  function getTrackedGames($scope, httpReqService) {
+    setRemoveView($scope, removeMode), httpReqService.getTrackedGames(function (data) {
+      $scope.trackedGames = data.sort(function (a, b) {
+        return compareStrings(a.name, b.name);
+      }), angular.element("#loadingListIcon").remove(), setRemoveView($scope, removeMode);
+    });
+  }function removeGamesToggle($scope) {
+    removeMode ? (removeMode = !1, $scope.remToggle = removeMode) : (removeMode = !0, $scope.remToggle = removeMode), $scope.remStyle = removeMode ? "display: inline-block" : "display: none";
+  }function ddToggle() {
+    angular.element("#searchGamesButton").dropdown("toggle");
+  }function compareStrings(a, b) {
+    return a = a.toLowerCase(), b = b.toLowerCase(), b > a ? -1 : a > b ? 1 : 0;
+  }function setRemoveView($scope, isRemove) {
+    var removeButtons = document.getElementsByName("removeGameButton");if (isRemove) {
+      for (var i = 0; i < removeButtons.length; i++) {
+        removeButtons[i].style.display = "inline-block";
+      }$scope.remToggleText = "Done";
+    } else {
+      for (var j = 0; j < removeButtons.length; j++) {
+        removeButtons[j].style.display = "none";
+      }$scope.remToggleText = "Remove Games";
+    }
+  }var app = angular.module("upcomingGames"),
+      removeMode = !1;app.controller("usertrackedgames", function ($scope, $interval, dataService, httpReqService) {
+    $scope.trackedGames = [], $scope.remToggle = removeMode, $scope.remStyle = "display: none", getTrackedGames($scope, httpReqService), $scope.toggleRes = function () {
+      ddToggle();
+    }, $scope.searchGames = function () {
+      var noResText = document.getElementById("noResultsIndicator");noResText.style.display = "none";var searchInValue = document.getElementById("searchGamesIn").value.trim(),
+          searchingText = document.getElementById("searchingIndicator");searchingText.style.display = "inline-block", httpReqService.searchForGames(searchInValue, function (foundGames) {
+        if (searchingText.style.display = "none", foundGames.length <= 0) {
+          var noResText = document.getElementById("noResultsIndicator");noResText.style.display = "inline-block";
+        } else $scope.searchResults = foundGames;
+      });
+    }, $scope.removeTrackedGame = function (game) {
+      $scope.trackedGames = _.without($scope.trackedGames, game).sort(function (a, b) {
+        return compareStrings(a.name, b.name);
+      }), httpReqService.removeTrackedGamePost(game.gbGameId, function () {
+        getTrackedGames($scope, httpReqService);
+      });
+    }, $scope.toggleRemGames = function () {
+      removeGamesToggle($scope);
+    }, $scope.getTTR = function (relMon, relDay, relYear) {
+      return getTTR(relMon, relDay, relYear);
+    }, $interval(function () {
+      for (var i = 0; i < $scope.trackedGames.length; i++) {
+        var trackedGame = $scope.trackedGames[i];$scope.trackedGames[i].ttr = dataService.getTimeToRelease(trackedGame.releaseMonth, trackedGame.releaseDay, trackedGame.releaseYear);
+      }
+    }, 1e3);
+  });
+}, function (module, exports) {
+  function compareStrings(a, b) {
+    return a = a.toLowerCase(), b = b.toLowerCase(), b > a ? -1 : a > b ? 1 : 0;
+  }var app = angular.module("upcomingGames");app.controller("newstab", function ($scope, httpReqService) {
+    angular.element(document).ready(function () {
+      $('#news-table a[href="#1"]').tab("show");
+    }), $scope.loadingNews = !1, $scope.newsArticles = [], $scope.$on("selectedGame", function (event, args) {
+      $scope.newsArticles = [], $scope.loadingNews = !0, httpReqService.searchForArticles(args.res.name, function (newsData) {
+        $scope.loadingNews = !1, $scope.newsArticles = newsData;
+      });
+    });
+  }), app.controller("mediatab", function ($scope, httpReqService) {
+    $scope.loadingMedia = !1, $scope.$on("selectedGame", function (event, args) {
+      $scope.mediaItems = [], $scope.loadingMedia = !0, httpReqService.searchForMedia(args.res.name, function (mediaData) {
+        $scope.loadingMedia = !1, $scope.mediaItems = mediaData;
+      });
+    });
+  }), app.controller("friendstrackedgames", function ($scope, httpReqService) {
+    $scope.allFriends = !1, $scope.friends = [], httpReqService.getFriendsTrackedGames(function (friendsData) {
+      for (var sortedFriendsGames = friendsData, i = 0; i < sortedFriendsGames.length; i++) {
+        sortedFriendsGames[i].gameData && (sortedFriendsGames[i].gameData = sortedFriendsGames[i].gameData.sort(function (a, b) {
+          return compareStrings(a.name, b.name);
+        }));
+      }$scope.friends = sortedFriendsGames.sort(function (a, b) {
+        return compareStrings(a.userid, b.userid);
+      });
+    });
+  });
 }]);
 
 //# sourceMappingURL=bundle-compiled.js.map

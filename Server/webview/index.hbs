@@ -62,214 +62,20 @@
         </div>
     </div>
 
-    <!--div style="background-color: #072039; padding-top: 10px;" class="row" id="menubar">
-        <div class="col-md-1"></div>
-        <div class="col-md-10">
-            <div class="navbar navbar-default ">
-                <div class="navbar-header">
-                    Testing
-                </div>
-
-            </div>
-        </div>
-    </div-->
-
-    <!--Main Content-->
+    <!--Tracked games and tabs row-->
     <div class="row" id="mainContent" ng-init="selectedTrackedGameIndex = -1">
         <div class="container">
 
             <!--Box that contains tracked games and searching (On left of page)-->
             <div class="col-md-5">
-                <div class="panel panel-default">
-                    <div class="panel-heading" style="font-size: 24px; font-weight: bold;">Tracked Unreleased Games
-                    </div>
-                    <!--Search Games area-->
-                    <div style="margin-top: 5px; margin-bottom: 5px;" class="dropdown">
-                        <div class="col-md-7">
-                            <form style="display: inline" ng-submit="searchGames(); toggleRes()">
-                                <input class="form-control" id="searchGamesIn" placeholder="Add Game...">
-                            </form>
-                        </div>
-                        <button id="searchGamesButton" class="btn btn-primary-outline" ng-click="searchGames()"
-                                data-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false">Search
-                        </button>
-
-                        <!--Searching indicators-->
-                        <div style="display: none;" id="searchingIndicator">Searching...</div>
-                        <div style="display: none;" id="noResultsIndicator">No Results...</div>
-
-                        <!--Search results dropdown-->
-                        <ul class="dropdown-menu"
-                            aria-labelledby="dLabel"
-                            id="searchRes"
-                            ng-if="searchResults.length > 0"
-                            style="overflow-y: scroll; height: 440px;">
-
-                            <!--Search result item-->
-                            <li class="list-group-item" ng-repeat="res in searchResults">
-                                <div class="row">
-                                    <div class="col-md-8">
-                                        <img height="80" width="80" ng-src="{[{res.imageLink}]}">
-
-                                        <p>{[{res.name}]}</p>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <button name="AddButton" ng-click="addTrackedGame(res)">Add</button>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <!--Contains the tracked games elements-->
-                    <div class="panel panel-default" >
-
-
-                        <!--List of tracked games-->
-                        <div id="loadingListIcon" style="text-align: center">
-                            <div class="col-md-4"></div>
-                            <div class="col-md-4">
-                                <span style="margin-top: 205px" class="glyphicon glyphicon-refresh spinning "></span>
-                            </div>
-                            <div class="col-md-4"></div>
-                        </div>
-
-                        <ul class="list-group"
-                            style="{[{'visibility: ' + (trackedGames ? 'visible' : 'hidden') + ';overflow-y: scroll; display: block; height: 410px;'}]}">
-
-                            <!--Element that contains one tracked game, this is repeated for each tracked game-->
-                            <li class="list-group-item" ng-repeat="game in trackedGames"
-                                ng-class="{'active': $index === selectedTrackedGameIndex}" ng-click="getGameInfo($index, game);">
-                                <div style="display: inline-block; height: 100px; width: 300px;">
-                                    <h4 class="list-group-item-heading">{[{game.name}]}</h4>
-
-                                    <!--Release date text-->
-                                    <div ng-if="game.releaseMonth != null && game.releaseDay != null && game.releaseYear != null">
-
-                                        Release Date:
-                                        {[{game.releaseMonth}]}/{[{game.releaseDay}]}/{[{game.releaseYear}]}
-
-                                        <!--Release countdown-->
-                                        <br/><br/>
-                                        <b style="text-decoration: underline">Time to Release</b>
-                                        <br/>
-                                        {[{game.ttr.yrs}]}yr. {[{game.ttr.mons}]} mon. {[{game.ttr.days}]} days
-                                        {[{game.ttr.hrs}]} hrs. {[{game.ttr.min}]} min.
-                                        {[{game.ttr.sec}]} secs.
-                                    </div>
-                                </div>
-                                <button style="{[{remStyle + ';margin-left: 10px;'}]}" class="btn btn-danger pull-right"
-                                     role="button" ng-click="removeTrackedGame(game)">
-                                    X
-                                </button>
-                                <div class="panel panel-primary pull-right" style="display: inline">
-
-                                    <!--Image of the game-->
-                                    <img ng-src="{[{game.imageLink}]}">
-
-                                </div>
-
-
-                            </li>
-                        </ul>
-                    </div>
-
-
-                    <!--Button that toggles the remove games mode-->
-                    <button style="display: inline; margin-left: 10px; margin-bottom: 10px;" id="removeGamesToggle"
-                            type="button"
-                            class="btn btn-primary-outline" name="removeGamesToggle" ng-click="toggleRemGames()">
-                        {[{remToggle ? "Done" : "Remove Games"}]}
-                    </button>
-
-                </div>
+              <div ng-include="'usertrackedgames/usertrackedgames.html'"></div>
             </div>
             <div class="col-md-1">
             </div>
 
             <!--Tabs area that contains Media, news, etc. when game is selected-->
             <div class="col-md-6" id="gameInfoTabs">
-                <ul class="nav nav-tabs" id="news-table">
-                    <li id="tab1">
-                        <a href="#1" data-toggle="tab">Popular News</a>
-                    </li>
-                    <li>
-                        <a href="#2" data-toggle="tab">Media</a>
-                    </li>
-                    <li>
-                        <a href="#3" data-toggle="tab">Friend's Tracked Games</a>
-                    </li>
-                </ul>
-                <div class="tab-content" style="overflow-y: scroll; height: 500px;">
-                    <!--News tab-->
-                    <div class="tab-pane newsTab" id="1">
-                        <div ng-if="selectedTrackedGameIndex === -1">
-                            <p>Select a tracked game...</p>
-                        </div>
-                        <div id="loadingNewsIcon" ng-if="loadingNews" style="text-align: center">
-                            <div class="col-md-4"></div>
-                            <div class="col-md-4">
-                                <span style="margin-top: 205px" class="glyphicon glyphicon-refresh spinning "></span>
-                            </div>
-                            <div class="col-md-4"></div>
-                        </div>
-                        <ul class="list-group" ng-if="newsArticles">
-
-                            <!--Element for each news article-->
-                            <li id="newsArtLi" ng-repeat="art in newsArticles">
-                                <h4> <a ng-href="{[{art.url}]}" style="font-weight: bold">{[{art.title}]}</a></h4>
-                                <p>Date: {[{art.date.split('T')[0]}]}</p>
-                                <p>{[{art.desc}]}</p>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <!--Media/video tab-->
-                    <div class="tab-pane newsTab" id="2">
-                        <div id="loadingMediaIcon" ng-if="loadingMedia" style="text-align: center">
-                            <div class="col-md-4"></div>
-                            <div class="col-md-4">
-                                <span style="margin-top: 205px" class="glyphicon glyphicon-refresh spinning "></span>
-                            </div>
-                            <div class="col-md-4"></div>
-                        </div>
-                        <ul class="list-group">
-
-                            <!--Element for each Media item-->
-                            <li style="border-bottom: 1px solid black;" ng-if="mediaItems" ng-repeat="media in mediaItems|limitTo:10">
-                                <h4><a ng-href="{[{media.url}]}" style="font-weight: bold">{[{media.title}]}</a></h4>
-                                <iframe title="YouTube video player" class="youtube-player" type="text/html"
-                                        width="400" height="300"
-                                        ng-src="{[{media.url.replace('watch?v=', 'embed/')}]}"
-                                        frameborder="0" allowFullScreen></iframe>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <!--Friend's tracked games tab-->
-                    <div class="tab-pane newsTab" id="3">
-                        <div id="showAllFriends" style="margin-left: 5px;" class="checkbox">
-                            <label>
-                                <input type="checkbox" ng-model="allFriends"> Show All
-                            </label>
-                        </div>
-                        <div class="panel panel-primary" style="max-height: 500px;" ng-repeat="friend in friends"
-                            ng-if="friend.gameData.length > 0 || allFriends">
-                            <div class="panel-heading">
-                                <img style="border: 1px solid white; border-radius: 3px; display: inline;" ng-src="{[{friend.avatar}]}"/>
-                                {[{friend.userid}]} | Tracking {[{friend.gameData.length}]} Games</div>
-                            <ul class="list-group" style="max-height: 300px; overflow-y: scroll;">
-
-                                <!--Each game friend is tracking-->
-                                <li class="list-group-item" ng-repeat="game in friend.gameData">
-                                    <img style="display: inline; margin-right: 50px;" ng-src="{[{game.imageLink}]}"/>
-                                    <h4 style="display: inline;">{[{game.name}]}</h4>
-                                    <button class="btn btn-primary-outline pull-right" style="display: inline;" ng-click="addTrackedGame(game)">Add</button>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
+                <div ng-include="'/tabbedcontent/tabbedcontent.html'"></div>
                 </div>
             </div>
         </div>
@@ -293,7 +99,7 @@
     </div>
 
     <!--Contributions, and references footer-->
-    <div style="border-top: 2px solid; border-color: white; color: grey; background-color:#072039; font-size: 11px;margin-top: 50px;"
+    <div style="border-top: 2px solid; border-color: white; color: grey; background-color:#072039; font-size: 11px;"
          class="row" name="footerRow">
         <div class="col-md-2"></div>
         <div class="col-md-8">
