@@ -98,14 +98,14 @@ export function getTopTrackedGamesIds(numToGet, handleTopTrackedGames) {
         }
 
         //Now get the most occuring games
-        _.sortBy(countArray, function (game) {
+        var cArraySorted = _.sortBy(countArray, function (game) {
             return game.numTrack;
         });
 
         //Build array to return with only the required number of elements
         var limitedArray = [];
         for (var k = 0; k < numToGet; k++) {
-            limitedArray.push(countArray[k]);
+            limitedArray.push(cArraySorted[k]);
         }
 
         //Finally return our data
