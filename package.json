@@ -1,7 +1,7 @@
 {
   "name": "ucgames",
   "version": "1.0.0",
-  "main": "main.js",
+  "main": "server/main.js",
   "scripts": {
     "postinstall": "./node_modules/.bin/webpack",
     "start": "node server/main.js",
