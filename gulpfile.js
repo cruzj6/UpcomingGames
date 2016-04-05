@@ -1,6 +1,7 @@
 var gulp = require('gulp');
 var webpack = require('webpack-stream');
 const babel = require('gulp-babel');
+const runsequence = require('run-sequence');
 
 gulp.task('default', function(){
     return gulp.src('client/views/index.js')

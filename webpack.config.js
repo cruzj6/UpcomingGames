@@ -1,10 +1,13 @@
 var webpack = require('webpack');
 
 module.exports = {
-    entry: "./client/views/index.js",
+    entry: {
+        maintracker: "./client/views/index.js",
+        welcomepage: "./client/views/welcomepage.js"
+    },
     output: {
         path: __dirname + "/client/builds",
-        filename: "bundle.js"
+        filename: "[name].bundle.js"
     },
 
     module: {
