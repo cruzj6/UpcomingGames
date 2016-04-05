@@ -107,7 +107,7 @@ export function getTopTrackedGamesIds(numToGet, handleTopTrackedGames) {
 
         //Build array to return with only the required number of elements
         var limitedArray = [];
-        for (var k = 0; k < numToGet; k++) {
+        for (var k = cArraySorted.length; k >  cArraySorted - numToGet; k--) {
             limitedArray.push(cArraySorted[k]);
         }
 
