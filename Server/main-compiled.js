@@ -34,13 +34,13 @@ app.use(bodyparser.json());
 //Public Static Resources
 app.use(express.static(path.join(__dirname, '../client/views')));
 app.use(express.static(path.join(__dirname, '../client/builds')));
-app.use(express.static(path.join(__dirname, '../client/Style')));
+app.use(express.static(path.join(__dirname, '../client/style')));
 
 //Set up handlebars view engine
 app.set('views', path.join(__dirname, '/webview'));
 app.engine('hbs', exphbs({ defaultLayout: 'main',
     extname: '.hbs',
-    layoutsDir: path.join(__dirname, '/WebView/layouts')
+    layoutsDir: path.join(__dirname, '/webview/layouts')
 }));
 app.set('view engine', 'hbs');
 

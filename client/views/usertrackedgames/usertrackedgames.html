@@ -1,0 +1,102 @@
+<div class="panel panel-default" ng-controller="usertrackedgames">
+    <div class="panel-heading" style="font-size: 24px; font-weight: bold;">Tracked Unreleased Games
+    </div>
+    <!--Search Games area-->
+    <div style="margin-top: 5px; margin-bottom: 5px;" class="dropdown">
+        <div class="col-md-7">
+            <form style="display: inline" ng-submit="searchGames(); toggleRes()">
+                <input class="form-control" id="searchGamesIn" placeholder="Add Game...">
+            </form>
+        </div>
+        <button id="searchGamesButton" class="btn btn-primary-outline" ng-click="searchGames()"
+                data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">Search
+        </button>
+
+        <!--Searching indicators-->
+        <div style="display: none;" id="searchingIndicator">Searching...</div>
+        <div style="display: none;" id="noResultsIndicator">No Results...</div>
+
+        <!--Search results dropdown-->
+        <ul class="dropdown-menu"
+            aria-labelledby="dLabel"
+            id="searchRes"
+            ng-if="searchResults.length > 0"
+            style="overflow-y: scroll; height: 440px;">
+
+            <!--Search result item-->
+            <li class="list-group-item" ng-repeat="res in searchResults">
+                <div class="row">
+                    <div class="col-md-8">
+                        <img height="80" width="80" ng-src="{[{res.imageLink}]}">
+
+                        <p>{[{res.name}]}</p>
+                    </div>
+                    <div class="col-md-4">
+                        <button name="AddButton" ng-click="addTrackedGame(res)">Add</button>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <!--Contains the tracked games elements-->
+    <div class="panel panel-default" >
+
+
+        <!--List of tracked games-->
+        <div id="loadingListIcon" style="text-align: center">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <span style="margin-top: 205px" class="glyphicon glyphicon-refresh spinning "></span>
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+
+        <ul class="list-group"
+            style="{[{'visibility: ' + (trackedGames ? 'visible' : 'hidden') + ';overflow-y: scroll; display: block; height: 410px;'}]}">
+
+            <!--Element that contains one tracked game, this is repeated for each tracked game-->
+            <li class="list-group-item" ng-repeat="game in trackedGames"
+                ng-class="{'active': $index === selectedTrackedGameIndex}" ng-click="selectActiveGame($index, game);">
+                <div style="display: inline-block; height: 100px; width: 300px;">
+                    <h4 class="list-group-item-heading">{[{game.name}]}</h4>
+
+                    <!--Release date text-->
+                    <div ng-if="game.releaseMonth != null && game.releaseDay != null && game.releaseYear != null">
+
+                        Release Date:
+                        {[{game.releaseMonth}]}/{[{game.releaseDay}]}/{[{game.releaseYear}]}
+
+                        <!--Release countdown-->
+                        <br/><br/>
+                        <b style="text-decoration: underline">Time to Release</b>
+                        <br/>
+                        {[{game.ttr.yrs}]}yr. {[{game.ttr.mons}]} mon. {[{game.ttr.days}]} days
+                        {[{game.ttr.hrs}]} hrs. {[{game.ttr.min}]} min.
+                        {[{game.ttr.sec}]} secs.
+                    </div>
+                </div>
+                <button style="{[{remStyle + ';margin-left: 10px;'}]}" class="btn btn-danger pull-right"
+                        role="button" ng-click="removeTrackedGame(game)">
+                    X
+                </button>
+                <div class="panel panel-primary pull-right" style="display: inline">
+
+                    <!--Image of the game-->
+                    <img ng-src="{[{game.imageLink}]}">
+
+                </div>
+            </li>
+        </ul>
+    </div>
+
+
+    <!--Button that toggles the remove games mode-->
+    <button style="display: inline; margin-left: 10px; margin-bottom: 10px;" id="removeGamesToggle"
+            type="button"
+            class="btn btn-primary-outline" name="removeGamesToggle" ng-click="toggleRemGames()">
+        {[{remToggle ? "Done" : "Remove Games"}]}
+    </button>
+
+</div>
