@@ -37,7 +37,7 @@ app.use(express.static(path.join(__dirname, '../client/builds')));
 app.use(express.static(path.join(__dirname, '../client/Style')));
 
 //Set up handlebars view engine
-app.set('views', path.join(__dirname, '/WebView'));
+app.set('views', path.join(__dirname, '/webview'));
 app.engine('hbs', exphbs({ defaultLayout: 'main',
     extname: '.hbs',
     layoutsDir: path.join(__dirname, '/WebView/layouts')
