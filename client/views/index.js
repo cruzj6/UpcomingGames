@@ -33,7 +33,7 @@ app.controller('mainCtrl', function(httpReqService, dataService, $interval, $sco
     {
         //Use giantbomb game id
         httpReqService.addTrackedGamePost(game.gbGameId, function(){
-            getTrackedGames($scope, httpReqService);
+            $scope.$broadcast('trackedGamesChange', {});
         });
     };
 

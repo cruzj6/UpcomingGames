@@ -50,7 +50,7 @@ app.controller('usertrackedgames', function($scope, $interval, dataService, http
             return compareStrings(a.name, b.name);
         });
         httpReqService.removeTrackedGamePost(game.gbGameId, function(){
-            getTrackedGames($scope, httpReqService);
+            $scope.$emit('trackedGamesChange', {});
         });
     };
 
@@ -72,6 +72,12 @@ app.controller('usertrackedgames', function($scope, $interval, dataService, http
                 dataService.getTimeToRelease(trackedGame.releaseMonth, trackedGame.releaseDay, trackedGame.releaseYear);
         }
     }, 1000);
+
+    //When tracked games changes are posted to the server
+    $scope.$on('trackedGamesChange', function(event, args)
+    {
+        getTrackedGames($scope, httpReqService);
+    });
 
 });
 
