@@ -64,10 +64,18 @@ body {
   font-weight: bold;
   text-decoration: underline; }
 
-.panel {
+.panel-primary {
   border: 2px solid #343434; }
 
-.panel > .panel-heading {
+.panel-primary > .panel-heading {
+  background-image: none;
+  background-color: white;
+  color: black; }
+
+.panel-default {
+  border: 2px solid #343434; }
+
+.panel-default > .panel-heading {
   background-image: none;
   background-color: #0f68ae;
   color: white; }
@@ -131,7 +139,7 @@ body {
   color: white;
   background-color: #0f68ae; }
 
-#topGames {
+.topGames {
   background-color: #072039; }
 
 .btn {

@@ -48,11 +48,22 @@ body{
     text-decoration: underline
 }
 
-.panel{
+.panel-primary{
     border: 2px solid $ui-black-light;
 }
 
-.panel > .panel-heading {
+.panel-primary > .panel-heading {
+    background-image: none;
+    background-color: white;
+    color: black;
+
+}
+
+.panel-default{
+    border: 2px solid $ui-black-light;
+}
+
+.panel-default > .panel-heading {
     background-image: none;
     background-color: $ui-color-blue;
     color: white;
@@ -137,7 +148,7 @@ body{
     background-color: $ui-color-blue;
 }
 
-#topGames{
+.topGames{
     background-color: #072039;
 }
 

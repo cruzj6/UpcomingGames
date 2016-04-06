@@ -19,7 +19,7 @@
     <link rel="stylesheet" type="text/css" href="MainAppStyle.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Lato">
-
+    <link rel="stylesheet" type="text/css" href="animate.css">
 
 </head>
 <body>
@@ -79,7 +79,7 @@
 
             <!--Tabs area that contains Media, news, etc. when game is selected-->
             <div class="col-md-6" >
-                <div class="panel panel-default" style="height: 600px;">
+                <div class="panel panel-primary" style="height: 600px;">
                         <div class="panel-heading" style="font-size: 24px; font-weight: bold;">
                             <i class="fa fa-newspaper-o"></i> Tracked Games Info
                         </div>
@@ -90,22 +90,7 @@
         </div>
 
     <!--Top Games Row of data-->
-    <div class="row" id="topGames" style="padding-bottom: 50px;">
-        <div class="col-md-2"></div>
-        <div class="col-md-8">
-            <h1 style="color: white;"><i class="fa fa-list-ol"></i> Top Tracked Games</h1>
-            <ul class="list-inline">
-                <li ng-repeat="game in topGames" class="topGamesDiv panel panel-default">
-                    <div ng-init="num = $index + 1">
-                        <p align="center" style="height: 50px;">{[{game.name}]}</p>
-                        <img ng-src="{[{game.imageLink}]}">
-                        <button class="btn btn-primary-outline pull-right" style="display: inline;" ng-click="addTrackedGame(game)">Add</button>
-                    </div>
-                </li>
-            </ul>
-        </div>
-        <div class="col-md-2"></div>
-    </div>
+    <div ng-include="'/toptrackedgames/toptrackedgames.html'"></div>
 
     <!--Contributions, and references footer-->
     <div style="border-top: 2px solid; border-color: white; color: grey; background-color:#072039; font-size: 11px;"

@@ -1,0 +1,36 @@
+<div ng-controller="toptrackedgames">
+<div class="row topGames">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <h1 style="color: white;"><i class="fa fa-list-ol"></i> Top Tracked Games</h1>
+        <ul class="list-inline">
+            <li ng-repeat="game in topGames" class="topGamesDiv panel panel-default">
+                <div ng-init="num = $index + 1">
+                    <p align="center" style="height: 50px;">{[{game.name}]}</p>
+                    <img ng-src="{[{game.imageLink}]}">
+                    <button class="btn btn-primary-outline pull-right" style="display: inline;" ng-click="addTrackedGame(game)">Add</button>
+                </div>
+            </li>
+        </ul>
+
+
+    </div>
+    <div class="col-md-2"></div>
+</div>
+
+<!--Extended tracked games-->
+<div class="row topGames">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <button  class="btn btn-default center-block" ng-click="showMoreTop()" style="margin-top: 20px; margin-bottom: 20px;">
+            <i ng-class="showExtraTop? 'fa fa-caret-square-o-up' : 'fa fa-caret-square-o-down'"></i>
+            {[{showExtraTop? 'Less' : 'More'}]} Top Games...
+        </button>
+        <div id="testSlideIn" ng-if="showExtraTop" ng-class="showExtraTop? 'animated fadeIn': 'animated fadeOut'"
+             style="height: 500px; background-color: green;">
+        </div>
+    </div>
+    <div class="col-md-2"></div>
+
+</div>
+</div>

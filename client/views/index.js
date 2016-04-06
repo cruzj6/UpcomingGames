@@ -8,7 +8,7 @@ var app = angular.module('upcomingGames', []);
 require('../services/httpRequestService.js');
 require('../views/usertrackedgames/usertrackedgamescontroller.js');
 require('../views/tabbedcontent/tabbedcontentcontroller.js');
-
+require('../views/toptrackedgames/toptrackedgamescontroller.js');
 app.config(function($interpolateProvider, $sceDelegateProvider) {
     $interpolateProvider.startSymbol('{[{');
     $interpolateProvider.endSymbol('}]}');
@@ -37,10 +37,7 @@ app.controller('mainCtrl', function(httpReqService, dataService, $interval, $sco
         });
     };
 
-    httpReqService.getTopTrackedGames(function(topTrackedData)
-    {
-        $scope.topGames = topTrackedData;
-    });
+
 });
 
 function compareStrings(a, b) {

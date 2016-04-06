@@ -141,6 +141,6 @@ function setRemoveView($scope, isRemove)
             removeButtons[j].style.display = "none";
         }
         //Set the button text
-        $scope.remToggleText = "Remove Games"
+        $scope.remToggleText = "Remove Games";
     }
 }
