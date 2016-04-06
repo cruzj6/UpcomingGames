@@ -1,5 +1,5 @@
 <div ng-controller="toptrackedgames">
-<div class="row topGames">
+<!--div class="row topGames"-->
     <div class="col-md-2"></div>
     <div class="col-md-8">
         <h1 style="color: white;"><i class="fa fa-list-ol"></i> Top Tracked Games</h1>
@@ -12,11 +12,9 @@
                 </div>
             </li>
         </ul>
-
-
     </div>
     <div class="col-md-2"></div>
-</div>
+
 
 <!--Extended tracked games-->
 <div class="row topGames">
@@ -27,10 +25,11 @@
             {[{showExtraTop? 'Less' : 'More'}]} Top Games...
         </button>
         <div id="testSlideIn" ng-if="showExtraTop" ng-class="showExtraTop? 'animated fadeIn': 'animated fadeOut'"
-             style="height: 500px; background-color: green;">
+             style="height: 300px; background-color: green;">
         </div>
     </div>
     <div class="col-md-2"></div>
 
-</div>
+<!--/div-->
+    </div>
 </div>

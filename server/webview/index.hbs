@@ -29,13 +29,6 @@
 <script src="underscore.js"></script>
 <script src="countdown.min.js"></script>
 
-<!--TODO: debug scripts, get rid of these in production-->
-<!--script src="index.js"></script>
-<script src="httpRequestService.js"></script>
-<script src="countdown.min.js"></script>
-<script src="datamanagerservice.js"></script-->
-
-
 <!--Non-Debug/ For Production-->
 <script src="maintracker.bundle.js"></script>
 
@@ -67,30 +60,47 @@
     </div>
 
     <!--Tracked games and tabs row-->
-    <div class="row" id="mainContent" ng-init="selectedTrackedGameIndex = -1">
-        <div class="container">
-
-            <!--Box that contains tracked games and searching (On left of page)-->
-            <div class="col-md-5">
-              <div ng-include="'usertrackedgames/usertrackedgames.html'"></div>
-            </div>
-            <div class="col-md-1">
-            </div>
-
-            <!--Tabs area that contains Media, news, etc. when game is selected-->
-            <div class="col-md-6" >
-                <div class="panel panel-primary" style="height: 600px;">
-                        <div class="panel-heading" style="font-size: 24px; font-weight: bold;">
-                            <i class="fa fa-newspaper-o"></i> Tracked Games Info
-                        </div>
-                        <div ng-include="'/tabbedcontent/tabbedcontent.html'"></div>
-                    </div>
+    <div class="row" id="mainContent" ng-init="selectedTrackedGameIndex = -1" >
+        <div class="col-md-1">
+            <button ng-if="curViewIndex > 0" ng-click="slideLeft()" class="btn btn-default pull-left"
+                    style="margin-left: 30px; margin-bottom: 20px; height: 600px">
+                <i class="fa fa-chevron-left"></i>
+            </button>
+        </div>
+        <div class="col-md-10" style="height: 600px;">
+        <div  ng-class="(curView === 'usrTracked') ? 'animated slideInLeft' : 'animated slideOutLeft'"
+              ng-hide="curView != 'usrTracked'">
+            
+                <!--Box that contains tracked games and searching (On left of page)-->
+                <div class="col-md-5">
+                  <div ng-include="'usertrackedgames/usertrackedgames.html'"></div>
                 </div>
-            </div>
+                <div class="col-md-1">
+                </div>
+
+                <!--Tabs area that contains Media, news, etc. when game is selected-->
+                <div class="col-md-6" >
+                    <div class="panel panel-primary" style="height: 600px;">
+                            <div class="panel-heading" style="font-size: 24px; font-weight: bold;">
+                                <i class="fa fa-newspaper-o"></i> Tracked Games Info
+                            </div>
+                            <div ng-include="'/tabbedcontent/tabbedcontent.html'"></div>
+                        </div>
+                    </div>
+
+        </div>
+            <!--Top Games Row of data-->
+            <div ng-hide="curView != 'topTracked'" ng-include="'/toptrackedgames/toptrackedgames.html'"
+                 ng-class="(curView === 'topTracked') ? 'animated slideInRight' : 'animated slideOutRight'"></div>
         </div>
 
-    <!--Top Games Row of data-->
-    <div ng-include="'/toptrackedgames/toptrackedgames.html'"></div>
+        <div class="col-md-1">
+            <button ng-if="(curViewIndex < views.length - 1)" ng-click="slideRight()" class="btn btn-default pull-right"
+                    style="height: 600px; margin-bottom: 20px; margin-right: 10px;">
+                <i class="fa fa-chevron-right"></i>
+            </button>
+        </div>
+    </div>
 
     <!--Contributions, and references footer-->
     <div style="border-top: 2px solid; border-color: white; color: grey; background-color:#072039; font-size: 11px;"

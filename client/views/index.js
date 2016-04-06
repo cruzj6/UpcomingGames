@@ -20,6 +20,11 @@ app.config(function($interpolateProvider, $sceDelegateProvider) {
 
 app.controller('mainCtrl', function(httpReqService, dataService, $interval, $scope, $http){
 
+
+    $scope.views = ["usrTracked", "topTracked"];
+    $scope.curViewIndex = 0;
+    $scope.curView = $scope.views[$scope.curViewIndex];
+
     //When user selects a game from their tracked games list
     $scope.selectActiveGame = function($index, res){
         $scope.$broadcast('selectedGame', {index: $index, res: res});
@@ -36,6 +41,16 @@ app.controller('mainCtrl', function(httpReqService, dataService, $interval, $sco
             $scope.$broadcast('trackedGamesChange', {});
         });
     };
+
+    $scope.slideRight = function()
+    {
+        $scope.curView = $scope.views[++$scope.curViewIndex];
+    };
+
+    $scope.slideLeft = function()
+    {
+        $scope.curView = $scope.views[--$scope.curViewIndex];
+    }
 
 
 });
