@@ -1,21 +1,23 @@
-<div class="panel panel-default" ng-controller="usertrackedgames">
-    <div class="panel-heading" style="font-size: 24px; font-weight: bold;">Tracked Unreleased Games
+<div class="panel panel-default trackedGamesPanel" ng-controller="usertrackedgames">
+    <div class="panel-heading" style="font-size: 24px; font-weight: bold;">
+        <i class="fa fa-gamepad fa-2x"></i> Tracked Unreleased Games
     </div>
     <!--Search Games area-->
     <div style="margin-top: 5px; margin-bottom: 5px;" class="dropdown">
         <div class="col-md-7">
-            <form style="display: inline" ng-submit="searchGames(); toggleRes()">
+            <div style="margin-top: 4px;"></div>
+            <form style="display: inline; " ng-submit="searchGames(); toggleRes()">
                 <input class="form-control" id="searchGamesIn" placeholder="Add Game...">
             </form>
         </div>
-        <button id="searchGamesButton" class="btn btn-primary-outline" ng-click="searchGames()"
+        <button id="searchGamesButton" class="btn btn-default" style="margin-bottom: 5px; margin-top: 5px;" ng-click="searchGames()"
                 data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">Search
+                aria-haspopup="true" aria-expanded="false"><i class="fa fa-search"></i>
         </button>
 
         <!--Searching indicators-->
-        <div style="display: none;" id="searchingIndicator">Searching...</div>
-        <div style="display: none;" id="noResultsIndicator">No Results...</div>
+        <div style="display: none; color: white;" id="searchingIndicator">Searching...</div>
+        <div style="display: none; color: white;" id="noResultsIndicator">No Results...</div>
 
         <!--Search results dropdown-->
         <ul class="dropdown-menu"
@@ -41,8 +43,7 @@
     </div>
 
     <!--Contains the tracked games elements-->
-    <div class="panel panel-default" >
-
+    <div class="panel panel-default" style="border-top: 2px; border-bottom: 2px; border-left: 0px; border-right: 0px; background-color: #343434;">
 
         <!--List of tracked games-->
         <div id="loadingListIcon" style="text-align: center">
@@ -54,12 +55,14 @@
         </div>
 
         <ul class="list-group"
-            style="{[{'visibility: ' + (trackedGames ? 'visible' : 'hidden') + ';overflow-y: scroll; display: block; height: 410px;'}]}">
+            style="{[{'visibility: ' + (trackedGames ? 'visible' : 'hidden') + ';overflow-y: scroll; border: 0px; display: block; height: 410px;'}]}">
 
             <!--Element that contains one tracked game, this is repeated for each tracked game-->
-            <li class="list-group-item" ng-repeat="game in trackedGames"
+            <li class="list-group-item trackedGame" ng-repeat="game in trackedGames"
                 ng-class="{'active': $index === selectedTrackedGameIndex}" ng-click="selectActiveGame($index, game);">
-                <div style="display: inline-block; height: 100px; width: 250px;">
+                <div style="    display: inline-block;
+                                height: 100px;
+                                width: 250px;">
                     <h4 class="list-group-item-heading">{[{game.name}]}</h4>
 
                     <!--Release date text-->
@@ -95,8 +98,8 @@
     <!--Button that toggles the remove games mode-->
     <button style="display: inline; margin-left: 10px; margin-bottom: 10px;" id="removeGamesToggle"
             type="button"
-            class="btn btn-primary-outline" name="removeGamesToggle" ng-click="toggleRemGames()">
-        {[{remToggle ? "Done" : "Remove Games"}]}
+            class="btn btn-default" name="removeGamesToggle" ng-click="toggleRemGames()">
+        <i class="fa fa-trash-o fa-fw"></i> {[{remToggle ? "Done" : "Remove Games"}]}
     </button>
 
 </div>

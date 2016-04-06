@@ -28,6 +28,7 @@
     "express-handlebars": "^3.0.0",
     "express-session": "^1.13.0",
     "gulp-babel": "^6.1.2",
+    "gulp-sass": "^2.2.0",
     "node-bing-api": "^2.3.0",
     "passport": "^0.3.2",
     "passport-steam": "^1.0.1",

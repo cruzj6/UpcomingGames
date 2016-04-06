@@ -17,6 +17,10 @@
 
     <!--Import our stylesheets-->
     <link rel="stylesheet" type="text/css" href="MainAppStyle.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Lato">
+
+
 </head>
 <body>
 
@@ -40,7 +44,7 @@
     <div class="container">
         <div class="row">
         </div>
-        <div class="row" style="color: black">
+        <div class="row headingRow" id="headingRow">
             <div class="col-md-3">
                 <img style="height: 100px" src="LogoLarge.png"/>
             </div>
@@ -50,7 +54,7 @@
             <!--Logged in user information and service used to authenticate-->
             <div class="col-md-3 rounded pull-down">
                 <div class="panel panel-default" style="margin-top: 10px;vertical-align: bottom;">
-                    <div align="right"><b>Signed in with:</b>
+                    <div align="right"><i class="fa fa-user fa-2x pull-left" style="margin-top: 5px;margin-left: 15px;"></i>   <b>Signed in with:</b>
                         <img class="loginService"
                              src="http://store.akamai.steamstatic.com/public/shared/images/header/globalheader_logo.png">
                     </div>
@@ -74,8 +78,13 @@
             </div>
 
             <!--Tabs area that contains Media, news, etc. when game is selected-->
-            <div class="col-md-6" id="gameInfoTabs">
-                <div ng-include="'/tabbedcontent/tabbedcontent.html'"></div>
+            <div class="col-md-6" >
+                <div class="panel panel-default" style="height: 600px;">
+                        <div class="panel-heading" style="font-size: 24px; font-weight: bold;">
+                            <i class="fa fa-newspaper-o"></i> Tracked Games Info
+                        </div>
+                        <div ng-include="'/tabbedcontent/tabbedcontent.html'"></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -84,7 +93,7 @@
     <div class="row" id="topGames" style="padding-bottom: 50px;">
         <div class="col-md-2"></div>
         <div class="col-md-8">
-            <h1 style="color: white;">Top Tracked Games</h1>
+            <h1 style="color: white;"><i class="fa fa-list-ol"></i> Top Tracked Games</h1>
             <ul class="list-inline">
                 <li ng-repeat="game in topGames" class="topGamesDiv panel panel-default">
                     <div ng-init="num = $index + 1">

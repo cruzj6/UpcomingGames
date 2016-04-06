@@ -1,0 +1,184 @@
+$ui-color-blue: #0f68ae;
+$ui-color-blue-hover: #3d9cf8;
+$remove-color: red;
+$ui-black: #262626;
+$ui-black-light: #343434;
+
+#mainContent{
+    padding-top: 25px;
+    background-color: #072039;
+}
+
+img.loginService{
+    background-color: black; width:100px;padding:10px;
+}
+body{
+    font-family: 'Lato', serif;
+}
+
+.nav-tabs { border-bottom: 2px solid #DDD; }
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover { border-width: 0; }
+.nav-tabs > li > a { border: none; color: #666; }
+.nav-tabs > li.active > a, .nav-tabs > li > a:hover { border: none; color: #4285F4 !important; background: transparent; }
+.nav-tabs > li > a::after { content: ""; background: #4285F4; height: 2px; position: absolute; width: 100%; left: 0px; bottom: -1px; transition: all 250ms ease 0s; transform: scale(0); }
+.nav-tabs > li.active > a::after, .nav-tabs > li:hover > a::after { transform: scale(1); }
+
+.card {background: #FFF none repeat scroll 0% 0%; box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3); margin-bottom: 30px; }
+
+#trackedGamesBox{
+    border-color: black;
+    border: 2px solid;
+    border-radius: 3px;
+    background-color: lightslategray;
+    height: 580px;
+}
+
+#gameInfoTabs{
+    padding-top: 3px;
+    border: 2px solid black;
+    border-radius: 4px;
+    background-color: white;
+    height: 580px;
+}
+
+#logout{
+    float:right;
+    color: white;
+    font-weight: bold;
+    text-decoration: underline
+}
+
+.panel{
+    border: 2px solid $ui-black-light;
+}
+
+.panel > .panel-heading {
+    background-image: none;
+    background-color: $ui-color-blue;
+    color: white;
+
+}
+
+.btn-default{
+    background-color: $ui-color-blue;
+    color: white;
+}
+.btn-default:hover
+{
+    background-color: $ui-color-blue-hover;
+    color: white;
+}
+
+.btn-primary-outline:hover{
+    background-color: #262626;
+    color: rgba(194, 188, 218, 0.96)
+}
+
+.btn-primary-outline{
+    background-color: $ui-black-light;
+    color: white;
+}
+
+.navbar-default{
+    background-color: #262626;
+    color: white;
+}
+
+.list-group-item.active:hover{
+    background-color: rgba(53, 53, 54, 0.67);
+}
+
+.list-group-item:hover{
+    background-color: $ui-color-blue-hover;
+}
+
+.list-group-item.active{
+    background-color: rgba(53, 53, 54, 0.67);
+}
+
+.glyphicon.spinning {
+    animation: spin 1s infinite linear;
+    -webkit-animation: spin2 1s infinite linear;
+}
+
+@keyframes spin {
+    from { transform: scale(1) rotate(0deg); }
+    to { transform: scale(1) rotate(360deg); }
+}
+
+@-webkit-keyframes spin2 {
+    from { -webkit-transform: rotate(0deg); }
+    to { -webkit-transform: rotate(360deg); }
+}
+
+#newsArtLi{
+    border-bottom: 1px solid black;
+}
+
+#news-table{
+
+}
+
+#gameInfoTabs{
+}
+
+.newsTab{
+}
+
+.topGamesDiv {
+        float: left;
+        width: 170px;
+        height: 170px;
+        margin-left: 1px;
+        margin-top: 1px;
+        margin-bottom: 1px;
+    border: 3px solid $ui-black;
+    color: white;
+    background-color: $ui-color-blue;
+}
+
+#topGames{
+    background-color: #072039;
+}
+
+.btn {
+    border: 0;
+    border-bottom: 0;
+    border-left: 0;
+    box-shadow: inset 0 -3.2px rgba(0, 0, 0, 0.12), inset 2px 0 rgba(0, 0, 0, 0.1);
+    outline: none;
+    -webkit-outline: none;
+    -o-outline: none;
+    -moz-outline: none;
+}
+.btn:active, .btn.active {
+    outline: none;
+    -moz-outline: none;
+    background-image: none;
+    -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125) !important;
+    position: relative;
+    box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125) !important;
+    top: 1px;
+    left: -1px;
+}
+.btn:focus {
+    outline: none;
+    -webkit-outline: none;
+    -moz-outline: none;
+}
+.btn-sm {
+    padding-top: 1.5px;
+}
+
+.headingRow{
+    background-color: white;
+}
+.trackedGame{
+    background-color: $ui-color-blue;
+    color: white;
+    border: 3px solid $ui-black-light;
+}
+
+.trackedGamesPanel{
+    background-color: $ui-black-light;
+}
