@@ -136,7 +136,11 @@ app.factory('httpReqService', function($http, $sce){
         },
         getTopTrackedGames: function(topTrackedHanler)
         {
-            $http.get('/info/toptracked').then(function(resp)
+            $http.get('/info/toptracked', {
+                params: {
+                    number: 8
+                }
+            }).then(function(resp)
             {
                 topTrackedHanler(resp.data);
             });

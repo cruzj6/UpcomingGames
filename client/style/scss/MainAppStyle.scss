@@ -96,7 +96,7 @@ body{
 }
 
 .list-group-item.active:hover{
-    background-color: rgba(53, 53, 54, 0.67);
+    background-color: #009cd1;
 }
 
 .list-group-item:hover{
@@ -104,7 +104,7 @@ body{
 }
 
 .list-group-item.active{
-    background-color: rgba(53, 53, 54, 0.67);
+    background-color: #009cd1;
 }
 
 .glyphicon.spinning {
@@ -192,4 +192,17 @@ body{
 
 .trackedGamesPanel{
     background-color: $ui-black-light;
+}
+
+.slideInAnim.ng-hide-add {
+    animation: fadeOut 0.5s;
+}
+
+.slideInAnim.ng-hide-remove {
+    animation: fadeIn 0.5s;
+}
+
+#searchResItem{
+    background-color: $ui-black-light;
+    color: whitesmoke;
 }

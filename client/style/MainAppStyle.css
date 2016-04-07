@@ -101,13 +101,13 @@ body {
   color: white; }
 
 .list-group-item.active:hover {
-  background-color: rgba(53, 53, 54, 0.67); }
+  background-color: #009cd1; }
 
 .list-group-item:hover {
   background-color: #3d9cf8; }
 
 .list-group-item.active {
-  background-color: rgba(53, 53, 54, 0.67); }
+  background-color: #009cd1; }
 
 .glyphicon.spinning {
   animation: spin 1s infinite linear;
@@ -180,3 +180,13 @@ body {
 
 .trackedGamesPanel {
   background-color: #343434; }
+
+.slideInAnim.ng-hide-add {
+  animation: fadeOut 0.5s; }
+
+.slideInAnim.ng-hide-remove {
+  animation: fadeIn 0.5s; }
+
+#searchResItem {
+  background-color: #343434;
+  color: whitesmoke; }

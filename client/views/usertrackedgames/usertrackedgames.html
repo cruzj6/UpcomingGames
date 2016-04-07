@@ -24,18 +24,18 @@
             aria-labelledby="dLabel"
             id="searchRes"
             ng-if="searchResults.length > 0"
-            style="overflow-y: scroll; height: 440px;">
+            style="overflow-y: scroll; height: 440px; width: 350px;">
 
             <!--Search result item-->
-            <li class="list-group-item" ng-repeat="res in searchResults">
+            <li id="searchResItem" class="list-group-item" ng-repeat="res in searchResults">
                 <div class="row">
                     <div class="col-md-8">
                         <img height="80" width="80" ng-src="{[{res.imageLink}]}">
 
-                        <p>{[{res.name}]}</p>
+                        <p style="padding-top: 5px;">{[{res.name}]}</p>
                     </div>
                     <div class="col-md-4">
-                        <button name="AddButton" ng-click="addTrackedGame(res)">Add</button>
+                        <button class="btn btn-primary" name="AddButton" ng-click="addTrackedGame(res)">Add</button>
                     </div>
                 </div>
             </li>
@@ -49,7 +49,7 @@
         <div id="loadingListIcon" style="text-align: center">
             <div class="col-md-4"></div>
             <div class="col-md-4">
-                <span style="margin-top: 205px" class="glyphicon glyphicon-refresh spinning "></span>
+                <span style="margin-top: 205px; color: white;" class="glyphicon glyphicon-refresh spinning "></span>
             </div>
             <div class="col-md-4"></div>
         </div>

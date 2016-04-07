@@ -3,12 +3,13 @@
  * rendered server side (<approot>/server/webview/index.hbs)
  */
 
-var app = angular.module('upcomingGames', []);
+var app = angular.module('upcomingGames', ['ngAnimate']);
 
 require('../services/httpRequestService.js');
 require('../views/usertrackedgames/usertrackedgamescontroller.js');
 require('../views/tabbedcontent/tabbedcontentcontroller.js');
 require('../views/toptrackedgames/toptrackedgamescontroller.js');
+
 app.config(function($interpolateProvider, $sceDelegateProvider) {
     $interpolateProvider.startSymbol('{[{');
     $interpolateProvider.endSymbol('}]}');
@@ -18,8 +19,7 @@ app.config(function($interpolateProvider, $sceDelegateProvider) {
     ]);
 });
 
-app.controller('mainCtrl', function(httpReqService, dataService, $interval, $scope, $http){
-
+app.controller('mainCtrl', function(httpReqService, dataService, $interval, $scope, $http, $timeout){
 
     $scope.views = ["usrTracked", "topTracked"];
     $scope.curViewIndex = 0;
@@ -44,13 +44,30 @@ app.controller('mainCtrl', function(httpReqService, dataService, $interval, $sco
 
     $scope.slideRight = function()
     {
-        $scope.curView = $scope.views[++$scope.curViewIndex];
+        //Trick it to disappear
+        $scope.curView = -1;
+
+        //Move in new one after anim
+        $timeout(function()
+        {
+            $scope.curView = $scope.views[++$scope.curViewIndex];
+        }, 500);
     };
 
     $scope.slideLeft = function()
     {
-        $scope.curView = $scope.views[--$scope.curViewIndex];
-    }
+        $scope.curView = -1;
+        $timeout(function()
+        {
+            $scope.curView = $scope.views[--$scope.curViewIndex];
+        }, 500);
+    };
+
+    $scope.setSelectedView = function(index)
+    {
+        $scope.curViewIndex = index;
+        $scope.curView = $scope.views[$scope.curViewIndex];
+    };
 
 
 });

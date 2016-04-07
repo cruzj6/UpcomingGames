@@ -42,7 +42,8 @@ export function gameMedia(req, res){
 export function getTopTrackedGames(req, res)
 {
 
-    gameData.getTopTrackedGamesData(5, function (topArray) {
+    console.log("Getting " + req.query.number + " top games");
+    gameData.getTopTrackedGamesData(req.query.number, function (topArray) {
         console.log("Top Games List: " + topArray);
         res.send(topArray);
     });

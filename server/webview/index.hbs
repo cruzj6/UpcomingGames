@@ -15,22 +15,23 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 
+    <!--Import angular.js and other scripts-->
+    <script src="angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-animate.js"></script>
+    <script src="underscore.js"></script>
+    <script src="countdown.min.js"></script>
+
+    <!--Non-Debug/ For Production-->
+    <script src="maintracker.bundle.js"></script>
+
     <!--Import our stylesheets-->
+    <link rel="stylesheet" type="text/css" href="animate.css">
     <link rel="stylesheet" type="text/css" href="MainAppStyle.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Lato">
-    <link rel="stylesheet" type="text/css" href="animate.css">
 
 </head>
 <body>
-
-<!--Import angular.js and other scripts-->
-<script src="angular.min.js"></script>
-<script src="underscore.js"></script>
-<script src="countdown.min.js"></script>
-
-<!--Non-Debug/ For Production-->
-<script src="maintracker.bundle.js"></script>
 
 <!--Top Head area-->
 <div ng-app="upcomingGames" ng-controller="mainCtrl">
@@ -42,7 +43,7 @@
                 <img style="height: 100px" src="LogoLarge.png"/>
             </div>
             <div class="col-md-6"></div>
-            
+
             <!--Logged in user information and service used to authenticate-->
             <div class="col-md-3 rounded pull-down">
                 <div class="panel panel-default" style="margin-top: 10px;vertical-align: bottom;">
@@ -51,7 +52,7 @@
                              src="http://store.akamai.steamstatic.com/public/shared/images/header/globalheader_logo.png">
                     </div>
                     <div align="right">UserName: <b>{{userName}}</b></div>
-                    <a id="logout" href="/logout" style="color: black">Logout</a>
+                    <a id="logout" href="/auth/logout" style="color: black">Logout</a>
                     <br/>
                 </div>
             </div>
@@ -62,13 +63,24 @@
     <div class="row" id="mainContent" ng-init="selectedTrackedGameIndex = -1" >
         <div class="col-md-1">
             <button ng-if="curViewIndex > 0" ng-click="slideLeft()" class="btn btn-default pull-left"
-                    style="margin-left: 30px; margin-bottom: 20px; height: 600px">
+                    style="margin-left: 30px; margin-bottom: 20px; height: 650px">
                 <i class="fa fa-chevron-left"></i>
             </button>
         </div>
-        <div class="col-md-10" style="height: 600px;">
-        <div  ng-class="(curView === 'usrTracked') ? 'animated slideInLeft' : 'animated slideOutLeft'"
-              ng-hide="curView != 'usrTracked'">
+        <div class="col-md-10" style="height: 700px;">
+                <div class="container-fluid" style="padding-bottom: 30px;">
+                    <ul class="nav nav-pills" >
+                        <li ng-class="(curViewIndex === 0)? 'active' : ''">
+                            <a ng-click="setSelectedView(0)" href="#">My Tracked Games</a>
+                        </li>
+                        <li ng-class="(curViewIndex === 1)? 'active' : ''">
+                            <a ng-click="setSelectedView(1)" href="#">Top Tracked</a>
+                        </li>
+                    </ul>
+                </div>
+        <div  class="slideInAnim" ng-hide="curView != 'usrTracked'">
+            <!--ng-class="(curView === 'usrTracked') ? 'animated slideInLeft' : 'animated slideOutLeft'"-->
+
 
                 <!--Box that contains tracked games and searching (On left of page)-->
                 <div class="col-md-5">
@@ -79,7 +91,7 @@
 
                 <!--Tabs area that contains Media, news, etc. when game is selected-->
                 <div class="col-md-6" >
-                    <div class="panel panel-primary" style="height: 600px;">
+                    <div class="panel panel-primary" style="height: 585px;">
                             <div class="panel-heading" style="font-size: 24px; font-weight: bold;">
                                 <i class="fa fa-newspaper-o"></i> Tracked Games Info
                             </div>
@@ -89,13 +101,14 @@
 
         </div>
             <!--Top Games Row of data-->
-            <div ng-hide="curView != 'topTracked'" ng-include="'/toptrackedgames/toptrackedgames.html'"
-                 ng-class="(curView === 'topTracked') ? 'animated slideInRight' : 'animated slideOutRight'"></div>
+            <div class="slideInAnim" ng-hide="curView != 'topTracked'"
+                 ng-include="'/toptrackedgames/toptrackedgames.html'"></div>
+                 <!--ng-class="(curView === 'topTracked') ? 'animated slideInRight' : 'animated slideOutRight'"-->
         </div>
 
         <div class="col-md-1">
             <button ng-if="(curViewIndex < views.length - 1)" ng-click="slideRight()" class="btn btn-default pull-right"
-                    style="height: 600px; margin-bottom: 20px; margin-right: 30px;">
+                    style="height: 650px; margin-bottom: 20px; margin-right: 30px;">
                 <i class="fa fa-chevron-right"></i>
             </button>
         </div>
