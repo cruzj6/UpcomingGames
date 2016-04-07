@@ -61,12 +61,12 @@
 
     <!--Tracked games and tabs row-->
     <div class="row" id="mainContent" ng-init="selectedTrackedGameIndex = -1" >
-        <div class="col-md-1">
+        <!--div class="col-md-1">
             <button ng-if="curViewIndex > 0" ng-click="slideLeft()" class="btn btn-default pull-left"
                     style="margin-left: 30px; margin-bottom: 20px; height: 650px">
                 <i class="fa fa-chevron-left"></i>
             </button>
-        </div>
+        </div-->
         <div class="col-md-10" style="height: 700px;">
                 <div class="container-fluid" style="padding-bottom: 30px;">
                     <ul class="nav nav-pills" >
@@ -106,12 +106,12 @@
                  <!--ng-class="(curView === 'topTracked') ? 'animated slideInRight' : 'animated slideOutRight'"-->
         </div>
 
-        <div class="col-md-1">
+        <!--div class="col-md-1">
             <button ng-if="(curViewIndex < views.length - 1)" ng-click="slideRight()" class="btn btn-default pull-right"
                     style="height: 650px; margin-bottom: 20px; margin-right: 30px;">
                 <i class="fa fa-chevron-right"></i>
             </button>
-        </div>
+        </div-->
     </div>
 
     <!--Contributions, and references footer-->
