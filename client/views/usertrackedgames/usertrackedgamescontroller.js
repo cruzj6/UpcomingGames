@@ -10,6 +10,7 @@ app.controller('usertrackedgames', function($scope, $interval, dataService, http
     //We are not in remove mode at start, set to remove games text
     $scope.remToggle = removeMode;
     $scope.remStyle = "display: none";
+    $scope.addedGame = "";
 
     //When user first enters site get their tracked games
     getTrackedGames($scope, httpReqService);

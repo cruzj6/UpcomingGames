@@ -67,9 +67,10 @@
                 <i class="fa fa-chevron-left"></i>
             </button>
         </div-->
+        <div class="col-md-1"></div>
         <div class="col-md-10">
                 <div class="container-fluid" style="padding-bottom: 30px;">
-                    <ul class="nav nav-pills" >
+                    <ul class="nav nav-pills">
                         <li ng-class="(curViewIndex === 0)? 'active' : ''">
                             <a ng-click="setSelectedView(0)" href="#">My Tracked Games</a>
                         </li>
@@ -78,9 +79,8 @@
                         </li>
                     </ul>
                 </div>
-        <div  class="slideInAnim" ng-hide="curView != 'usrTracked'">
+        <div class="slideInAnim center-block" ng-hide="curView != 'usrTracked'">
             <!--ng-class="(curView === 'usrTracked') ? 'animated slideInLeft' : 'animated slideOutLeft'"-->
-
 
                 <!--Box that contains tracked games and searching (On left of page)-->
                 <div class="col-md-5">
@@ -105,6 +105,7 @@
                  ng-include="'/toptrackedgames/toptrackedgames.html'"></div>
                  <!--ng-class="(curView === 'topTracked') ? 'animated slideInRight' : 'animated slideOutRight'"-->
         </div>
+        <div class="col-md-1"></div>
 
         <!--div class="col-md-1">
             <button ng-if="(curViewIndex < views.length - 1)" ng-click="slideRight()" class="btn btn-default pull-right"
@@ -112,6 +113,16 @@
                 <i class="fa fa-chevron-right"></i>
             </button>
         </div-->
+    </div>
+
+    <div class="modal fade" tabindex="-1" role="dialog" id="showAddedModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    Added game to tracked games!
+                </div>
+            </div>
+        </div>
     </div>
 
     <!--Contributions, and references footer-->

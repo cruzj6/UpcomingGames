@@ -8,7 +8,9 @@
                 <div ng-init="num = $index + 1">
                     <p align="center" style="height: 50px;">{[{game.name}]}</p>
                     <img ng-src="{[{game.imageLink}]}">
-                    <button class="btn btn-primary-outline pull-right" style="display: inline;" ng-click="addTrackedGame(game)">Add</button>
+                    <button data-toggle="modal" data-target="#showAddedModal"
+                            class="btn btn-primary-outline pull-right" style="display: inline;"
+                            ng-click="addTrackedGame(game)">Add</button>
                 </div>
             </li>
         </ul>

@@ -73,7 +73,9 @@
                 <li class="list-group-item" ng-repeat="game in friend.gameData">
                     <img style="display: inline; margin-right: 50px;" ng-src="{[{game.imageLink}]}"/>
                     <h4 style="display: inline;">{[{game.name}]}</h4>
-                    <button class="btn btn-primary-outline pull-right" style="display: inline;" ng-click="addTrackedGame(game)">Add</button>
+                    <button data-toggle="modal" data-target="#showAddedModal"
+                            class="btn btn-primary-outline pull-right"
+                            style="display: inline;" ng-click="addTrackedGame(game)">Add</button>
                 </li>
             </ul>
         </div>
