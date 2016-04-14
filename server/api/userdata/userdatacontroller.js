@@ -10,6 +10,17 @@ export function getUserTrackedGames(req, res){
         });
 }
 
+export function getAUsersTrackedGames(req, res)
+{
+    console.log('getting A users tracked games' + req.param('id'));
+    var fullid = 'http://steamcommunity.com/openid/id/' + req.param('id');
+    console.log('Full id: ' + fullid);
+    gameData.getUserTrackedGameData(fullid, function(gameDatas){
+        console.log(JSON.stringify(gameDatas));
+        res.send(gameDatas);
+    });
+}
+
 export function removeTrackedGame(req,res){
 
     gameData.removeTrackedGameId(req.body.gameid, req.user.identifier, function()
