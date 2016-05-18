@@ -10,3 +10,5 @@ bfg*
 
 replace.txt
 testDBScript.sh
+*compiled*.js
+*compiled*.js.map

@@ -12,7 +12,7 @@ export function setUp()
     //Set up our strategies, starting with steam strategy
     passport.use(new SteamStrategy({
         //TODO: CHANGE TO REAL URL ON DEPLOY
-        returnURL: 'https://upcominggames-staging.herokuapp.com/auth/steam/return',
+        returnURL: process.env.HOME_URL + '/auth/steam/return',
         //returnURL: 'http://localhost:5000/auth/steam/return',
         realm: process.env.HOME_URL,
         //realm: 'http://localhost:5000',
