@@ -7,10 +7,10 @@ workspace.xml
 .idea*
 .env
 bfg*
-
+/**/*compiled.js
 replace.txt
 testDBScript.sh
 *compiled*.js
 *compiled*.js.map
 *compiled.js
-**/*compiled.js
+
