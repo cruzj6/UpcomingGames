@@ -10,6 +10,14 @@ router.get('/', passport.authenticate('steam'), function (req, res) {
     res.redirect('/');
 });
 
+router.get('/return', passport.authenticate('steam', { failureRedirect: '/login' }), function (req, res) {
+
+    console.log("SUCCESSFUL AUTH STEAM");
+    console.log(req.isAuthenticated());
+    // Successful authentication, redirect home.
+    res.redirect('/');
+});
+
 router.get('/isLoggedIn', function(req, res)
 {
     if(req.isAuthenticated())
@@ -24,14 +32,6 @@ router.get('/isLoggedIn', function(req, res)
             isIn: false
         });
     }
-});
-
-router.get('/return', passport.authenticate('steam', { failureRedirect: '/login' }), function (req, res) {
-
-    console.log("SUCCESSFUL AUTH STEAM");
-    console.log(req.isAuthenticated());
-    // Successful authentication, redirect home.
-    res.redirect('/');
 });
 
 export default router;
