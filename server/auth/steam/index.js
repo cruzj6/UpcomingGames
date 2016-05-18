@@ -10,7 +10,7 @@ router.get('/', passport.authenticate('steam'), function (req, res) {
     res.redirect('/');
 });
 
-router.get('/isLoggedIn', passport.authenticate('steam'), function(req, res)
+router.get('/isLoggedIn', function(req, res)
 {
     if(req.isAuthenticated()) {
         res.send({
