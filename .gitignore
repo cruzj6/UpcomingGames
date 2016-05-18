@@ -13,3 +13,4 @@ testDBScript.sh
 *compiled*.js
 *compiled*.js.map
 *compiled.js
+**/*compiled.js
