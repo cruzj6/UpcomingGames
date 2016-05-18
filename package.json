@@ -31,7 +31,7 @@
     "gulp-sass": "^2.2.0",
     "node-bing-api": "^2.3.0",
     "passport": "^0.3.2",
-    "passport-steam": "^1.0.1",
+    "passport-steam": "1.0.1",
     "pg": "4.5.1",
     "request": "^2.69.0",
     "run-sequence": "^1.1.5",
