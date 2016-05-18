@@ -18,20 +18,4 @@ router.get('/return', passport.authenticate('steam', { failureRedirect: '/login'
     res.redirect('/');
 });
 
-/*router.get('/isLoggedIn', function(req, res)
-{
-    if(req.isAuthenticated())
-    {
-        res.send({
-            isIn: true
-        });
-        res.end();
-    }
-    else{
-        res.send({
-            isIn: false
-        });
-    }
-});*/
-
 export default router;
