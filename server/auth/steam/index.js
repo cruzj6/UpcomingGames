@@ -10,7 +10,7 @@ router.get('/', passport.authenticate('steam'), function (req, res) {
     res.redirect('/');
 });
 
-router.get('/return', passport.authenticate('steam', { failureRedirect: '/login' }), function (req, res) {
+router.get('/return', passport.authenticate('steam'), function (req, res) {
 
     console.log("SUCCESSFUL AUTH STEAM");
     console.log(req.isAuthenticated());
