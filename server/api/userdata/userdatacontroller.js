@@ -34,12 +34,19 @@ export function removeTrackedGame(req,res){
 export function addTrackedGame(req,res)
 {
 
+    console.log("GAME ID TO ADD IS" + req.gameid);
+    if(req.body.gameid != null) {
         gameData.addTrackedGameId(req.body.gameid, req.user.identifier, function () {
             res.sendStatus(200);
             res.end();
         });
-
-
+    }
+    else
+    {
+        //Missing param
+        res.sendStatus(500);
+        res.end();
+    }
 }
 
 export function getFriendsTrackedGames(req,res){
