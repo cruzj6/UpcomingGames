@@ -28,7 +28,7 @@ export function addGameIDToUser(gameId, userId, doneCallback)
 
         for(var i=0; i<ids.length; i++)
         {
-           if(ids[i].gameid.indexOf(gameId) > -1)
+           if(ids[i].gameid != null && ids[i].gameid.indexOf(gameId) > -1)
            {
                isAlreadyContained = true;
                break;
