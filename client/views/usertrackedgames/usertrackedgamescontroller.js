@@ -80,68 +80,68 @@ app.controller('usertrackedgames', function($scope, $interval, dataService, http
         getTrackedGames($scope, httpReqService);
     });
 
-});
-
-function getTrackedGames($scope, httpReqService)
-{
-    setRemoveView($scope, removeMode);
-    httpReqService.getTrackedGames(function(data){
-        $scope.trackedGames = data.sort(function(a,b)
-        {
-            return compareStrings(a.name, b.name);
-        });
-
-        //Remove our loading indicator
-        angular.element("#loadingListIcon").remove();
-        //Make sure view still reflects mode
+    function getTrackedGames($scope, httpReqService)
+    {
         setRemoveView($scope, removeMode);
+        httpReqService.getTrackedGames(function(data){
+            $scope.trackedGames = data.sort(function(a,b)
+            {
+                return compareStrings(a.name, b.name);
+            });
 
-    });
-}
+            //Remove our loading indicator
+            angular.element("#loadingListIcon").remove();
+            //Make sure view still reflects mode
+            setRemoveView($scope, removeMode);
 
-function removeGamesToggle($scope){
-    if(!removeMode) {
-        removeMode = true;
-        $scope.remToggle = removeMode;
+        });
     }
-    else
-    {
-        removeMode = false;
-        $scope.remToggle = removeMode;
-    }
-    $scope.remStyle = removeMode ? "display: inline-block" : "display: none"
-}
 
-function ddToggle(){
-    //Toggle results dropdown window
-    angular.element('#searchGamesButton').dropdown('toggle');
-}
-
-function compareStrings(a, b) {
-    a = a.toLowerCase();
-    b = b.toLowerCase();
-
-    return (a < b) ? -1 : (a > b) ? 1 : 0;
-}
-
-function setRemoveView($scope, isRemove)
-{
-    var removeButtons = document.getElementsByName('removeGameButton');
-    if(isRemove) {
-        //Make each remove button visible
-        for (var i = 0; i < removeButtons.length; i++) {
-            removeButtons[i].style.display = "inline-block";
+    function removeGamesToggle($scope){
+        if(!removeMode) {
+            removeMode = true;
+            $scope.remToggle = removeMode;
         }
-        //Let user click done when they are done
-        $scope.remToggleText = "Done";
-    }
-    else
-    {
-        //Make each remove button in-visible
-        for (var j = 0; j < removeButtons.length; j++) {
-            removeButtons[j].style.display = "none";
+        else
+        {
+            removeMode = false;
+            $scope.remToggle = removeMode;
         }
-        //Set the button text
-        $scope.remToggleText = "Remove Games";
+        $scope.remStyle = removeMode ? "display: inline-block" : "display: none"
     }
-}
+
+    function ddToggle(){
+        //Toggle results dropdown window
+        angular.element('#searchGamesButton').dropdown('toggle');
+    }
+
+    function compareStrings(a, b) {
+        a = a.toLowerCase();
+        b = b.toLowerCase();
+
+        return (a < b) ? -1 : (a > b) ? 1 : 0;
+    }
+
+    function setRemoveView($scope, isRemove)
+    {
+        var removeButtons = document.getElementsByName('removeGameButton');
+        if(isRemove) {
+            //Make each remove button visible
+            for (var i = 0; i < removeButtons.length; i++) {
+                removeButtons[i].style.display = "inline-block";
+            }
+            //Let user click done when they are done
+            $scope.remToggleText = "Done";
+        }
+        else
+        {
+            //Make each remove button in-visible
+            for (var j = 0; j < removeButtons.length; j++) {
+                removeButtons[j].style.display = "none";
+            }
+            //Set the button text
+            $scope.remToggleText = "Remove Games";
+        }
+    }
+
+});
