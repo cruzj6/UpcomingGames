@@ -1,0 +1,21 @@
+<div class="slideInAnim center-block" ng-hide="curView != 'usrTracked'">
+    <!--ng-class="(curView === 'usrTracked') ? 'animated slideInLeft' : 'animated slideOutLeft'"-->
+
+    <!--Box that contains tracked games and searching (On left of page)-->
+    <div class="col-md-5">
+        <div ng-include="'usertrackedgames/usertrackedgames.html'"></div>
+    </div>
+    <div class="col-md-1">
+    </div>
+
+    <!--Tabs area that contains Media, news, etc. when game is selected-->
+    <div class="col-md-6" >
+        <div class="panel panel-primary" style="height: 585px;">
+            <div class="panel-heading" style="font-size: 24px; font-weight: bold;">
+                <i class="fa fa-newspaper-o"></i> Tracked Games Info
+            </div>
+            <div ng-include="'/tabbedcontent/tabbedcontent.html'"></div>
+        </div>
+    </div>
+
+</div>

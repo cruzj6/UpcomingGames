@@ -10,13 +10,35 @@ require('../views/usertrackedgames/usertrackedgamescontroller.js');
 require('../views/tabbedcontent/tabbedcontentcontroller.js');
 require('../views/toptrackedgames/toptrackedgamescontroller.js');
 
-app.config(function($interpolateProvider, $sceDelegateProvider) {
+app.config(function($interpolateProvider, $sceDelegateProvider, $routeProvider) {
     $interpolateProvider.startSymbol('{[{');
     $interpolateProvider.endSymbol('}]}');
     $sceDelegateProvider.resourceUrlWhitelist([
         'self',
         'https://www.youtube.com/**'
     ]);
+
+    $routeProvider
+        .when('/topTracked', {
+            templateUrl: '/toptrackedgames/toptrackedgames.html',
+            controller: 'toptrackedgames'
+        })
+        .when('/dashboardmain',{
+            templateUrl: '/dashboardmain/dashboardmain.html',
+            controller: '/dashboardmain/dashboardmain.js'
+        })
+        .when('/usertrackedgames',{
+            templateUrl: '/usertrackedgames/usertrackedgames.html',
+            controller: 'usertrackedgames'
+        })
+        .when('tabbedcontent', {
+            templateUrl: '/tabbedcontent/tabbedcontent.html',
+            controller: 'tabbedcontent'
+        })
+        .otherwise({
+            redirectTo: '/'
+        });
+
 });
 
 app.controller('mainCtrl', function(httpReqService, dataService, $interval, $scope, $http, $timeout){
@@ -69,12 +91,12 @@ app.controller('mainCtrl', function(httpReqService, dataService, $interval, $sco
         $scope.curView = $scope.views[$scope.curViewIndex];
     };
 
+    function compareStrings(a, b) {
+        a = a.toLowerCase();
+        b = b.toLowerCase();
+
+        return (a < b) ? -1 : (a > b) ? 1 : 0;
+    }
 
 });
 
-function compareStrings(a, b) {
-    a = a.toLowerCase();
-    b = b.toLowerCase();
-
-    return (a < b) ? -1 : (a > b) ? 1 : 0;
-}

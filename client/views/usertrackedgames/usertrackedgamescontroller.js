@@ -144,4 +144,11 @@ app.controller('usertrackedgames', function($scope, $interval, dataService, http
         }
     }
 
+    function compareStrings(a, b) {
+        a = a.toLowerCase();
+        b = b.toLowerCase();
+
+        return (a < b) ? -1 : (a > b) ? 1 : 0;
+    }
+
 });

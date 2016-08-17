@@ -77,11 +77,11 @@ app.controller('friendstrackedgames', function($scope, httpReqService)
             return compareStrings(a.userid, b.userid);
         });
     });
+
+    function compareStrings(a, b) {
+        a = a.toLowerCase();
+        b = b.toLowerCase();
+
+        return (a < b) ? -1 : (a > b) ? 1 : 0;
+    }
 });
-
-function compareStrings(a, b) {
-    a = a.toLowerCase();
-    b = b.toLowerCase();
-
-    return (a < b) ? -1 : (a > b) ? 1 : 0;
-}

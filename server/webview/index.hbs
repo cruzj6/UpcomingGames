@@ -17,6 +17,7 @@
 
     <!--Import angular.js and other scripts-->
     <script src="angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.1/angular-ui-router.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-animate.js"></script>
     <script src="underscore.js"></script>
     <script src="countdown.min.js"></script>
@@ -61,58 +62,33 @@
 
     <!--Tracked games and tabs row-->
     <div class="row" id="mainContent" ng-init="selectedTrackedGameIndex = -1" >
-        <!--div class="col-md-1">
-            <button ng-if="curViewIndex > 0" ng-click="slideLeft()" class="btn btn-default pull-left"
-                    style="margin-left: 30px; margin-bottom: 20px; height: 650px">
-                <i class="fa fa-chevron-left"></i>
-            </button>
-        </div-->
         <div class="col-md-1"></div>
-        <div class="col-md-10">
-                <div class="container-fluid" style="padding-bottom: 30px;">
-                    <ul class="nav nav-pills">
-                        <li ng-class="(curViewIndex === 0)? 'active' : ''">
-                            <a ng-click="setSelectedView(0)" href="#">My Tracked Games</a>
-                        </li>
-                        <li ng-class="(curViewIndex === 1)? 'active' : ''">
-                            <a ng-click="setSelectedView(1)" href="#">Top Tracked</a>
-                        </li>
-                    </ul>
-                </div>
-        <div class="slideInAnim center-block" ng-hide="curView != 'usrTracked'">
-            <!--ng-class="(curView === 'usrTracked') ? 'animated slideInLeft' : 'animated slideOutLeft'"-->
+        <div class="header">
+            <div class="navbar navbar-default" role="navigation">
+                <div class="container-fluid">
+                    <div class="navbar-header">
 
-                <!--Box that contains tracked games and searching (On left of page)-->
-                <div class="col-md-5">
-                  <div ng-include="'usertrackedgames/usertrackedgames.html'"></div>
-                </div>
-                <div class="col-md-1">
-                </div>
-
-                <!--Tabs area that contains Media, news, etc. when game is selected-->
-                <div class="col-md-6" >
-                    <div class="panel panel-primary" style="height: 585px;">
-                            <div class="panel-heading" style="font-size: 24px; font-weight: bold;">
-                                <i class="fa fa-newspaper-o"></i> Tracked Games Info
-                            </div>
-                            <div ng-include="'/tabbedcontent/tabbedcontent.html'"></div>
-                        </div>
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#js-navbar-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
                     </div>
 
-        </div>
-            <!--Top Games Row of data-->
-            <div class="slideInAnim" ng-hide="curView != 'topTracked'"
-                 ng-include="'/toptrackedgames/toptrackedgames.html'"></div>
-                 <!--ng-class="(curView === 'topTracked') ? 'animated slideInRight' : 'animated slideOutRight'"-->
-        </div>
-        <div class="col-md-1"></div>
+                    <div class="collapse navbar-collapse" id="js-navbar-collapse">
 
-        <!--div class="col-md-1">
-            <button ng-if="(curViewIndex < views.length - 1)" ng-click="slideRight()" class="btn btn-default pull-right"
-                    style="height: 650px; margin-bottom: 20px; margin-right: 30px;">
-                <i class="fa fa-chevron-right"></i>
-            </button>
-        </div-->
+                        <ul class="nav navbar-nav">
+                            <li ng-class="{ active: isActiveRoute('dashboardmain') }"><a href="#/dashboardmain"><i class="fa fa-bar-chart"></i> My Tracked</a></li>
+                            <li ng-class="{ active: isActiveRoute('toptracked') }"><a href="#/toptracked"><i class="fa fa-map-marker"></i> Top Tracked</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-10">
+
+        <div class="col-md-1"></div>
     </div>
 
     <div class="modal fade" tabindex="-1" role="dialog" id="showAddedModal">
