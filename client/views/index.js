@@ -25,7 +25,7 @@ app.config(function($interpolateProvider, $sceDelegateProvider, $routeProvider) 
         })
         .when('/dashboardmain',{
             templateUrl: '/dashboardmain/dashboardmain.html',
-            controller: '/dashboardmain/dashboardmain.js'
+            controller: 'dashboardmain'
         })
         .when('/usertrackedgames',{
             templateUrl: '/usertrackedgames/usertrackedgames.html',
