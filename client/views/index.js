@@ -3,7 +3,7 @@
  * rendered server side (<approot>/server/webview/index.hbs)
  */
 
-var app = angular.module('upcomingGames', ['ngAnimate']);
+var app = angular.module('upcomingGames', ['ngAnimate'], ["ngRoute"]);
 
 require('../services/httpRequestService.js');
 require('../views/usertrackedgames/usertrackedgamescontroller.js');
