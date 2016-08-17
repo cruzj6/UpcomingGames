@@ -7,10 +7,10 @@ var express = require('express');
 var router = express.Router();
 var controller = require('./userdatacontroller');
 
-router.get('/userTrackedGames', controller.getUserTrackedGames);
-router.post('/removeTrackedGame', controller.removeTrackedGame);
-router.post('/addTrackedGame', controller.addTrackedGame);
-router.get('/getFriendsTrackedGames', controller.getFriendsTrackedGames);
+router.get('/trackedGames', controller.getUserTrackedGames);
+router.delete('/trackedGames', controller.removeTrackedGame);
+router.post('/trackedGames', controller.addTrackedGame);
+router.get('/friendsTrackedGames', controller.getFriendsTrackedGames);
 router.get('/aUsersTrackedGames', controller.getAUsersTrackedGames);
 
 module.exports = router;

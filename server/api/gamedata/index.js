@@ -7,7 +7,7 @@ var controller = require('./gamedatacontroller');
 var router = express.Router();
 
 router.get('/searchGames', controller.searchGames);
-router.get('/getArticles', controller.getArticles);
+router.get('/articles', controller.getArticles);
 router.get('/gameMedia', controller.gameMedia);
 router.get('/topTracked', controller.getTopTrackedGames);
 

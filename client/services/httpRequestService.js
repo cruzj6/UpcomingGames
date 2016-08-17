@@ -16,7 +16,7 @@ app.factory('httpReqService', function($http, $sce){
 
             //Make the request, and assign the result to the newsArticles scope param
             //So that the view is updated
-            $http.get('/info/getArticles', options).then(function(resp){
+            $http.get('/info/articles', options).then(function(resp){
                 articleDataHandler(resp.data);
             });
         },
@@ -107,7 +107,7 @@ app.factory('httpReqService', function($http, $sce){
         },
         addTrackedGamePost: function(gameId, onSuccessHandler)
         {
-            $http.post('/userdata/addTrackedGame', {
+            $http.post('/userdata/trackedGames', {
                 gameid: gameId
             }).success(function(){
                 onSuccessHandler();
@@ -115,7 +115,7 @@ app.factory('httpReqService', function($http, $sce){
         },
         removeTrackedGamePost: function (gameId, onSuccessHandler)
         {
-            $http.post('/userData/removeTrackedGame',{
+            $http.delete('/userData/trackedGames',{
                 gameid: gameId
             }).success(function(){
                 onSuccessHandler();
@@ -123,13 +123,13 @@ app.factory('httpReqService', function($http, $sce){
         },
         getTrackedGames: function(trackedGamesHanlder)
         {
-            $http.get('/userdata/userTrackedGames').then(function(resp){
+            $http.get('/userdata/trackedGames').then(function(resp){
                 trackedGamesHanlder(resp.data);
             });
         },
         getFriendsTrackedGames: function(friendsTrackedGamesHandler)
         {
-            $http.get('/userdata/getfriendstrackedgames').then(function(resp)
+            $http.get('/userdata/friendstrackedgames').then(function(resp)
             {
                friendsTrackedGamesHandler(resp.data);
             });
