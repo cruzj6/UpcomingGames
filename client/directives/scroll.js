@@ -8,7 +8,7 @@ return function(scope, element, attrs)
 {
     var windowEl = angular.element($window);
     windowEl.on('scroll', scope.$apply.bind(scope, function(){
-        var elementPos = element[0].offset().top;
+        var elementPos = element.offset().top;
         scope.scrolledTo = $window.pageYOffset >= elementPos;
     }));
 }
