@@ -190,3 +190,6 @@ body {
 #searchResItem {
   background-color: #343434;
   color: whitesmoke; }
+
+#topTrackedDiv {
+  margin-bottom: 10px; }
