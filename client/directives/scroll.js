@@ -6,10 +6,10 @@ var app = angular.module('upcomingGames');
 app.directive('scroll', function($window){
 return function(scope, element, attrs)
 {
+    var elementPosInitial = element.offset().top;
     var windowEl = angular.element($window);
     windowEl.on('scroll', scope.$apply.bind(scope, function(){
-        var elementPos = element.offset().top;
-        scope.scrolledTo = $window.pageYOffset >= elementPos;
+        scope.scrolledTo = $window.pageYOffset >= elementPosInitial;
         console.log(scope.scrolledTo);
     }));
 }
