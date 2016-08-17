@@ -22,7 +22,7 @@ app.config(function($httpProvider, $interpolateProvider, $sceDelegateProvider, $
     $httpProvider.defaults.headers.delete = { "Content-Type": "application/json;charset=utf-8" };
 
     $routeProvider
-        .when('/topTracked', {
+        .when('/toptrackedgames', {
             templateUrl: '/toptrackedgames/toptrackedgames.html',
             controller: 'toptrackedgames'
         })

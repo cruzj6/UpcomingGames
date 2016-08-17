@@ -5,15 +5,18 @@
     <!--Search Games area-->
     <div style="margin-top: 5px; margin-bottom: 5px;" class="dropdown">
         <div class="col-md-7">
-            <div style="margin-top: 4px;"></div>
-            <form style="display: inline; " ng-submit="searchGames(); toggleRes()">
-                <input class="form-control" id="searchGamesIn" placeholder="Add Game...">
-            </form>
+            <div class="row">
+                <div style="margin-top: 4px;"></div>
+                <form style="display: inline; " ng-submit="searchGames(); toggleRes()">
+                    <input class="form-control" id="searchGamesIn" placeholder="Add Game...">
+                </form>
+                <button id="searchGamesButton" class="btn btn-default" style="margin-bottom: 5px; margin-top: 5px;" ng-click="searchGames()"
+                        data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false"><i class="fa fa-search"></i>
+                </button>
+            </div>
         </div>
-        <button id="searchGamesButton" class="btn btn-default" style="margin-bottom: 5px; margin-top: 5px;" ng-click="searchGames()"
-                data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false"><i class="fa fa-search"></i>
-        </button>
+
 
         <!--Searching indicators-->
         <div style="display: none; color: white;" id="searchingIndicator">Searching...</div>
