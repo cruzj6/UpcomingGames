@@ -3,9 +3,8 @@
  */
 require('./dataManagerService.js');
 var app = angular.module('upcomingGames');
-app.factory('httpReqService', function($httpProvider, $http, $sce){
+app.factory('httpReqService', function($http, $sce){
 
-    $httpProvider.defaults.headers.delete = { "Content-Type": "application/json;charset=utf-8" };
     return{
         searchForArticles: function(gameName, articleDataHandler)
         {

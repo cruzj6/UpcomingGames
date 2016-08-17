@@ -11,13 +11,15 @@ require('../views/usertrackedgames/usertrackedgamescontroller.js');
 require('../views/tabbedcontent/tabbedcontentcontroller.js');
 require('../views/toptrackedgames/toptrackedgamescontroller.js');
 
-app.config(function($interpolateProvider, $sceDelegateProvider, $routeProvider) {
+app.config(function($httpProvider, $interpolateProvider, $sceDelegateProvider, $routeProvider) {
     $interpolateProvider.startSymbol('{[{');
     $interpolateProvider.endSymbol('}]}');
     $sceDelegateProvider.resourceUrlWhitelist([
         'self',
         'https://www.youtube.com/**'
     ]);
+
+    $httpProvider.defaults.headers.delete = { "Content-Type": "application/json;charset=utf-8" };
 
     $routeProvider
         .when('/topTracked', {
