@@ -5,4 +5,4 @@ app.controller('dashboardmain',function ($scope) {
 
 
 
-};
+});
