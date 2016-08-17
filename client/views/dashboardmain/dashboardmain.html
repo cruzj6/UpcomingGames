@@ -3,7 +3,7 @@
 
     <!--Box that contains tracked games and searching (On left of page)-->
     <div class="col-md-5">
-        <div ng-include="'usertrackedgames/usertrackedgames.html'"></div>
+        <div ng-view="#/usertrackedgames"></div>
     </div>
     <div class="col-md-1">
     </div>
@@ -14,7 +14,7 @@
             <div class="panel-heading" style="font-size: 24px; font-weight: bold;">
                 <i class="fa fa-newspaper-o"></i> Tracked Games Info
             </div>
-            <div ng-include="'/tabbedcontent/tabbedcontent.html'"></div>
+            <div ng-view="#/toptrackedgames"></div>
         </div>
     </div>
 
