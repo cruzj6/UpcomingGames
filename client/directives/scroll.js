@@ -10,6 +10,7 @@ return function(scope, element, attrs)
     windowEl.on('scroll', scope.$apply.bind(scope, function(){
         var elementPos = element.offset().top;
         scope.scrolledTo = $window.pageYOffset >= elementPos;
+        console.log(scope.scrolledTo);
     }));
 }
 
