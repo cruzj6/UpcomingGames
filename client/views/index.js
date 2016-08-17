@@ -34,9 +34,6 @@ app.config(function($interpolateProvider, $sceDelegateProvider, $routeProvider) 
         .when('tabbedcontent', {
             templateUrl: '/tabbedcontent/tabbedcontent.html',
             controller: 'tabbedcontent'
-        })
-        .otherwise({
-            redirectTo: '/'
         });
 
 });
