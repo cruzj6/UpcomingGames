@@ -27,6 +27,9 @@ app.config(function($interpolateProvider, $sceDelegateProvider, $routeProvider) 
         .when('/dashboardmain',{
             templateUrl: '/dashboardmain/dashboardmain.html',
             controller: 'dashboardmain'
+        })
+        .otherwise({
+            redirectTo: 'dashboardmain'
         });
 
 });
