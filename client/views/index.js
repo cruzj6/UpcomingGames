@@ -6,6 +6,7 @@
 var app = angular.module('upcomingGames', ["ngAnimate", "ngRoute"]);
 
 require('../services/httpRequestService.js');
+require('../views/dashboardmain/dashboardmain.js');
 require('../views/usertrackedgames/usertrackedgamescontroller.js');
 require('../views/tabbedcontent/tabbedcontentcontroller.js');
 require('../views/toptrackedgames/toptrackedgamescontroller.js');
