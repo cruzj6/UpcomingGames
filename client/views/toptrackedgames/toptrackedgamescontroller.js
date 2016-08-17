@@ -5,9 +5,12 @@
 var app = angular.module('upcomingGames');
 app.controller('toptrackedgames', function($scope, httpReqService)
 {
+
+    $scope.loading = true;
     httpReqService.getTopTrackedGames(function(topTrackedData)
     {
         $scope.topGames = topTrackedData;
+        $scope.loading = false;
     });
 
     $scope.showExtraTopIf = false;

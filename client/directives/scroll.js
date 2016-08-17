@@ -10,7 +10,6 @@ return function(scope, element, attrs)
     var windowEl = angular.element($window);
     windowEl.on('scroll', scope.$apply.bind(scope, function(){
         scope.scrolledTo = $window.pageYOffset >= elementPosInitial;
-        console.log(scope.scrolledTo);
     }));
 }
 
