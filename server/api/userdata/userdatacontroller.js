@@ -23,8 +23,10 @@ export function getAUsersTrackedGames(req, res)
 
 export function removeTrackedGame(req,res){
 
+    console.log("REMOVING: " + req.body.gameid);
     console.log("REMOVING: " + req.param('gameid'));
-    gameData.removeTrackedGameId(req.param('gameid'), req.user.identifier, function()
+
+    gameData.removeTrackedGameId(req.body.gameid, req.user.identifier, function()
     {
         res.sendStatus(200);
         res.end();

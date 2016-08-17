@@ -116,10 +116,15 @@ app.factory('httpReqService', function($http, $sce){
         },
         removeTrackedGamePost: function (gameId, onSuccessHandler)
         {
-            $http.delete('/userData/trackedGames',{
-                gameid: gameId
-            }).success(function(){
+
+            $http({ url: '/userData/trackedGames',
+                method: 'DELETE',
+                data: {gameid: gameId},
+                headers: {"Content-Type": "application/json;charset=utf-8"}
+            }).then(function(res) {
                 onSuccessHandler();
+            }, function(error) {
+                console.log(error);
             });
         },
         getTrackedGames: function(trackedGamesHanlder)
