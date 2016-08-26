@@ -201,9 +201,11 @@ body {
   margin-bottom: 0;
   padding: 0; }
   #searchForm input {
-    display: inline; }
+    display: inline;
+    width: 200px; }
   #searchForm .form-control {
-    display: inline !important; }
+    display: inline !important;
+    width: 200px; }
 
 #divSearchGames {
   margin-top: 5px;
