@@ -82,6 +82,7 @@ app.controller('usertrackedgames', function($scope, $interval, dataService, http
 
     function getTrackedGames($scope, httpReqService)
     {
+        $scope.loadingGames = true;
         setRemoveView($scope, removeMode);
         httpReqService.getTrackedGames(function(data){
             $scope.trackedGames = data.sort(function(a,b)
@@ -90,7 +91,7 @@ app.controller('usertrackedgames', function($scope, $interval, dataService, http
             });
 
             //Remove our loading indicator
-            angular.element("#loadingListIcon").remove();
+            $scope.loadingGames = false;
             //Make sure view still reflects mode
             setRemoveView($scope, removeMode);
 
@@ -113,13 +114,6 @@ app.controller('usertrackedgames', function($scope, $interval, dataService, http
     function ddToggle(){
         //Toggle results dropdown window
         angular.element('#searchGamesButton').dropdown('toggle');
-    }
-
-    function compareStrings(a, b) {
-        a = a.toLowerCase();
-        b = b.toLowerCase();
-
-        return (a < b) ? -1 : (a > b) ? 1 : 0;
     }
 
     function setRemoveView($scope, isRemove)

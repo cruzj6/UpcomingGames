@@ -48,7 +48,7 @@
     <div class="panel panel-default" style="border-top: 2px; border-bottom: 2px; border-left: 0px; border-right: 0px; background-color: #343434;">
 
         <!--List of tracked games-->
-        <div id="loadingListIcon" style="text-align: center">
+        <div ng-if="loadingGames" id="loadingListIcon" style="text-align: center">
             <div class="col-md-4"></div>
             <div class="col-md-4">
                 <span style="margin-top: 205px; color: white;" class="glyphicon glyphicon-refresh spinning "></span>
