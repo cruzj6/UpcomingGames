@@ -212,31 +212,44 @@ body{
 }
 
 #searchForm{
-    width: 200px; display: inline; margin-top: 4px;
-    margin-bottom: 0; padding: 0;
+    width: 200px;
+    display: inline;
+    margin-top: 4px;
+    margin-bottom: 0;
+    padding: 0;
 
-    .input{
+    input{
         display: inline;
+    }
+
+    .form-control{
+        display: inline !important;
     }
 }
 
 #divSearchGames{
-    margin-top: 5px; margin-bottom: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 #searchingIndicator{
-    display: none; color: white;
+    display: none;
+    color: white;
 }
 
 #noResultsIndicator{
-    display: none; color: white;
+    display: none;
+    color: white;
 }
 
 #searchRes{
-    overflow-y: scroll; height: 440px; width: 350px;
+    overflow-y: scroll;
+    height: 440px;
+    width: 350px;
 }
 
 #searchGamesButton{
-    margin-bottom: 5px; margin-top: 5px;
+    margin-bottom: 5px;
+    margin-top: 5px;
     display: inline;
 }

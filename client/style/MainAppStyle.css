@@ -200,8 +200,10 @@ body {
   margin-top: 4px;
   margin-bottom: 0;
   padding: 0; }
-  #searchForm .input {
+  #searchForm input {
     display: inline; }
+  #searchForm .form-control {
+    display: inline !important; }
 
 #divSearchGames {
   margin-top: 5px;
