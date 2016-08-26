@@ -210,3 +210,27 @@ body{
 #topTrackedDiv{
     margin-bottom: 10px;
 }
+
+#searchForm{
+    width: 200px; display: inline; margin-top: 4px;
+}
+
+#divSearchGames{
+    margin-top: 5px; margin-bottom: 5px;
+}
+
+#searchingIndicator{
+    display: none; color: white;
+}
+
+#noResultsIndicator{
+    display: none; color: white;
+}
+
+#searchRes{
+    overflow-y: scroll; height: 440px; width: 350px;
+}
+
+#searchGamesButton{
+    margin-bottom: 5px; margin-top: 5px;
+}
