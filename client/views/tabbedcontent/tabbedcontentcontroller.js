@@ -38,6 +38,7 @@ app.controller('mediatab',function ($scope, httpReqService){
     //When user selects a tracked game
     $scope.$on('selectedGame', function(event, args)
     {
+        $scope.gameSelected = true;
         $scope.mediaItems = [];
         $scope.loadingMedia = true;
 

@@ -46,9 +46,6 @@ app.controller('mainCtrl', function(httpReqService, dataService, $interval, $sco
     //When user selects a game from their tracked games list
     $scope.selectActiveGame = function($index, res){
         $scope.$broadcast('selectedGame', {index: $index, res: res});
-
-        //Set our item that is selected
-        $scope.selectedTrackedGameIndex = $index;
     };
 
     //Add a tracked game
