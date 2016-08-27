@@ -11,16 +11,16 @@
             <div id="loadingNewsIcon" ng-if="loadingNews">
                 <div class="col-md-4"></div>
                 <div class="col-md-4">
-                    <span style="margin-top: 205px" class="glyphicon glyphicon-refresh spinning "></span>
+                    <span class="glyphicon glyphicon-refresh spinning span-loadingwheel"></span>
                 </div>
                 <div class="col-md-4"></div>
             </div>
 
-            <ul class="list-group" ng-if="newsArticles">
+            <ul class="list-group newsarticles" ng-if="newsArticles">
 
                 <!--Element for each news article-->
-                <li id="newsArtLi" ng-repeat="art in newsArticles">
-                    <h4> <a ng-href="{[{art.url}]}" style="font-weight: bold">{[{art.title}]}</a></h4>
+                <li id="newsArtLi" class="newsarticles__item" ng-repeat="art in newsArticles">
+                    <h4> <a ng-href="{[{art.url}]}" class="arttitle">{[{art.title}]}</a></h4>
                     <p>Date: {[{art.date.split('T')[0]}]}</p>
                     <p>{[{art.desc}]}</p>
                 </li>
@@ -62,18 +62,20 @@
             </div>
             <div class="panel panel-primary newsTab__frienditem" ng-repeat="friend in friends"
                  ng-if="friend.gameData.length > 0 || allFriends">
+
                 <div class="panel-heading">
                     <img class="friendimage" ng-src="{[{friend.avatar}]}"/>
-                    {[{friend.userid}]} | Tracking {[{friend.gameData.length}]} Games</div>
-                <ul class="list-group" style="max-height: 300px; overflow-y: scroll;">
+                    {[{friend.userid}]} | Tracking {[{friend.gameData.length}]} Games
+                </div>
 
+                <ul class="list-group gameslist" >
                     <!--Each game friend is tracking-->
-                    <li class="list-group-item" ng-repeat="game in friend.gameData">
-                        <img style="display: inline; margin-right: 50px;" ng-src="{[{game.imageLink}]}"/>
-                        <h4 style="display: inline;">{[{game.name}]}</h4>
+                    <li class="list-group-item gameslist__item" ng-repeat="game in friend.gameData">
+                        <img class="gameimage" ng-src="{[{game.imageLink}]}"/>
+                        <h4 class="gametitle">{[{game.name}]}</h4>
                         <button data-toggle="modal" data-target="#showAddedModal"
-                                class="btn btn-primary-outline pull-right"
-                                style="display: inline;" ng-click="addTrackedGame(game)">Add</button>
+                                class="btn btn-primary-outline pull-right addbutton"
+                                ng-click="addTrackedGame(game)">Add</button>
                     </li>
                 </ul>
             </div>

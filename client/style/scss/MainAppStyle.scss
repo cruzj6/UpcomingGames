@@ -290,4 +290,34 @@ body{
     .friendimage{
         border: 1px solid white; border-radius: 3px; display: inline;
     }
+
+    .gameslist{
+        max-height: 300px; overflow-y: scroll;
+    }
+
+    .gameslist__item{
+
+        .gameimage{
+            display: inline; margin-right: 50px;
+        }
+
+        .gametitle{
+            display: inline;
+        }
+
+        .addbutton{
+            display: inline;
+        }
+    }
+}
+
+.newsarticles{
+
+}
+
+.newsarticles__item{
+
+    .arttitle{
+        font-weight: bold;
+    }
 }

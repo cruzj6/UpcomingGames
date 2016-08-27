@@ -259,3 +259,16 @@ body {
     border: 1px solid white;
     border-radius: 3px;
     display: inline; }
+  .newsTab__frienditem .gameslist {
+    max-height: 300px;
+    overflow-y: scroll; }
+  .newsTab__frienditem .gameslist__item .gameimage {
+    display: inline;
+    margin-right: 50px; }
+  .newsTab__frienditem .gameslist__item .gametitle {
+    display: inline; }
+  .newsTab__frienditem .gameslist__item .addbutton {
+    display: inline; }
+
+.newsarticles__item .arttitle {
+  font-weight: bold; }
