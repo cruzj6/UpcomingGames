@@ -3,10 +3,11 @@
 
         <!--News tab-->
         <uib-tab index="0" heading="News">
-            <div ng-controller="newsTab" class="newsTab">
+            <div ng-controller="newstab" class="newsTab">
             <div ng-if="!gameSelected">
                 <p>Select a tracked game...</p>
             </div>
+
             <div id="loadingNewsIcon" ng-if="loadingNews" style="text-align: center">
                 <div class="col-md-4"></div>
                 <div class="col-md-4">
@@ -14,6 +15,7 @@
                 </div>
                 <div class="col-md-4"></div>
             </div>
+                
             <ul class="list-group" ng-if="newsArticles">
 
                 <!--Element for each news article-->
