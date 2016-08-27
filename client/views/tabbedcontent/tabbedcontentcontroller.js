@@ -3,14 +3,16 @@
  */
 var app = angular.module('upcomingGames');
 
-app.controller('newstab', function($scope, httpReqService)
-{
+app.controller('tabbedcontent', function($scope){
     //Set active inital tab
     angular.element(document).ready(function () {
         $('#news-table a[href="#1"]').tab('show');
 
     });
+});
 
+app.controller('newstab', function($scope, httpReqService)
+{
     //Set that we are not loading news, as no games selected initially
     $scope.loadingNews = false;
     $scope.newsArticles = [];

@@ -1,4 +1,4 @@
-<div ng-init="gameSelected = false;">
+<div ng-init="gameSelected = false;" ng-controller="tabbedcontent">
 <ul class="nav nav-tabs" id="news-table">
     <li id="tab1">
         <a href="#1" data-toggle="tab">Popular News</a>
@@ -13,7 +13,7 @@
 <div class="tab-content" style="overflow-y: scroll; height: 480px; margin-right: 5px; margin-left: 5px;">
     <!--News tab-->
     <div class="tab-pane newsTab" id="1" ng-controller="newstab">
-        <div ng-if="gameSelected">
+        <div ng-if="!gameSelected">
             <p>Select a tracked game...</p>
         </div>
         <div id="loadingNewsIcon" ng-if="loadingNews" style="text-align: center">
