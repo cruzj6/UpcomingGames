@@ -234,3 +234,28 @@ body {
   margin-bottom: 5px;
   margin-top: 5px;
   display: inline; }
+
+#loadingNewsIcon {
+  text-align: center; }
+
+#loadingMediaIcon {
+  text-align: center; }
+
+.span-loadingwheel {
+  margin-top: 205px; }
+
+.mediaitem {
+  border-bottom: 1px solid black; }
+
+.mediaitem__link {
+  font-weight: bold; }
+
+.newsTab__showallfriendscheckbox {
+  margin-left: 5px; }
+
+.newsTab__frienditem {
+  max-height: 500px; }
+  .newsTab__frienditem .friendimage {
+    border: 1px solid white;
+    border-radius: 3px;
+    display: inline; }
