@@ -195,17 +195,17 @@ body {
   margin-bottom: 10px; }
 
 #searchForm {
-  width: 200px;
+  width: 250px;
   display: inline;
   margin-top: 4px;
   margin-bottom: 0;
   padding: 0; }
   #searchForm input {
     display: inline;
-    width: 200px; }
+    width: 250px; }
   #searchForm .form-control {
     display: inline !important;
-    width: 200px; }
+    width: 250px; }
 
 #divSearchGames {
   margin-top: 5px;
