@@ -1,12 +1,12 @@
 <div ng-init="gameSelected = false;" ng-controller="tabbedcontent">
 <ul class="nav nav-tabs" id="news-table">
-    <li id="tab1">
-        <a href="#1" data-toggle="tab">Popular News</a>
+    <li id="tab1" class="uib-tab">
+        <a href="#1" ng-class='{active: activeTab}' data-toggle="tab">Popular News</a>
     </li>
-    <li>
+    <li class="uib-tab">
         <a href="#2" data-toggle="tab">Media</a>
     </li>
-    <li>
+    <li class="uib-tab">
         <a href="#3" data-toggle="tab">Friend's Tracked Games</a>
     </li>
 </ul>

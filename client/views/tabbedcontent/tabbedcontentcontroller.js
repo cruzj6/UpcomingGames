@@ -3,12 +3,6 @@
  */
 var app = angular.module('upcomingGames');
 
-//Set active inital tab
-angular.element(document).ready(function () {
-    $('#news-table a[href="#1"]').tab('show');
-
-});
-
 app.controller('tabbedcontent', function($scope){
 
 });

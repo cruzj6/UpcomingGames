@@ -5,6 +5,4 @@ var app = angular.module('upcomingGames');
 
 app.controller('dashboardmain',function ($scope) {
 
-
-
 });
