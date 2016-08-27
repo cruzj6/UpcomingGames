@@ -134,6 +134,10 @@ body{
 }
 
 .newsTab{
+    overflow-y: scroll;
+    height: 480px;
+    margin-right: 5px;
+    margin-left: 5px;
 }
 
 .topGamesDiv {
@@ -254,11 +258,4 @@ body{
     margin-bottom: 5px;
     margin-top: 5px;
     display: inline;
-}
-
-.uib-tab{
-    overflow-y: scroll;
-    height: 480px;
-    margin-right: 5px;
-    margin-left: 5px;
 }
