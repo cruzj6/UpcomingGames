@@ -38,7 +38,7 @@ app.config(function($httpProvider, $interpolateProvider, $sceDelegateProvider, $
 
 });
 
-app.controller('mainCtrl', function(httpReqService, dataService, $interval, $scope, $http, $timeout){
+app.controller('mainCtrl', function(httpReqService, dataService, $interval, $scope, $http, $timeout, $location){
 
     $scope.views = ["usrTracked", "topTracked"];
     $scope.curViewIndex = 0;
@@ -92,5 +92,10 @@ app.controller('mainCtrl', function(httpReqService, dataService, $interval, $sco
         return (a < b) ? -1 : (a > b) ? 1 : 0;
     }
 
+    $scope.isActiveRoute = function(routeName) {
+        console.log("HIT IT!");
+        console.log($location.path());
+        return routeName == $location.path();
+    }
 });
 

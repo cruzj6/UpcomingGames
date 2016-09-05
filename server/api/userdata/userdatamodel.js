@@ -70,16 +70,20 @@ export function getUsersTrackedGameIds(userid, handleUserIds)
     console.log(process.env.DATABASE_URL);
     console.log("Entered get user tracked games");
     pg.connect(process.env.DATABASE_URL, function(err, client, done) {
-        client.query("CREATE TABLE if not exists tracked_games (userid TEXT, gameId TEXT);");
+        if(err){
+            console.log(err);
+        }
+        else {
+            client.query("CREATE TABLE if not exists tracked_games (userid TEXT, gameId TEXT);");
 
-        console.log('GETTING USER TRACKED GAMES');
-        //Select all tracked gameId's for that userId
-        client.query("SELECT gameId FROM tracked_games WHERE userid=($1);", [userid], function(err, res)
-        {
-            console.log("got FROM DATABASE: " + JSON.stringify(res.rows));
-            //Send back the rows
-            done();
-            handleUserIds(res.rows);
-        });
+            console.log('GETTING USER TRACKED GAMES');
+            //Select all tracked gameId's for that userId
+            client.query("SELECT gameId FROM tracked_games WHERE userid=($1);", [userid], function (err, res) {
+                console.log("got FROM DATABASE: " + JSON.stringify(res.rows));
+                //Send back the rows
+                done();
+                handleUserIds(res.rows);
+            });
+        }
     });
 }
