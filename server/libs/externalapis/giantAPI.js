@@ -8,6 +8,13 @@ var giantBombAPI = 'http://www.giantbomb.com/api';
 var request = require('request');
 var _ = require('underscore-node');
 
+export const ID_XBOX = '3045-145';
+export const ID_PS4 = '3045-146';
+export const ID_WIIU = '3045-139';
+export const ID_PC = '3045-94';
+export const ID_IOS = '3045-96';
+export const ID_ANDROID = '3045-123';
+
 //Giantbomb API search request and filters results to just upcoming games
 //and returns an object with the info we want
 export function searchForUpcomingGame(searchTerms, callback)
@@ -110,3 +117,7 @@ export function getDataForGameById(gameId, handleIdGameData)
     }
 }
 
+export function advancedGamesQuery(gbQuery, callback)
+{
+
+}

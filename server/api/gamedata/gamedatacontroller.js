@@ -49,3 +49,22 @@ export function getTopTrackedGames(req, res)
     });
 
 }
+
+//Object
+/*
+{
+    platform: (all, pc, xbone, ps4, wiiu, ios, android),
+    fromDate: <unixTime>,
+    filter: {
+        keywords: []
+    }
+}
+ */
+export function getAdvancedSearch(req, res)
+{
+    console.log("Gettting games Coming Soon: \nRequested: " + json.stringify(req));
+    gameData.getAdvancedSearchData(req.query, function(data){
+        console.log("Soon Coming Res: " + json.stringify(data));
+        res.send(data);
+    });
+}

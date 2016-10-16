@@ -7,7 +7,8 @@ var bingAPI = require(__dirname + externalAPIPath + 'newsAPI');
 var steamAPI = require(__dirname + externalAPIPath + 'steamAPI');
 var dbm = require(__dirname + '/gamedatamodel');
 var _ = require('underscore-node');
-
+var moment = require('moment');
+moment().format();
 
 export function searchUpcomingGames(searchTerms, callback){
     gameAPI.searchForUpcomingGame(searchTerms, function (response) {
@@ -133,4 +134,58 @@ export function getUpdatedReleaseDate(gameid, callback) {
             callback(null);
         }
     });
+}
+
+/*
+ {
+ platform: (all, pc, xbone, ps4, wiiu, ios, android),
+ fromDate: <unixTime>,
+ toDate: <unixTime>,
+ filter: {
+ keywords: []
+ }
+ }
+ */
+export function getAdvancedSearchData(query, callback) {
+
+    var gbQuery = {};
+
+    //Check for platform and convert to giant bomb Platform id
+    if(query.platform !== "all")
+    {
+        switch(query.platform)
+        {
+            case 'xbone':
+                gbQuery.platform = gameAPI.ID_XBOX;
+                break;
+            case 'ps4' :
+                gbQuery.platform = gameAPI.ID_PS4;
+                break;
+            case 'pc' :
+                gbQuery.platform = gameAPI.ID_PC;
+                break;
+            case 'wiiu' :
+                gbQuery.platform = gameAPI.ID_WIIU;
+                break;
+            case 'ios' :
+                gbQuery.platform = gameAPI.ID_IOS;
+                break;
+            case 'android' :
+                gbQuery.platform = gameAPI.ID_ANDROID;
+                break;
+        }
+    }
+
+    //Moment.js time and date from unix time (ms)
+    var fromDate = moment.unix(query.fromDate);
+    var toDate = moment.unix(query.toDate);
+
+    //Query keywords
+    gbQuery.query = query.filters.keywords;
+
+    //Make request through games API
+    gameAPI.advancedGamesQuery(gbQuery, function(data){
+        callback(data);
+    });
+
 }
