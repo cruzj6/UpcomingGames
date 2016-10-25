@@ -139,10 +139,10 @@ export function getUpdatedReleaseDate(gameid, callback) {
 /*
  {
  platform: (all, pc, xbone, ps4, wiiu, ios, android),
- fromDate: <unixTime>,
- toDate: <unixTime>,
+ month: <1-12>,
+ year: <yyyy>,
  filter: {
- keywords: []
+    keywords: []
  }
  }
  */
@@ -176,12 +176,13 @@ export function getAdvancedSearchData(query, callback) {
         }
     }
 
-    //Moment.js time and date from unix time (ms)
-    var fromDate = moment.unix(query.fromDate);
-    var toDate = moment.unix(query.toDate);
+    //Timeframe
+    gbQuery.expected_release_month = query.month;
+    gbQuery.expected_release_year = query.year;
 
     //Query keywords
-    gbQuery.query = query.filters.keywords;
+    if(query.filters != null)
+        gbQuery.query = query.filters.keywords;
 
     //Make request through games API
     gameAPI.advancedGamesQuery(gbQuery, function(data){

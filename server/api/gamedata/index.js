@@ -10,6 +10,6 @@ router.get('/searchGames', controller.searchGames);
 router.get('/articles', controller.getArticles);
 router.get('/gameMedia', controller.gameMedia);
 router.get('/topTracked', controller.getTopTrackedGames);
-router.get('/advancedSearch', controller.getComingSoon);
+router.get('/advancedSearch', controller.getAdvancedSearch);
 
 module.exports = router;

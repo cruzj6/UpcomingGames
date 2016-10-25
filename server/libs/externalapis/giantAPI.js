@@ -119,5 +119,35 @@ export function getDataForGameById(gameId, handleIdGameData)
 
 export function advancedGamesQuery(gbQuery, callback)
 {
+    var gameResponses = [];
+    var queryURI = giantBombAPI + '/games/?api_key=' + apiKey
+                    + '&platforms=' + gbQuery.platforms + '&filter=';
 
+    //Tack on filters
+    if(gbQuery.expected_release_month != null)
+    {
+        queryURI += 'expected_release_month:' + gbQuery.expected_release_month + ',';
+    }
+    if(gbQuery.expected_release_year != null)
+    {
+        queryURI  += '&expected_release_year:' + gbQuery.expected_release_year + ',';
+    }
+    if(gbQuery.platforms != null)
+    {
+        queryURI += '&platforms:' + gbQuery.platforms;
+    }
+
+
+    //Empty response ph
+    var jsonRes = {};
+    queryURI += '&format=json';
+
+    //Make our request to the API, need custom user agent as per their API
+    console.log("Making Request to GB API: " + queryURI);
+    request.get({uri: queryURI, headers:{'user-agent' : 'UpcomingAwesomeGamesWoo'}}, function (err, res, body) {
+        jsonRes = JSON.parse(body);
+
+        console.log(jsonRes);
+        callback(jsonRes);
+    });
 }
