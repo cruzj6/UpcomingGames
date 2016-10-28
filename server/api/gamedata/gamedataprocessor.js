@@ -150,6 +150,7 @@ export function getAdvancedSearchData(query, callback) {
 
     var gbQuery = {};
 
+    console.log(query.platform);
     //Check for platform and convert to giant bomb Platform id
     if(query.platform !== "all")
     {
@@ -173,6 +174,8 @@ export function getAdvancedSearchData(query, callback) {
             case 'android' :
                 gbQuery.platform = gameAPI.ID_ANDROID;
                 break;
+            default:
+                gbQuery.platform = null;
         }
     }
 
@@ -184,9 +187,15 @@ export function getAdvancedSearchData(query, callback) {
     if(query.filters != null)
         gbQuery.query = query.filters.keywords;
 
-    //Make request through games API
-    gameAPI.advancedGamesQuery(gbQuery, function(data){
-        callback(data);
-    });
+    try {
+        //Make request through games API
+        gameAPI.advancedGamesQuery(gbQuery, function (data) {
+            callback(data);
+        });
+    }
+    catch(e)
+    {
+        console.log("Error making Giant Bomb API Query: " + e.message);
+    }
 
 }

@@ -8,12 +8,12 @@ var giantBombAPI = 'http://www.giantbomb.com/api';
 var request = require('request');
 var _ = require('underscore-node');
 
-export const ID_XBOX = '3045-145';
-export const ID_PS4 = '3045-146';
-export const ID_WIIU = '3045-139';
-export const ID_PC = '3045-94';
-export const ID_IOS = '3045-96';
-export const ID_ANDROID = '3045-123';
+export const ID_XBOX = '145';
+export const ID_PS4 = '146';
+export const ID_WIIU = '139';
+export const ID_PC = '94';
+export const ID_IOS = '96';
+export const ID_ANDROID = '123';
 
 //Giantbomb API search request and filters results to just upcoming games
 //and returns an object with the info we want
@@ -120,8 +120,7 @@ export function getDataForGameById(gameId, handleIdGameData)
 export function advancedGamesQuery(gbQuery, callback)
 {
     var gameResponses = [];
-    var queryURI = giantBombAPI + '/games/?api_key=' + apiKey
-                    + '&platforms=' + gbQuery.platforms + '&filter=';
+    var queryURI = giantBombAPI + '/games/?api_key=' + apiKey + '&filter=';
 
     //Tack on filters
     if(gbQuery.expected_release_month != null)
@@ -130,12 +129,13 @@ export function advancedGamesQuery(gbQuery, callback)
     }
     if(gbQuery.expected_release_year != null)
     {
-        queryURI  += '&expected_release_year:' + gbQuery.expected_release_year + ',';
+        queryURI  += 'expected_release_year:' + gbQuery.expected_release_year + ',';
     }
-    if(gbQuery.platforms != null)
+    if(gbQuery.platform != null)
     {
-        queryURI += '&platforms:' + gbQuery.platforms;
+        queryURI += 'platforms:' + gbQuery.platform;
     }
+    if(queryURI.slice(-1) === ',') queryURI = queryURI.substr(0, queryURI.length - 1);
 
     //Empty response ph
     var jsonRes = {};
@@ -144,9 +144,24 @@ export function advancedGamesQuery(gbQuery, callback)
     //Make our request to the API, need custom user agent as per their API
     console.log("Making Request to GB API: " + queryURI);
     request.get({uri: queryURI, headers:{'user-agent' : 'UpcomingAwesomeGamesWoo'}}, function (err, res, body) {
-        jsonRes = JSON.parse(body);
 
-        console.log(jsonRes);
-        callback(jsonRes);
+        if(!err) {
+            jsonRes = JSON.parse(body);
+            var apiGamesResponse = [];
+            var gbResults = jsonRes.results;
+            console.log("Giant Bomb Response: " + jsonRes);
+
+            //Format our results to comply with game-info API
+            for (var i = 0; i < gbResults.length; i++) {
+                var gbResult = gbResults[i];
+                apiGamesResponse.push(generateGameDataItem(gbResult.name, gbResult.image, _.pluck(gbResult.platforms, 'name'),
+                    gbResult.expected_release_month, gbResult.expected_release_year, gbResult.expected_release_day, gbResult.id));
+            }
+            callback(apiGamesResponse);
+        }
+        else{
+            console.log("Error querying Giant Bomb API: " + err);
+            callback({});
+        }
     });
 }

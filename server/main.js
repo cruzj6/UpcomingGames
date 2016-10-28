@@ -11,6 +11,8 @@ var app = express();
 var bodyparser = require('body-parser');
 var session = require('express-session');
 var passport = require('passport');
+var dotenv = require('dotenv');
+dotenv.load();
 
 //Set up our express-session middleware
 app.use(session({
