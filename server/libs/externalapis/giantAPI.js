@@ -60,21 +60,29 @@ export function searchForUpcomingGame(searchTerms, callback)
                 var resultsPlatforms = _.pluck(curResult.platforms, 'name');
 
                 //Build our response object and add it to the response array
-                gameResponses.push({
-                    name: results[i].name,
-                    imageLink: curResult.image != null ? curResult.image.icon_url :
-                        "https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg",
-                    platforms: resultsPlatforms,
-                    releaseMonth: curResult.expected_release_month,
-                    releaseYear: curResult.expected_release_year,
-                    releaseDay: curResult.expected_release_day,
-                    gbGameId: curResult.id //We can store just this in db
-                });
+                gameResponses.push(
+                    generateGameDataItem(results[i].name, curResult.image, resultsPlatforms,
+                        curResult.expected_release_month, curResult.expected_release_year, curResult.expected_release_day,
+                        curResult.id)
+                );
             }
         }
         //Send callback
         callback(gameResponses);
     });
+}
+
+function generateGameDataItem(itemName, itemImage, itemPlatformsArray, itemReleaseMonth, itemReleaseYear, itemReleaseDay, itemGBID){
+    return {
+        name: itemName,
+        imageLink: itemImage != null ? itemImage.icon_url :
+            "https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg",
+        platforms: itemPlatformsArray,
+        releaseMonth: itemReleaseMonth,
+        releaseYear: itemReleaseYear,
+        releaseDay: itemReleaseDay,
+        gbGameId: itemGBID //We can store just this in db
+    }
 }
 
 export function getDataForGameById(gameId, handleIdGameData)
@@ -94,16 +102,8 @@ export function getDataForGameById(gameId, handleIdGameData)
                 var result = jsonRes.results;
 
                 //Format our response JSON object
-                var gameDatas = {
-                    name: result.name,
-                    imageLink: result.image != null ? result.image.icon_url :
-                        "https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg",
-                    platforms: _.pluck(result.platforms, 'name'),
-                    releaseMonth: result.expected_release_month,
-                    releaseYear: result.expected_release_year,
-                    releaseDay: result.expected_release_day,
-                    gbGameId: result.id //We can store just this in db
-                };
+                var gameDatas = generateGameDataItem(result.name, result.image, _.pluck(result.platforms, 'name'),
+                    result.expected_release_month, result.expected_release_year, result.expected_release_day, result.id);
 
                 //callback
                 handleIdGameData(gameDatas);
@@ -136,7 +136,6 @@ export function advancedGamesQuery(gbQuery, callback)
     {
         queryURI += '&platforms:' + gbQuery.platforms;
     }
-
 
     //Empty response ph
     var jsonRes = {};
