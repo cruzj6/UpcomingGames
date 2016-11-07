@@ -12,6 +12,7 @@ require('../views/dashboardmain/dashboardmain.js');
 require('../views/usertrackedgames/usertrackedgamescontroller.js');
 require('../views/tabbedcontent/tabbedcontentcontroller.js');
 require('../views/toptrackedgames/toptrackedgamescontroller.js');
+require('../views/advancedsearch/advancedsearch.js');
 
 app.config(function($httpProvider, $interpolateProvider, $sceDelegateProvider, $routeProvider) {
     $interpolateProvider.startSymbol('{[{');
@@ -31,6 +32,11 @@ app.config(function($httpProvider, $interpolateProvider, $sceDelegateProvider, $
         .when('/dashboardmain',{
             templateUrl: '/dashboardmain/dashboardmain.html',
             controller: 'dashboardmain'
+        })
+        .when('/advancedsearch',{
+            templateUrl: '/advancedsearch/advancedsearch.html',
+            controller: 'advancedsearch',
+            controllerAs: 'advancedsearch'
         })
         .otherwise({
             redirectTo: 'dashboardmain'
@@ -98,4 +104,3 @@ app.controller('mainCtrl', function(httpReqService, dataService, $interval, $sco
         return routeName == $location.path();
     }
 });
-
