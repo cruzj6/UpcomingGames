@@ -321,3 +321,19 @@ body{
         font-weight: bold;
     }
 }
+
+.advancedsearch{
+  color: white;
+
+  .btn-primary{
+    background-color: green;
+  }
+
+  .btn-primary:hover{
+    background-color: rgb(13, 68, 20);
+  }
+
+  input{
+    color: black;
+  }
+}

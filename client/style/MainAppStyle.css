@@ -272,3 +272,12 @@ body {
 
 .newsarticles__item .arttitle {
   font-weight: bold; }
+
+.advancedsearch {
+  color: white; }
+  .advancedsearch .btn-primary {
+    background-color: green; }
+  .advancedsearch .btn-primary:hover {
+    background-color: gray; }
+  .advancedsearch input {
+    color: black; }

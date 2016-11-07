@@ -1,5 +1,35 @@
-<div>
-  <button ng-click="advancedsearch.doSearch()">Click Me!</button>
-  <p>{[{advancedsearch.results}]}</p>
+<div class="advancedsearch">
+  <!--Row of search fields-->
+  <div class="row">
+    <!--Initial search-->
+    <div class="col-md-6 col-xs-12">
+      <form>
+        Platform: <br/>
+        <input type='text' ng-model='advancedsearch.platform'><br/>
+        Month: <br/>
+        <input type='number' ng-model='advancedsearch.month'><br/>
+      </form>
+    </div>
+    <div class="col-md-6 col-cs-12">
+      Year: <br/>
+      <input type='number' ng-model='advancedsearch.year'></br>
+      <input type='submit' ng-click='advancedsearch.doSearch()'>
+    </div>
+  </div>
 
+  <button class="btn btn-primary" ng-click="advancedsearch.doSearch()">
+    Search
+  </button>
+
+  <!--Results view-->
+  <div class="row">
+
+      <!--Each search Result-->
+      <div class="col-md-6 col-xs-12" ng-repeat='result in advancedsearch.results'>
+        <img ng-src="{[{result.imageLink}]}"></img>
+        <h2>{[{result.name}]}</h2>
+        <button class="btn btn-primary" ng-click="advancedsearch.addGame()">Add</button>
+      </div>
+
+  </div>
 </div>
