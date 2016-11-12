@@ -5,7 +5,34 @@
     <div class="col-md-6 col-xs-12">
       <form>
         Platform: <br/>
-        <input type='text' ng-model='advancedsearch.platform'><br/>
+
+        <!--Radio options for platform-->
+        <label>
+          <input type='radio' ng-model='advancedsearch.platform' value="xbone">
+          Xbox One
+        </label><br/>
+        <label>
+          <input type='radio' ng-model='advancedsearch.platform' value="ps4">
+          Playstation 4
+        </label><br/>
+        <label>
+          <input type='radio' ng-model='advancedsearch.platform' value="pc">
+          PC
+        </label><br/>
+        <label>
+          <input type='radio' ng-model='advancedsearch.platform' value="wiiu">
+          Wii U
+        </label><br/>
+        <label>
+          <input type='radio' ng-model='advancedsearch.platform' value="android">
+          Android
+        </label><br/>
+        <label>
+          <input type='radio' ng-model='advancedsearch.platform' value="ios">
+          iOS
+        </label><br/>
+
+
         Month: <br/>
         <input type='number' ng-model='advancedsearch.month'><br/>
       </form>
@@ -13,13 +40,9 @@
     <div class="col-md-6 col-cs-12">
       Year: <br/>
       <input type='number' ng-model='advancedsearch.year'></br>
-      <input type='submit' ng-click='advancedsearch.doSearch()'>
+      <input type='submit' class="btn btn-primary" ng-click='advancedsearch.doSearch()'>
     </div>
   </div>
-
-  <button class="btn btn-primary" ng-click="advancedsearch.doSearch()">
-    Search
-  </button>
 
   <!--Results view-->
   <div class="row">
