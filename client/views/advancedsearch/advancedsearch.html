@@ -1,48 +1,48 @@
-<div class="advancedsearch">
-  <!--Row of search fields-->
-  <div class="row">
-    <!--Initial search-->
-    <div class="col-md-6 col-xs-12">
-      <form>
-        Platform: <br/>
+<div id="advanced-search-div" class="advancedsearch">
+    <!--Row of search fields-->
+    <div class="row">
+      <!--Initial search-->
+      <div class="col-md-6 col-xs-12">
+        <form>
+          Platform: <br/>
 
-        <!--Radio options for platform-->
-        <label>
-          <input type='radio' ng-model='advancedsearch.platform' value="xbone">
-          Xbox One
-        </label><br/>
-        <label>
-          <input type='radio' ng-model='advancedsearch.platform' value="ps4">
-          Playstation 4
-        </label><br/>
-        <label>
-          <input type='radio' ng-model='advancedsearch.platform' value="pc">
-          PC
-        </label><br/>
-        <label>
-          <input type='radio' ng-model='advancedsearch.platform' value="wiiu">
-          Wii U
-        </label><br/>
-        <label>
-          <input type='radio' ng-model='advancedsearch.platform' value="android">
-          Android
-        </label><br/>
-        <label>
-          <input type='radio' ng-model='advancedsearch.platform' value="ios">
-          iOS
-        </label><br/>
+          <!--Radio options for platform-->
+          <label>
+            <input type='radio' ng-model='advancedsearch.platform' value="xbone">
+            Xbox One
+          </label><br/>
+          <label>
+            <input type='radio' ng-model='advancedsearch.platform' value="ps4">
+            Playstation 4
+          </label><br/>
+          <label>
+            <input type='radio' ng-model='advancedsearch.platform' value="pc">
+            PC
+          </label><br/>
+          <label>
+            <input type='radio' ng-model='advancedsearch.platform' value="wiiu">
+            Wii U
+          </label><br/>
+          <label>
+            <input type='radio' ng-model='advancedsearch.platform' value="android">
+            Android
+          </label><br/>
+          <label>
+            <input type='radio' ng-model='advancedsearch.platform' value="ios">
+            iOS
+          </label><br/>
 
 
-        Month: <br/>
-        <input type='number' ng-model='advancedsearch.month'><br/>
-      </form>
+          Month: <br/>
+          <input type='number' ng-model='advancedsearch.month'><br/>
+        </form>
+      </div>
+      <div class="col-md-6 col-cs-12">
+        Year: <br/>
+        <input type='number' ng-model='advancedsearch.year'></br>
+        <input type='submit' class="btn btn-primary" ng-click='advancedsearch.doSearch()'>
+      </div>
     </div>
-    <div class="col-md-6 col-cs-12">
-      Year: <br/>
-      <input type='number' ng-model='advancedsearch.year'></br>
-      <input type='submit' class="btn btn-primary" ng-click='advancedsearch.doSearch()'>
-    </div>
-  </div>
 
   <!--Results view-->
   <div class="row">
