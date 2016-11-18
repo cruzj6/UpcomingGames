@@ -99,8 +99,6 @@ app.controller('mainCtrl', function(httpReqService, dataService, $interval, $sco
     }
 
     $scope.isActiveRoute = function(routeName) {
-        console.log("HIT IT!");
-        console.log($location.path());
         return routeName == $location.path();
     }
 });

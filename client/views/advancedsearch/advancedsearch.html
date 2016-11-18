@@ -51,7 +51,7 @@
       <div class="col-md-6 col-xs-12" ng-repeat='result in advancedsearch.results'>
         <img ng-src="{[{result.imageLink}]}"></img>
         <h2>{[{result.name}]}</h2>
-        <button class="btn btn-primary" ng-click="advancedsearch.addGame()">Add</button>
+        <button class="btn btn-primary" ng-click="advancedsearch.addGame(result.gbGameId)">Add</button>
       </div>
 
   </div>
