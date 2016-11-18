@@ -14,5 +14,5 @@ testDBScript.sh
 *compiled*.js.map
 *compiled.js
 client/builds/
-**/*.css
+**/MainAppStyle.css
 npm-debug.log
