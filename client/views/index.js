@@ -3,7 +3,7 @@
  * rendered server side (<approot>/server/webview/index.hbs)
  */
 
-require('../builds/ui-bootstrap-2.1.3.min.js');
+require('../libs/ui-bootstrap-tpls-2.2.0.min.js');
 var app = angular.module('upcomingGames', ["ngAnimate", "ngRoute", "ui.bootstrap"]);
 
 require('../directives/scroll.js');

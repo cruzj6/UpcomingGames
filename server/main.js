@@ -37,6 +37,8 @@ app.use(bodyparser.json());
 app.use(express.static(path.join(__dirname, '../client/views')));
 app.use(express.static(path.join(__dirname, '../client/builds')));
 app.use(express.static(path.join(__dirname, '../client/style')));
+app.use(express.static(path.join(__dirname, '../client/libs')));
+
 
 //Set up handlebars view engine
 app.set('views', path.join(__dirname, '/webview'));
