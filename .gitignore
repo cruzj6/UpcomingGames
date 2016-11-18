@@ -13,4 +13,6 @@ testDBScript.sh
 *compiled*.js
 *compiled*.js.map
 *compiled.js
-
+client/builds/
+**/*.css
+npm-debug.log
