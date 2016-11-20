@@ -32,7 +32,8 @@ app.controller('advancedsearch',function ($scope, httpReqService) {
   vm.addGame = function(gameid){
     alert(gameid);
     httpReqService.addTrackedGamePost(gameid, function(){
-      //TODO: Something on success?
+        //Emit event that we changed tracked games
+        $scope.$emit('trackedGamesChange', {});
     });
   }
 
