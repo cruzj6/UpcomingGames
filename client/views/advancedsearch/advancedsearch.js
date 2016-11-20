@@ -3,12 +3,23 @@ var app = angular.module('upcomingGames');
 app.controller('advancedsearch',function ($scope, httpReqService) {
 
   var vm = this;
-
+  var curYear = new Date().getFullYear();
+  var curMonth = new Date().getMonth();
   //Init field defaults
   vm.platform = "";
-  vm.month = "";
-  vm.year = "";
+  vm.month = curMonth;
+  vm.year = curYear; 
   vm.results = "No Results...";
+  vm.monthOptions= [1,2,3,4,5,6,7,8,9,10,11,12];
+  vm.yearOptions = [];
+
+  //Fill pickable years
+  var firstYear = 1980;
+  var lastYear = 2050;
+  for(var year = firstYear; year < lastYear; year++)
+  {
+    vm.yearOptions.push(year);
+  }
 
   //Perform an advanced search against the API
   vm.doSearch = function(){
@@ -19,9 +30,11 @@ app.controller('advancedsearch',function ($scope, httpReqService) {
 
   //Add a game to tracked games
   vm.addGame = function(gameid){
+    alert(gameid);
     httpReqService.addTrackedGamePost(gameid, function(){
       //TODO: Something on success?
     });
   }
+
 
 });
