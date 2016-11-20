@@ -12,7 +12,7 @@ searchForArticles: function(gameName, callback)
     //set up our options, we send the server the game name
     var options = {
         params:{
-            gameName: gameName
+            gameName: gameName + "game"
         }
     };
 
@@ -27,7 +27,7 @@ searchForMedia: function(gameName, callback)
 {
     var options = {
         params:{
-            gameName: gameName
+            gameName: gameName + "game"
         }
     };
     //Make the request

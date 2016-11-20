@@ -2,7 +2,7 @@
     <!--Row of search fields-->
     <div id="advanced-search-div-row" class="row">
       <!--Initial search-->
-      <div class="col-md-6 col-xs-12">
+      <div class="col-md-6 col-sm-6 col-xs-12">
         <form>
           <h2>Platform:</h2>
 
@@ -32,13 +32,13 @@
             iOS
           </label><br/>
           <label>
-            <input type='radio'>
+            <input type='radio' ng-model='advancedsearch.platform' value="">
             Any
           </label><br/>
 
         </form>
       </div>
-      <div class="col-md-6 col-xs-12">
+      <div class="col-md-6 col-sm-6 col-xs-12">
         <h2>Release Date:</h2>
         Release Month: <br/>
         <select ng-model='advancedsearch.month' ng-options="month for month in advancedsearch.monthOptions" class="form-control"></select>
@@ -56,7 +56,17 @@
   <div class="row">
 
       <h2>Results</h2>
-      <div ng-if="advancedsearch.results">No Results</div>
+      <div ng-if="!advancedsearch.isResults">No Results</div>
+
+      <!--Loading Search Spinner-->
+       <div ng-if="advancedsearch.isLoadingResults" id="loadingListIcon" style="text-align: center">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <span class="glyphicon glyphicon-refresh spinning" id="advancedsearch-loadingspinner"></span>
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+
       <!--Each search Result-->
       <div id="advancedsearchresult-item" class="col-md-6 col-xs-12 col-lg-4" ng-repeat='result in advancedsearch.results'>
         
