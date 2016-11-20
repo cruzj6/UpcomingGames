@@ -40,4 +40,10 @@ app.controller('advancedsearch',function ($scope, httpReqService) {
         $scope.$emit('trackedGamesChange', {});
     });
   }
+
+  vm.onDatePicked = function(mon, year){
+    alert(mon + "" + year);
+    vm.month = mon;
+    vm.year = year;
+  }
 });

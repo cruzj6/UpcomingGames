@@ -40,6 +40,9 @@
       </div>
       <div class="col-md-6 col-sm-6 col-xs-12">
         <h2>Release Date:</h2>
+        Quick Picker: 
+        <br/>
+        <date-picker on-date-pick="advancedsearch.onDatePicked(mon, year)"></date-picker>
         Release Month: <br/>
         <select ng-model='advancedsearch.month' ng-options="month for month in advancedsearch.monthOptions" class="form-control"></select>
         </select>

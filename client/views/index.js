@@ -7,6 +7,7 @@ require('../libs/ui-bootstrap-tpls-2.2.0.min.js');
 var app = angular.module('upcomingGames', ["ngAnimate", "ngRoute", "ui.bootstrap"]);
 
 require('../directives/scroll.js');
+require('../directives/datepicker.js');
 require('../services/httpRequestService.js');
 require('../views/dashboardmain/dashboardmain.js');
 require('../views/usertrackedgames/usertrackedgamescontroller.js');
