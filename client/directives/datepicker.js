@@ -9,9 +9,9 @@ app.directive('datePicker', function(){
             onDatePick: '&'
         },
         template: function(scope, element, attrs){
-            return "<div style='width: 20px;' class='datepicker input-group date'>" +
+            return "<div style='width: 200px;' class='datepicker input-group date'>" +
                         "<div class='input-group-addon'>" + 
-                            "<span class='glyphicon glyphicon-th'></span>" +
+                            "<span class='glyphicon glyphicon-calendar'></span>" +
                         "</div>" +
                     "</div>";
         },
@@ -22,14 +22,15 @@ app.directive('datePicker', function(){
                  format: "mm-yyyy",
                  viewMode: "months", 
                  minViewMode: "months",
-                 orientation: 'bottom auto'
+                 orientation: 'bottom auto',
+                 autoclose: true
             })
             .on('changeDate', function(ev){
                 var month = parseInt(ev.format('mm'));
                 var theYear = parseInt(ev.format('yyyy'));
 
                 //pass day and month
-                scope.onDatePick({mon: month, year: theYear});
+                scope.$apply(scope.onDatePick({mon: month, year: theYear}));
             });
         }
     };
