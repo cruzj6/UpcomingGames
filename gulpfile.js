@@ -12,13 +12,13 @@ gulp.task('sass', function () {
         .pipe(gulp.dest('./client/style'));
 });
 
-gulp.task('js', function(){
-     return gulp.src('client/views/index.js')
+gulp.task('js', function () {
+    return gulp.src('client/views/index.js')
         .pipe(webpack(require('./webpack.config.js')))
         .pipe(gulp.dest('client/builds/'));
 });
 
-gulp.task('watch', function() {
-  gulp.watch(['client/**/*.js', '!client/builds/**/*.js'], ['js']);
-  gulp.watch('client/style/scss/**/*.scss', ['sass']);
+gulp.task('watch', function () {
+    gulp.watch(['client/**/*.js', '!client/builds/**/*.js'], ['js']);
+    gulp.watch('client/style/scss/**/*.scss', ['sass']);
 });
