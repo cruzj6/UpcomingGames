@@ -10,8 +10,8 @@ var _ = require('underscore-node');
 var moment = require('moment');
 moment().format();
 
-export function searchUpcomingGames(searchTerms, callback){
-    gameAPI.searchForUpcomingGame(searchTerms, function (response) {
+export function searchForGameByName(searchTerms, callback){
+    gameAPI.searchForGameByName(searchTerms, function (response) {
         callback(response);
     });
 }

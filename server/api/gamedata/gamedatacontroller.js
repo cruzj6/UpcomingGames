@@ -12,7 +12,7 @@ export function searchGames(req, res)
         var searchTerm = req.query.searchTerm;
 
         //Make a call to the gameData module
-        gameData.searchUpcomingGames(searchTerm, function (data) {
+        gameData.searchForGameByName(searchTerm, function (data) {
             res.send(data);
         });
     }

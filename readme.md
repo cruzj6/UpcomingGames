@@ -1,5 +1,5 @@
 #Upcoming Games WebApp
-A web app for tracking info about upcoming video games and more!
+A web app for tracking info about upcoming video games, your favorite video games and more!
 
 ###To Build Locally
 PreReqs:
@@ -19,5 +19,5 @@ PGSSLMODE=require
 Next run (requires gulp installed):
 ```
 gulp
-gulp sass
 ```
+to begin watching for code changes

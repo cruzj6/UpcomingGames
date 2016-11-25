@@ -17,15 +17,14 @@ export const ID_ANDROID = '123';
 
 //Giantbomb API search request and filters results to just upcoming games
 //and returns an object with the info we want
-export function searchForUpcomingGame(searchTerms, callback)
-{
+export function searchForGameByName(searchTerms, callback) {
     var todaysDate = new Date();
 
     //This will be our callback response
     var gameResponses = [];
     var jsonRes;
     var searchString = giantBombAPI + '/search/?api_key=' + apiKey +
-       '&format=json' + '&query=' + searchTerms + "&resources=game";
+        '&format=json' + '&query=' + searchTerms + "&resources=game";
 
     var qus = {
         format: 'json',
@@ -35,7 +34,7 @@ export function searchForUpcomingGame(searchTerms, callback)
     };
 
     //Make our request to the API, need custom user agent as per their API
-    request.get({uri: searchString, headers:{'user-agent' : 'UpcomingAwesomeGamesWoo'}}, function (err, res, body) {
+    request.get({ uri: searchString, headers: { 'user-agent': 'UpcomingAwesomeGamesWoo' } }, function (err, res, body) {
 
         jsonRes = JSON.parse(body);
 
@@ -43,36 +42,25 @@ export function searchForUpcomingGame(searchTerms, callback)
         var results = jsonRes.results;
 
         //For each result
-        for(var i = 0; i < results.length; i++)
-        {
+        for (var i = 0; i < results.length; i++) {
             //Easier to work with
             var curResult = results[i];
 
-            //If this game is TBD or has a future date we want it
-            var islater = curResult.expected_release_year >= todaysDate.getYear() &&
-                curResult.expected_release_month >= todaysDate.getMonth() + 1 &&
-                curResult.expected_release_day >= todaysDate.getDay() + 1;
-            var isTBD = (curResult.expected_release_year == null || curResult.expected_release_month == null ||
-                        curResult.expected_release_day == null) && curResult.original_release_date == null;
+            //Just need the name from each platform
+            var resultsPlatforms = _.pluck(curResult.platforms, 'name');
 
-            if(islater || isTBD) {
-                //Just need the name from each platform
-                var resultsPlatforms = _.pluck(curResult.platforms, 'name');
-
-                //Build our response object and add it to the response array
-                gameResponses.push(
-                    generateGameDataItem(results[i].name, curResult.image, resultsPlatforms,
-                        curResult.expected_release_month, curResult.expected_release_year, curResult.expected_release_day,
-                        curResult.id)
-                );
-            }
+            //Build our response object and add it to the response array
+            gameResponses.push(
+                generateGameDataItem(results[i].name, curResult.image, resultsPlatforms,
+                    curResult.expected_release_month, curResult.expected_release_year, curResult.expected_release_day,
+                    curResult.id));
         }
         //Send callback
         callback(gameResponses);
     });
 }
 
-function generateGameDataItem(itemName, itemImage, itemPlatformsArray, itemReleaseMonth, itemReleaseYear, itemReleaseDay, itemGBID){
+function generateGameDataItem(itemName, itemImage, itemPlatformsArray, itemReleaseMonth, itemReleaseYear, itemReleaseDay, itemGBID) {
     return {
         name: itemName,
         imageLink: itemImage != null ? itemImage.icon_url :
@@ -85,15 +73,14 @@ function generateGameDataItem(itemName, itemImage, itemPlatformsArray, itemRelea
     }
 }
 
-export function getDataForGameById(gameId, handleIdGameData)
-{
-    if(gameId) {
+export function getDataForGameById(gameId, handleIdGameData) {
+    if (gameId) {
         var queryString = giantBombAPI + "/game/" + gameId + "/?api_key=" + apiKey + '&format=json';
 
         //Make our http request to the API
         request.get({
             uri: queryString,
-            headers: {'user-agent': 'UpcomingAwesomeGamesWoo'}//Required by API
+            headers: { 'user-agent': 'UpcomingAwesomeGamesWoo' }//Required by API
         }, function (err, repond, body) {
             if (!err) {
                 var jsonRes = JSON.parse(body);
@@ -108,34 +95,29 @@ export function getDataForGameById(gameId, handleIdGameData)
                 //callback
                 handleIdGameData(gameDatas);
             }
-            else(handleIdGameData(null));
+            else (handleIdGameData(null));
         });
     }
-    else
-    {
+    else {
         handleIdGameData(null);
     }
 }
 
-export function advancedGamesQuery(gbQuery, callback)
-{
+export function advancedGamesQuery(gbQuery, callback) {
     var gameResponses = [];
     var queryURI = giantBombAPI + '/games/?api_key=' + apiKey + '&filter=';
 
     //Tack on filters
-    if(gbQuery.expected_release_month != null)
-    {
+    if (gbQuery.expected_release_month != null) {
         queryURI += 'expected_release_month:' + gbQuery.expected_release_month + ',';
     }
-    if(gbQuery.expected_release_year != null)
-    {
-        queryURI  += 'expected_release_year:' + gbQuery.expected_release_year + ',';
+    if (gbQuery.expected_release_year != null) {
+        queryURI += 'expected_release_year:' + gbQuery.expected_release_year + ',';
     }
-    if(gbQuery.platform != null)
-    {
+    if (gbQuery.platform != null) {
         queryURI += 'platforms:' + gbQuery.platform;
     }
-    if(queryURI.slice(-1) === ',') queryURI = queryURI.substr(0, queryURI.length - 1);
+    if (queryURI.slice(-1) === ',') queryURI = queryURI.substr(0, queryURI.length - 1);
 
     //Empty response ph
     var jsonRes = {};
@@ -143,9 +125,9 @@ export function advancedGamesQuery(gbQuery, callback)
 
     //Make our request to the API, need custom user agent as per their API
     console.log("Making Request to GB API: " + queryURI);
-    request.get({uri: queryURI, headers:{'user-agent' : 'UpcomingAwesomeGamesWoo'}}, function (err, res, body) {
+    request.get({ uri: queryURI, headers: { 'user-agent': 'UpcomingAwesomeGamesWoo' } }, function (err, res, body) {
 
-        if(!err) {
+        if (!err) {
             jsonRes = JSON.parse(body);
             var apiGamesResponse = [];
             var gbResults = jsonRes.results;
@@ -159,7 +141,7 @@ export function advancedGamesQuery(gbQuery, callback)
             }
             callback(apiGamesResponse);
         }
-        else{
+        else {
             console.log("Error querying Giant Bomb API: " + err);
             callback({});
         }
