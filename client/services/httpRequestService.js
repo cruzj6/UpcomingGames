@@ -157,8 +157,8 @@ getTopTrackedGames: function(callback)
 platform: (all, pc, xbone, ps4, wiiu, ios, android),
  month: <1-12>,
  year: <yyyy>,
- filter: {
-    keywords: []
+ filters: {
+    keywords: ""
  }
  }
  */
@@ -170,7 +170,9 @@ console.log("making advanced search");
       platform: platform,
       month: month,
       year: year,
-      keywords: keywords
+      filters: {
+          keywords: keywords
+      }
     }
   }).then(function(res){
       console.log("back from advanced search");

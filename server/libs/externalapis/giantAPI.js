@@ -117,6 +117,7 @@ export function advancedGamesQuery(gbQuery, callback) {
     if (gbQuery.platform != null) {
         queryURI += 'platforms:' + gbQuery.platform;
     }
+    if(gbQuery.query != null) queryURI += 'name:' + gbQuery.query + ',';
     if (queryURI.slice(-1) === ',') queryURI = queryURI.substr(0, queryURI.length - 1);
 
     //Empty response ph

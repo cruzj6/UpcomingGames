@@ -14,6 +14,7 @@ app.controller('advancedsearch',function ($scope, httpReqService) {
   vm.yearOptions = [];
   vm.isResults = false;
   vm.isLoadingResults = false;
+  vm.keywords = "";
 
   //Fill pickable years
   var firstYear = 1980;
@@ -26,7 +27,7 @@ app.controller('advancedsearch',function ($scope, httpReqService) {
   //Perform an advanced search against the API
   vm.doSearch = function(){
       vm.isLoadingResults = true;
-      httpReqService.getAdvancedSearch(vm.platform, vm.month, vm.year, [], function(data){
+      httpReqService.getAdvancedSearch(vm.platform, vm.month, vm.year, vm.keywords, function(data){
           vm.results = data;
           vm.isResults = vm.results.length > 0;
           vm.isLoadingResults = false;
@@ -41,6 +42,7 @@ app.controller('advancedsearch',function ($scope, httpReqService) {
     });
   }
 
+  //Change month and year parameters when the date is chosen
   vm.onDatePicked = function(mon, year){
     vm.month = mon;
     vm.year = year;
