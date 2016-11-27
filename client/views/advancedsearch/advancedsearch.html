@@ -69,7 +69,7 @@
     </div>
 
     <!--Each search Result-->
-    <div id="advancedsearchresult-item" class="col-md-6 col-xs-12 col-lg-4" ng-repeat='result in advancedsearch.results'>
+    <div id="advancedsearchresult-item" class="col-md-6 col-xs-12 col-lg-4" ng-if='!advancedsearch.isLoadingResults' ng-repeat='result in advancedsearch.results'>
 
       <div class="card">
         <div class="card-image">
