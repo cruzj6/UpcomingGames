@@ -13,6 +13,7 @@ var session = require('express-session');
 var passport = require('passport');
 var dotenv = require('dotenv');
 dotenv.load();
+require('./auth/ucgames/ucgamesauth').authSetup(passport);
 
 //Set up our express-session middleware
 app.use(session({

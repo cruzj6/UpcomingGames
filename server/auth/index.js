@@ -11,10 +11,6 @@ require('./steam/steamauth').setUp();
 router.use('/steam', require('./steam').default);
 router.use('/ucgames', require('./ucgames').default);
 
-router.get('/signup', function(req, res){
-    
-});
-
 //Logout of session
 router.get('/logout', function (req, res) {
     //When the user logs out destroy the session and log them out
