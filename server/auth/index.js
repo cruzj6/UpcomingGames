@@ -9,6 +9,11 @@ var passport = require('passport');
 //Steam Auth
 require('./steam/steamauth').setUp();
 router.use('/steam', require('./steam').default);
+router.use('/ucgames', require('./ucgames').default);
+
+router.get('/signup', function(req, res){
+    
+});
 
 //Logout of session
 router.get('/logout', function (req, res) {

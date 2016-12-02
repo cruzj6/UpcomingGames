@@ -16,8 +16,8 @@ dotenv.load();
 
 //Set up our express-session middleware
 app.use(session({
-        secret: 'test',
-        name: 'steamSession',
+        secret: 'ilikeandescandies',
+        name: 'ucgamessession',
         resave: true,
         saveUninitialized: true
     })
