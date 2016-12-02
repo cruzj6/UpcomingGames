@@ -13,19 +13,8 @@ var request = require('request').defaults({
 });
 //var Bing = require('node-bing-api')({accKey: apiKey});
 
-//Usable by requiring the module
-module.exports = {
-    getGameNews: function (gameName, callback) {
-        getGameNews(gameName, callback);
-    },
-    getGameMedia: function (gameName, mediaDataHandler) {
-        getGameMedia(gameName, mediaDataHandler);
-    }
-
-};
-
 //Requests media data from the Bing web API
-function getGameMedia(gameName, mediaDataHandler) {
+export function getGameMedia(gameName, mediaDataHandler) {
     //We want video results
     var searchString = rootUri + '/Video';
 
@@ -58,7 +47,7 @@ function getGameMedia(gameName, mediaDataHandler) {
 }
 
 //Request news articles from the BingAPI
-function getGameNews(gameName, callback) {
+export function getGameNews(gameName, callback) {
     //We want news
     var searchString = rootUri + '/News';
     request.get({
