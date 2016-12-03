@@ -15,8 +15,13 @@ STEAM_API_KEY=<Steam API key>
 HOME_URL=<{protocol}://{host}:{port}>
 PGSSLMODE=require
 ```
+Next run
+```
+npm install
+```
+to install node modules
 
-Next run (requires gulp installed):
+Finally run (requires gulp installed):
 ```
 gulp
 ```
