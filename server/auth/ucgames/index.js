@@ -43,4 +43,14 @@ router.post('/signup', passport.authenticate('ucgames-signup', {
     failureFlash: true
 }));
 
+/**
+ * Redirects the user to the app if sign in is successful
+ * Redirects back to sign up if unsuccessful
+ */
+router.post('signin', passport.authenticate('ucgames-signin', {
+    successRedirect: '/',
+    failureRedirect: '/', //Should route to welcomepage
+    failureFlash: true
+}));
+
 export default router;

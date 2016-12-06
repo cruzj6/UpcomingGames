@@ -8,6 +8,10 @@ var User = require('./useraccountsmodel');
 export var router = express.Router();
 
 export var authSetup = function(passport) {
+
+    /**
+     * Strategy to create a new user in the database (Signup)
+     */
     passport.use('ucgames-signup', new LocalStrategy({
         usernameField: 'email',
         passwordField: 'password',
@@ -38,6 +42,36 @@ export var authSetup = function(passport) {
 
     })
     );
+
+    /**
+     * Strategy to check if user exists, check if pass is valid, and sign in
+     */
+    passport.use('ucgames-signin', new LocalStrategy({
+        usernameField: 'email',
+        passwordField: 'password'
+    }, function(email, password, done){
+        console.log("SIGN IN");
+        //Check if user exists
+        User.findUser(email, function(exists, err) {
+            if (!exists) {
+                //User does not exist, exit
+                console.log("USER DOESNT EXIST: " + email);
+                return done(null, false, "User does not exist")
+            }
+            else {
+                console.log("CREATING USER" + email)
+                //User exists, check if password is valid
+                var user = new User(email, password);
+                user.checkValidPassword(password, function(isValidPass, err){
+                    if(!err){
+                        if(isValidPass){
+                            return done(null, user);
+                        }
+                    }
+                });
+            }
+        });
+    }));
 
     passport.serializeUser(function(user, done) {
         done(null, user);

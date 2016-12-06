@@ -70,9 +70,32 @@ module.exports = class User {
     /**
      * Check if the password is valid against the user's hashed password
      */
-    static checkValidPassword(password) {
-        //TODO: retrieve hashed pw
-        var hashedPass;
-        return bcrypt.compareSync(password, hashedPass);
+    static checkValidPassword(password, callback) {
+        console.log("Entered check if user exists");
+        pg.connect(process.env.DATABASE_URL, function (err, client, done) {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                client.query("CREATE TABLE if not exists user_accounts (userid TEXT, password TEXT);");
+
+                console.log('CHECK VALID PASS FOR: ' + email);
+                //Select all tracked gameId's for that userId
+                client.query("SELECT userid FROM user_accounts WHERE userid=($1);", [email], function (err, res) {
+                    console.log("got FROM DATABASE: " + JSON.stringify(res.rows));
+                    done();
+                    //Check if user exists, and if it is correct password
+                    if(res.rows > 0)
+                    {
+                        var hashedPass = res.rows[0].password;
+                        var isValidPass = bcrypt.compareSync(password, hashedPass);
+                        callback(isValidPass, err);
+                    }
+                    else{
+                        callback(false, err);
+                    }
+                });
+            }
+        });
     }
 }
