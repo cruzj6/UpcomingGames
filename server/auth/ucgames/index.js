@@ -4,6 +4,7 @@
 var express = require('express');
 var router = express.Router();
 var passport = require('passport');
+require('connect-flash');
 
 /**
  * Returns true if the user is logged in
@@ -29,7 +30,7 @@ router.get('/isLoggedIn', function(req, res)
  * Renders the sign up page
  */
 router.get('/signup', function(req,res){
-    res.render('signup');
+    res.redirect('/login/signup.html');
 });
 
 /**
@@ -38,7 +39,8 @@ router.get('/signup', function(req,res){
  */
 router.post('/signup', passport.authenticate('ucgames-signup', {
     successRedirect: '/',
-    failureRedirect: '/auth/ucgames/signup'
+    failureRedirect: '/auth/ucgames/signup',
+    failureFlash: true
 }));
 
 export default router;
