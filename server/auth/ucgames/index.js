@@ -39,18 +39,16 @@ router.get('/signup', function(req,res){
  */
 router.post('/signup', passport.authenticate('ucgames-signup', {
     successRedirect: '/',
-    failureRedirect: '/auth/ucgames/signup',
-    failureFlash: true
+    failureRedirect: '/auth/ucgames/signup'
 }));
 
 /**
  * Redirects the user to the app if sign in is successful
  * Redirects back to sign up if unsuccessful
  */
-router.post('signin', passport.authenticate('ucgames-signin', {
+router.post('/signin', passport.authenticate('ucgames-signin', {
     successRedirect: '/',
-    failureRedirect: '/', //Should route to welcomepage
-    failureFlash: true
+    failureRedirect: '/' //Should route to welcomepage
 }));
 
 export default router;

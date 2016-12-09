@@ -2,7 +2,6 @@ var bcrypt = require('bcrypt-nodejs');
 var pg = require('pg');
 
 module.exports = class User {
-
     constructor(userid, password) {
         this.userid = userid;
         this.password = password
@@ -26,9 +25,9 @@ module.exports = class User {
                 client.query("SELECT userid FROM user_accounts WHERE userid=($1);", [email], function (err, res) {
                     console.log("got FROM DATABASE: " + JSON.stringify(res.rows));
                     //Send back the rows
-                    done();
                     var exists = res.rows.length > 0;
                     callback(exists, err);
+                    done();
                 });
             }
         });
@@ -70,8 +69,9 @@ module.exports = class User {
     /**
      * Check if the password is valid against the user's hashed password
      */
-    static checkValidPassword(password, callback) {
-        console.log("Entered check if user exists");
+    checkValidPassword(password, callback) {
+        console.log("Entered check user password");
+        var _this = this;
         pg.connect(process.env.DATABASE_URL, function (err, client, done) {
             if (err) {
                 console.log(err);
@@ -79,19 +79,20 @@ module.exports = class User {
             else {
                 client.query("CREATE TABLE if not exists user_accounts (userid TEXT, password TEXT);");
 
-                console.log('CHECK VALID PASS FOR: ' + email);
+                console.log('CHECK VALID PASS FOR: ' + _this.userid);
                 //Select all tracked gameId's for that userId
-                client.query("SELECT userid FROM user_accounts WHERE userid=($1);", [email], function (err, res) {
+                client.query("SELECT * FROM user_accounts WHERE userid=($1);", [_this.userid], function (err, res) {
                     console.log("got FROM DATABASE: " + JSON.stringify(res.rows));
-                    done();
                     //Check if user exists, and if it is correct password
-                    if(res.rows > 0)
+                    if(res.rows.length > 0)
                     {
                         var hashedPass = res.rows[0].password;
                         var isValidPass = bcrypt.compareSync(password, hashedPass);
+                        done();
                         callback(isValidPass, err);
                     }
                     else{
+                        done();
                         callback(false, err);
                     }
                 });

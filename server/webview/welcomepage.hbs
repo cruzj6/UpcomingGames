@@ -21,14 +21,16 @@
                 <br/>
                 <p align="center" style="font-weight: bold; font-family: Helvetica,sans-serif; font-size: 30px">Welcome!</p>
                 <div align="center" id="div_sign_in_buttons">
+                    <form method='POST' action='/auth/ucgames/signin'> 
                     <div id='form_sign_in' class='form-group'>
                         <label>Email Address</label>
                         <input class='form-control' name='email'>
                         <label>Password</label>
                         <input class='form-control' name='password'>
                     </div>
-                    <a id='button_sign_in' href="/auth/ucgames/signin" class="btn btn-info" role="button">Sign In</a>
+                    <input id='button_sign_in' type='submit' class="btn btn-info" role="button">Sign In</a>
                     <a id='button_sign_up' href="/auth/ucgames/signup" class="btn btn-info" role="button">Sign Up</a>
+                    </form>
                 </div>
             </div>
             <div class="col-md-4"></div>
