@@ -4,8 +4,8 @@
 var app = angular.module('upcomingGames');
 var removeMode = false;
 
-app.controller('usertrackedgames', function($scope, $interval, dataService, httpReqService)
-{
+app.controller('usertrackedgames', function ($scope, $interval, dataService, httpReqService, trackedGamesService) {
+    var vm = this;
     $scope.trackedGames = [];
     //We are not in remove mode at start, set to remove games text
     $scope.remToggle = removeMode;
@@ -15,47 +15,59 @@ app.controller('usertrackedgames', function($scope, $interval, dataService, http
     //When user first enters site get their tracked games
     getTrackedGames($scope, httpReqService);
 
+    /**
+     * Make a call to the trackedGamesService to add a tracked game
+     */
+    vm.addTrackedGame = function (game) {
+        trackedGamesService.addTrackedGame(game);
+    }
+
+    /**
+     * Make a call to the trackeGamesService to update the currently selected game
+     */
+    vm.selectActiveGame = function ($index, game) {
+        trackedGamesService.selectActiveGame($index, game);
+    }
+
     //Used for form submission, if user doesn't use button
-    $scope.toggleRes = function(){
+    $scope.toggleRes = function () {
         ddToggle();
     };
 
     //When user uses search box
-    $scope.searchGames = function() {
+    $scope.searchGames = function () {
         //Toggle our no results text if it's displaying
         var noResText = document.getElementById('noResultsIndicator');
         noResText.style.display = 'none';
 
-        var searchInValue =  document.getElementById('searchGamesIn').value.trim();
+        var searchInValue = document.getElementById('searchGamesIn').value.trim();
         var searchingText = document.getElementById('searchingIndicator');
         searchingText.style.display = 'inline-block';
 
-        httpReqService.searchForGames(searchInValue, function(foundGames){
+        httpReqService.searchForGames(searchInValue, function (foundGames) {
             searchingText.style.display = 'none';
 
-            if(foundGames.length <= 0) {
+            if (foundGames.length <= 0) {
                 var noResText = document.getElementById('noResultsIndicator');
                 noResText.style.display = 'inline-block';
             }
-            else
-            {
+            else {
                 $scope.searchResults = foundGames;
             }
         });
 
     };
 
-    $scope.removeTrackedGame = function(game){
-        $scope.trackedGames = _.without($scope.trackedGames, game).sort(function(a,b)
-        {
+    $scope.removeTrackedGame = function (game) {
+        $scope.trackedGames = _.without($scope.trackedGames, game).sort(function (a, b) {
             return compareStrings(a.name, b.name);
         });
-        httpReqService.removeTrackedGamePost(game.gbGameId, function(){
+        httpReqService.removeTrackedGamePost(game.gbGameId, function () {
             $scope.$emit('trackedGamesChange', {});
         });
     };
 
-    $scope.toggleRemGames = function(){
+    $scope.toggleRemGames = function () {
         removeGamesToggle($scope);
     };
 
@@ -65,9 +77,8 @@ app.controller('usertrackedgames', function($scope, $interval, dataService, http
     };
 
     //Repeatedly update the countdown to how long is left until game release
-    $interval(function(){
-        for(var i=0; i <$scope.trackedGames.length; i++)
-        {
+    $interval(function () {
+        for (var i = 0; i < $scope.trackedGames.length; i++) {
             var trackedGame = $scope.trackedGames[i];
             $scope.trackedGames[i].ttr =
                 dataService.getTimeToRelease(trackedGame.releaseMonth, trackedGame.releaseDay, trackedGame.releaseYear);
@@ -75,18 +86,15 @@ app.controller('usertrackedgames', function($scope, $interval, dataService, http
     }, 1000);
 
     //When tracked games changes are posted to the server
-    $scope.$on('trackedGamesChange', function(event, args)
-    {
+    $scope.$on('trackedGamesChange', function (event, args) {
         getTrackedGames($scope, httpReqService);
     });
 
-    function getTrackedGames($scope, httpReqService)
-    {
+    function getTrackedGames($scope, httpReqService) {
         $scope.loadingGames = true;
         setRemoveView($scope, removeMode);
-        httpReqService.getTrackedGames(function(data){
-            $scope.trackedGames = data.sort(function(a,b)
-            {
+        httpReqService.getTrackedGames(function (data) {
+            $scope.trackedGames = data.sort(function (a, b) {
                 return compareStrings(a.name, b.name);
             });
 
@@ -98,28 +106,26 @@ app.controller('usertrackedgames', function($scope, $interval, dataService, http
         });
     }
 
-    function removeGamesToggle($scope){
-        if(!removeMode) {
+    function removeGamesToggle($scope) {
+        if (!removeMode) {
             removeMode = true;
             $scope.remToggle = removeMode;
         }
-        else
-        {
+        else {
             removeMode = false;
             $scope.remToggle = removeMode;
         }
         $scope.remStyle = removeMode ? "display: inline-block" : "display: none"
     }
 
-    function ddToggle(){
+    function ddToggle() {
         //Toggle results dropdown window
         angular.element('#searchGamesButton').dropdown('toggle');
     }
 
-    function setRemoveView($scope, isRemove)
-    {
+    function setRemoveView($scope, isRemove) {
         var removeButtons = document.getElementsByName('removeGameButton');
-        if(isRemove) {
+        if (isRemove) {
             //Make each remove button visible
             for (var i = 0; i < removeButtons.length; i++) {
                 removeButtons[i].style.display = "inline-block";
@@ -127,8 +133,7 @@ app.controller('usertrackedgames', function($scope, $interval, dataService, http
             //Let user click done when they are done
             $scope.remToggleText = "Done";
         }
-        else
-        {
+        else {
             //Make each remove button in-visible
             for (var j = 0; j < removeButtons.length; j++) {
                 removeButtons[j].style.display = "none";

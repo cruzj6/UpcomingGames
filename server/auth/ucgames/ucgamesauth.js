@@ -24,10 +24,9 @@ export var authSetup = function (passport) {
             if (exists) {
                 console.log("USER ALREADY EXISTS: " + email);
                 return done(null, false, "Account already exists")
-            }
-            else {
+            } else {
                 console.log("CREATING USER" + email)
-                //User doesn't exist, create the user
+                    //User doesn't exist, create the user
                 var user = new User(email, User.generateHash(password));
                 user.addUser(function (err) {
                     if (!err) {
@@ -37,8 +36,7 @@ export var authSetup = function (passport) {
                 });
             }
         });
-    })
-    );
+    }));
 
     /**
      * Strategy to check if user exists, check if pass is valid, and sign in
@@ -54,18 +52,16 @@ export var authSetup = function (passport) {
                 //User does not exist, exit
                 console.log("USER DOESNT EXIST: " + email);
                 return done(null, false, "User does not exist")
-            }
-            else {
+            } else {
                 console.log("SIGNING IN USER" + email)
-                //User exists, check if password is valid
+                    //User exists, check if password is valid
                 var user = new User(email, password);
                 user.checkValidPassword(password, function (isValidPass, err) {
                     if (!err) {
                         if (isValidPass) {
                             console.log("Authenticated, Signing in");
                             return done(null, user);
-                        }
-                        else {
+                        } else {
                             return done(null, false, "Invalid Password");
                         }
                     }

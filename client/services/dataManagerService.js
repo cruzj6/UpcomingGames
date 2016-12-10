@@ -1,13 +1,24 @@
 /**
- * Created by Joey on 3/21/16.
+ * Service to manage data manipulation and processing
  */
 require('../libs/countdown.min.js');
 var app = angular.module('upcomingGames');
-app.factory('dataService', function(){
+app.factory('dataService', function () {
     return {
 
-        getTimeToRelease: function(relMon, relDay, relYear)
-        {
+        /**
+         * Returns the amount of time until the given date based on system time
+         * returns: 
+         * {
+         *  sec: <int>
+         *  min: <int>
+         *  hrs: <int>
+         *  yrs: <int>
+         *  days: <int>
+         *  mons: <int>
+         * }
+         */
+        getTimeToRelease: function (relMon, relDay, relYear) {
             var cdt = countdown(new Date(relYear, relMon, relDay));
             return {
                 sec: cdt.seconds,
@@ -18,38 +29,10 @@ app.factory('dataService', function(){
                 mons: cdt.months - 1
             };
         }
-
-        /*getTimeToRelease: function (relMon, relDay, relYear) {
-            var date = new Date();
-            var numSecRem = 59 - date.getSeconds();
-            var numMinRem = 59 - date.getMinutes();
-            var numHourRem = 23 - date.getHours();
-            var numMon = relMon - date.getMonth() - 1;
-
-            var remDaysThisMonth = numDaysInMonth(date.getMonth(), date.getYear()) - date.getDate();
-            var numDay = 0;
-            if(relMon != date.getMonth)
-                numDay = remDaysThisMonth + relDay - 1;
-            else
-                numDay = relDay - 1;
-
-            var numYear = relYear - date.getFullYear();
-
-            return {
-                sec: numSecRem,
-                min: numMinRem,
-                hrs: numHourRem,
-                yrs: numYear,
-                days: numDay,
-                mons: numMon
-            }
-
-        }*/
     }
 
 });
 
-function numDaysInMonth(month, year)
-{
+function numDaysInMonth(month, year) {
     return new Date(year, month, 0).getDate();
 }

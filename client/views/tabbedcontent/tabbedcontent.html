@@ -1,14 +1,14 @@
-<div ng-init="gameSelected = false;" ng-controller="tabbedcontent">
+<div ng-init="gameSelected = false;" ng-controller="tabbedcontent as tabbedcontent">
     <uib-tabset>
 
         <!--News tab-->
         <uib-tab index="0" heading="News">
-            <div ng-controller="newstab" class="newsTab">
+            <div ng-controller="newstab as newstab" class="newsTab">
                 <div ng-if="!gameSelected">
                     <p>Select a tracked game...</p>
                 </div>
 
-                <div id="loadingNewsIcon" ng-if="loadingNews">
+                <div id="loadingNewsIcon" ng-if="newstab.loadingNews">
                     <div class="col-md-4"></div>
                     <div class="col-md-4">
                         <span class="glyphicon glyphicon-refresh spinning span-loadingwheel"></span>
@@ -16,10 +16,10 @@
                     <div class="col-md-4"></div>
                 </div>
 
-                <ul class="list-group newsarticles" ng-if="newsArticles">
+                <ul class="list-group newsarticles" ng-if="newstab.newsArticles">
 
                     <!--Element for each news article-->
-                    <li id="newsArtLi" class="newsarticles__item" ng-repeat="art in newsArticles">
+                    <li id="newsArtLi" class="newsarticles__item" ng-repeat="art in newstab.newsArticles">
                         <h4> <a ng-href="{[{art.url}]}" class="arttitle">{[{art.title}]}</a></h4>
                         <p>Date: {[{art.date.split('T')[0]}]}</p>
                         <p>{[{art.desc}]}</p>
@@ -30,8 +30,8 @@
 
         <!--Media/video tab-->
         <uib-tab index="1" heading="Media">
-            <div class="newsTab" ng-controller="mediatab">
-                <div id="loadingMediaIcon" ng-if="loadingMedia">
+            <div class="newsTab" ng-controller="mediatab as mediatab">
+                <div id="loadingMediaIcon" ng-if="mediatab.loadingMedia">
                     <div class="col-md-4"></div>
                     <div class="col-md-4">
                         <span id="span-loadingwheel" class="glyphicon glyphicon-refresh spinning "></span>
@@ -41,7 +41,7 @@
                 <ul class="list-group">
 
                     <!--Element for each Media item-->
-                    <li class="mediaitem" ng-if="mediaItems" ng-repeat="media in mediaItems|limitTo:10">
+                    <li class="mediaitem" ng-if="mediatab.mediaItems" ng-repeat="media in mediatab.mediaItems">
                         <h4><a ng-href="{[{media.url}]}" class="mediaitem__link">{[{media.title}]}</a></h4>
                         <iframe title="YouTube video player" class="youtube-player" type="text/html" width="400" height="300" ng-src="{[{media.url.replace('watch?v=', 'embed/')}]}"
                             frameborder="0" allowFullScreen></iframe>

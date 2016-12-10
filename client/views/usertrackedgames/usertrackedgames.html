@@ -1,4 +1,4 @@
-<div class="panel panel-default trackedGamesPanel" ng-controller="usertrackedgames">
+<div class="panel panel-default trackedGamesPanel" ng-controller="usertrackedgames as usertrackedgames">
     <div class="panel-heading" style="font-size: 24px; font-weight: bold;">
         <i class="fa fa-gamepad"></i> My Tracked Games
     </div>
@@ -27,7 +27,7 @@
                         <p style="padding-top: 5px;">{[{res.name}]}</p>
                     </div>
                     <div class="col-md-4">
-                        <button data-toggle="modal" data-target="#showAddedModal" class="btn btn-primary" name="AddButton" ng-click="addTrackedGame(res)">Add</button>
+                        <button data-toggle="modal" data-target="#showAddedModal" class="btn btn-primary" name="AddButton" ng-click="usertrackedgames.addTrackedGame(res)">Add</button>
                     </div>
                 </div>
             </li>
@@ -50,7 +50,7 @@
 
             <!--Element that contains one tracked game, this is repeated for each tracked game-->
             <li class="list-group-item trackedGame" ng-repeat="game in trackedGames" ng-class="{'active': $index === selectedTrackedGameIndex}"
-                ng-click="selectActiveGame($index, game);">
+                ng-click="usertrackedgames.selectActiveGame($index, game);">
                 <div style="    display: inline-block;
                                 height: 100px;
                                 width: 220px;">

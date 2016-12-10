@@ -1,32 +1,31 @@
-/**
- * Created by Joey on 4/6/16.
- */
-
 var app = angular.module('upcomingGames');
+/**
+ * Controller for the Top Tracked page
+ */
 app.controller('toptrackedgames', function($scope, httpReqService)
 {
-
-    $scope.loading = true;
+    var vm = this;
+    vm.loading = true;
     httpReqService.getTopTrackedGames(function(topTrackedData)
     {
-        $scope.topGames = topTrackedData;
-        $scope.loading = false;
+        vm.topGames = topTrackedData;
+        vm.loading = false;
     });
 
-    $scope.showExtraTopIf = false;
-    $scope.showExtraTop = false;
-    $scope.showMoreTop = function()
+    vm.showExtraTopIf = false;
+    vm.showExtraTop = false;
+    vm.showMoreTop = function()
     {
-        $scope.showExtraTop = !$scope.showExtraTop;
-        if($scope.showExtraTopIf) {
+        vm.showExtraTop = !vm.showExtraTop;
+        if(vm.showExtraTopIf) {
             angular.element('#testSlideIn')
                 .one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
-                    $scope.showExtraTopIf = false;
+                    vm.showExtraTopIf = false;
                 });
         }
         else
         {
-            $scope.showExtraTopIf = true;
+            vm.showExtraTopIf = true;
         }
 
     }
