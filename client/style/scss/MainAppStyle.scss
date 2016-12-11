@@ -503,6 +503,21 @@ body {
     text-decoration: none;
 }
 
+#user_id_panel{
+    padding-left: 5px;
+    margin-top: 10px;vertical-align: bottom;
+    background-color: $ui-color-blue;
+    color: white;
+}
+
+#upcominggames_logo{
+    padding-bottom: 5px;
+}
+
+#headingRow{
+    //background-color: $ui-color-blue;
+}
+
 #advanced-result-name {
     max-width: 500px;
     white-space: nowrap;

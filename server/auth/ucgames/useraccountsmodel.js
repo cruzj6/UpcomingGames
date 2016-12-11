@@ -3,7 +3,7 @@ var pg = require('pg');
 
 module.exports = class User {
     constructor(userid, password) {
-        this.userid = userid;
+        this.userid = userid.toLowerCase();
         this.password = password
         console.log(this.userid + this.password);
     }
@@ -11,8 +11,7 @@ module.exports = class User {
      * Check if the user exists in the database
      */
     static findUser(email, callback) {
-        console.log(process.env.DATABASE_URL);
-        console.log("Entered check if user exists");
+        var username = email.toLowerCase()
         pg.connect(process.env.DATABASE_URL, function (err, client, done) {
             if (err) {
                 console.log(err);
@@ -20,9 +19,9 @@ module.exports = class User {
             else {
                 client.query("CREATE TABLE if not exists user_accounts (userid TEXT, password TEXT);");
 
-                console.log('CHECKING IF USER EXISTS: ' + email);
+                console.log('CHECKING IF USER EXISTS: ' + username);
                 //Select all tracked gameId's for that userId
-                client.query("SELECT userid FROM user_accounts WHERE userid=($1);", [email], function (err, res) {
+                client.query("SELECT userid FROM user_accounts WHERE userid=($1);", [username], function (err, res) {
                     console.log("got FROM DATABASE: " + JSON.stringify(res.rows));
                     //Send back the rows
                     var exists = res.rows.length > 0;

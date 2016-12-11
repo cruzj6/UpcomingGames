@@ -4,7 +4,7 @@
         <!--News tab-->
         <uib-tab index="0" heading="News">
             <div ng-controller="newstab as newstab" class="newsTab">
-                <div ng-if="!gameSelected">
+                <div ng-if="newstab.newsArticles.length < 1">
                     <p>Select a tracked game...</p>
                 </div>
 
@@ -41,7 +41,7 @@
                 <ul class="list-group">
 
                     <!--Element for each Media item-->
-                    <li class="mediaitem" ng-if="mediatab.mediaItems" ng-repeat="media in mediatab.mediaItems">
+                    <li class="mediaitem" ng-if="mediatab.mediaItems" ng-repeat="media in mediatab.mediaItems|limitTo:10">
                         <h4><a ng-href="{[{media.url}]}" class="mediaitem__link">{[{media.title}]}</a></h4>
                         <iframe title="YouTube video player" class="youtube-player" type="text/html" width="400" height="300" ng-src="{[{media.url.replace('watch?v=', 'embed/')}]}"
                             frameborder="0" allowFullScreen></iframe>

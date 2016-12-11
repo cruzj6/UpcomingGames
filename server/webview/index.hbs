@@ -27,18 +27,15 @@
             </div>
             <div class="row headingRow" id="headingRow">
                 <div class="col-md-3">
-                    <img style="height: 100px" src="LogoLarge.png" />
+                    <img id='upcominggames_logo' style="height: 100px" src="LogoLarge.png" />
                 </div>
                 <div class="col-md-6"></div>
 
                 <!--Logged in user information and service used to authenticate-->
                 <div class="col-md-3 rounded pull-down">
-                    <div class="panel panel-default" style="margin-top: 10px;vertical-align: bottom;">
-                        <div align="right"><i class="fa fa-user fa-2x pull-left" style="margin-top: 5px;margin-left: 15px;"></i> <b>Signed in with:</b>
-                            <img class="loginService" src="http://store.akamai.steamstatic.com/public/shared/images/header/globalheader_logo.png">
-                        </div>
-                        <div align="right">UserName: <b>{{userName}}</b></div>
-                        <a id="logout" href="/auth/logout" style="color: black">Logout</a>
+                    <div class="panel panel-default" id='user_id_panel'>
+                        <div>User: <b>{{userName}}</b></div>
+                        <a id="logout" href="/auth/logout">Logout</a>
                         <br/>
                     </div>
                 </div>

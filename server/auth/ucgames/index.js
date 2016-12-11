@@ -1,5 +1,5 @@
 /**
- * Created by Joey on 4/4/16.
+ * Contains routes for the UC games account authentication
  */
 var express = require('express');
 var router = express.Router();

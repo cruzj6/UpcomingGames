@@ -59,7 +59,7 @@ app.get('/', function (req, res) {
     //If the user is signed in render the app's main template
     if (req.isAuthenticated()) {
         res.render('index', {
-            userName: req.user.displayName
+            userName: req.user.userid
         });
     } else {
         //If the user is not signed in send them the welcome page
