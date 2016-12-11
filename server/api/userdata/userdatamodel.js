@@ -39,7 +39,7 @@ export function addGameIDToUser(gameId, userId, doneCallback)
         if(!isAlreadyContained)
         {
             pg.connect(process.env.DATABASE_URL, function(err, client, done) {
-                console.log('inserting data!!');
+                console.log('inserting data for user: ' + userId);
                 //Prep our query
                 client.query("INSERT INTO tracked_games VALUES ($1, $2);", [userId, gameId], function (err, res) {
                     doneCallback();

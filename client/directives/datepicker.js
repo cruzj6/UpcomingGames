@@ -1,37 +1,38 @@
 /**
- * Created by Joey on 11/20/16.
+ * This directive creates a datepicker button for selecting month/year which when selected calls the
+ * supplied onDatePick attribute's function:
+ * onDatePick(mon, year)
  */
 var app = angular.module('upcomingGames');
 
-app.directive('datePicker', function(){
+app.directive('datePicker', function () {
     return {
         scope: {
             onDatePick: '&'
         },
-        template: function(scope, element, attrs){
+        template: function (scope, element, attrs) {
             return "<div style='width: 200px;' class='datepicker input-group date'>" +
-                        "<div class='input-group-addon'>" + 
-                            "<span class='glyphicon glyphicon-calendar'></span>" +
-                        "</div>" +
-                    "</div>";
+                "<div class='input-group-addon'>" +
+                "<span class='glyphicon glyphicon-calendar'></span>" +
+                "</div>" +
+                "</div>";
         },
-        link:  function(scope, element, attrs)
-        {
+        link: function (scope, element, attrs) {
             //Modify for just month/year
             $('.datepicker').datepicker({
-                 format: "mm-yyyy",
-                 viewMode: "months", 
-                 minViewMode: "months",
-                 orientation: 'bottom auto',
-                 autoclose: true
+                format: "mm-yyyy",
+                viewMode: "months",
+                minViewMode: "months",
+                orientation: 'bottom auto',
+                autoclose: true
             })
-            .on('changeDate', function(ev){
-                var month = parseInt(ev.format('mm'));
-                var theYear = parseInt(ev.format('yyyy'));
+                .on('changeDate', function (ev) {
+                    var month = parseInt(ev.format('mm'));
+                    var theYear = parseInt(ev.format('yyyy'));
 
-                //pass day and month
-                scope.$apply(scope.onDatePick({mon: month, year: theYear}));
-            });
+                    //pass day and month
+                    scope.$apply(scope.onDatePick({ mon: month, year: theYear }));
+                });
         }
     };
 });

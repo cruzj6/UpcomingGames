@@ -2,28 +2,14 @@
 <html>
 
 <head>
-    <title>Upcoming Game</title>
+    <title>Upcoming Games</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
         crossorigin="anonymous">
-
-    <!-- jQuery library -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-
-    <!-- Latest compiled JavaScript For bootstrap -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-
-    <!--Import angular.js and other scripts-->
-    <script src="angular.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-animate.js"></script>
-    <script src="underscore.js"></script>
-    <script src="countdown.min.js"></script>
-    <script src="bootstrap-datepicker.min.js"></script>
 
     <!--Import our stylesheets-->
     <link rel="stylesheet" type="text/css" href="animate.css">
@@ -31,14 +17,9 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato">
     <link rel="stylesheet" type="text/css" href="bootstrap-datepicker.min.css">
-
 </head>
 
 <body>
-
-    <!--Non-Debug/ For Production-->
-    <script src="maintracker.bundle.js"></script>
-
     <!--Top Head area-->
     <div ng-app="upcomingGames" ng-controller="mainCtrl">
         <div class="container">
@@ -46,18 +27,15 @@
             </div>
             <div class="row headingRow" id="headingRow">
                 <div class="col-md-3">
-                    <img style="height: 100px" src="LogoLarge.png" />
+                    <img id='upcominggames_logo' style="height: 100px" src="LogoLarge.png" />
                 </div>
                 <div class="col-md-6"></div>
 
                 <!--Logged in user information and service used to authenticate-->
                 <div class="col-md-3 rounded pull-down">
-                    <div class="panel panel-default" style="margin-top: 10px;vertical-align: bottom;">
-                        <div align="right"><i class="fa fa-user fa-2x pull-left" style="margin-top: 5px;margin-left: 15px;"></i> <b>Signed in with:</b>
-                            <img class="loginService" src="http://store.akamai.steamstatic.com/public/shared/images/header/globalheader_logo.png">
-                        </div>
-                        <div align="right">UserName: <b>{{userName}}</b></div>
-                        <a id="logout" href="/auth/logout" style="color: black">Logout</a>
+                    <div class="panel panel-default" id='user_id_panel'>
+                        <div>User: <b>{{userName}}</b></div>
+                        <a id="logout" href="/auth/logout">Logout</a>
                         <br/>
                     </div>
                 </div>
@@ -128,6 +106,21 @@
     </div>
 
     </div>
-</body>
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 
+    <!-- Latest compiled JavaScript For bootstrap -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+    <!--Import angular.js and other scripts-->
+    <script src="angular.min.js" ></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-animate.js"></script>
+    <script src="underscore.js" ></script>
+    <script src="countdown.min.js" ></script>
+    <script src="bootstrap-datepicker.min.js"></script>
+
+    <!--Non-Debug/ For Production-->
+    <script src="maintracker.bundle.js"></script>
+</body>
 </html>

@@ -1,8 +1,7 @@
-/**
- * Created by Joey on 8/17/16.
- */
 var app = angular.module('upcomingGames');
-
-app.controller('dashboardmain',function ($scope) {
-
+/**
+ * Controller for the main dashboard
+ */
+app.controller('dashboardmain', function ($scope) {
+    var vm = this;
 });

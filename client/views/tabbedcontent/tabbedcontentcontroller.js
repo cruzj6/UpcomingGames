@@ -1,69 +1,74 @@
-/**
- * Created by Joey on 4/4/16.
- */
 var app = angular.module('upcomingGames');
-
-app.controller('tabbedcontent', function($scope){
+/**
+ * Controller For the entire tabbed system
+ */
+app.controller('tabbedcontent', function ($scope) {
 
 });
 
-app.controller('newstab', function($scope, httpReqService)
-{
+/**
+ * Controller for the news tab of the tabbed content
+ */
+app.controller('newstab', function ($scope, httpReqService) {
+    var vm = this;
     //Set that we are not loading news, as no games selected initially
-    $scope.loadingNews = false;
-    $scope.newsArticles = [];
+    vm.loadingNews = false;
+    vm.newsArticles = [];
 
     //When a tracked game is selected
-    $scope.$on('selectedGame', function(event, args){
+    $scope.$on('selectedGame', function (event, args) {
 
         //We are loading news and clear the list while we load
-        $scope.newsArticles = [];
-        $scope.loadingNews = true;
+        vm.newsArticles = [];
+        vm.loadingNews = true;
 
         //Gett the news Article data from our http service for the item
-        httpReqService.searchForArticles(args.res.name, function(newsData){
-            $scope.loadingNews = false;
-            $scope.newsArticles = newsData;
+        httpReqService.searchForArticles(args.res.name, function (newsData) {
+            vm.loadingNews = false;
+            vm.newsArticles = newsData;
         });
     });
 
 });
 
-app.controller('mediatab',function ($scope, httpReqService){
+/**
+ * Controller for the video/media tab
+ */
+app.controller('mediatab', function ($scope, httpReqService) {
 
-    $scope.loadingMedia = false;
+    var vm = this;
+    vm.loadingMedia = false;
 
     //When user selects a tracked game
-    $scope.$on('selectedGame', function(event, args)
-    {
-        $scope.gameSelected = true;
-        $scope.mediaItems = [];
-        $scope.loadingMedia = true;
+    $scope.$on('selectedGame', function (event, args) {
+        vm.gameSelected = true;
+        vm.mediaItems = [];
+        vm.loadingMedia = true;
 
         //Now get media Data for the item
-        httpReqService.searchForMedia(args.res.name, function(mediaData){
-            $scope.loadingMedia = false;
-            $scope.mediaItems = mediaData;
+        httpReqService.searchForMedia(args.res.name, function (mediaData) {
+            vm.loadingMedia = false;
+            vm.mediaItems = mediaData;
         });
     });
 
 });
 
-app.controller('friendstrackedgames', function($scope, httpReqService)
-{
+/**
+ * Controller for the Friend's tracked tab
+ */
+app.controller('friendstrackedgames', function ($scope, httpReqService) {
     //Initially don't show all friends (only ones with >0 tracked games)
     $scope.allFriends = false;
     $scope.friends = [];
 
     //Request tracked games from server API
-    httpReqService.getFriendsTrackedGames(function(friendsData)
-    {
+    httpReqService.getFriendsTrackedGames(function (friendsData) {
         var sortedFriendsGames = friendsData;
 
         //Sort each of their games
-        for(var i=0; i<sortedFriendsGames.length;i++)
-        {
-            if(sortedFriendsGames[i].gameData) {
+        for (var i = 0; i < sortedFriendsGames.length; i++) {
+            if (sortedFriendsGames[i].gameData) {
                 sortedFriendsGames[i].gameData = sortedFriendsGames[i].gameData.sort(function (a, b) {
                     return compareStrings(a.name, b.name);
                 });
@@ -71,8 +76,7 @@ app.controller('friendstrackedgames', function($scope, httpReqService)
         }
 
         //Sort the friends themselves
-        $scope.friends = sortedFriendsGames.sort(function(a,b)
-        {
+        $scope.friends = sortedFriendsGames.sort(function (a, b) {
             return compareStrings(a.userid, b.userid);
         });
     });

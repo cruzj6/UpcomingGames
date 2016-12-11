@@ -115,7 +115,7 @@ export function advancedGamesQuery(gbQuery, callback) {
         queryURI += 'expected_release_year:' + gbQuery.expected_release_year + ',';
     }
     if (gbQuery.platform != null) {
-        queryURI += 'platforms:' + gbQuery.platform;
+        queryURI += 'platforms:' + gbQuery.platform + ',';
     }
     if(gbQuery.query != null) queryURI += 'name:' + gbQuery.query + ',';
     if (queryURI.slice(-1) === ',') queryURI = queryURI.substr(0, queryURI.length - 1);

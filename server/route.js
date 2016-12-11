@@ -14,4 +14,5 @@ export default function(app)
 
     //Authentication Route
     app.use('/auth', require('./auth'));
+
 }

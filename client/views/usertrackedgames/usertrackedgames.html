@@ -1,97 +1,71 @@
-<div class="panel panel-default trackedGamesPanel" ng-controller="usertrackedgames">
-    <div class="panel-heading" style="font-size: 24px; font-weight: bold;">
+<div class="panel panel-default trackedGamesPanel" ng-controller="usertrackedgames as usertrackedgames">
+    <div class="panel-heading">
         <i class="fa fa-gamepad"></i> My Tracked Games
     </div>
     <!--Search Games area-->
     <div id="divSearchGames" class="dropdown">
-        <form id="searchForm" style="" ng-submit="searchGames(); toggleRes()">
-            <input class="form-control" id="searchGamesIn" placeholder="Add Game...">
+        <form id="searchForm" ng-submit="usertrackedgames.searchGames(); usertrackedgames.toggleRes()">
+            <input class="form-control" id="searchGamesIn" ng-model="usertrackedgames.searchQuery" placeholder="Add Game...">
         </form>
-        <button id="searchGamesButton" class="btn btn-default" ng-click="searchGames()"
-                data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false"><i class="fa fa-search"></i>
+        <button id="searchGamesButton" class="btn btn-default" ng-click="usertrackedgames.searchGames()" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false"><i class="fa fa-search"></i>
         </button>
-
         <!--Searching indicators-->
         <div id="searchingIndicator">Searching...</div>
-        <div id="noResultsIndicator">No Results...</div>
-
+        <div id="noResultsIndicator" ng-if="usertrackedgames.isSearching && !usertrackedgames.searchResults">No Results...</div>
         <!--Search results dropdown-->
-        <ul class="dropdown-menu"
-            aria-labelledby="dLabel"
-            id="searchRes"
-            ng-if="searchResults.length > 0">
-
+        <ul class="dropdown-menu" aria-labelledby="dLabel" id="searchRes" ng-if="usertrackedgames.searchResults.length > 0">
             <!--Search result item-->
-            <li id="searchResItem" class="list-group-item" ng-repeat="res in searchResults">
+            <li id="searchResItem" class="list-group-item" ng-repeat="res in usertrackedgames.searchResults">
                 <div class="row">
                     <div class="col-md-8">
                         <img height="80" width="80" ng-src="{[{res.imageLink}]}">
-
                         <p style="padding-top: 5px;">{[{res.name}]}</p>
                     </div>
                     <div class="col-md-4">
-                        <button data-toggle="modal" data-target="#showAddedModal"
-                                class="btn btn-primary" name="AddButton"
-                                ng-click="addTrackedGame(res)">Add</button>
+                        <button data-toggle="modal" data-target="#showAddedModal" class="btn btn-primary" name="AddButton" ng-click="usertrackedgames.addTrackedGame(res)">Add</button>
                     </div>
                 </div>
             </li>
         </ul>
     </div>
-
     <!--Contains the tracked games elements-->
-    <div class="panel panel-default" style="border-top: 2px; border-bottom: 2px; border-left: 0px; border-right: 0px; background-color: #343434;">
-
+    <div id="panel_tracked_games" class="panel panel-default">
         <!--List of tracked games-->
-        <div ng-if="loadingGames" id="loadingListIcon" style="text-align: center">
+        <div ng-if="usertrackedgames.loadingGames" id="loadingListIcon">
             <div class="col-md-4"></div>
             <div class="col-md-4">
                 <span style="margin-top: 205px; color: white;" class="glyphicon glyphicon-refresh spinning "></span>
             </div>
             <div class="col-md-4"></div>
         </div>
-
-        <ul class="list-group"
-            style="{[{'visibility: ' + (trackedGames ? 'visible' : 'hidden') + ';overflow-y: scroll; border: 0px; display: block; height: 410px;'}]}">
-
+        <ul id='tracked_games_list' class="list-group" ng-style="{'visibility' : (usertrackedgames.trackedGames ? 'visible' : 'hidden')}">
             <!--Element that contains one tracked game, this is repeated for each tracked game-->
-            <li class="list-group-item trackedGame" ng-repeat="game in trackedGames"
-                ng-class="{'active': $index === selectedTrackedGameIndex}" ng-click="selectActiveGame($index, game);">
-                <div style="    display: inline-block;
-                                height: 100px;
-                                width: 220px;">
+            <li class="list-group-item trackedGame" ng-repeat="game in usertrackedgames.trackedGames" ng-class="{'active': $index === selectedTrackedGameIndex}"
+                ng-click="usertrackedgames.selectActiveGame($index, game);">
+                <div id='tracked_game_div'>
                     <h4 class="list-group-item-heading">{[{game.name}]}</h4>
-
                     <!--Release date text-->
                     <div ng-if="game.releaseMonth != null && game.releaseDay != null && game.releaseYear != null">
-
-                        Release Date:
-                        {[{game.releaseMonth}]}/{[{game.releaseDay}]}/{[{game.releaseYear}]}
-
+                        Release Date: {[{game.releaseMonth}]}/{[{game.releaseDay}]}/{[{game.releaseYear}]}
                         <!--Release countdown-->
                         <br/><br/>
                         <b style="text-decoration: underline">Time to Release</b>
-                        <br/>
-                        {[{game.ttr.yrs}]}yr. {[{game.ttr.mons}]} mon. {[{game.ttr.days}]} days
-                        {[{game.ttr.hrs}]} hr. {[{game.ttr.min}]} min.
-                        {[{game.ttr.sec}]} s.
+                        <br/> {[{game.ttr.yrs}]}yr. {[{game.ttr.mons}]} mon. {[{game.ttr.days}]} days {[{game.ttr.hrs}]}
+                        hr. {[{game.ttr.min}]} min. {[{game.ttr.sec}]} s.
                     </div>
                 </div>
-                <button data-toggle="modal" data-target="#showRemovedModal" style="{[{remStyle + ';margin-left: 10px;'}]}" class="btn btn-danger pull-right"
-                        role="button" ng-click="removeTrackedGame(game)">
+                <button id='remove_game_button' data-toggle="modal" data-target="#showRemovedModal" ng-style="{'display': (usertrackedgames.remToggle ? 'inline-block' : 'none')}"
+                    class="btn btn-danger pull-right" role="button" ng-click="usertrackedgames.removeTrackedGame(game)" ng-if="usertrackedgames.remToggle">
                     <i class="fa fa-trash-o fa-fw"></i>
                 </button>
                 <div class="panel panel-primary pull-right" style="display: inline;">
-
                     <!--Image of the game-->
                     <img ng-src="{[{game.imageLink}]}">
-
                 </div>
             </li>
         </ul>
     </div>
-
     <!--Modal view shown when user removes a game-->
     <div class="modal fade" tabindex="-1" role="dialog" id="showRemovedModal">
         <div class="modal-dialog">
@@ -102,12 +76,9 @@
             </div>
         </div>
     </div>
-
     <!--Button that toggles the remove games mode-->
-    <button style="display: inline; margin-left: 10px; margin-bottom: 10px;" id="removeGamesToggle"
-            type="button"
-            class="btn btn-default" name="removeGamesToggle" ng-click="toggleRemGames()">
-        <i class="fa fa-trash-o fa-fw"></i> {[{remToggle ? "Done" : "Remove Games"}]}
+    <button id="removeGamesToggle" type="button" class="btn btn-default"
+        name="removeGamesToggle" ng-click="usertrackedgames.toggleRemGames()">
+        <i class="fa fa-trash-o fa-fw"></i> {[{usertrackedgames.remToggle ? "Done" : "Remove Games"}]}
     </button>
-
 </div>

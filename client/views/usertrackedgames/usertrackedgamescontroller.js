@@ -1,143 +1,144 @@
 /**
- * Created by Joey on 4/4/16.
+ * Controller for the User Tracked Games view
  */
 var app = angular.module('upcomingGames');
-var removeMode = false;
 
-app.controller('usertrackedgames', function($scope, $interval, dataService, httpReqService)
-{
-    $scope.trackedGames = [];
+app.controller('usertrackedgames', function ($scope, $interval, dataService, httpReqService, trackedGamesService) {
+    var vm = this;
+    vm.trackedGames = [];
     //We are not in remove mode at start, set to remove games text
-    $scope.remToggle = removeMode;
-    $scope.remStyle = "display: none";
-    $scope.addedGame = "";
+    vm.remToggle = false;
+    vm.remStyle = "display: none";
+    vm.addedGame = "";
+    vm.isSearching = false;
+    vm.searchQuery = "";
 
-    //When user first enters site get their tracked games
-    getTrackedGames($scope, httpReqService);
+    /**
+     * Make a call to the trackedGamesService to add a tracked game
+     * 
+     * @param {Game} game
+     */
+    vm.addTrackedGame = function (game) {
+        trackedGamesService.addTrackedGame(game);
+    }
 
-    //Used for form submission, if user doesn't use button
-    $scope.toggleRes = function(){
-        ddToggle();
-    };
+    /**
+     * Make a call to the trackeGamesService to update the currently selected game
+     * 
+     * @param {Object} $index
+     * @param {Game} game
+     */
+    vm.selectActiveGame = function ($index, game) {
+        trackedGamesService.selectActiveGame($index, game);
+    }
 
-    //When user uses search box
-    $scope.searchGames = function() {
-        //Toggle our no results text if it's displaying
-        var noResText = document.getElementById('noResultsIndicator');
-        noResText.style.display = 'none';
-
-        var searchInValue =  document.getElementById('searchGamesIn').value.trim();
-        var searchingText = document.getElementById('searchingIndicator');
-        searchingText.style.display = 'inline-block';
-
-        httpReqService.searchForGames(searchInValue, function(foundGames){
-            searchingText.style.display = 'none';
-
-            if(foundGames.length <= 0) {
-                var noResText = document.getElementById('noResultsIndicator');
-                noResText.style.display = 'inline-block';
-            }
-            else
-            {
-                $scope.searchResults = foundGames;
-            }
+    /**
+     *  Searches for games and sets the searchResults controller property
+     */
+    vm.searchGames = function () {
+        vm.isSearching = true;
+        httpReqService.searchForGames(vm.searchQuery, function (foundGames) {
+            vm.searchResults = foundGames;
+            vm.isSearching = false;
         });
-
     };
 
-    $scope.removeTrackedGame = function(game){
-        $scope.trackedGames = _.without($scope.trackedGames, game).sort(function(a,b)
-        {
+    /**
+     * Remove a tracked game from the user's tracked games
+     * 
+     * @param {Game} game
+     */
+    vm.removeTrackedGame = function (game) {
+        vm.trackedGames = _.without(vm.trackedGames, game).sort(function (a, b) {
             return compareStrings(a.name, b.name);
         });
-        httpReqService.removeTrackedGamePost(game.gbGameId, function(){
+        httpReqService.removeTrackedGamePost(game.gbGameId, function () {
             $scope.$emit('trackedGamesChange', {});
         });
     };
 
-    $scope.toggleRemGames = function(){
-        removeGamesToggle($scope);
+    /**
+     * Toggle for remove games mode
+     */
+    vm.toggleRemGames = function () {
+        vm.remToggle = !vm.remToggle;
     };
 
-    $scope.getTTR = function (relMon, relDay, relYear) {
-        return getTTR(relMon, relDay, relYear);
 
+    /**
+     * Get the amount of time until the given date, usually the date of a game release
+     * 
+     * @param {Int} relMon
+     * @param {Int} relDay
+     * @param {Int} relYear
+     * @returns {Int}
+     */
+    vm.getTTR = function (relMon, relDay, relYear) {
+        return getTTR(relMon, relDay, relYear);
     };
 
     //Repeatedly update the countdown to how long is left until game release
-    $interval(function(){
-        for(var i=0; i <$scope.trackedGames.length; i++)
-        {
-            var trackedGame = $scope.trackedGames[i];
-            $scope.trackedGames[i].ttr =
+    $interval(function () {
+        for (var i = 0; i < vm.trackedGames.length; i++) {
+            var trackedGame = vm.trackedGames[i];
+            vm.trackedGames[i].ttr =
                 dataService.getTimeToRelease(trackedGame.releaseMonth, trackedGame.releaseDay, trackedGame.releaseYear);
         }
     }, 1000);
 
     //When tracked games changes are posted to the server
-    $scope.$on('trackedGamesChange', function(event, args)
-    {
-        getTrackedGames($scope, httpReqService);
+    $scope.$on('trackedGamesChange', function (event, args) {
+        vm.getTrackedGames(httpReqService);
     });
 
-    function getTrackedGames($scope, httpReqService)
-    {
-        $scope.loadingGames = true;
-        setRemoveView($scope, removeMode);
-        httpReqService.getTrackedGames(function(data){
-            $scope.trackedGames = data.sort(function(a,b)
-            {
+    vm.getTrackedGames = function (httpReqService) {
+        vm.loadingGames = true;
+        setRemoveView(vm.remToggle);
+        httpReqService.getTrackedGames(function (data) {
+            vm.trackedGames = data.sort(function (a, b) {
                 return compareStrings(a.name, b.name);
             });
 
             //Remove our loading indicator
-            $scope.loadingGames = false;
+            vm.loadingGames = false;
             //Make sure view still reflects mode
-            setRemoveView($scope, removeMode);
-
+            setRemoveView(vm.remToggle);
         });
     }
+    //When user first enters site get their tracked games
+    vm.getTrackedGames(httpReqService);
 
-    function removeGamesToggle($scope){
-        if(!removeMode) {
-            removeMode = true;
-            $scope.remToggle = removeMode;
-        }
-        else
-        {
-            removeMode = false;
-            $scope.remToggle = removeMode;
-        }
-        $scope.remStyle = removeMode ? "display: inline-block" : "display: none"
-    }
-
-    function ddToggle(){
-        //Toggle results dropdown window
+    /**
+     * Toggle the search results dropdown
+     */
+    vm.toggleRes = function () {
         angular.element('#searchGamesButton').dropdown('toggle');
-    }
+    };
 
-    function setRemoveView($scope, isRemove)
-    {
+    /**
+     * Toggle Remove Games mode view
+     * 
+     * @param {Boolean} isRemove
+     */
+    function setRemoveView(isRemove) {
         var removeButtons = document.getElementsByName('removeGameButton');
-        if(isRemove) {
-            //Make each remove button visible
-            for (var i = 0; i < removeButtons.length; i++) {
-                removeButtons[i].style.display = "inline-block";
-            }
+        if (isRemove) {
             //Let user click done when they are done
-            $scope.remToggleText = "Done";
+            vm.remToggleText = "Done";
         }
-        else
-        {
-            //Make each remove button in-visible
-            for (var j = 0; j < removeButtons.length; j++) {
-                removeButtons[j].style.display = "none";
-            }
+        else {
             //Set the button text
-            $scope.remToggleText = "Remove Games";
+            vm.remToggleText = "Remove Games";
         }
     }
 
+    /**
+     * Compare the alphabetical value of two string
+     * 
+     * @param {String} a
+     * @param {String} b
+     * @returns 1 if a > b, 0 if b > a
+     */
     function compareStrings(a, b) {
         a = a.toLowerCase();
         b = b.toLowerCase();

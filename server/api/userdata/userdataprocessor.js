@@ -1,5 +1,4 @@
 /**
- * Created by Joey on 2/17/16.
  * This file interacts with the giantBombAPI file,
  * this should be the only file that knows about the
  * giantAPI file, use this to process the data from gaintAPI,
