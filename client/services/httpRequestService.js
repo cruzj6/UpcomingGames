@@ -6,7 +6,18 @@ var app = angular.module('upcomingGames');
 app.factory('httpReqService', function ($http, $sce) {
 
     return {
-
+        /**
+         * Callback for searching for news articles
+         * 
+         * @callback ArticlesCallback
+         * @param {Object[]} ArticlesData - Array of objects containing info about the resulting articles 
+         */
+        /**
+         * Search for news articles using the UCGames API
+         * 
+         * @param {String} gameName
+         * @param {ArticlesCallback} callback
+         */
         searchForArticles: function (gameName, callback) {
             //set up our options, we send the server the game name
             var options = {
@@ -22,6 +33,18 @@ app.factory('httpReqService', function ($http, $sce) {
             });
         },
 
+        /**
+         * Callback for searching for game media
+         * 
+         * @callback ArticlesCallback
+         * @param {Object[]} MediaData - Array of objects containing info about the resulting media
+         */
+        /**
+         * Search for media/videos using the UCGames API
+         * 
+         * @param {String} gameName
+         * @param {ArticlesCallback} callback
+         */
         searchForMedia: function (gameName, callback) {
             var options = {
                 params: {
@@ -81,6 +104,18 @@ app.factory('httpReqService', function ($http, $sce) {
             });
         },
 
+        /**
+         * Callback for searching for games
+         * 
+         * @callback searchResultsCallback
+         * @param {Game[]} results - Array of results
+         */
+        /**
+         * Search for games using the API
+         * 
+         * @param {String[]} searchTerms
+         * @param {searchResultsCallback} callback
+         */
         searchForGames: function (searchTerms, callback) {
             var searchInValue = encodeURIComponent(searchTerms);
 
@@ -103,6 +138,13 @@ app.factory('httpReqService', function ($http, $sce) {
                 }
             });
         },
+        
+        /**
+         * Tell API to add a tracked game with the given ID, then callback
+         * 
+         * @param {String|Int} gameId
+         * @callback callback
+         */
         addTrackedGamePost: function (gameId, callback) {
             $http.post('/userdata/trackedGames', {
                 gameid: gameId
@@ -110,6 +152,13 @@ app.factory('httpReqService', function ($http, $sce) {
                 callback();
             });
         },
+
+        /**
+         * Tell API to remove a tracked game with the given ID, then callback
+         * 
+         * @param {String|Int} gameId
+         * @callback callback
+         */
         removeTrackedGamePost: function (gameId, callback) {
             $http({
                 url: '/userData/trackedGames',
@@ -122,16 +171,52 @@ app.factory('httpReqService', function ($http, $sce) {
                 console.log(error);
             });
         },
+
+        /**
+         * Callback with user's tracked games
+         * 
+         * @callback trackedCallback
+         * @param {Game[]} TrackedGames - Array of the user's tracked games as Game Items
+         */
+        /**
+         * Tell API to get a user's tracked games then callback
+         * 
+         * @param {trackedCallback} callback
+         */
         getTrackedGames: function (callback) {
             $http.get('/userdata/trackedGames').then(function (resp) {
                 callback(resp.data);
             });
         },
+
+        /**
+         * Callback with user's friend's' games
+         * 
+         * @callback trackedCallback
+         * @param {Object[]} FriendsTrackedGames - Array of the user's friend's tracked games
+         */
+        /**
+         * Tell API to get a user's friend's tracked games then callback
+         * 
+         * @param {trackedCallback} callback
+         */
         getFriendsTrackedGames: function (callback) {
             $http.get('/userdata/friendstrackedgames').then(function (resp) {
                 callback(resp.data);
             });
         },
+
+        /**
+         * Callback with the most popular tracked games
+         * 
+         * @callback topTrackedCallback
+         * @param {Game[]} TopTrackedGames - Array of the top tracked games as Game Items
+         */
+        /**
+         * Tell API to get the top tracked games then callback
+         * 
+         * @param {topTrackedCallback} callback
+         */
         getTopTrackedGames: function (callback) {
             $http.get('/info/toptracked', {
                 params: {
@@ -142,15 +227,20 @@ app.factory('httpReqService', function ($http, $sce) {
             });
         },
 
-        /*
-         {
-            platform: (all, pc, xbone, ps4, wiiu, ios, android),
-            month: <1-12>,
-            year: <yyyy>,
-            filters: {
-                keywords: ""
-            }
-         }
+        /**
+         * Callback with the results from the advanced search
+         * 
+         * @callback advancedResultsCallback
+         * @param {Game[]} results - Array of Game items of the advanced search results
+         */
+        /**
+         * Get advanced search results from the API
+         * 
+         * @param {String} platform
+         * @param {String|Int} month
+         * @param {String|Int} year
+         * @param {String[]} keywords
+         * @param {any} callback
          */
         getAdvancedSearch: function (platform, month, year, keywords, callback) {
             console.log("making advanced search");

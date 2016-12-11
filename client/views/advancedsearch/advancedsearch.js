@@ -40,6 +40,8 @@ app.controller('advancedsearch', function ($scope, httpReqService) {
 
   /**
    * Add a game to tracked games
+   * 
+   * @param {Int} gameid
    */
   vm.addGame = function (gameid) {
     httpReqService.addTrackedGamePost(gameid, function () {
@@ -50,6 +52,9 @@ app.controller('advancedsearch', function ($scope, httpReqService) {
 
   /**
    * Change month and year parameters when the date is chosen
+   * 
+   * @param {Int} mon
+   * @param {Int} year
    */
   vm.onDatePicked = function (mon, year) {
     vm.month = mon;

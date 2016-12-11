@@ -7,16 +7,20 @@ app.factory('dataService', function () {
     return {
 
         /**
+         * An Item containing amount of time until a game releases
+         * 
+         * @typedef {Object} ReleaseRemTime
+         * @property {Int} sec
+         * @property {Int} min
+         * @property {Int} hrs
+         * @property {Int} yrs
+         * @property {Int} days
+         * @property {Int} mons
+         */
+        /**
          * Returns the amount of time until the given date based on system time
-         * returns: 
-         * {
-         *  sec: <int>
-         *  min: <int>
-         *  hrs: <int>
-         *  yrs: <int>
-         *  days: <int>
-         *  mons: <int>
-         * }
+         * 
+         * @param {ReleaseRemTime} timeToRelease
          */
         getTimeToRelease: function (relMon, relDay, relYear) {
             var cdt = countdown(new Date(relYear, relMon, relDay));

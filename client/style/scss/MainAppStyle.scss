@@ -1,31 +1,69 @@
 @import "Variables";
-
-#mainContent{
+#mainContent {
     padding-top: 25px;
     background-color: #072039;
 }
 
-img.loginService{
-    background-color: black; width:100px;padding:10px;
+img.loginService {
+    background-color: black;
+    width: 100px;
+    padding: 10px;
 }
-body{
+
+body {
     font-family: 'Lato', serif;
 }
 
-.nav-tabs { border-bottom: 2px solid #DDD; }
-.nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover { border-width: 0; }
-.nav-tabs > li > a { border: none; color: #666; }
-.nav-tabs > li.active > a, .nav-tabs > li > a:hover { border: none; color: #4285F4 !important; background: transparent; }
-.nav-tabs > li > a::after { content: ""; background: #4285F4; height: 2px; position: absolute; width: 100%; left: 0px; bottom: -1px; transition: all 250ms ease 0s; transform: scale(0); }
-.nav-tabs > li.active > a::after, .nav-tabs > li:hover > a::after { transform: scale(1); }
+.nav-tabs {
+    border-bottom: 2px solid #DDD;
+}
 
-.card {background: #FFF none repeat scroll 0% 0%; box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3); margin-bottom: 30px; }
+.nav-tabs>li.active>a,
+.nav-tabs>li.active>a:focus,
+.nav-tabs>li.active>a:hover {
+    border-width: 0;
+}
 
-#advanced-search-div{
+.nav-tabs>li>a {
+    border: none;
+    color: #666;
+}
+
+.nav-tabs>li.active>a,
+.nav-tabs>li>a:hover {
+    border: none;
+    color: #4285F4 !important;
+    background: transparent;
+}
+
+.nav-tabs>li>a::after {
+    content: "";
+    background: #4285F4;
+    height: 2px;
+    position: absolute;
+    width: 100%;
+    left: 0px;
+    bottom: -1px;
+    transition: all 250ms ease 0s;
+    transform: scale(0);
+}
+
+.nav-tabs>li.active>a::after,
+.nav-tabs>li:hover>a::after {
+    transform: scale(1);
+}
+
+.card {
+    background: #FFF none repeat scroll 0% 0%;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);
+    margin-bottom: 30px;
+}
+
+#advanced-search-div {
     padding: 2%;
 }
 
-#trackedGamesBox{
+#trackedGamesBox {
     border-color: black;
     border: 2px solid;
     border-radius: 3px;
@@ -33,7 +71,7 @@ body{
     height: 580px;
 }
 
-#gameInfoTabs{
+#gameInfoTabs {
     padding-top: 3px;
     border: 2px solid black;
     border-radius: 4px;
@@ -41,73 +79,71 @@ body{
     height: 580px;
 }
 
-#logout{
-    float:right;
+#logout {
+    float: right;
     color: white;
     font-weight: bold;
     text-decoration: underline
 }
 
-.form-control{
+.form-control {
     width: auto;
 }
 
-.panel-primary{
+.panel-primary {
     border: 2px solid $ui-black-light;
 }
 
-.panel-primary > .panel-heading {
+.panel-primary>.panel-heading {
     background-image: none;
     background-color: white;
     color: black;
-
 }
 
-.panel-default{
+.panel-default {
     border: 2px solid $ui-black-light;
 }
 
-.panel-default > .panel-heading {
+.panel-default>.panel-heading {
     background-image: none;
     background-color: $ui-color-blue;
     color: white;
-
 }
 
-.btn-default{
+.btn-default {
     background-color: $ui-color-blue;
     color: white;
 }
-.btn-default:hover
-{
+
+.btn-default:hover {
     background-color: $ui-color-blue-hover;
     color: white;
 }
 
-.btn-primary-outline:hover{
+.btn-primary-outline:hover {
     background-color: #262626;
     color: rgba(194, 188, 218, 0.96)
 }
 
-.btn-primary-outline{
+.btn-primary-outline {
     background-color: $ui-black-light;
     color: white;
 }
 
-.navbar-default{
+.navbar-default {
     background-color: #262626;
     color: white;
 }
 
-.list-group-item.active:hover{
+.list-group-item.active:hover {
     background-color: #009cd1;
 }
 
-.list-group-item:hover{
+.list-group-item:hover {
     background-color: $ui-color-blue-hover;
 }
 
-.list-group-item.active{
+.list-group-item.active {
     background-color: #009cd1;
 }
 
@@ -117,27 +153,59 @@ body{
 }
 
 @keyframes spin {
-    from { transform: scale(1) rotate(0deg); }
-    to { transform: scale(1) rotate(360deg); }
+    from {
+        transform: scale(1) rotate(0deg);
+    }
+    to {
+        transform: scale(1) rotate(360deg);
+    }
 }
 
 @-webkit-keyframes spin2 {
-    from { -webkit-transform: rotate(0deg); }
-    to { -webkit-transform: rotate(360deg); }
+    from {
+        -webkit-transform: rotate(0deg);
+    }
+    to {
+        -webkit-transform: rotate(360deg);
+    }
 }
 
-#newsArtLi{
+#newsArtLi {
     border-bottom: 1px solid black;
 }
 
-#news-table{
+#news-table {}
 
+#gameInfoTabs {}
+
+#loadingListIcon {
+    text-align: center;
 }
 
-#gameInfoTabs{
+#tracked_games_list {
+    overflow-y: scroll;
+    border: 0px;
+    display: block;
+    height: 410px;
 }
 
-.newsTab{
+#tracked_game_div {
+    display: inline-block;
+    height: 100px;
+    width: 220px;
+}
+
+#remove_game_button {
+    margin-left: 10px;
+}
+
+#removeGamesToggle {
+    display: inline;
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+
+.newsTab {
     overflow-y: scroll;
     height: 480px;
     margin-right: 5px;
@@ -145,18 +213,18 @@ body{
 }
 
 .topGamesDiv {
-        float: left;
-        width: 170px;
-        height: 170px;
-        margin-left: 1px;
-        margin-top: 1px;
-        margin-bottom: 1px;
+    float: left;
+    width: 170px;
+    height: 170px;
+    margin-left: 1px;
+    margin-top: 1px;
+    margin-bottom: 1px;
     border: 3px solid $ui-black;
     color: white;
     background-color: $ui-color-blue;
 }
 
-.topGames{
+.topGames {
     background-color: #072039;
 }
 
@@ -170,7 +238,9 @@ body{
     -o-outline: none;
     -moz-outline: none;
 }
-.btn:active, .btn.active {
+
+.btn:active,
+.btn.active {
     outline: none;
     -moz-outline: none;
     background-image: none;
@@ -180,26 +250,33 @@ body{
     top: 1px;
     left: -1px;
 }
+
 .btn:focus {
     outline: none;
     -webkit-outline: none;
     -moz-outline: none;
 }
+
 .btn-sm {
     padding-top: 1.5px;
 }
 
-.headingRow{
+.headingRow {
     background-color: white;
 }
-.trackedGame{
+
+.trackedGame {
     background-color: $ui-color-blue;
     color: white;
     border: 3px solid $ui-black-light;
 }
 
-.trackedGamesPanel{
+.trackedGamesPanel {
     background-color: $ui-black-light;
+    .panel-heading {
+        font-size: 24px;
+        font-weight: bold;
+    }
 }
 
 .slideInAnim.ng-hide-add {
@@ -210,123 +287,124 @@ body{
     animation: fadeIn 0.5s;
 }
 
-#searchResItem{
+#searchResItem {
     background-color: $ui-black-light;
     color: whitesmoke;
 }
 
-#topTrackedDiv{
+#topTrackedDiv {
     margin-bottom: 10px;
 }
 
-#searchForm{
+#searchForm {
     width: 250px;
     display: inline;
     margin-top: 4px;
     margin-bottom: 0;
     padding: 0;
-
-    input{
+    input {
         display: inline;
         width: 250px;
     }
-
-    .form-control{
+    .form-control {
         display: inline !important;
         width: 250px;
     }
 }
 
-#divSearchGames{
+#divSearchGames {
     margin-top: 5px;
     margin-bottom: 5px;
 }
 
-#searchingIndicator{
+#searchingIndicator {
     display: none;
     color: white;
 }
 
-#noResultsIndicator{
+#noResultsIndicator {
     display: none;
     color: white;
 }
 
-#searchRes{
+#searchRes {
     overflow-y: scroll;
     height: 440px;
     width: 350px;
 }
 
-#searchGamesButton{
+#searchGamesButton {
     margin-bottom: 5px;
     margin-top: 5px;
     display: inline;
 }
 
-#loadingNewsIcon{
+#loadingNewsIcon {
     text-align: center;
 }
 
-#loadingMediaIcon{
+#loadingMediaIcon {
     text-align: center;
 }
 
-.span-loadingwheel{
+#panel_tracked_games {
+    border-top: 2px;
+    border-bottom: 2px;
+    border-left: 0px;
+    border-right: 0px;
+    background-color: #343434;
+}
+
+.span-loadingwheel {
     margin-top: 205px;
 }
 
-.mediaitem{
+.mediaitem {
     border-bottom: 1px solid black;
 }
 
-.mediaitem__link{
+.mediaitem__link {
     font-weight: bold;
 }
 
-.newsTab__showallfriendscheckbox{
+.newsTab__showallfriendscheckbox {
     margin-left: 5px;
 }
 
-.newsTab__frienditem{
+.newsTab__frienditem {
     max-height: 500px;
-
-    .friendimage{
-        border: 1px solid white; border-radius: 3px; display: inline;
+    .friendimage {
+        border: 1px solid white;
+        border-radius: 3px;
+        display: inline;
     }
-
-    .gameslist{
-        max-height: 300px; overflow-y: scroll;
+    .gameslist {
+        max-height: 300px;
+        overflow-y: scroll;
     }
-
-    .gameslist__item{
-
-        .gameimage{
-            display: inline; margin-right: 50px;
+    .gameslist__item {
+        .gameimage {
+            display: inline;
+            margin-right: 50px;
         }
-
-        .gametitle{
+        .gametitle {
             display: inline;
         }
-
-        .addbutton{
+        .addbutton {
             display: inline;
         }
     }
 }
 
-.newsarticles{
+.newsarticles {}
 
-}
-
-.newsarticles__item{
-
-    .arttitle{
+.newsarticles__item {
+    .arttitle {
         font-weight: bold;
     }
 }
 
-#advanced-search-div-row{
+#advanced-search-div-row {
     background-color: $ui-black-light;
     border-radius: 5px !important;
     border-width: 3px !important;
@@ -335,35 +413,33 @@ body{
     margin-bottom: 10px;
 }
 
-.advancedsearch{
-  color: white;
-
-  .btn-primary{
-    background-color: green;
+.advancedsearch {
     color: white;
-  }
-
-  .btn-primary:hover{
-    background-color: rgb(13, 68, 20);
-  }
-
-  input{
-    color: black;
-  }
+    .btn-primary {
+        background-color: green;
+        color: white;
+    }
+    .btn-primary:hover {
+        background-color: rgb(13, 68, 20);
+    }
+    input {
+        color: black;
+    }
 }
 
 .card {
-  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
 }
 
 .card {
-  max-width: 550px;
-  margin-top: 10px;
-  box-sizing: border-box;
-  border-radius: 2px;
-  background-clip: padding-box;
-  background-color: $ui-color-blue-hover;
+    max-width: 550px;
+    margin-top: 10px;
+    box-sizing: border-box;
+    border-radius: 2px;
+    background-clip: padding-box;
+    background-color: $ui-color-blue-hover;
 }
+
 .card span.card-title {
     color: #fff;
     font-size: 24px;
@@ -372,70 +448,76 @@ body{
 }
 
 .card .card-image {
-  margin-left: 10px;
- 
-  position: relative;
-  overflow: hidden;
-}
-.card .card-image img {
-  margin-top: 10px;
-  border-width: 3px;
-  border-color: white;
-  border-radius: 2px 2px 0 0;
-  background-clip: padding-box;
-  position: relative;
-  //z-index: -1;
-}
-.card .card-image span.card-title {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  padding: 16px;
-}
-.card .card-content {
-  padding: 5px;
-  border-radius: 0 0 2px 2px;
-  background-clip: padding-box;
-  box-sizing: border-box;
-}
-.card .card-content p {
-  margin: 0;
-  color: inherit;
-}
-.card .card-content span.card-title {
-  line-height: 48px;
-}
-.card .card-action {
-  border-top: 1px solid rgba(160, 160, 160, 0.2);
-  padding: 16px;
-}
-.card .card-action a {
-  color: #ffab40;
-  margin-right: 16px;
-  transition: color 0.3s ease;
-  text-transform: uppercase;
-}
-.card .card-action a:hover {
-  color: #ffd8a6;
-  text-decoration: none;
+    margin-left: 10px;
+    position: relative;
+    overflow: hidden;
 }
 
-#advanced-result-name{
+.card .card-image img {
+    margin-top: 10px;
+    border-width: 3px;
+    border-color: white;
+    border-radius: 2px 2px 0 0;
+    background-clip: padding-box;
+    position: relative;
+    //z-index: -1;
+}
+
+.card .card-image span.card-title {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    padding: 16px;
+}
+
+.card .card-content {
+    padding: 5px;
+    border-radius: 0 0 2px 2px;
+    background-clip: padding-box;
+    box-sizing: border-box;
+}
+
+.card .card-content p {
+    margin: 0;
+    color: inherit;
+}
+
+.card .card-content span.card-title {
+    line-height: 48px;
+}
+
+.card .card-action {
+    border-top: 1px solid rgba(160, 160, 160, 0.2);
+    padding: 16px;
+}
+
+.card .card-action a {
+    color: #ffab40;
+    margin-right: 16px;
+    transition: color 0.3s ease;
+    text-transform: uppercase;
+}
+
+.card .card-action a:hover {
+    color: #ffd8a6;
+    text-decoration: none;
+}
+
+#advanced-result-name {
     max-width: 500px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
-#advancedsearch-loadingspinner{
+#advancedsearch-loadingspinner {
     margin-top: 20px;
-    margin-bottom: 20px; 
-    color: white; 
+    margin-bottom: 20px;
+    color: white;
     font-size: 75px;
 }
 
-#advancedsearch-result-image
-{
+#advancedsearch-result-image {
     width: 80px;
     height: 80px;
 }
