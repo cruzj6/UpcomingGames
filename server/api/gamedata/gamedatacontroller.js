@@ -12,7 +12,7 @@ export function searchGames(req, res)
         var searchTerm = req.query.searchTerm;
 
         //Make a call to the gameData module
-        gameData.searchForGameByName(searchTerm, function (data) {
+        gameData.searchForGameByName(searchTerm, (data) => {
             res.send(data);
         });
     }
@@ -30,7 +30,7 @@ export function getArticles(req, res){
         var gameName = req.query.gameName;
 
         //Reqeust news article data from the gameDataProcessor
-        gameData.getNewsArticleInfo(gameName, function (data) {
+        gameData.getNewsArticleInfo(gameName, (data) => {
             res.send(data);
         });
     }
@@ -45,7 +45,7 @@ export function gameMedia(req, res){
 
     try {
         //Request media data from gameDataProcessor, providing it the requested gameName
-        gameData.getMediaData(req.query.gameName, function (data) {
+        gameData.getMediaData(req.query.gameName, (data) => {
             res.send(data);
         });
     }
@@ -61,7 +61,7 @@ export function getTopTrackedGames(req, res)
 
     try{
         console.log("Getting " + req.query.number + " top games");
-        gameData.getTopTrackedGamesData(req.query.number, function (topArray) {
+        gameData.getTopTrackedGamesData(req.query.number, (topArray) => {
             console.log("Top Games List: " + topArray);
             res.send(topArray);
         });
@@ -87,7 +87,7 @@ export function getAdvancedSearch(req, res)
 {
     try {
         console.log("Gettting games Coming Soon: \nRequested: " + req);
-        gameData.getAdvancedSearchData(req.query, function (data) {
+        gameData.getAdvancedSearchData(req.query, (data) => {
             console.log("Soon Coming Res: " + data);
             res.send(data);
         });

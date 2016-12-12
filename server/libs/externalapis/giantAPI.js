@@ -34,7 +34,7 @@ export function searchForGameByName(searchTerms, callback) {
     };
 
     //Make our request to the API, need custom user agent as per their API
-    request.get({ uri: searchString, headers: { 'user-agent': 'UpcomingAwesomeGamesWoo' } }, function (err, res, body) {
+    request.get({ uri: searchString, headers: { 'user-agent': 'UpcomingAwesomeGamesWoo' } }, (err, res, body) => {
 
         jsonRes = JSON.parse(body);
 
@@ -81,7 +81,7 @@ export function getDataForGameById(gameId, handleIdGameData) {
         request.get({
             uri: queryString,
             headers: { 'user-agent': 'UpcomingAwesomeGamesWoo' }//Required by API
-        }, function (err, repond, body) {
+        }, (err, repond, body) => {
             if (!err) {
                 var jsonRes = JSON.parse(body);
 
@@ -126,7 +126,7 @@ export function advancedGamesQuery(gbQuery, callback) {
 
     //Make our request to the API, need custom user agent as per their API
     console.log("Making Request to GB API: " + queryURI);
-    request.get({ uri: queryURI, headers: { 'user-agent': 'UpcomingAwesomeGamesWoo' } }, function (err, res, body) {
+    request.get({ uri: queryURI, headers: { 'user-agent': 'UpcomingAwesomeGamesWoo' } }, (err, res, body) => {
 
         if (!err) {
             jsonRes = JSON.parse(body);

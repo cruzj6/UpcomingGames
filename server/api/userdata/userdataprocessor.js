@@ -15,7 +15,7 @@ var _ = require('underscore-node');
 //"public" functions, these are usable by any module that "requires" this module
 module.exports = {
 
-    getUserTrackedGameData: function (userId, handleTrackedGameData) {
+    getUserTrackedGameData: (userId, handleTrackedGameData) => {
         dbm.getUsersTrackedGameIds(userId, function (ids) {
             //If we get any track gameIds
             if (ids && ids.length > 0) {
@@ -27,7 +27,7 @@ module.exports = {
                 //For each gameId we got back
                 for (var i = 0; i < ids.length; i++) {
                     //Now request data about each game using the ID, and the giantBombAPI Module
-                    gameAPI.getDataForGameById(ids[i].gameid, function (gameData) {
+                    gameAPI.getDataForGameById(ids[i].gameid, (gameData) => {
                         //Track attempts to get game data, and number actually gotten (successful)
                         //We need to keep track since this is Async, so we know when to make callback
                         attempts++;
@@ -50,27 +50,26 @@ module.exports = {
     },
 
     //Use database manager module to add a tracked game for a user
-    addTrackedGameId: function (gameId, userid, doneCallback) {
+    addTrackedGameId: (gameId, userid, doneCallback) => {
         dbm.addGameIDToUser(gameId, userid, doneCallback);
     },
 
 
     //Use database manager module to remove a tracked game
-    removeTrackedGameId: function (gameId, userId, doneCallback) {
+    removeTrackedGameId: (gameId, userId, doneCallback) => {
         dbm.removeGameIDFromUser(gameId, userId, doneCallback);
     },
 
-    getSteamFriendsTrackedGames: function (usersteamid, handleFriendsTrackedGames) {
+    getSteamFriendsTrackedGames: (usersteamid, handleFriendsTrackedGames) => {
         var friendsTrackedGames = [];
         var friendsDataGotten = 0;
 
         //Get all of the user's friends from the steam API
-        steamAPI.getSteamFriends(usersteamid, function (friendsDataArray) {
+        steamAPI.getSteamFriends(usersteamid, (friendsDataArray) => {
             console.log(JSON.stringify(friendsDataArray));
 
              //Get the steam user info for each friend
-             steamAPI.getSteamUsersInfo(_.pluck(friendsDataArray, "steamid"), function(userDatas)
-             {
+             steamAPI.getSteamUsersInfo(_.pluck(friendsDataArray, "steamid"), (userDatas) =>{
                  //Get data for each friend
                  for (var i = 0; i < friendsDataArray.length; i++) {
 
@@ -78,8 +77,8 @@ module.exports = {
                      var curFriendid = friendsDataArray[i].steamid;
 
                      //Make the data request for each user's games
-                     (function (userid, userDatas) {
-                         module.exports.getUserTrackedGameData("http://steamcommunity.com/openid/id/" + userid, function (trackGameData) {
+                     ((userid, userDatas) => {
+                         module.exports.getUserTrackedGameData("http://steamcommunity.com/openid/id/" + userid, (trackGameData) => {
 
                              //Get the info for this user
                              var userInfo = _.where(userDatas.players, {steamid: userid})[0];
@@ -97,7 +96,7 @@ module.exports = {
                                  handleFriendsTrackedGames(friendsTrackedGames);
                              }
                          });
-                     }(curFriendid, userDatas));
+                     })(curFriendid, userDatas);
                  }
              });
 

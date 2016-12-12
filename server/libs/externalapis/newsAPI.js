@@ -25,7 +25,7 @@ export function getGameMedia(gameName, mediaDataHandler) {
             $format: 'json',
             Query: "'" + gameName + "'"
         }
-    }, function (err, res, body) {
+    }, (err, res, body) => {
             //Init our results array we will send to callback
             var resultsArray = [];
             var jsonRes = JSON.parse(body);
@@ -56,7 +56,7 @@ export function getGameNews(gameName, callback) {
             $format: 'json',
             Query: "'" + gameName + "'"
         }
-    }, function (err, res, body) {
+    }, (err, res, body) => {
 
         //Init the callback response array
         var resultsArray = [];

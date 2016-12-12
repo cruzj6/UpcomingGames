@@ -11,27 +11,27 @@ var moment = require('moment');
 moment().format();
 
 export function searchForGameByName(searchTerms, callback){
-    gameAPI.searchForGameByName(searchTerms, function (response) {
+    gameAPI.searchForGameByName(searchTerms, (response) => {
         callback(response);
     });
 }
 
 //Use bing API module to get News Article data
 export function getNewsArticleInfo(gameName, callback) {
-    bingAPI.getGameNews(gameName, function (res) {
+    bingAPI.getGameNews(gameName, (res) => {
         callback(res);
     });
 }
 
 //Use bing API module to get media data
 export function getMediaData(gameName, callback) {
-    bingAPI.getGameMedia(gameName, function (res) {
+    bingAPI.getGameMedia(gameName, (res) => {
         callback(res);
     });
 }
 
 export function getTopTrackedGamesData(numToGet, handleTopTrackedData) {
-    getTopTrackedGamesIds(numToGet, function (topTrackedArray) {
+    getTopTrackedGamesIds(numToGet, (topTrackedArray) => {
         //Contains actual data for each game
         var topTrackedGameData = [];
         var numGotten = 0;
@@ -51,7 +51,7 @@ export function getTopTrackedGamesData(numToGet, handleTopTrackedData) {
                 curID = topTrackedArray[i].id;
 
                 //Get the game's data from Giant Bomb
-                gameAPI.getDataForGameById(curID, function (gameData) {
+                gameAPI.getDataForGameById(curID, (gameData) => {
                     topTrackedGameData.push(gameData);
                     numGotten++;
 
@@ -69,7 +69,7 @@ export function getTopTrackedGamesData(numToGet, handleTopTrackedData) {
 //Callsback with array, each element containing id and count
 export function getTopTrackedGamesIds(numToGet, handleTopTrackedGames) {
     console.log("Entered Top tracked");
-    dbm.getAllTrackedIdsColumn(function (gameIds) {
+    dbm.getAllTrackedIdsColumn((gameIds) => {
         console.log("All Tracked Game IDs: " + JSON.stringify(gameIds));
 
         //Array for counting the number of times each game occurs
@@ -99,7 +99,7 @@ export function getTopTrackedGamesIds(numToGet, handleTopTrackedGames) {
         }
 
         //Now get the most occuring games
-        var cArraySorted = _.sortBy(countArray, function (game) {
+        var cArraySorted = _.sortBy(countArray, (game) => {
             return game.numTrack;
         });
 
@@ -119,7 +119,7 @@ export function getTopTrackedGamesIds(numToGet, handleTopTrackedGames) {
 }
 
 export function getUpdatedReleaseDate(gameid, callback) {
-    gameAPI.getDataForGameById(gameid, function (results) {
+    gameAPI.getDataForGameById(gameid, (results) => {
         //If we get data, format it and send it back to the callback
         if (results != null) {
             var dateInfo = {
@@ -190,7 +190,7 @@ export function getAdvancedSearchData(query, callback) {
     
     try {
         //Make request through games API
-        gameAPI.advancedGamesQuery(gbQuery, function (data) {
+        gameAPI.advancedGamesQuery(gbQuery, (data) => {
             callback(data);
         });
     }

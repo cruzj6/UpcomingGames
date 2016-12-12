@@ -12,8 +12,7 @@ require('connect-flash');
  *  isIn: <bool>
  * }
  */
-router.get('/isLoggedIn', function(req, res)
-{
+router.get('/isLoggedIn', (req, res) => {
     if(req.isAuthenticated()) {
         res.send({
             isIn: true
@@ -29,7 +28,7 @@ router.get('/isLoggedIn', function(req, res)
 /**
  * Renders the sign up page
  */
-router.get('/signup', function(req,res){
+router.get('/signup', (req,res) => {
     res.redirect('/login/signup.html');
 });
 

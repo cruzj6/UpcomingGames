@@ -12,7 +12,7 @@ export function getUserOwnedGames(userSteamId, handleOwnedGamesData) {
         + apikey + "&include_appinfo=1&steamid=" + userSteamId + "&format=json";
 
     //Make our request
-    request.get(query, function (err, res, body) {
+    request.get(query, (err, res, body) => {
         var jsonData = JSON.parse(body);
         var resp = jsonData.response;
 
@@ -33,7 +33,7 @@ export function getSteamFriends(userSteamId, handleFriendsData) {
         "&relationship=friend";
 
     //Make request
-    request.get(query, function (err, res, body) {
+    request.get(query, (err, res, body) => {
         var jsonData = JSON.parse(body);
         var friendsList = jsonData.friendslist;
 
@@ -61,7 +61,7 @@ export function getSteamUsersInfo(userSteamIdArray, handleFriendUserInfo) {
         "key=" + apiKey +
         "&steamids=" + queryidstring;
 
-    request.get(query, function (err, res, body) {
+    request.get(query, (err, res, body) => {
         var jsonData = JSON.parse(body);
         console.log("Got all users data: " + JSON.stringify(jsonData));
         handleFriendUserInfo(jsonData.response);
