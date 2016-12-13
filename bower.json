@@ -1,0 +1,23 @@
+{
+  "name": "ucgames",
+  "description": "",
+  "main": "server/main.js",
+  "authors": [
+    "Joseph Cruz <cruzjoey94@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/cruzj6/UpcomingGames",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap-material-design": "^4.0.2",
+    "angular": "^1.6.0"
+  },
+  "devDependencies": {
+    "angular": "^1.6.0"
+  }
+}

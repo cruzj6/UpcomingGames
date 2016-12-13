@@ -16,3 +16,4 @@ testDBScript.sh
 client/builds/
 **/MainAppStyle.css
 npm-debug.log
+client/bower_components/**/*

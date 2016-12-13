@@ -3,7 +3,14 @@ var webpack = require('webpack-stream');
 const babel = require('gulp-babel');
 const runsequence = require('run-sequence');
 var sass = require('gulp-sass');
-
+var bower = require('gulp-bower');
+// define plug-ins
+var flatten = require('gulp-flatten'),
+  gulpFilter = require('gulp-filter'),
+  uglify = require('gulp-uglify'),
+  minifycss = require('gulp-minify-css'),
+  rename = require('gulp-rename');
+var mainBowerFiles = require('main-bower-files');
 gulp.task('default', ['watch']);
 
 gulp.task('sass', function () {
@@ -18,7 +25,40 @@ gulp.task('js', function () {
         .pipe(gulp.dest('client/builds/'));
 });
 
+gulp.task('bower', function() {
+
+    var jsFilter = gulpFilter('**/*.js', {restore: true}),
+      cssFilter = gulpFilter('**/*.css', {restore: true}),
+      fontFilter = gulpFilter(['**/*.eot', '**/*.woff', '**/*.svg', '**/*.ttf'], {restore: true});
+  var dest_path = 'client/builds'
+
+  return gulp.src(mainBowerFiles())
+  .pipe(jsFilter)
+  .pipe(gulp.dest(dest_path + '/js/'))
+  .pipe(uglify())
+  .pipe(rename({
+    suffix: ".min"
+  }))
+  .pipe(gulp.dest(dest_path + '/js/'))
+  .pipe(jsFilter.restore)
+
+  // grab vendor css files from bower_components, minify and push in /public
+  .pipe(cssFilter)
+  .pipe(gulp.dest(dest_path + '/css'))
+  .pipe(minifycss())
+  .pipe(rename({
+      suffix: ".min"
+  }))
+  .pipe(gulp.dest(dest_path + '/css'))
+  .pipe(cssFilter.restore)
+
+  // grab vendor font files from bower_components and push in /public
+  .pipe(fontFilter)
+  .pipe(flatten())
+  .pipe(gulp.dest(dest_path + '/fonts'));
+});
+
 gulp.task('watch', function () {
     gulp.watch(['client/**/*.js', '!client/builds/**/*.js'], ['js']);
-    gulp.watch('client/style/scss/**/*.scss', ['sass']);
+    gulp.watch(['client/style/scss/**/*.scss'], ['sass']);
 });

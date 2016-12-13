@@ -37,6 +37,8 @@ app.use(bodyparser.json());
 //Public Static Resources
 app.use(express.static(path.join(__dirname, '../client/views')));
 app.use(express.static(path.join(__dirname, '../client/builds')));
+app.use(express.static(path.join(__dirname, '../client/builds/js')));
+
 app.use(express.static(path.join(__dirname, '../client/style')));
 app.use(express.static(path.join(__dirname, '../client/libs')));
 
