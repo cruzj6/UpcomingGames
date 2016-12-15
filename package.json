@@ -33,6 +33,7 @@
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",
     "gulp-sass": "^2.2.0",
+    "gulp-wiredep": "0.0.0",
     "jquery": "^3.1.1",
     "moment": "^2.15.1",
     "node-bing-api": "^2.3.0",
@@ -46,7 +47,8 @@
     "uglify-loader": "^1.3.0",
     "underscore-node": "^0.1.2",
     "webpack": "^1.13.3",
-    "webpack-stream": "^3.1.0"
+    "webpack-stream": "^3.1.0",
+    "wiredep": "^4.0.0"
   },
   "devDependencies": {
     "babel-core": "^6.7.4",

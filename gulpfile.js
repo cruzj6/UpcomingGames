@@ -11,6 +11,8 @@ var flatten = require('gulp-flatten'),
   minifycss = require('gulp-minify-css'),
   rename = require('gulp-rename');
 var mainBowerFiles = require('main-bower-files');
+var wiredep = require('gulp-wiredep');
+
 gulp.task('default', ['watch']);
 
 gulp.task('sass', function () {
@@ -29,10 +31,21 @@ gulp.task('bower', function() {
 
     var jsFilter = gulpFilter('**/*.js', {restore: true}),
       cssFilter = gulpFilter('**/*.css', {restore: true}),
+      sassFilter = gulpFilter('**/*.scss', {restore: true}),
       fontFilter = gulpFilter(['**/*.eot', '**/*.woff', '**/*.svg', '**/*.ttf'], {restore: true});
   var dest_path = 'client/builds'
 
-  return gulp.src(mainBowerFiles())
+  return   gulp.src('./server/webview/temp/index.hbs')
+    .pipe(wiredep({
+        bowerJson: require('./bower.json'),
+        directory: './client/bower_components',
+        onError: function(err) {
+            console.log(err);
+        },
+        cwd: './client',
+        ignorePath: '../../../client/'
+    }))
+    .pipe(gulp.dest('./server/webview')); /*gulp.src(mainBowerFiles())
   .pipe(jsFilter)
   .pipe(gulp.dest(dest_path + '/js/'))
   .pipe(uglify())
@@ -52,10 +65,19 @@ gulp.task('bower', function() {
   .pipe(gulp.dest(dest_path + '/css'))
   .pipe(cssFilter.restore)
 
+  .pipe(sassFilter)
+  .pipe(sass().on('error', sass.logError))
+  .pipe(minifycss())
+  .pipe(rename({
+      suffix: ".min"
+  }))
+  .pipe(gulp.dest(dest_path + '/css'))
+  .pipe(sassFilter.restore)
+
   // grab vendor font files from bower_components and push in /public
   .pipe(fontFilter)
   .pipe(flatten())
-  .pipe(gulp.dest(dest_path + '/fonts'));
+.pipe(gulp.dest(dest_path + '/fonts'));*/
 });
 
 gulp.task('watch', function () {
