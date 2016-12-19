@@ -2,8 +2,6 @@
  * Loaded by index.hbs,
  * rendered server side (<approot>/server/webview/index.hbs)
  */
-
-require('../libs/ui-bootstrap-tpls-2.2.0.min.js');
 var app = angular.module('upcomingGames', ["ngAnimate", "ngRoute", "ui.bootstrap"]);
 
 require('../directives/scroll.js');
@@ -32,11 +30,11 @@ app.config(function($httpProvider, $interpolateProvider, $sceDelegateProvider, $
             controller: 'toptrackedgames',
             controllerAs: 'toptrackedgames'
         })
-        .when('/dashboardmain',{
+        .when('/dashboardmain', {
             templateUrl: '/dashboardmain/dashboardmain.html',
             controller: 'dashboardmain'
         })
-        .when('/advancedsearch',{
+        .when('/advancedsearch', {
             templateUrl: '/advancedsearch/advancedsearch.html',
             controller: 'advancedsearch',
             controllerAs: 'advancedsearch'
@@ -47,7 +45,7 @@ app.config(function($httpProvider, $interpolateProvider, $sceDelegateProvider, $
 
 });
 
-app.controller('mainCtrl', function(httpReqService, dataService, $interval, $scope, $http, $timeout, $location){
+app.controller('mainCtrl', function(httpReqService, dataService, $interval, $scope, $http, $timeout, $location) {
 
     function compareStrings(a, b) {
         a = a.toLowerCase();

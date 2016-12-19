@@ -1,39 +1,40 @@
 {
-  "name": "ucgames",
-  "description": "",
-  "main": "server/main.js",
-  "authors": [
-    "Joseph Cruz <cruzjoey94@gmail.com>"
-  ],
-  "license": "MIT",
-  "homepage": "https://github.com/cruzj6/UpcomingGames",
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "test",
-    "tests"
-  ],
-  "dependencies": {
-    "angular": "1.5.9",
-    "animate.css": "^3.5.2",
-    "font-awesome": "4.5.0",
-    "bootstrap-datepicker": "^1.6.4",
-    "angular-route": "1.5.9",
-    "angular-animate": "1.5.9",
-    "underscore": "^1.8.3",
-    "bootstrap": "^3.3.7",
-    "jquery": "1.12.0"
-  },
-  "overrides": {
-    "font-awesome": {
-      "main": [
-        "css/font-awesome.min.css"
-      ]
+    "name": "ucgames",
+    "description": "",
+    "main": "server/main.js",
+    "authors": [
+        "Joseph Cruz <cruzjoey94@gmail.com>"
+    ],
+    "license": "MIT",
+    "homepage": "https://github.com/cruzj6/UpcomingGames",
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "test",
+        "tests"
+    ],
+    "dependencies": {
+        "angular": "1.5.9",
+        "animate.css": "animate-css#^3.5.2",
+        "font-awesome": "4.5.0",
+        "bootstrap": "^3.3.7",
+        "bootstrap-datepicker": "^1.6.4",
+        "angular-route": "1.5.9",
+        "angular-animate": "1.5.9",
+        "underscore": "^1.8.3",
+        "jquery": "1.12.0",
+        "angular-bootstrap": "^2.3.1"
     },
-    "bootstrap": {
-      "main": [
-        "dist/css/bootstrap.css"
-      ]
+    "overrides": {
+        "font-awesome": {
+            "main": [
+                "css/font-awesome.min.css"
+            ]
+        },
+        "animate.css": {
+            "main": [
+                "animate.min.css"
+            ]
+        }
     }
-  }
 }
