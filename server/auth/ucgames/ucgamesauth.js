@@ -18,13 +18,19 @@ export var authSetup = (passport) => {
         //passReqToCallback: true
     }, (email, password, done) => {
 
+        //Only passwords greater than 8 characters
+        if (password.length < 8) {
+            done(null, false, "PASSWORD TOO SHORT")
+        }
         //Check if user already exists
         User.findUser(email, (exists, err) => {
             if (exists) {
                 console.log("USER ALREADY EXISTS: " + email);
-                return done(null, false, "Account already exists")
+
+                return done(null, false, "ACCOUNT ALREADY EXISTS")
             } else {
-                console.log("CREATING USER" + email)
+                console.log("CREATING USER" + email);
+
                 //User doesn't exist, create the user
                 var user = new User(email, User.generateHash(password));
                 user.addUser((err) => {
@@ -44,24 +50,25 @@ export var authSetup = (passport) => {
         usernameField: 'email',
         passwordField: 'password'
     }, (email, password, done) => {
-        console.log("SIGN IN");
         //Check if user exists
         User.findUser(email, (exists, err) => {
             if (!exists) {
                 //User does not exist, exit
                 console.log("USER DOESNT EXIST: " + email);
+
                 return done(null, false, "User does not exist")
             } else {
                 console.log("SIGNING IN USER" + email)
-                    //User exists, check if password is valid
+
+                //User exists, check if password is valid
                 var user = new User(email, password);
                 user.checkValidPassword(password, (isValidPass, err) => {
                     if (!err) {
                         if (isValidPass) {
-                            console.log("Authenticated, Signing in");
+                            console.log("AUTHENTICATED");
                             return done(null, user);
                         } else {
-                            return done(null, false, "Invalid Password");
+                            return done(null, false, "INVALID PASSWORD");
                         }
                     }
                 });
