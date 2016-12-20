@@ -68,7 +68,7 @@ body {
     border: 2px solid;
     border-radius: 3px;
     background-color: lightslategray;
-    height: 580px;
+    height: 585px;
 }
 
 #gameInfoTabs {
@@ -183,10 +183,10 @@ body {
 }
 
 #tracked_games_list {
+    height: 600px;
     overflow-y: scroll;
     border: 0px;
     display: block;
-    height: 410px;
 }
 
 #tracked_game_div {
@@ -207,7 +207,7 @@ body {
 
 .newsTab {
     overflow-y: scroll;
-    height: 480px;
+    height: 685px;
     margin-right: 5px;
     margin-left: 5px;
 }
@@ -229,7 +229,7 @@ body {
 }
 
 .navbar-nav {
-    font-size: 1.5em;
+    font-size: 1.25em;
 }
 
 .headingRow {
@@ -318,7 +318,12 @@ body {
     text-align: center;
 }
 
+#panel_tabbed_content {
+    height: 785px;
+}
+
 #panel_tracked_games {
+    height: 585px;
     border-top: 2px;
     border-bottom: 2px;
     border-left: 0px;

@@ -58,6 +58,7 @@ gulp.task('watch', function() {
     try {
         gulp.watch(['client/**/*.js', '!client/builds/**/*.js'], ['js']);
         gulp.watch(['client/style/scss/**/*.scss'], ['sass']);
+        gulp.watch(['server/webview/temp/index.hbs'], ['bower']);
     } catch (e) {
         console.log(e);
     }
