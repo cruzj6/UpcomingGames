@@ -1,0 +1,7 @@
+$ui-color-main: #FFA63A;
+$ui-color-secondary: #A561F2;
+$ui-color-accent: #123456;
+.navbar-default {
+    background-color: $ui-color-main;
+    color: $ui-color-accent;
+}
