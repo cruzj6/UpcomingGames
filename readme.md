@@ -28,6 +28,7 @@ PGSSLMODE=require
 Next run
 ```
 npm install
+bower install
 ```
 to install node modules
 
