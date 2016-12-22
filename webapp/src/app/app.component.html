@@ -20,7 +20,9 @@
         </li>
     </ul>
     <form class="form-inline float-xs-right">
-        <input class="form-control" type="text" placeholder="Find Games">
-        <button class="btn btn-outline-success" (click)='search()' type="submit">Search</button>
+        <input #searchString class="form-control" type="text" placeholder="Find Games" (keyup.enter)='search(searchString.value)'>
+        <button class="btn btn-outline-success" (click)='search(searchString.value)' type="submit">Search</button>
     </form>
 </nav>
+
+<app-usertracked></app-usertracked>

@@ -6,6 +6,7 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { UsertrackedComponent } from './usertracked/usertracked.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { HttprequestService } from 'services/httprequestservice/httprequest.service'
 
 @NgModule({
   declarations: [
@@ -16,9 +17,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     NgbModule.forRoot(),
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
   ],
-  providers: [],
+  providers: [{provide:'httpReq', useClass: HttprequestService}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

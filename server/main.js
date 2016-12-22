@@ -17,12 +17,11 @@ require('./auth/ucgames/ucgamesauth').authSetup(passport);
 
 //Set up our express-session middleware
 app.use(session({
-        secret: 'ilikeandescandies',
-        name: 'ucgamessession',
-        resave: true,
-        saveUninitialized: true
-    })
-);
+    secret: 'ilikeandescandies',
+    name: 'ucgamessession',
+    resave: true,
+    saveUninitialized: true
+}));
 
 //Passport middleware
 app.use(passport.initialize());
@@ -35,17 +34,12 @@ app.use(bodyparser.urlencoded({ extended: false }));
 app.use(bodyparser.json());
 
 //Public Static Resources
-app.use(express.static(path.join(__dirname, '../client/views')));
-app.use('/bower_components', express.static(path.join(__dirname, '../client/bower_components')));
-app.use(express.static(path.join(__dirname, '../client/builds')));
-app.use(express.static(path.join(__dirname, '../client/builds/**/*')));
-app.use(express.static(path.join(__dirname, '../client/style')));
-app.use(express.static(path.join(__dirname, '../client/libs')));
-
+app.use(express.static(path.join(__dirname, '../webapp/dist')));
 
 //Set up handlebars view engine
 app.set('views', path.join(__dirname, '/webview'));
-app.engine('hbs', exphbs({ defaultLayout: 'main',
+app.engine('hbs', exphbs({
+    defaultLayout: 'main',
     extname: '.hbs',
     layoutsDir: path.join(__dirname, '/webview/layouts')
 }));
@@ -55,18 +49,21 @@ app.set('view engine', 'hbs');
 require('./route').default(app);
 
 //Root request hanlder
-app.get('/', function (req, res) {
+app.get('/', function(req, res) {
 
     console.log(JSON.stringify(req.isAuthenticated()));
     //If the user is signed in render the app's main template
     if (req.isAuthenticated()) {
-        res.render('index', {
-            userName: req.user.userid
-        });
+        res.sendFile('../webapp/dist/index.html');
     } else {
         //If the user is not signed in send them the welcome page
         res.render('welcomepage');
     }
+});
+
+//TODO: TEMP
+app.get('/loginpage', function(req, res) {
+    res.render('welcomepage');
 });
 
 app.listen(process.env.PORT || 5000);

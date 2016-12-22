@@ -1,18 +1,27 @@
-import { Component } from '@angular/core';
-import { HttprequestService } from '../services/httprequest.service'
+import { Component, Inject } from '@angular/core';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  providers: [HttprequestService]
+  providers: []
 })
 export class AppComponent {
   title = 'app works!';
-  constructor(private httpReq: HttprequestService){}
+  constructor(@Inject('httpReq')private httpReq){}
 
-  search(){
-    this.httpReq.searchGames("s");
+  search(searchString: string){
+    this.httpReq.searchGames(searchString).subscribe(
+      games => {
+        games.forEach(game => {
+          console.log(game.name);
+        });
+      },
+
+      err => {
+        console.log("An error has occured");
+      }
+    );
     console.log("test");
   }
 }
