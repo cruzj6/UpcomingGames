@@ -1,8 +1,8 @@
 /**
  * Created by Joey on 4/3/16.
  */
-var express = require('express');
-var controller = require('./gamedatacontroller');
+import express from 'express';
+import controller from './gamedatacontroller';
 
 var router = express.Router();
 

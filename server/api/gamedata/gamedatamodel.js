@@ -1,12 +1,10 @@
 /**
  * Created by Joey on 2/19/16.
  */
-var pg = require('pg');
-var _=require('underscore-node');
+import pg from 'pg';
+import _ from 'underscore-node';
 
-
-export function getAllTrackedIdsColumn(handleTrackedIds)
-{
+export function getAllTrackedIdsColumn(handleTrackedIds) {
     try {
         pg.connect(process.env.DATABASE_URL, (err, client, done) => {
             client.query("CREATE TABLE if not exists tracked_games(userid TEXT, gameId TEXT)");
@@ -16,9 +14,7 @@ export function getAllTrackedIdsColumn(handleTrackedIds)
                 handleTrackedIds(res.rows);
             });
         });
-    }
-    catch(ex)
-    {
+    } catch (ex) {
         console.log(ex.trace());
         console.log(ex);
     }

@@ -5,8 +5,8 @@
 //require('dotenv').config();
 var apiKey = process.env.GB_KEY;
 var giantBombAPI = 'http://www.giantbomb.com/api';
-var request = require('request');
-var _ = require('underscore-node');
+import request from 'request';
+import _ from 'underscore-node';
 
 export const ID_XBOX = '145';
 export const ID_PS4 = '146';
@@ -63,8 +63,7 @@ export function searchForGameByName(searchTerms, callback) {
 function generateGameDataItem(itemName, itemImage, itemPlatformsArray, itemReleaseMonth, itemReleaseYear, itemReleaseDay, itemGBID) {
     return {
         name: itemName,
-        imageLink: itemImage != null ? itemImage.icon_url :
-            "https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg",
+        imageLink: itemImage != null ? itemImage.icon_url : "https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg",
         platforms: itemPlatformsArray,
         releaseMonth: itemReleaseMonth,
         releaseYear: itemReleaseYear,
@@ -80,7 +79,7 @@ export function getDataForGameById(gameId, handleIdGameData) {
         //Make our http request to the API
         request.get({
             uri: queryString,
-            headers: { 'user-agent': 'UpcomingAwesomeGamesWoo' }//Required by API
+            headers: { 'user-agent': 'UpcomingAwesomeGamesWoo' } //Required by API
         }, (err, repond, body) => {
             if (!err) {
                 var jsonRes = JSON.parse(body);
@@ -94,11 +93,9 @@ export function getDataForGameById(gameId, handleIdGameData) {
 
                 //callback
                 handleIdGameData(gameDatas);
-            }
-            else (handleIdGameData(null));
+            } else(handleIdGameData(null));
         });
-    }
-    else {
+    } else {
         handleIdGameData(null);
     }
 }
@@ -117,7 +114,7 @@ export function advancedGamesQuery(gbQuery, callback) {
     if (gbQuery.platform != null) {
         queryURI += 'platforms:' + gbQuery.platform + ',';
     }
-    if(gbQuery.query != null) queryURI += 'name:' + gbQuery.query + ',';
+    if (gbQuery.query != null) queryURI += 'name:' + gbQuery.query + ',';
     if (queryURI.slice(-1) === ',') queryURI = queryURI.substr(0, queryURI.length - 1);
 
     //Empty response ph
@@ -141,8 +138,7 @@ export function advancedGamesQuery(gbQuery, callback) {
                     gbResult.expected_release_month, gbResult.expected_release_year, gbResult.expected_release_day, gbResult.id));
             }
             callback(apiGamesResponse);
-        }
-        else {
+        } else {
             console.log("Error querying Giant Bomb API: " + err);
             callback({});
         }

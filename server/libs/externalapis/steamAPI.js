@@ -2,14 +2,14 @@
  * Created by Joey on 3/23/16.
  */
 //require('dotenv').config();
-var request = require('request');
+import request from 'request';
 var apiKey = process.env.STEAM_API_KEY;
 
 export function getUserOwnedGames(userSteamId, handleOwnedGamesData) {
 
     //Build steam API Query
-    var query = "http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key="
-        + apikey + "&include_appinfo=1&steamid=" + userSteamId + "&format=json";
+    var query = "http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=" +
+        apikey + "&include_appinfo=1&steamid=" + userSteamId + "&format=json";
 
     //Make our request
     request.get(query, (err, res, body) => {
