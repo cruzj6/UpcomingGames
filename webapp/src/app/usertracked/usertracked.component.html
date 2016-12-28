@@ -1,3 +1,5 @@
-<div *ngFor='let game of trackedGames'>
-    Name: {{game.name}} <br/> Image: <img [src]='game.imageLink'>
+<div class="">
+    <div *ngFor='let game of trackedGames'>
+        <app-usertrackeditem [game]="game"></app-usertrackeditem>
+    </div>
 </div>
