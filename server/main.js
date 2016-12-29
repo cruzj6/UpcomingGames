@@ -50,11 +50,10 @@ require('./route').default(app);
 
 //Root request hanlder
 app.get('/', function(req, res) {
-
     console.log(JSON.stringify(req.isAuthenticated()));
     //If the user is signed in render the app's main template
     if (req.isAuthenticated()) {
-        res.sendFile('../webapp/dist/index.html');
+        res.sendFile(path.join(__dirname, '../webapp/dist/index.html'));
     } else {
         //If the user is not signed in send them the welcome page
         res.render('welcomepage');

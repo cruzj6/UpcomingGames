@@ -7,7 +7,6 @@ import { Component, Inject } from '@angular/core';
   providers: []
 })
 export class AppComponent {
-  title = 'app works!';
   constructor(@Inject('httpReq')private httpReq){}
 
   search(searchString: string){

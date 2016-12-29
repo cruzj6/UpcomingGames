@@ -11,6 +11,7 @@
             "favicon.ico"
         ],
         "index": "index.html",
+        "deployUrl": "/public",
         "main": "main.ts",
         "test": "test.ts",
         "tsconfig": "tsconfig.json",

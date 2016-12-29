@@ -8,7 +8,8 @@ import { UsertrackedComponent } from './usertracked/usertracked.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttprequestService } from 'services/httprequestservice/httprequest.service';
 import { UsertrackeditemComponent } from './usertracked/usertrackeditem/usertrackeditem.component';
-import { GameinfoviewComponent } from './usertracked/gameinfoview/gameinfoview.component'
+import { GameinfoviewComponent } from './usertracked/gameinfoview/gameinfoview.component';
+import { routing } from './app.routes';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { GameinfoviewComponent } from './usertracked/gameinfoview/gameinfoview.c
     BrowserModule,
     FormsModule,
     HttpModule,
+    routing
   ],
   providers: [{provide:'httpReq', useClass: HttprequestService}],
   bootstrap: [AppComponent]

@@ -2,7 +2,7 @@
     <a class="navbar-brand" href="#">Navbar</a>
     <ul class="nav navbar-nav">
         <li class="nav-item active">
-            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            <a class="nav-link" [routerLink]="['/usertracked']">Home <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="#">Link</a>
@@ -25,4 +25,7 @@
     </form>
 </nav>
 
-<app-usertracked></app-usertracked>
+<div class="container">
+    <!--Where our route view goes-->
+    <router-outlet></router-outlet>
+</div>
