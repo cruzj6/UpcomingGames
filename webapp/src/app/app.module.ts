@@ -7,13 +7,15 @@ import { AppComponent } from './app.component';
 import { UsertrackedComponent } from './usertracked/usertracked.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttprequestService } from 'services/httprequestservice/httprequest.service';
-import { UsertrackeditemComponent } from './usertracked/usertrackeditem/usertrackeditem.component'
+import { UsertrackeditemComponent } from './usertracked/usertrackeditem/usertrackeditem.component';
+import { GameinfoviewComponent } from './usertracked/gameinfoview/gameinfoview.component'
 
 @NgModule({
   declarations: [
     AppComponent,
     UsertrackedComponent,
-    UsertrackeditemComponent
+    UsertrackeditemComponent,
+    GameinfoviewComponent
   ],
   imports: [
     NgbModule.forRoot(),

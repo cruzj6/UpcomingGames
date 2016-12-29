@@ -2,7 +2,7 @@
  * Created by Joey on 3/1/2016.
  */
 import express from 'express';
-import gameData from './gamedataprocessor.js';
+var gameData = require('./gamedataprocessor.js');
 
 module.exports = class GameDataController {
     /**
@@ -41,7 +41,7 @@ module.exports = class GameDataController {
                 res.send(data);
             });
         } catch (e) {
-            console.log("Error getting Articles: " + e.msg);
+            console.log("Error getting Articles for: " + gameName + ": " + e.message);
         }
     }
 

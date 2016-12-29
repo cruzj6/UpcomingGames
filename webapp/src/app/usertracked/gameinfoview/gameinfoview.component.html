@@ -1,0 +1,7 @@
+<!--Info view for info_mode in the usertracked component's user tracked games card-->
+<div>
+    <p>GAME IS: {{activeGame.name}}</p>
+    <div *ngFor="let newsItem of gameNewsItems">
+        {{newsItem.title}}
+    </div>
+</div>
