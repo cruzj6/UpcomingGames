@@ -1,22 +1,20 @@
 <!--Template for usertracked component, Contains interactions for the user's tracked games-->
 <div class="row">
     <div class="card col-md-6 col-sm-12">
+        <div class="card-header">User Tracked Games</div>
         <div class="card-block">
-
-            <div class="card-header">User Tracked Games</div>
+            <!-- Card Body-->
             <!-- Card Title Containing nav buttons for modes-->
             <h4 class="card-title">
                 <button class="btn btn-secondary" *ngIf="ModeStack && ModeStack.length > 0" (click)="selectPrevMode()"><</button>
             </h4>
-            <!-- Card Body-->
-
             <div class="card-text">
                 <!--Game Mode div, which shows the users currently tracked games-->
                 <div id="div_game_mode" *ngIf="CurMode == GAME_MODE">
                     <div class="list-group">
-                        <a *ngFor='let game of trackedGames' (click)="selectTrackedGame(game)" href="#" class="list-group-item list-group-item-action">
+                        <div *ngFor='let game of trackedGames' (click)="selectTrackedGame(game)" class="list-group-item list-group-item-action">
                             <app-usertrackeditem [game]="game"></app-usertrackeditem>
-                        </a>
+                        </div>
                     </div>
                 </div>
 
