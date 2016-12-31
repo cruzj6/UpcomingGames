@@ -19,7 +19,7 @@ module.exports = class UserDataModel {
         });
 
         //Make self call to get the tracked games for the user
-        getUsersTrackedGameIds(userId, (ids) => {
+        this.getUsersTrackedGameIds(userId, (ids) => {
             console.log('INTO CALLBACK');
             var pluckedIds = _.pluck(ids, 'gameid');
             console.log("gameid: " + gameId + "\r\nids : " + JSON.stringify(pluckedIds));

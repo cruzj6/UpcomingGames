@@ -10,7 +10,7 @@ var PATH_EXTERNAL_API = __dirname + '/../../libs/externalapis/';
 var gameAPI = require(PATH_EXTERNAL_API + 'giantAPI');
 var bingAPI = require(PATH_EXTERNAL_API + 'newsAPI');
 var steamAPI = require(PATH_EXTERNAL_API + 'steamAPI');
-var dbm = require(__dirname + '/userdatamodel');
+var dbm = require('./userdatamodel');
 import _ from 'underscore-node';
 
 //"public" functions, these are usable by any module that "requires" this module

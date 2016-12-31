@@ -15,17 +15,17 @@ export class TopTrackedComponent implements OnInit {
   constructor(@Inject('httpRequestService') public httpRequestService: HttpRequestService) { }
 
   ngOnInit() {
-    this.loadTrackedGames();
+    this.loadTopTrackedGames();
   }
 
   addTrackedGame(gameId: number)
   {
     this.httpRequestService.addTrackedGame(gameId).then(
-      res => {this.loadTrackedGames();}
+      res => {//TODO tell to reload}
     )
   }
 
-  loadTrackedGames(){
+  loadTopTrackedGames(){
     this.httpRequestService.getTopTrackedGames(10).subscribe(
       games => {
         console.log("GOT!");
