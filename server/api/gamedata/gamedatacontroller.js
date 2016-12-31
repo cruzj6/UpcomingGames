@@ -59,6 +59,16 @@ module.exports = class GameDataController {
     }
 
 
+    /**
+     * Request a number of top tracked games
+     * {
+     *  number: <number>
+     * }
+     * 
+     * @static
+     * @param {any} req
+     * @param {any} res
+     */
     static getTopTrackedGames(req, res) {
 
         try {

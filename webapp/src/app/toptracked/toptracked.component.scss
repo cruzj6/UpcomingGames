@@ -1,0 +1,32 @@
+@import "../../../../node_modules/bootstrap/scss/bootstrap-grid.scss";
+.card-columns {
+    column-gap: 0.5rem;
+    @include media-breakpoint-only(md) {
+        column-count: 3;
+    }
+    @include media-breakpoint-only(sm) {
+        column-count: 2;
+    }
+}
+
+.card-header {
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+    overflow: hidden;
+    height: 5em;
+    line-height: 1.8em;
+    color: black;
+    img {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+.card {
+    background-color: #333;
+    border-color: #333;
+}
+
+#btn_add_tracked {
+    padding-top: 5px;
+}

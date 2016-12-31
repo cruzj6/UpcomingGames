@@ -28,7 +28,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 //Set up body parser for post requests
-app.use(bodyparser.urlencoded({ extended: false }));
+app.use(bodyparser.urlencoded({ extended: true }));
 
 // parse application/json
 app.use(bodyparser.json());
@@ -63,6 +63,11 @@ app.get('/', function(req, res) {
 //TODO: TEMP
 app.get('/loginpage', function(req, res) {
     res.render('welcomepage');
+});
+
+//The 404 Route
+app.get('*', function(req, res) {
+    res.send('Not Found', 404);
 });
 
 app.listen(process.env.PORT || 5000);

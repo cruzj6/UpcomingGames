@@ -1,5 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { GameItem } from 'app/model/game.model'
+import { HttpRequestService } from '../../services/httprequestservice/httprequest.service';
 
 /**
  * Class for the user tracked component, which handles interactions with the user's 
@@ -28,13 +29,13 @@ export class UsertrackedComponent implements OnInit {
 
   private static GAME_MODE: string = "game_mode";
 
-  constructor(@Inject('httpReq') public httpReq) { 
+  constructor(@Inject('httpRequestService') public httpRequestService: HttpRequestService) { 
     this.curMode = UsertrackedComponent.GAME_MODE;
     this.modeStack = [];
   }
 
   ngOnInit() {
-    this.httpReq.getUserTrackedGames().subscribe(
+    this.httpRequestService.getUserTrackedGames().subscribe(
       games => {
         this.trackedGames = games;
       },

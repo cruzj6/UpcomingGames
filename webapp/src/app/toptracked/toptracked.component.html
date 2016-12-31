@@ -1,0 +1,11 @@
+<h3>Top Tracked Games</h3>
+<div *ngIf="topTrackedGames">
+    <div *ngFor="let row of TopTrackedGroups; let rowNum = index" class="card-group">
+        <div *ngFor="let game of row; let i = index" class="card card-inverse">
+            <div class="card-header"><img [src]="game.imageLink">{{game.name}}</div>
+            <div class="card-block">
+                <button class="btn btn-outline-primary" id="btn_add_tracked" (click)="addTrackedGame(game.gbGameId)">Add</button>
+            </div>
+        </div>
+    </div>
+</div>

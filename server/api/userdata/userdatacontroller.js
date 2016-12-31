@@ -32,8 +32,7 @@ module.exports = class UserDataController {
     }
 
     static addTrackedGame(req, res) {
-
-        console.log("GAME ID TO ADD IS" + req.gameid);
+        console.log("GAME ID TO ADD IS" + req.body.gameid);
         if (req.body.gameid != null) {
             gameData.addTrackedGameId(req.body.gameid, req.user.userid, () => {
                 res.sendStatus(200);

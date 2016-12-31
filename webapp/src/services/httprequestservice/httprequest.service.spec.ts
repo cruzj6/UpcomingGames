@@ -1,9 +1,9 @@
 /* tslint:disable:no-unused-variable */
 
 import { TestBed, async, inject } from '@angular/core/testing';
-import { HttprequestService } from './httprequest.service';
+import { HttpRequestService } from './httprequest.service';
 
-describe('HttprequestService', () => {
+describe('HttpRequestService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [HttprequestService]

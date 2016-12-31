@@ -7,7 +7,7 @@ import { Component, Inject } from '@angular/core';
   providers: []
 })
 export class AppComponent {
-  constructor(@Inject('httpReq')private httpReq){}
+  constructor(@Inject('httpRequestService')private httpReq){}
 
   search(searchString: string){
     this.httpReq.searchGames(searchString).subscribe(

@@ -13,10 +13,10 @@ export class GameinfoviewComponent implements OnInit {
 
   private gameNewsItems: GameNewsItem[];
 
-  constructor(@Inject('httpReq') public httpReq) { }
+  constructor(@Inject('httpRequestService') public httpRequestService) { }
 
   ngOnInit() {
-    this.httpReq.getGameNewsArticles(this.activeGame).subscribe(
+    this.httpRequestService.getGameNewsArticles(this.activeGame).subscribe(
       newsItems => {
         this.gameNewsItems = newsItems;
       },

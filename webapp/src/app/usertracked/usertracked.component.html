@@ -1,29 +1,33 @@
 <!--Template for usertracked component, Contains interactions for the user's tracked games-->
-<div class="row">
-    <div class="card col-md-6 col-sm-12">
-        <div class="card-header">User Tracked Games</div>
-        <div class="card-block">
-            <!-- Card Body-->
-            <!-- Card Title Containing nav buttons for modes-->
-            <h4 class="card-title">
-                <button class="btn btn-secondary" *ngIf="ModeStack && ModeStack.length > 0" (click)="selectPrevMode()"><</button>
-            </h4>
-            <div class="card-text">
-                <!--Game Mode div, which shows the users currently tracked games-->
-                <div id="div_game_mode" *ngIf="CurMode == GAME_MODE">
-                    <div class="list-group">
-                        <div *ngFor='let game of trackedGames' (click)="selectTrackedGame(game)" class="list-group-item list-group-item-action">
-                            <app-usertrackeditem [game]="game"></app-usertrackeditem>
+<div class="row" id="div_row_tracked_main">
+    <div class="col-md-6 col-sm-12">
+        <div class="card tracking_card">
+            <h3 id="card-header_my_tracked" class="card-header">My Tracked Games</h3>
+            <div class="card-block">
+                <!-- Card Body-->
+                <!-- Card Title Containing nav buttons for modes-->
+                <h4 class="card-title">
+                    <button class="btn btn-secondary" *ngIf="ModeStack && ModeStack.length > 0" (click)="selectPrevMode()"><</button>
+                </h4>
+                <div class="card-text">
+                    <!--Game Mode div, which shows the users currently tracked games-->
+                    <div id="div_game_mode" *ngIf="CurMode == GAME_MODE">
+                        <div class="list-group">
+                            <div *ngFor='let game of trackedGames' (click)="selectTrackedGame(game)" class="list-group-item list-group-item-action">
+                                <app-usertrackeditem [game]="game"></app-usertrackeditem>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <!--Info Mode div, which shows info for the currently selected game-->
-                <div id="div_info_mode" *ngIf="CurMode == INFO_MODE">
-                    <app-gameinfoview [activeGame]="selectedGame"></app-gameinfoview>
+                    <!--Info Mode div, which shows info for the currently selected game-->
+                    <div id="div_info_mode" *ngIf="CurMode == INFO_MODE">
+                        <app-gameinfoview [activeGame]="selectedGame"></app-gameinfoview>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="col-md-6"></div>
+    <div class="col-md-6">
+        <app-toptracked></app-toptracked>
+    </div>
 </div>
