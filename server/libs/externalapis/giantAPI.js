@@ -63,7 +63,7 @@ export function searchForGameByName(searchTerms, callback) {
 function generateGameDataItem(itemName, itemImage, itemPlatformsArray, itemReleaseMonth, itemReleaseYear, itemReleaseDay, itemGBID) {
     return {
         name: itemName,
-        imageLink: itemImage != null ? itemImage.icon_url : "https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg",
+        imageLink: itemImage != null ? itemImage : "https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg",
         platforms: itemPlatformsArray,
         releaseMonth: itemReleaseMonth,
         releaseYear: itemReleaseYear,
@@ -81,11 +81,13 @@ export function getDataForGameById(gameId, handleIdGameData) {
             uri: queryString,
             headers: { 'user-agent': 'UpcomingAwesomeGamesWoo' } //Required by API
         }, (err, repond, body) => {
-            if (!err) {
+            if (!err) {;
                 var jsonRes = JSON.parse(body);
 
                 //Should be only one result since we are getting specific game by id not games
                 var result = jsonRes.results;
+
+                console.log(result.image);
 
                 //Format our response JSON object
                 var gameDatas = generateGameDataItem(result.name, result.image, _.pluck(result.platforms, 'name'),
