@@ -2,7 +2,7 @@
 <ngb-tabset>
     <ngb-tab title="News">
         <template ngbTabContent>
-            <div>
+            <div id="div_news_cards">
                 <div id="card_news_item" class="card" *ngFor="let newsItem of gameNewsItems">
                     <div class="card-header"><a href="{{newsItem.url}}">{{newsItem.title}}</a></div>
                     <div class="card-block">

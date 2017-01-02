@@ -36,6 +36,7 @@ export class UsertrackedComponent implements OnInit {
   constructor(@Inject('httpRequestService') public httpRequestService: HttpRequestService) { 
     this.curMode = UsertrackedComponent.GAME_MODE;
     this.modeStack = [];
+    this.modeDisplayNames = {};
     this.modeDisplayNames[UsertrackedComponent.INFO_MODE] = "Game Info";
     this.modeDisplayNames[UsertrackedComponent.GAME_MODE] = "Tracked Games List";    
   }
@@ -140,5 +141,9 @@ export class UsertrackedComponent implements OnInit {
   get INFO_MODE()
   {
     return UsertrackedComponent.INFO_MODE;
+  }
+
+  get ModeDisplayNames(){
+    return this.modeDisplayNames;
   }
 }

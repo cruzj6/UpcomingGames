@@ -25,7 +25,7 @@
                 <!-- Card Title Containing nav buttons for modes-->
                 <h4 class="card-title">
                     <button class="btn btn-secondary" *ngIf="ModeStack && ModeStack.length > 0" (click)="selectPrevMode()"><</button>
-                    <span>{{CurMode}}</span>
+                    <span class="text-center">{{ModeDisplayNames[CurMode]}}</span>
                 </h4>
                 <div class="card-text">
                     <div id="div_modes">
@@ -40,7 +40,7 @@
 
                         <!--Info Mode div, which shows info for the currently selected game-->
                         <div id="div_info_mode" *ngIf="CurMode == INFO_MODE">
-                            <app-gameinfoview [activeGame]="selectedGame"></app-gameinfoview>
+                            <app-gameinfoview class="h-100" [activeGame]="selectedGame"></app-gameinfoview>
                         </div>
                     </div>
                 </div>

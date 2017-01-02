@@ -9,11 +9,12 @@ $ui-color-main: #333;
 }
 
 #div_modes {
-    overflow: scroll;
     height: 60em;
 }
 
 #div_game_mode {
+    overflow: scroll;
+    height: 100%;
     .list-group-item {
         background-color: #333;
         color: white;
@@ -46,3 +47,7 @@ $ui-color-main: #333;
 }
 
 #top_tracked_summary {}
+
+#div_info_mode{
+    height: 100%;
+}
