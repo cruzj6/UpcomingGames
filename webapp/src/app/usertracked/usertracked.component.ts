@@ -27,6 +27,8 @@ export class UsertrackedComponent implements OnInit {
 
   public someTopTracked: GameItem[];
 
+  private modeDisplayNames: {[modeName: string]: string};
+
   private static INFO_MODE: string = "info_mode";
 
   private static GAME_MODE: string = "game_mode";
@@ -34,6 +36,8 @@ export class UsertrackedComponent implements OnInit {
   constructor(@Inject('httpRequestService') public httpRequestService: HttpRequestService) { 
     this.curMode = UsertrackedComponent.GAME_MODE;
     this.modeStack = [];
+    this.modeDisplayNames[UsertrackedComponent.INFO_MODE] = "Game Info";
+    this.modeDisplayNames[UsertrackedComponent.GAME_MODE] = "Tracked Games List";    
   }
 
   ngOnInit() {

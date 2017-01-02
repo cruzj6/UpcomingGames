@@ -1,7 +1,18 @@
 <!--Info view for info_mode in the usertracked component's user tracked games card-->
-<div>
-    <p>GAME IS: {{activeGame.name}}</p>
-    <div *ngFor="let newsItem of gameNewsItems">
-        {{newsItem.title}}
-    </div>
-</div>
+<ngb-tabset>
+    <ngb-tab title="News">
+        <template ngbTabContent>
+            <div>
+                <div id="card_news_item" class="card" *ngFor="let newsItem of gameNewsItems">
+                    <div class="card-header"><a href="{{newsItem.url}}">{{newsItem.title}}</a></div>
+                    <div class="card-block">
+                        <span id="card_news_item_title"><em>{{newsItem.date}}</em></span>
+                        <p>
+                            {{newsItem.desc}}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </template>
+    </ngb-tab>
+</ngb-tabset>

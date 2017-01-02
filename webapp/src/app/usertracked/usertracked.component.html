@@ -25,6 +25,7 @@
                 <!-- Card Title Containing nav buttons for modes-->
                 <h4 class="card-title">
                     <button class="btn btn-secondary" *ngIf="ModeStack && ModeStack.length > 0" (click)="selectPrevMode()"><</button>
+                    <span>{{CurMode}}</span>
                 </h4>
                 <div class="card-text">
                     <div id="div_modes">
