@@ -13,26 +13,28 @@ export class TopTrackedComponent implements OnInit {
   public topTrackedGames: GameItem[];
   private static NUM_COLS = 2;
 
-  constructor(@Inject('httpRequestService') public httpRequestService: HttpRequestService) { }
+  constructor( @Inject('httpRequestService') public httpRequestService: HttpRequestService) { }
 
   ngOnInit() {
     this.loadTopTrackedGames();
   }
 
-  addTrackedGame(gameId: number)
-  {
+  addTrackedGame(gameId: number) {
     this.httpRequestService.addTrackedGame(gameId).then(
       res => {
         //TODO tell to reload
-        }
+      }
     )
   }
 
-  loadTopTrackedGames(){
+  loadTopTrackedGames() {
     this.httpRequestService.getTopTrackedGames(20).subscribe(
       games => {
         console.log("GOT!");
-        this.topTrackedGames = games;
+        console.log(JSON.stringify(games));
+        this.topTrackedGames = games.filter(g => {
+          return g != null
+        });
       },
 
       err => {
@@ -41,27 +43,23 @@ export class TopTrackedComponent implements OnInit {
     );
   }
 
-  get TopTrackedGroups()
-  {
+  get TopTrackedGroups() {
     let topTrackedRows = new Array<GameItem[]>();
-    for(let i = 0; i < this.topTrackedGames.length - 1; i += TopTrackedComponent.NUM_COLS)
-    {
+    for (let i = 0; i < this.topTrackedGames.length - 1; i += TopTrackedComponent.NUM_COLS) {
       let row = new Array<GameItem>();
-      for(let j = 0; j < TopTrackedComponent.NUM_COLS; j++)
-      {
+      for (let j = 0; j < TopTrackedComponent.NUM_COLS; j++) {
         let ind = i + j;
-        if(ind >= (this.topTrackedGames.length - 1)) break;
+        if (ind >= (this.topTrackedGames.length - 1)) break;
         row.push(this.topTrackedGames[i + j]);
       }
       topTrackedRows.push(row);
     }
 
     return topTrackedRows;
-  
+
   }
 
-  get TopTrackedGames()
-  {
+  get TopTrackedGames() {
     return this.topTrackedGames;
   }
 
