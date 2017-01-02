@@ -1,2 +1,6 @@
 <!--Template for each item in the list of user tracked games in the usertracked component's card for user tracked games-->
-<img [src]='game.imageLink.icon_url'> {{game.name}}
+<span id="span_user_game_img_holder">
+    <img class="img-fluid rounded" [src]='game.imageLink.icon_url'>
+</span>
+<span id="span_game_name">{{game.name}}</span>
+<span class="tag tag-default tag-pill float-xs-right">></span>

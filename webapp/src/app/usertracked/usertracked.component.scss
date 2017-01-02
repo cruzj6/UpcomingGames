@@ -7,3 +7,42 @@ $ui-color-main: #333;
     background-color: $ui-color-main;
     color: white;
 }
+
+#div_modes {
+    overflow: scroll;
+    height: 60em;
+}
+
+#div_game_mode {
+    .list-group-item {
+        background-color: #333;
+        color: white;
+        height: 7em;
+        overflow: hidden;
+        &:hover {
+            background-color: #444
+        }
+    }
+}
+
+#div_top_tracked_card {
+    width: 20em;
+    background-size: 20em;
+}
+
+#top_tracked_summary_row {
+    overflow: scroll;
+    .card-group {}
+    .card-title {
+        background: #333;
+        color: white;
+        text-align: center;
+        font-size: 20pt;
+    }
+}
+
+#row_top_tracked_summary_header {
+    padding-top: 10px;
+}
+
+#top_tracked_summary {}

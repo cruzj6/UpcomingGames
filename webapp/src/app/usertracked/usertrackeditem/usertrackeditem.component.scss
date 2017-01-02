@@ -1,3 +1,19 @@
+#span_user_game_img_holder {
+    overflow: hidden;
+    float: left;
+    width: 7em;
+    height: 7em;
+}
+
+#span_game_name {
+    font-size: 2em;
+}
+
 .card {
-    width: 300px;
+    width: 3em;
+    height: 3em;
+}
+
+.tag {
+    vertical-align: middle;
 }

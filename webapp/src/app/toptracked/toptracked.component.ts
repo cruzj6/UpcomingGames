@@ -11,6 +11,7 @@ import { HttpRequestService } from 'services/httprequestservice/httprequest.serv
 export class TopTrackedComponent implements OnInit {
 
   public topTrackedGames: GameItem[];
+  private static NUM_COLS = 2;
 
   constructor(@Inject('httpRequestService') public httpRequestService: HttpRequestService) { }
 
@@ -28,7 +29,7 @@ export class TopTrackedComponent implements OnInit {
   }
 
   loadTopTrackedGames(){
-    this.httpRequestService.getTopTrackedGames(10).subscribe(
+    this.httpRequestService.getTopTrackedGames(20).subscribe(
       games => {
         console.log("GOT!");
         this.topTrackedGames = games;
@@ -43,10 +44,10 @@ export class TopTrackedComponent implements OnInit {
   get TopTrackedGroups()
   {
     let topTrackedRows = new Array<GameItem[]>();
-    for(let i = 0; i < this.topTrackedGames.length - 1; i+=3)
+    for(let i = 0; i < this.topTrackedGames.length - 1; i += TopTrackedComponent.NUM_COLS)
     {
       let row = new Array<GameItem>();
-      for(let j = 0; j < 3; j++)
+      for(let j = 0; j < TopTrackedComponent.NUM_COLS; j++)
       {
         let ind = i + j;
         if(ind >= (this.topTrackedGames.length - 1)) break;

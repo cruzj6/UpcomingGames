@@ -25,6 +25,8 @@ export class UsertrackedComponent implements OnInit {
 
   public selectedGame: GameItem;
 
+  public someTopTracked: GameItem[];
+
   private static INFO_MODE: string = "info_mode";
 
   private static GAME_MODE: string = "game_mode";
@@ -35,6 +37,11 @@ export class UsertrackedComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.loadUserTrackedGames();
+    this.loadSomeTopTrackedGames();
+  }
+
+  loadUserTrackedGames(){
     this.httpRequestService.getUserTrackedGames().subscribe(
       games => {
         this.trackedGames = games;
@@ -43,7 +50,19 @@ export class UsertrackedComponent implements OnInit {
       err => {
         console.log("Error displaying user tracked games");
       }
-    )
+    );
+  }
+
+  loadSomeTopTrackedGames(){
+    this.httpRequestService.getTopTrackedGames(5).subscribe(
+      games => {
+      this.someTopTracked = games;
+      },
+
+      err => {
+      console.log("Error displaying top tracked games summary");
+      }
+    );
   }
 
   /**

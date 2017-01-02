@@ -49,7 +49,7 @@ app.set('view engine', 'hbs');
 require('./route').default(app);
 
 //Root request hanlder
-app.get('/', function(req, res) {
+app.get(['/', '/usertracked', '/toptracked'], function(req, res) {
     console.log(JSON.stringify(req.isAuthenticated()));
     //If the user is signed in render the app's main template
     if (req.isAuthenticated()) {

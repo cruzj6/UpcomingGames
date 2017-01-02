@@ -1,6 +1,23 @@
 <!--Template for usertracked component, Contains interactions for the user's tracked games-->
+<div id="row_top_tracked_summary_header" class="row">
+    <h2>Top 5 Tracked Games</h2>
+</div>
+<div id="top_tracked_summary_row" class="row rounded">
+    <div class="col-md-12">
+        <!--Few top tracked-->
+        <div id="div_top_tracked_summary">
+            <div class="card-group">
+                <div id="div_top_tracked_card" class="card" *ngFor="let game of someTopTracked" [ngStyle]="{'background-image': 'url(' + game.imageLink.screen_url + ')'}">
+                    <div class="card-block">
+                        <span class="card-title">{{game.name}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="row" id="div_row_tracked_main">
-    <div class="col-md-6 col-sm-12">
+    <div class="col-md-12 col-sm-12">
         <div class="card tracking_card">
             <h3 id="card-header_my_tracked" class="card-header">My Tracked Games</h3>
             <div class="card-block">
@@ -10,24 +27,23 @@
                     <button class="btn btn-secondary" *ngIf="ModeStack && ModeStack.length > 0" (click)="selectPrevMode()"><</button>
                 </h4>
                 <div class="card-text">
-                    <!--Game Mode div, which shows the users currently tracked games-->
-                    <div id="div_game_mode" *ngIf="CurMode == GAME_MODE">
-                        <div class="list-group">
-                            <div *ngFor='let game of trackedGames' (click)="selectTrackedGame(game)" class="list-group-item list-group-item-action">
-                                <app-usertrackeditem [game]="game"></app-usertrackeditem>
+                    <div id="div_modes">
+                        <!--Game Mode div, which shows the users currently tracked games-->
+                        <div id="div_game_mode" *ngIf="CurMode == GAME_MODE">
+                            <div class="list-group">
+                                <div *ngFor='let game of trackedGames' (click)="selectTrackedGame(game)" class="list-group-item list-group-item-action">
+                                    <app-usertrackeditem [game]="game"></app-usertrackeditem>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <!--Info Mode div, which shows info for the currently selected game-->
-                    <div id="div_info_mode" *ngIf="CurMode == INFO_MODE">
-                        <app-gameinfoview [activeGame]="selectedGame"></app-gameinfoview>
+                        <!--Info Mode div, which shows info for the currently selected game-->
+                        <div id="div_info_mode" *ngIf="CurMode == INFO_MODE">
+                            <app-gameinfoview [activeGame]="selectedGame"></app-gameinfoview>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="col-md-6">
-        <app-toptracked></app-toptracked>
     </div>
 </div>
