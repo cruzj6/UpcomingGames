@@ -9,7 +9,7 @@ $ui-color-main: #333;
 }
 
 #div_modes {
-    height: 60em;
+    min-height: 60em;
 }
 
 #div_game_mode {
@@ -20,6 +20,7 @@ $ui-color-main: #333;
         color: white;
         height: 7em;
         overflow: hidden;
+        border-left: 10px solid #0275d8;
         &:hover {
             background-color: #444
         }
@@ -50,4 +51,7 @@ $ui-color-main: #333;
 
 #div_info_mode{
     height: 100%;
+}
+
+#span_cur_mode_text{
 }

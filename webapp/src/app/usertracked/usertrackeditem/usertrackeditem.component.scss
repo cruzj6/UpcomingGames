@@ -1,12 +1,25 @@
 #span_user_game_img_holder {
     overflow: hidden;
     float: left;
-    width: 7em;
-    height: 7em;
+    width: 20%;
+    height: 100%;
 }
 
 #span_game_name {
+    padding-left: 5px;
     font-size: 2em;
+    width: 60%;
+    float: left;
+    text-align: center;
+}
+
+#tracked_game_item{
+    .tag{
+        margin-top: 3.25em;
+        float:right;
+        background-color: #0275d8;
+        height: 100%;
+    }
 }
 
 .card {
