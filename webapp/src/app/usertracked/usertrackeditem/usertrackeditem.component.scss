@@ -1,14 +1,10 @@
 #span_user_game_img_holder {
     overflow: hidden;
-    float: left;
-    width: 20%;
-    height: 100%;
 }
 
 #span_game_name {
     padding-left: 5px;
     font-size: 2em;
-    width: 60%;
     float: left;
     text-align: center;
 }
@@ -19,6 +15,7 @@
         float:right;
         background-color: #0275d8;
         height: 100%;
+        float: right;
     }
 }
 

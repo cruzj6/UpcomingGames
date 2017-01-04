@@ -1,6 +1,7 @@
 $ui-color-main: #333;
 $ui-color-secondary: #A561F2;
-$ui-color-accent: #123456;
+$ui-color-accent: #0275d8;
+
 .navbar-default {
     background-color: $ui-color-main;
     color: $ui-color-accent;
@@ -9,4 +10,9 @@ $ui-color-accent: #123456;
 .tracking_card {
     height: 800px;
     .card-header {}
+}
+
+.button-primary{
+    background-color: #0275d8;
+    font-weight: bold;
 }

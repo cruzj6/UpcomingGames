@@ -17,28 +17,32 @@ import { HttpRequestService } from '../../services/httprequestservice/httpreques
 })
 export class UsertrackedComponent implements OnInit {
 
+  //private vars
   private curMode: string;
 
   private modeStack: string[];
-
-  public trackedGames: GameItem[];
-
-  public selectedGame: GameItem;
-
-  public someTopTracked: GameItem[];
 
   private modeDisplayNames: {[modeName: string]: string};
 
   private static INFO_MODE: string = "info_mode";
 
   private static GAME_MODE: string = "game_mode";
+  
+  //public vars
+  public trackedGames: GameItem[];
+
+  public selectedGame: GameItem;
+
+  public someTopTracked: GameItem[];
+
+  public searchTrackedInput: string;
 
   constructor(@Inject('httpRequestService') public httpRequestService: HttpRequestService) { 
     this.curMode = UsertrackedComponent.GAME_MODE;
     this.modeStack = [];
     this.modeDisplayNames = {};
     this.modeDisplayNames[UsertrackedComponent.INFO_MODE] = "Game Info";
-    this.modeDisplayNames[UsertrackedComponent.GAME_MODE] = "Tracked Games List";    
+    this.modeDisplayNames[UsertrackedComponent.GAME_MODE] = "Games List";    
   }
 
   ngOnInit() {
@@ -93,6 +97,11 @@ export class UsertrackedComponent implements OnInit {
   selectPrevMode()
   {
     this.curMode = this.modeStack.pop();
+  }
+
+  onSearchTrackedChange()
+  {
+    //TODO
   }
 
   /**

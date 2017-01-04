@@ -20,7 +20,8 @@ $ui-color-main: #333;
         color: white;
         height: 7em;
         overflow: hidden;
-        border-left: 10px solid #0275d8;
+        border-color: #555;
+        margin-bottom: 2px;
         &:hover {
             background-color: #444
         }
@@ -54,4 +55,23 @@ $ui-color-main: #333;
 }
 
 #span_cur_mode_text{
+    padding-top: 20px;
+    display: inline;
+}
+
+#input_group_search_my_tracked{
+    input{
+        border-color: #333;
+    }
+    button {
+        background-color: #0275d8;
+        color: white;
+        border-color: #333;
+    }
+}
+
+#section_mode_compliment{
+    .align-middle{
+        padding-top: 5px;
+    }
 }
