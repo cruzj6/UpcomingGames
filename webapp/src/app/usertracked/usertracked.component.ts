@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { GameItem } from 'app/model/game.model'
 import { HttpRequestService } from '../../services/httprequestservice/httprequest.service';
+import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup } from '@angular/forms';
 
 /**
  * Class for the user tracked component, which handles interactions with the user's 
@@ -13,7 +14,8 @@ import { HttpRequestService } from '../../services/httprequestservice/httpreques
 @Component({
   selector: 'app-usertracked',
   templateUrl: './usertracked.component.html',
-  styleUrls: ['./usertracked.component.scss']
+  styleUrls: ['./usertracked.component.scss'],
+  providers: [FormBuilder]
 })
 export class UsertrackedComponent implements OnInit {
 
@@ -39,12 +41,22 @@ export class UsertrackedComponent implements OnInit {
 
   public isLoadingTrackedGames: Boolean;
 
-  constructor(@Inject('httpRequestService') public httpRequestService: HttpRequestService) { 
+  public searchMyTrackedForm: FormGroup;
+
+  constructor(@Inject('httpRequestService') public httpRequestService: HttpRequestService, private formBuilder: FormBuilder) { 
     this.curMode = UsertrackedComponent.GAME_MODE;
     this.modeStack = [];
     this.modeDisplayNames = {};
     this.modeDisplayNames[UsertrackedComponent.INFO_MODE] = "Game Info";
-    this.modeDisplayNames[UsertrackedComponent.GAME_MODE] = "Games List";    
+    this.modeDisplayNames[UsertrackedComponent.GAME_MODE] = "Games List";  
+
+    this.searchMyTrackedForm = formBuilder.group({
+      searchText: ""
+    })
+    
+    this.searchMyTrackedForm.valueChanges.subscribe(data => {
+      console.log('Form changes', data)
+    })  
   }
 
   ngOnInit() {
