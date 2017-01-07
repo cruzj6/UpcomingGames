@@ -1,16 +1,24 @@
-<h3>Top Tracked Games</h3>
-<div *ngIf="topTrackedGames">
-    <div *ngFor="let row of TopTrackedGroups; let rowNum = index" class="card-group">
-        <div *ngFor="let game of row; let i = index" class="card card-inverse">
-            <div class="card-title">
-                <p>{{game.name}}</p>
-            </div>
-            <div id="card_img_holder">
-                <img class="card-img-top" [src]="game.imageLink.super_url">
-            </div>
-            <div class="card-block">
-                <button class="btn btn-outline-primary" id="btn_add_tracked" (click)="addTrackedGame(game.gbGameId)">Add</button>
+<section id="top_tracked_games">
+    <h3>Top Tracked Games</h3>
+    <div *ngIf="topTrackedGames">
+        <div *ngFor="let row of TopTrackedGroups; let rowNum = index" class="card-group">
+            <div *ngFor="let game of row; let i = index" class="card card-inverse">
+                <div class="card-title">
+                    <p>{{game.name}}</p>
+                </div>
+                <div id="card_img_holder">
+                    <img class="card-img-top" [src]="game.imageLink.super_url">
+                </div>
+                <div class="card-block">
+                    <button class="btn btn-outline-primary" id="btn_add_tracked" (click)="addTrackedGame(game.gbGameId)">Add</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
+    <section id="loading_top_tracked" *ngIf="!topTrackedGames && isLoadingTopTracked">
+        <div id="div_loading_tracked">
+            <h2>Loading</h2>
+            <i class="fa fa-cog fa-spin fa-3x fa-fw"></i>
+        </div>
+    </section>
+</section>

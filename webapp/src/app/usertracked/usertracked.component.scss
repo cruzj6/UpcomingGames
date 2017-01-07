@@ -50,17 +50,17 @@ $ui-color-main: #333;
 
 #top_tracked_summary {}
 
-#div_info_mode{
+#div_info_mode {
     height: 100%;
 }
 
-#span_cur_mode_text{
+#span_cur_mode_text {
     padding-top: 20px;
     display: inline;
 }
 
-#input_group_search_my_tracked{
-    input{
+#input_group_search_my_tracked {
+    input {
         border-color: #333;
     }
     button {
@@ -70,8 +70,15 @@ $ui-color-main: #333;
     }
 }
 
-#section_mode_compliment{
-    .align-middle{
+#section_mode_compliment {
+    .align-middle {
         padding-top: 5px;
+    }
+}
+
+#loading_my_tracked {
+    #div_loading_my_tracked {
+        width: 100%;
+        text-align: center;
     }
 }

@@ -1,3 +1,17 @@
+/* Classes */
+
+.card {
+    width: 3em;
+    height: 3em;
+}
+
+.tag {
+    vertical-align: middle;
+}
+
+
+/* Ids */
+
 #span_user_game_img_holder {
     overflow: hidden;
 }
@@ -9,21 +23,12 @@
     text-align: center;
 }
 
-#tracked_game_item{
-    .tag{
+#tracked_game_item {
+    .tag {
         margin-top: 3.25em;
-        float:right;
+        float: right;
         background-color: #0275d8;
         height: 100%;
         float: right;
     }
-}
-
-.card {
-    width: 3em;
-    height: 3em;
-}
-
-.tag {
-    vertical-align: middle;
 }

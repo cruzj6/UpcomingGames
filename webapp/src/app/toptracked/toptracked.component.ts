@@ -11,6 +11,9 @@ import { HttpRequestService } from 'services/httprequestservice/httprequest.serv
 export class TopTrackedComponent implements OnInit {
 
   public topTrackedGames: GameItem[];
+
+  public isLoadingTopTracked: Boolean;
+
   private static NUM_COLS = 2;
 
   constructor( @Inject('httpRequestService') public httpRequestService: HttpRequestService) { }
@@ -28,8 +31,10 @@ export class TopTrackedComponent implements OnInit {
   }
 
   loadTopTrackedGames() {
+    this.isLoadingTopTracked = true;
     this.httpRequestService.getTopTrackedGames(20).subscribe(
       games => {
+        this.isLoadingTopTracked = false;
         console.log("GOT!");
         console.log(JSON.stringify(games));
         this.topTrackedGames = games.filter(g => {
@@ -38,6 +43,7 @@ export class TopTrackedComponent implements OnInit {
       },
 
       err => {
+        this.isLoadingTopTracked = false;
         console.log("Error displaying top tracked games")
       }
     );

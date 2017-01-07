@@ -37,6 +37,8 @@ export class UsertrackedComponent implements OnInit {
 
   public searchTrackedInput: string;
 
+  public isLoadingTrackedGames: Boolean;
+
   constructor(@Inject('httpRequestService') public httpRequestService: HttpRequestService) { 
     this.curMode = UsertrackedComponent.GAME_MODE;
     this.modeStack = [];
@@ -51,12 +53,15 @@ export class UsertrackedComponent implements OnInit {
   }
 
   loadUserTrackedGames(){
+    this.isLoadingTrackedGames = true;
     this.httpRequestService.getUserTrackedGames().subscribe(
       games => {
+        this.isLoadingTrackedGames = false;
         this.trackedGames = games;
       },
 
       err => {
+        this.isLoadingTrackedGames = false;
         console.log("Error displaying user tracked games");
       }
     );

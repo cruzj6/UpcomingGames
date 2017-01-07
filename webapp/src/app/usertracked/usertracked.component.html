@@ -60,6 +60,12 @@
                                         <app-usertrackeditem [game]="game"></app-usertrackeditem>
                                     </div>
                                 </div>
+                                <section id="loading_my_tracked" *ngIf="!trackedGames && isLoadingTrackedGames">
+                                    <div id="div_loading_my_tracked">
+                                        <h2>Loading</h2>
+                                        <i class="fa fa-cog fa-spin fa-3x fa-fw"></i>
+                                    </div>
+                                </section>
                             </div>
                             <!--Info Mode div, which shows info for the currently selected game-->
                             <div id="div_info_mode" *ngIf="CurMode == INFO_MODE">
