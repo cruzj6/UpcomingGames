@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { GameItem } from 'app/model/game.model'
 import { HttpRequestService } from '../../services/httprequestservice/httprequest.service';
-import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, FormControl } from '@angular/forms';
 
 /**
  * Class for the user tracked component, which handles interactions with the user's 
@@ -33,6 +33,8 @@ export class UsertrackedComponent implements OnInit {
   //public vars
   public trackedGames: GameItem[];
 
+  public displayTrackedGames: GameItem[];
+
   public selectedGame: GameItem;
 
   public someTopTracked: GameItem[];
@@ -43,23 +45,27 @@ export class UsertrackedComponent implements OnInit {
 
   public searchMyTrackedForm: FormGroup;
 
+  //static values
+  private static NUM_TOP_TRACKED: number = 5;
+
   constructor(@Inject('httpRequestService') public httpRequestService: HttpRequestService, private formBuilder: FormBuilder) { 
     this.curMode = UsertrackedComponent.GAME_MODE;
     this.modeStack = [];
     this.modeDisplayNames = {};
     this.modeDisplayNames[UsertrackedComponent.INFO_MODE] = "Game Info";
-    this.modeDisplayNames[UsertrackedComponent.GAME_MODE] = "Games List";  
-
-    this.searchMyTrackedForm = formBuilder.group({
-      searchText: ""
-    })
-    
-    this.searchMyTrackedForm.valueChanges.subscribe(data => {
-      console.log('Form changes', data)
-    })  
+    this.modeDisplayNames[UsertrackedComponent.GAME_MODE] = "Games List"; 
   }
 
   ngOnInit() {
+     //Set initial search text to empty
+    this.searchMyTrackedForm = this.formBuilder.group({
+      searchText: new FormControl("")
+    });
+
+     //When the search text changes
+    this.searchMyTrackedForm.valueChanges.subscribe(data => {
+      this.filterDisplayTrackedGames(data.searchText);
+    });
     this.loadUserTrackedGames();
     this.loadSomeTopTrackedGames();
   }
@@ -69,7 +75,15 @@ export class UsertrackedComponent implements OnInit {
     this.httpRequestService.getUserTrackedGames().subscribe(
       games => {
         this.isLoadingTrackedGames = false;
-        this.trackedGames = games;
+        this.trackedGames = games.sort((g1, g2) => {
+          if(g1.name < g2.name) return -1;
+          if(g1.name > g2.name) return 1;
+          return 0;
+        });
+
+        //Filter the displayed tracked games
+        let filterText = this.searchMyTrackedForm.get('searchText').value;
+        this.filterDisplayTrackedGames(filterText ? filterText : "");
       },
 
       err => {
@@ -79,8 +93,14 @@ export class UsertrackedComponent implements OnInit {
     );
   }
 
+  /**
+   * Load a subset of the top tracked games
+   * 
+   * 
+   * @memberOf UsertrackedComponent
+   */
   loadSomeTopTrackedGames(){
-    this.httpRequestService.getTopTrackedGames(5).subscribe(
+    this.httpRequestService.getTopTrackedGames(UsertrackedComponent.NUM_TOP_TRACKED).subscribe(
       games => {
       this.someTopTracked = games;
       },
@@ -89,6 +109,20 @@ export class UsertrackedComponent implements OnInit {
       console.log("Error displaying top tracked games summary");
       }
     );
+  }
+
+  /**
+   * Filter the displayed tracked games by the given text
+   * 
+   * @param {string} filterText Text that tracked games item must contain
+   * 
+   * @memberOf UsertrackedComponent
+   */
+  filterDisplayTrackedGames(filterText: string){
+    if(this.trackedGames){
+        this.displayTrackedGames = this.trackedGames
+        .filter(game => game.name.toLowerCase().indexOf(filterText.toLowerCase()) >= 0);
+    }
   }
 
   /**

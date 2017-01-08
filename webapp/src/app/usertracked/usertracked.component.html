@@ -56,11 +56,11 @@
                             <!--Game Mode div, which shows the users currently tracked games-->
                             <div id="div_game_mode" *ngIf="CurMode == GAME_MODE">
                                 <div class="list-group">
-                                    <div *ngFor='let game of trackedGames' (click)="selectTrackedGame(game)" class="list-group-item list-group-item-action rounded">
+                                    <div *ngFor='let game of displayTrackedGames' (click)="selectTrackedGame(game)" class="list-group-item list-group-item-action rounded">
                                         <app-usertrackeditem [game]="game"></app-usertrackeditem>
                                     </div>
                                 </div>
-                                <section id="loading_my_tracked" *ngIf="!trackedGames && isLoadingTrackedGames">
+                                <section id="loading_my_tracked" *ngIf="!displayTrackedGames && isLoadingTrackedGames">
                                     <div id="div_loading_my_tracked">
                                         <h2>Loading</h2>
                                         <i class="fa fa-cog fa-spin fa-3x fa-fw"></i>
