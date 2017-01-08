@@ -21,10 +21,16 @@
             </div>
         </li>
     </ul>
-    <form class="form-inline float-xs-right ">
-        <input #searchString class="form-control " type="text " placeholder="Find Games " (keyup.enter)='search(searchString.value)'>
-        <button class="btn btn-outline-success " (click)='search(searchString.value)' type="submit ">Search</button>
-    </form>
+    <div class="form-inline float-xs-right ">
+        <i *ngIf="isSearching" style="color: white;" class="fa fa-cog fa-spin fa-2x fa-fw align-middle"></i>
+        <input [resultTemplate]="rt" [(ngModel)]="searchString" class="form-control " type="text" placeholder="Find Games " [ngbTypeahead]="searchTypeahead">
+    </div>
+    <hr>
+    <template #rt let-game="result" let-t="term">
+        {{t}}
+        <img [src]="game.imageLink.icon_url" width="16">
+        {{game.name}}
+    </template>
 </nav>
 
 <div class="container ">

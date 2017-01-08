@@ -57,6 +57,9 @@ export class UsertrackedComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.loadUserTrackedGames();
+    this.loadSomeTopTrackedGames();
+
      //Set initial search text to empty
     this.searchMyTrackedForm = this.formBuilder.group({
       searchText: new FormControl("")
@@ -64,17 +67,22 @@ export class UsertrackedComponent implements OnInit {
 
      //When the search text changes
     this.searchMyTrackedForm.valueChanges.subscribe(data => {
-      this.filterDisplayTrackedGames(data.searchText);
+        this.filterDisplayTrackedGames(data.searchText ? data.searchText : "");
     });
-    this.loadUserTrackedGames();
-    this.loadSomeTopTrackedGames();
   }
 
+  /**
+   * Request the User's tracked games from the API, and set in model
+   * 
+   * @memberOf UsertrackedComponent
+   */
   loadUserTrackedGames(){
     this.isLoadingTrackedGames = true;
     this.httpRequestService.getUserTrackedGames().subscribe(
       games => {
         this.isLoadingTrackedGames = false;
+
+        //Sort the results
         this.trackedGames = games.sort((g1, g2) => {
           if(g1.name < g2.name) return -1;
           if(g1.name > g2.name) return 1;
@@ -94,7 +102,7 @@ export class UsertrackedComponent implements OnInit {
   }
 
   /**
-   * Load a subset of the top tracked games
+   * Load a subset of the top tracked games from the API
    * 
    * 
    * @memberOf UsertrackedComponent
