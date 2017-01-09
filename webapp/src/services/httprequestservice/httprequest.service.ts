@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { GameItem } from 'app/model/game.model'
 import { GameNewsItem } from 'app/model/gamenewsitem.model'
 import { TopTrackedGameItem } from 'app/model/topTrackedGameItem.model'
+import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/toPromise';
@@ -16,6 +17,14 @@ import 'rxjs/add/operator/toPromise';
  */
 @Injectable()
 export class HttpRequestService {
+
+  private topTrackedGames: GameItem[];
+
+  private topTrackedGamesSubject: Subject<GameItem[]> = new Subject<GameItem[]>();
+
+  private userTrackedGames: GameItem[];
+    
+  private userTrackedGamesSubject: Subject<GameItem[]> = new Subject<GameItem[]>();
 
   constructor(private http: Http) { }
 
@@ -47,10 +56,21 @@ export class HttpRequestService {
    * @memberOf HttprequestService
    */
   getUserTrackedGames(): Observable<GameItem[]> {
-     return this.http
+     this.http
       .get('/userdata/trackedGames')
       .map((res: Response) => res.json())
-      .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+      .catch((error:any) => Observable.throw(error.json().error || 'Server error'))
+      .subscribe(
+        games => {
+          this.setUserTrackedGames(games)
+        },
+
+        err => {
+          console.log(err);
+        }
+      );
+
+      return this.userTrackedGamesSubject.asObservable();
   }
 
   /**
@@ -84,31 +104,74 @@ export class HttpRequestService {
     let params = new URLSearchParams();
     params.set("number", String(numberOfGames))
 
-    return this.http
+    this.http
       .get('/info/topTracked', {
         search: params
       })
       .map((res: Response) => res.json())
-      .catch((error: any) => Observable.throw(error.json().error || 'Server Error: Error Getting Top Tracked Games'));
+      .catch((error: any) => Observable.throw(error.json().error || 'Server Error: Error Getting Top Tracked Games'))
+      .subscribe(     
+        games => {
+          this.setTopTrackedGames(games);
+        },
+
+        err => {
+          console.log("Error setting user tracked games");
+        });
+    
+    //Send observable so it will be updated whenever this is refreshed
+    return this.topTrackedGamesSubject.asObservable();
   }
 
   /**
    * Add a tracked game to the user's tracked games
    * 
-   * @param {number} gameId giant bomb id of the game
+   * @param {GameItem} game game to add
    * @returns {Observable}
    * 
    * @memberOf HttpRequestService
    */
-  addTrackedGame(gameId: number): any{
+  addTrackedGame(game: GameItem): any{
     let headers = new Headers({'Content-Type': 'application/json'});
     let data = JSON.stringify({
-        gameid: String(gameId)
+        gameid: String(game.gbGameId)
     });
     let options = new RequestOptions({ headers: headers });
+
     return this.http
       .post('/userdata/trackedGames', data, options)
-      .catch((error: any) => Observable.throw(error.json().error || 'Server Error: Error Getting Top Tracked Games'))
+      .catch((error: any) => {
+        return Observable.throw(error.json().error || 'Server Error: Error Adding tracked game')
+      })
+      .do(() => {
+        //Add tracked game locally to update all items subbed to observable
+        this.userTrackedGames.push(game);
+        this.userTrackedGamesSubject.next(this.userTrackedGames);
+      })
       .toPromise();
+  }
+
+  /**
+   * Set the user tracked games, and set for subject to update observers
+   * 
+   * @param {GameItem[]} games games to set as userTrackedGames
+   * 
+   * @memberOf HttpRequestService
+   */
+  setUserTrackedGames(games: GameItem[]){
+    this.userTrackedGames = games;
+    this.userTrackedGamesSubject.next(games);
+  }
+
+  /**
+   * Set the top tracked games, and set for subject to update observers
+   * 
+   * @param {GameItem[]} games  games to set as topTrackedGames
+   * 
+   * @memberOf HttpRequestService
+   */
+  setTopTrackedGames(games: GameItem[]){
+    this.topTrackedGames = games;
+    this.topTrackedGamesSubject.next(games);
   }
 }

@@ -73,10 +73,10 @@ module.exports = class UserDataModel {
                 console.log('GETTING USER TRACKED GAMES');
                 //Select all tracked gameId's for that userId
                 client.query("SELECT gameId FROM tracked_games WHERE userid=($1);", [userid], (err, res) => {
-                    console.log("got FROM DATABASE: " + JSON.stringify(res.rows));
+                    console.log("got FROM DATABASE: " + JSON.stringify(_.filter(res.rows, (item) => item.gameid != "undefined")));
                     //Send back the rows
                     done();
-                    handleUserIds(res.rows);
+                    handleUserIds(_.filter(res.rows, (item) => item.gameid != "undefined"));
                 });
             }
         });

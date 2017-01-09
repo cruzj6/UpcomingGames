@@ -76,30 +76,37 @@ export function getDataForGameById(gameId, handleIdGameData) {
     if (gameId) {
         var queryString = giantBombAPI + "/game/" + gameId + "/?api_key=" + apiKey + '&format=json';
 
+        console.log("QUERYING: " + queryString);
+
         //Make our http request to the API
         request.get({
             uri: queryString,
             headers: { 'user-agent': 'UpcomingAwesomeGamesWoo' } //Required by API
         }, (err, repond, body) => {
-            if (!err) {;
-                var jsonRes = JSON.parse(body);
+            if (!err) {
+                try {
+                    var jsonRes = JSON.parse(body);
 
-                //Should be only one result since we are getting specific game by id not games
-                var result = jsonRes.results;
+                    //Should be only one result since we are getting specific game by id not games
+                    var result = jsonRes.results;
 
-                console.log(result.image);
+                    console.log(result.image);
 
-                //Format our response JSON object
-                var gameDatas = generateGameDataItem(result.name, result.image, _.pluck(result.platforms, 'name'),
-                    result.expected_release_month, result.expected_release_year, result.expected_release_day, result.id);
+                    //Format our response JSON object
+                    var gameDatas = generateGameDataItem(result.name, result.image, _.pluck(result.platforms, 'name'),
+                        result.expected_release_month, result.expected_release_year, result.expected_release_day, result.id);
 
-                //callback
-                handleIdGameData(gameDatas);
+                    //callback
+                    handleIdGameData(gameDatas);
+                } catch (e) {
+                    handleIdGameData(null);
+                }
             } else(handleIdGameData(null));
         });
     } else {
         handleIdGameData(null);
     }
+
 }
 
 export function advancedGamesQuery(gbQuery, callback) {

@@ -22,8 +22,8 @@ export class TopTrackedComponent implements OnInit {
     this.loadTopTrackedGames();
   }
 
-  addTrackedGame(gameId: number) {
-    this.httpRequestService.addTrackedGame(gameId).then(
+  addTrackedGame(game: GameItem) {
+    this.httpRequestService.addTrackedGame(game).then(
       res => {
         //TODO tell to reload
       }

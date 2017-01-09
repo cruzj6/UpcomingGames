@@ -23,8 +23,16 @@ export class AppComponent {
     this.isSearching = false;
   }
 
+  /**
+   * Returns an observable of GameItem[] to be used for 
+   * ngbTypeahead ng-bootstrap directive
+   * 
+   * 
+   * @memberOf AppComponent
+   */
   searchTypeahead = (text: Observable<string>) => {
-    return text.debounceTime(200).distinctUntilChanged()
+    return text.debounceTime(200)
+      .distinctUntilChanged()
       .do(() => this.isSearching = true)
       .switchMap(
         searchTerm => this.httpReq.searchGames(searchTerm)
@@ -32,18 +40,7 @@ export class AppComponent {
       .do(() => this.isSearching = false);
   }
 
-  search(searchString: string){
-    this.httpReq.searchGames(searchString).subscribe(
-      games => {
-        games.forEach(game => {
-          console.log(game.name);
-        });
-      },
-
-      err => {
-        console.log("An error has occured");
-      }
-    );
-    console.log("test");
+  addTrackedGame(game: GameItem) {
+    this.httpReq.addTrackedGame(game);
   }
 }

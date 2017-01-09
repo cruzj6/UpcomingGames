@@ -2,6 +2,8 @@ $ui-color-main: #333;
 $ui-color-secondary: #A561F2;
 $ui-color-accent: #0275d8;
 
+/* Classes */
+
 .navbar-default {
     background-color: $ui-color-main;
     color: $ui-color-accent;
@@ -12,7 +14,34 @@ $ui-color-accent: #0275d8;
     .card-header {}
 }
 
-.button-primary{
+.button-primary {
     background-color: #0275d8;
     font-weight: bold;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+
+/* Ids */
+
+#nav_game_search_field {
+    color: white;
+    display: inline;
+}
+
+#div_search_result {
+    span {
+        display: inline-block;
+        width: 70%;
+        text-overflow: ellipsis;
+        line-height: 1em;
+        max-height: 1em;
+        max-width: 70%;
+        word-wrap: break-word;
+    }
+    .btn {
+        width: 30%;
+    }
 }

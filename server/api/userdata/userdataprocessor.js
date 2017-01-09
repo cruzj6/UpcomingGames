@@ -17,6 +17,10 @@ import _ from 'underscore-node';
 module.exports = class UserDataProcessor {
     static getUserTrackedGameData(userId, handleTrackedGameData) {
         dbm.getUsersTrackedGameIds(userId, function(ids) {
+
+            //Filter out undefined or null items
+            ids = _.filter(ids, (id) => id.gameid != undefined && id.gameid != "undefined" && id.gameid);
+
             //If we get any track gameIds
             if (ids && ids.length > 0) {
                 //Init our return array
@@ -28,6 +32,7 @@ module.exports = class UserDataProcessor {
                 for (var i = 0; i < ids.length; i++) {
                     //Now request data about each game using the ID, and the giantBombAPI Module
                     gameAPI.getDataForGameById(ids[i].gameid, (gameData) => {
+
                         //Track attempts to get game data, and number actually gotten (successful)
                         //We need to keep track since this is Async, so we know when to make callback
                         attempts++;
