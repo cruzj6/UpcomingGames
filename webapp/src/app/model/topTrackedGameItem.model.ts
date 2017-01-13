@@ -1,4 +1,6 @@
 export class TopTrackedGameItem {
-    id: number,
-    numTrack: number
+    constructor(
+        id: number,
+        numTrack: number
+    ) { }
 }

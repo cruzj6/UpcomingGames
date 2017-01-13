@@ -2,7 +2,6 @@
  * Created by Joey on 2/17/16.
  * Handles all requests to the BingAPI
  */
-//require('dotenv').config();
 var apiKey = process.env.BING_KEY;
 var rootUri = 'https://api.datamarket.azure.com/Bing/Search';
 var auth = new Buffer([apiKey, apiKey].join(':')).toString('base64');
@@ -11,13 +10,11 @@ var request = require('request').defaults({
         'Authorization': 'Basic ' + auth
     }
 });
-//var Bing = require('node-bing-api')({accKey: apiKey});
 
 //Requests media data from the Bing web API
 export function getGameMedia(gameName, mediaDataHandler) {
-    //We want video results
     var searchString = rootUri + '/Video';
-
+    
     //Configure options and make request
     request.get({
         uri: searchString,

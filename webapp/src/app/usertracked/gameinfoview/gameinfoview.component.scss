@@ -2,9 +2,28 @@
     #card_news_item_title{
         font-size: 0.9em;
     }
+
+    .card{
+        border-color: #333;
+    }
+
+    .card-header{
+        background-color: #333;
+        color: white;
+        font-weight: bold;
+    }
+
+    .card-block{
+
+    }
 }
 
 #div_news_cards{
     height: 55em;
     overflow: scroll;
+}
+
+/* Classes */
+.nav-tabs .nav-item.open .nav-link, .nav-tabs .nav-item.open .nav-link:focus, .nav-tabs .nav-item.open .nav-link:hover, .nav-tabs .nav-link.active, .nav-tabs .nav-link.active:focus, .nav-tabs .nav-link.active:hover{
+    border-color: #333 !important;
 }

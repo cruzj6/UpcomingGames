@@ -3,13 +3,29 @@
     <ngb-tab title="News">
         <template ngbTabContent>
             <div id="div_news_cards">
-                <div id="card_news_item" class="card" *ngFor="let newsItem of gameNewsItems">
+                <div id="card_news_item" class="card card-outline-primary" *ngFor="let newsItem of gameNewsItems">
                     <div class="card-header"><a href="{{newsItem.url}}">{{newsItem.title}}</a></div>
                     <div class="card-block">
-                        <span id="card_news_item_title"><em>{{newsItem.date}}</em></span>
+                        <span id="card_news_item_title" class="card-title"><em>{{newsItem.date}}</em></span>
+                        <hr>
                         <p>
                             {{newsItem.desc}}
                         </p>
+                    </div>
+                </div>
+            </div>
+        </template>
+    </ngb-tab>
+    <ngb-tab title="Media">
+        <template ngbTabContent>
+            <div id="div_media_cards">
+                <div id="card_media_item" class="card card-outline-primary" *ngFor="let mediaItem of gameMediaItems">
+                    <div class="card-header"><a href="{{mediaItem.url}}">{{mediaItem.title}}</a></div>
+                    <div class="card-block">
+                        <div id="div_youtube_video">
+                            <!--embed [src]="mediaItem.url" wmode="transparent"
+                                type="application/x-shockwave-flash" width="100%" height="100%" allowfullscreen="true" title="Adobe Flash Player"-->
+                        </div>
                     </div>
                 </div>
             </div>

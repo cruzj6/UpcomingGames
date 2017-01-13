@@ -3,6 +3,7 @@ import { RequestOptions, Headers, Http, JsonpModule, Response, URLSearchParams }
 import { Observable } from 'rxjs/Observable';
 import { GameItem } from 'app/model/game.model'
 import { GameNewsItem } from 'app/model/gamenewsitem.model'
+import { GameMediaItem } from 'app/model/gamemediaitem.model'
 import { TopTrackedGameItem } from 'app/model/topTrackedGameItem.model'
 import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/map';
@@ -92,6 +93,25 @@ export class HttpRequestService {
       .map((res: Response) => res.json())
       .catch((error:any) => Observable.throw(error.json().error || 'Server error: Error Getting Game News Articles'));
   } 
+
+  /**
+   * Get the media items for a game
+   * 
+   * @param {GameItem} game game to get media for
+   * @returns {Observable<GameMediaItem[]>} observable of game media items
+   * 
+   * @memberOf HttpRequestService
+   */
+  getGameMedia(game: GameItem): Observable<GameMediaItem[]>{
+    let params = new URLSearchParams();
+    params.set('gameName', game.name);
+
+    return this.http.get('/info/gameMedia', {
+      search: params
+    })
+    .map((res: Response) => res.json())
+    .catch((error: any) =>  Observable.throw(error.json().error || 'Server error: Error Getting Game Media'));
+  }
 
   /**
    * Get the top tracked games form the UCGames API
