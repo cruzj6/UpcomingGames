@@ -2,6 +2,7 @@ import {Component, OnInit, Inject} from '@angular/core';
 import {GameItem} from 'app/model/game.model'
 import {HttpRequestService} from '../../services/httprequestservice/httprequest.service';
 import {FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, FormControl} from '@angular/forms';
+import {Subject} from "rxjs";
 
 /**
  * Class for the user tracked component, which handles interactions with the user's
@@ -29,6 +30,10 @@ export class UsertrackedComponent implements OnInit {
     private static INFO_MODE: string = "info_mode";
 
     private static GAME_MODE: string = "game_mode";
+
+    private removeMode: Boolean = false;
+
+    private removeModeSubject: Subject<Boolean> = new Subject();
 
     //public vars
     public trackedGames: GameItem[];
@@ -156,10 +161,6 @@ export class UsertrackedComponent implements OnInit {
         this.curMode = this.modeStack.pop();
     }
 
-    onSearchTrackedChange() {
-        //TODO
-    }
-
     /**
      * Returns the stack containing the stack of previous modes
      *
@@ -206,5 +207,24 @@ export class UsertrackedComponent implements OnInit {
 
     get ModeDisplayNames() {
         return this.modeDisplayNames;
+    }
+
+    /**
+     * Set the if in remove mode, updates the subject for observables
+     *
+     * @param isRemoveMode
+     * @constructor
+     */
+    set RemoveMode(isRemoveMode: Boolean){
+        this.removeMode = isRemoveMode;
+        this.removeModeSubject.next(this.removeMode);
+    }
+
+    getRemoveMode(){
+        return this.removeModeSubject.asObservable();
+    }
+
+    toggleRemoveMode(){
+        this.RemoveMode = !this.removeMode;
     }
 }

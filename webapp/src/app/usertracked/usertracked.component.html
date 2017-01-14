@@ -42,6 +42,7 @@
                                             class="align-center">Back</span>
                                     </button>
                                     <span class="text-center align-middle" id="span_cur_mode_text">{{ModeDisplayNames[CurMode]}}</span>
+                                    <button *ngIf="CurMode == GAME_MODE" class="btn btn-outline-danger" (click)="toggleRemoveMode()">{{removeMode ? 'End Remove' : 'Remove Mode'}} </button>
                                 </div>
                                 <div class="col-md-5">
                                     <section id="section_mode_compliment">
@@ -69,7 +70,7 @@
                                 <div class="list-group">
                                     <div *ngFor='let game of displayTrackedGames' (click)="selectTrackedGame(game)"
                                          class="list-group-item list-group-item-action rounded">
-                                        <app-usertrackeditem [game]="game"></app-usertrackeditem>
+                                        <app-usertrackeditem [removeMode$]="getRemoveMode()" [game]="game"></app-usertrackeditem>
                                     </div>
                                 </div>
                                 <section id="loading_my_tracked" *ngIf="!displayTrackedGames && isLoadingTrackedGames">

@@ -8,6 +8,7 @@
             <span id="span_game_name" class="col-md-8">{{game.name}}</span>
             <div class="col-md-2">
                 <span class="tag tag-default float-xs-right">></span>
+                <button class="btn btn-danger" *ngIf="isRemoveMode" (click)="removeTrackedGame($event)">X</button>
             </div>
         </div>
     </div>

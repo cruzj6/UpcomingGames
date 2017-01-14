@@ -23,7 +23,7 @@ export class HttpRequestService {
 
     private topTrackedGamesSubject: Subject<GameItem[]> = new Subject<GameItem[]>();
 
-    private userTrackedGames: GameItem[];
+    private userTrackedGames: Array<GameItem>;
 
     private userTrackedGamesSubject: Subject<GameItem[]> = new Subject<GameItem[]>();
 
@@ -170,6 +170,42 @@ export class HttpRequestService {
                 this.userTrackedGamesSubject.next(this.userTrackedGames);
             })
             .toPromise();
+    }
+
+    /**
+     *  Remove a game from the current user's tracked games
+     *
+     * @param game game to remove from tracked games
+     * @returns {Observable} Returns promise for the request
+     */
+    removeTrackedGame(game: GameItem): any {
+        let headers = new Headers({'Content-type': 'application/json'});
+        let data = JSON.stringify({
+            gameid: String(game.gbGameId)
+        });
+        let options = new RequestOptions({headers: headers, body: data});
+
+        return this.http
+            .delete('/userdata/trackedGames', options)
+            .catch((err: any) => {
+                return Observable.throw(err.json().error || 'Server Error: Error deleting tracked game');
+            })
+            .do(() => {
+                //Find item we want to remove
+                let index = -1;
+                for (let i = 0; i < this.userTrackedGames.length; i++) {
+                    if (this.userTrackedGames[i].gbGameId === game.gbGameId) {
+                        index = i;
+                        break;
+                    }
+                }
+
+                //Remove item
+                if (index > -1) {
+                    this.userTrackedGames.splice(index, 1);
+                    this.userTrackedGamesSubject.next(this.userTrackedGames);
+                }
+            }).toPromise();
     }
 
     /**
