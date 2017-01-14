@@ -1,4 +1,12 @@
 <!--Contains view for the topTracked route, which contains information and interactions for top tracked games-->
+<p>
+    <ngb-alert [dismissible]="true">
+        <strong>Success</strong> Game added to tracked games
+    </ngb-alert>
+</p>
+<ngb-alert *ngFor="let alert of alerts">
+    <strong>Game Added: </strong> {{alert.message}}
+</ngb-alert>
 <section id="top_tracked_games">
     <h3>Top Tracked Games</h3>
     <div *ngIf="topTrackedGames">
@@ -11,7 +19,8 @@
                     <img class="card-img-top" [src]="game.imageLink.super_url">
                 </div>
                 <div class="card-block">
-                    <button class="btn btn-outline-primary" id="btn_add_tracked" (click)="addTrackedGame(game)">Add</button>
+                    <button class="btn btn-outline-primary" id="btn_add_tracked" (click)="addTrackedGame(game)">Add
+                    </button>
                 </div>
             </div>
         </div>

@@ -4,14 +4,14 @@
  * Created by Joey on 3/1/2016.
  */
 require('babel-core/register');
-var express = require('express');
-var exphbs = require('express-handlebars');
-var path = require('path');
-var app = express();
-var bodyparser = require('body-parser');
-var session = require('express-session');
-var passport = require('passport');
-var dotenv = require('dotenv');
+let express = require('express');
+let exphbs = require('express-handlebars');
+let path = require('path');
+let app = express();
+let bodyparser = require('body-parser');
+let session = require('express-session');
+let passport = require('passport');
+let dotenv = require('dotenv');
 dotenv.load();
 require('./auth/ucgames/ucgamesauth').authSetup(passport);
 

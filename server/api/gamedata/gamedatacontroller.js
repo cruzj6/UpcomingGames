@@ -1,8 +1,7 @@
 /**
  * Created by Joey on 3/1/2016.
  */
-import express from 'express';
-var gameData = require('./gamedataprocessor.js');
+const gameData = require('./gamedataprocessor.js');
 
 module.exports = class GameDataController {
     /**
@@ -17,7 +16,7 @@ module.exports = class GameDataController {
     static searchGames(req, res) {
         try {
             //Get the search term from the request
-            var searchTerm = req.query.searchTerm;
+            let searchTerm = req.query.searchTerm;
             console.log("Searching for: " + searchTerm);
 
             //Make a call to the gameData module
@@ -34,7 +33,7 @@ module.exports = class GameDataController {
 
         try {
             //Get the name of the game from the request
-            var gameName = req.query.gameName;
+            let gameName = req.query.gameName;
 
             //Reqeust news article data from the gameDataProcessor
             gameData.getNewsArticleInfo(gameName, (data) => {
@@ -104,4 +103,4 @@ module.exports = class GameDataController {
             console.log("Error performing advanced search: " + e.message);
         }
     }
-}
+};
