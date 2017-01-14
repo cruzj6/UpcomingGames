@@ -24,8 +24,14 @@ export class TopTrackedComponent implements OnInit {
 
     ngOnInit() {
         this.loadTopTrackedGames();
+        this.alerts = [];
     }
 
+    /**
+     * Add a tracked game using the internal UC Game API, httpRequestService
+     *
+     * @param game Game to add as a tracked game
+     */
     addTrackedGame(game: GameItem) {
         this.httpRequestService.addTrackedGame(game).then(
             res => {
@@ -48,6 +54,9 @@ export class TopTrackedComponent implements OnInit {
         )
     }
 
+    /**
+     * Load the top tracked games from the httpRequestService
+     */
     loadTopTrackedGames() {
         this.isLoadingTopTracked = true;
         this.httpRequestService.getTopTrackedGames(20).subscribe(
@@ -62,7 +71,7 @@ export class TopTrackedComponent implements OnInit {
 
             err => {
                 this.isLoadingTopTracked = false;
-                console.log("Error displaying top tracked games")
+                console.log("Error displaying top tracked games: " + err);
             }
         );
     }
@@ -76,11 +85,21 @@ export class TopTrackedComponent implements OnInit {
         this.alerts.push(alert);
     }
 
+    closeAlert(alert: AlertItem){
+        let index = this.alerts.indexOf(alert);
+        this.alerts.splice(index, 1);
+    }
 
+    /**
+     * Builds and returns the groups of top tracked games, for formatting
+     *
+     * @returns {GameItem[][]} Rows and columns of top tracked games
+     * @constructor
+     */
     get TopTrackedGroups() {
-        let topTrackedRows = new Array<GameItem[]>();
+        let topTrackedRows = [];
         for (let i = 0; i < this.topTrackedGames.length - 1; i += TopTrackedComponent.NUM_COLS) {
-            let row = new Array<GameItem>();
+            let row = [];
             for (let j = 0; j < TopTrackedComponent.NUM_COLS; j++) {
                 let ind = i + j;
                 if (ind >= (this.topTrackedGames.length - 1)) break;
@@ -93,6 +112,12 @@ export class TopTrackedComponent implements OnInit {
 
     }
 
+    /**
+     * External getter for this item's top tracked games
+     *
+     * @returns {GameItem[]} Top tracked games, according to this component
+     * @constructor
+     */
     get TopTrackedGames() {
         return this.topTrackedGames;
     }

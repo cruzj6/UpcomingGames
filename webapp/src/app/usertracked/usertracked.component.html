@@ -42,7 +42,7 @@
                                             class="align-center">Back</span>
                                     </button>
                                     <span class="text-center align-middle" id="span_cur_mode_text">{{ModeDisplayNames[CurMode]}}</span>
-                                    <button *ngIf="CurMode == GAME_MODE" class="btn btn-outline-danger" (click)="toggleRemoveMode()">{{removeMode ? 'End Remove' : 'Remove Mode'}} </button>
+                                    <button *ngIf="CurMode == GAME_MODE && !isLoadingTrackedGames" class="btn btn-outline-danger" (click)="toggleRemoveMode()">{{removeMode ? 'End Remove' : 'Remove Mode'}} </button>
                                 </div>
                                 <div class="col-md-5">
                                     <section id="section_mode_compliment">

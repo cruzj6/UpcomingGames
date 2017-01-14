@@ -28,6 +28,8 @@ export class HttpRequestService {
     private userTrackedGamesSubject: Subject<GameItem[]> = new Subject<GameItem[]>();
 
     constructor(private http: Http) {
+        this.userTrackedGames = [];
+        this.topTrackedGames = [];
     }
 
     /**

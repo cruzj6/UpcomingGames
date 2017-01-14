@@ -17,6 +17,7 @@ export class UsertrackeditemComponent implements OnInit {
     private isRemoveMode: Boolean;
 
     constructor(@Inject('httpRequestService') private httpReq: HttpRequestService) {
+
     }
 
     ngOnInit() {
