@@ -140,7 +140,7 @@ export class HttpRequestService {
 
                 err => {
                     console.log("Error setting user tracked games: " + err);
-                });
+            });
 
         //Send observable so it will be updated whenever this is refreshed
         return this.topTrackedGamesSubject.asObservable();
@@ -164,13 +164,14 @@ export class HttpRequestService {
         return this.http
             .post('/userdata/trackedGames', data, options)
             .catch((error: any) => {
-                return Observable.throw(error.json().error || 'Server Error: Error Adding tracked game')
+                    return Observable.throw(error.json().error || 'Server Error: Error Adding tracked game')
             })
             .do(() => {
                 //Add tracked game locally to update all items subbed to observable
                 this.userTrackedGames.push(game);
                 this.userTrackedGamesSubject.next(this.userTrackedGames);
             })
+            .map((res: Response) => res.json())
             .toPromise();
     }
 

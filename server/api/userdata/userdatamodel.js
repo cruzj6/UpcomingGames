@@ -43,6 +43,8 @@ module.exports = class UserDataModel {
                         done();
                     });
                 });
+            } else {
+                doneCallback("Game Already Added");
             }
         });
     }

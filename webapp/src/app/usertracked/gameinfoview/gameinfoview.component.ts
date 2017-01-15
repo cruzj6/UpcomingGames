@@ -33,15 +33,13 @@ export class GameinfoviewComponent implements OnInit {
     loadGameMedia() {
         this.httpRequestService.getGameMedia(this.activeGame).subscribe(
             mediaItems => {
-
-                let youtubeHost = 'http://www.youtube.com/v/';
-                let youtubeQueryParams = '?version=3&amp;hl=en_US&amp;rel=0&amp;autohide=1&amp;autoplay=1';
+                let youtubeHost = 'http://www.youtube.com/embed/';
 
                 this.gameMediaItems = mediaItems.filter((item: GameMediaItem) => {
                     return item.url.indexOf('https://www.youtube.com') > -1;
                 })
                     .map((item: GameMediaItem) => {
-                        //TODOitem.url = this.domSanitizer.bypassSecurityTrustResourceUrl(youtubeHost + item.url.split('?')[1].replace('v=', '') + youtubeQueryParams);
+                        item.url = youtubeHost + item.url.split('?')[1].replace('v=', '');
                         console.log(item.url);
                         return item;
                     });

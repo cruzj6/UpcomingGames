@@ -34,8 +34,12 @@ module.exports = class UserDataController {
     static addTrackedGame(req, res) {
         console.log("GAME ID TO ADD IS" + req.body.gameid);
         if (req.body.gameid != null && req.body.gameid != undefined && req.body.gameid != "undefined" && req.body.gameid) {
-            gameData.addTrackedGameId(req.body.gameid, req.user.userid, () => {
-                res.sendStatus(200);
+            gameData.addTrackedGameId(req.body.gameid, req.user.userid, (err) => {
+                let isAlreadyTracked = false;
+                if (err) {
+                    isAlreadyTracked = true;
+                }
+                res.status(200).send({ alreadyTracked: isAlreadyTracked });
                 res.end();
             });
         } else {

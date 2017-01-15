@@ -1,8 +1,8 @@
 <!--Contains view for the topTracked route, which contains information and interactions for top tracked games-->
 <section id="top_tracked_alerts">
     <p *ngFor="let alert of alerts">
-        <ngb-alert [type]="alert.type" (close)="closeAlert(alert)">
-            <strong>Game Added: </strong> {{alert.message}}
+        <ngb-alert class="fade in" [type]="alert.type" (close)="closeAlert(alert)">
+            <strong>{{(alert.type === "success") ? 'Game Added:' : 'Cannot Add: '}} </strong> {{alert.message}}
         </ngb-alert>
     </p>
 </section>

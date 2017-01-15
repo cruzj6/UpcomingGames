@@ -35,21 +35,15 @@ export class TopTrackedComponent implements OnInit {
     addTrackedGame(game: GameItem) {
         this.httpRequestService.addTrackedGame(game).then(
             res => {
-                //Show alert on success
-                let alert: AlertItem = {
-                    type: "success",
-                    message: game.name
-                };
-                this.addAlert(alert);
+                if(res.alreadyTracked)
+                {
+                    this.createAlert("danger", game.name + " already tracked!");
+                }
+                else
+                    this.createAlert("success", game.name);
             },
             err => {
-                //Show alert on error
-                let alert: AlertItem = {
-                    type: "danger",
-                    message: game.name
-                };
-                this.addAlert(alert);
-                console.error("Error adding tracked game: " + err);
+                this.createAlert("danger", err + ": " + game.name)
             }
         )
     }
@@ -85,9 +79,37 @@ export class TopTrackedComponent implements OnInit {
         this.alerts.push(alert);
     }
 
+
+    /**
+     * Close an alert item by removing it from the array
+     * 
+     * @param {AlertItem} alert alert you want to close
+     * 
+     * @memberOf TopTrackedComponent
+     */
     closeAlert(alert: AlertItem){
         let index = this.alerts.indexOf(alert);
         this.alerts.splice(index, 1);
+    }
+
+    /**
+     * Create an alert to be added with the given params, 
+     * and to be closed after timeout
+     * 
+     * @memberOf TopTrackedComponent
+     */
+    createAlert(type: string, message: string){
+        //Show alert, build item
+        let alert: AlertItem = {
+            type: type,
+            message: message
+        };
+        this.addAlert(alert);
+
+        //Remove the alert after x seconds
+        setTimeout(() => {
+            this.closeAlert(alert);
+        }, 5000);
     }
 
     /**
