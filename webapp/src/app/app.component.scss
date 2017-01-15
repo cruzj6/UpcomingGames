@@ -45,3 +45,12 @@ $ui-color-accent: #0275d8;
         width: 30%;
     }
 }
+
+#info_alerts {
+    text-align: center;
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+    width: 30%;
+    left: 35%;
+}

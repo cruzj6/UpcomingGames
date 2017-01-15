@@ -11,6 +11,7 @@ import { UsertrackeditemComponent } from './usertracked/usertrackeditem/usertrac
 import { GameinfoviewComponent } from './usertracked/gameinfoview/gameinfoview.component';
 import { routing } from './app.routes';
 import { TopTrackedComponent } from './toptracked/toptracked.component';
+import { AlertService } from 'services/alertservice/alert.service'
 
 @NgModule({
   declarations: [
@@ -28,7 +29,7 @@ import { TopTrackedComponent } from './toptracked/toptracked.component';
     routing,
     ReactiveFormsModule
   ],
-  providers: [{provide:'httpRequestService', useClass: HttpRequestService}],
+  providers: [{provide:'httpRequestService', useClass: HttpRequestService}, {provide:'alertService', useClass: AlertService}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -3,6 +3,8 @@ import {GameItem} from 'app/model/game.model'
 import {TopTrackedGameItem} from 'app/model/topTrackedGameItem.model'
 import {HttpRequestService} from 'services/httprequestservice/httprequest.service';
 import {AlertItem} from "../model/alertItem.interface";
+import { AlertService } from 'services/alertservice/alert.service';
+import { Observable } from 'rxjs/observable';
 
 @Component({
     selector: 'app-toptracked',
@@ -15,16 +17,24 @@ export class TopTrackedComponent implements OnInit {
 
     public isLoadingTopTracked: Boolean;
 
-    public alerts: Array<AlertItem>;
+    public alerts$: Observable<AlertItem[]>;
+
+    public alerts: AlertItem[];
 
     private static NUM_COLS = 2;
 
-    constructor(@Inject('httpRequestService') public httpRequestService: HttpRequestService) {
-    }
+    constructor(@Inject('httpRequestService') public httpRequestService: HttpRequestService,
+        @Inject('alertService') public alertService: AlertService) {}
 
     ngOnInit() {
         this.loadTopTrackedGames();
         this.alerts = [];
+        this.alerts$ = this.alertService.getAlerts();
+        this.alerts$.subscribe(
+            alerts => {
+                this.alerts = alerts;
+            }
+        );
     }
 
     /**
@@ -71,48 +81,6 @@ export class TopTrackedComponent implements OnInit {
     }
 
     /**
-     * Add an alert to the alert to display
-     *
-     * @param alert
-     */
-    addAlert(alert: AlertItem) {
-        this.alerts.push(alert);
-    }
-
-
-    /**
-     * Close an alert item by removing it from the array
-     * 
-     * @param {AlertItem} alert alert you want to close
-     * 
-     * @memberOf TopTrackedComponent
-     */
-    closeAlert(alert: AlertItem){
-        let index = this.alerts.indexOf(alert);
-        this.alerts.splice(index, 1);
-    }
-
-    /**
-     * Create an alert to be added with the given params, 
-     * and to be closed after timeout
-     * 
-     * @memberOf TopTrackedComponent
-     */
-    createAlert(type: string, message: string){
-        //Show alert, build item
-        let alert: AlertItem = {
-            type: type,
-            message: message
-        };
-        this.addAlert(alert);
-
-        //Remove the alert after x seconds
-        setTimeout(() => {
-            this.closeAlert(alert);
-        }, 5000);
-    }
-
-    /**
      * Builds and returns the groups of top tracked games, for formatting
      *
      * @returns {GameItem[][]} Rows and columns of top tracked games
@@ -143,5 +111,26 @@ export class TopTrackedComponent implements OnInit {
     get TopTrackedGames() {
         return this.topTrackedGames;
     }
+
+     /**
+     * Create an alert to be added with the given params, 
+     * and to be closed after timeout
+     * 
+     * @memberOf TopTracked
+     */
+    createAlert(type: string, message: string){
+        //Show alert, build item
+        let alert: AlertItem = {
+            type: type,
+            message: message
+        };
+        this.alertService.addAlert(alert);
+
+        //Remove the alert after x seconds
+        setTimeout(() => {
+            this.alertService.closeAlert(alert);
+        }, 5000);
+    }
+
 
 }

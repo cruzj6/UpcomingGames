@@ -1,6 +1,8 @@
 import { Component, Inject } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { GameItem } from 'app/model/game.model'
+import { AlertItem } from 'app/model/alertitem.interface';
+import { AlertService } from 'services/alertservice/alert.service';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/do';
@@ -19,8 +21,22 @@ export class AppComponent {
 
   public isSearching: Boolean;
 
-  constructor(@Inject('httpRequestService') private httpReq){
+  public alerts: AlertItem[];
+
+  private alerts$: Observable<AlertItem[]>;
+
+  constructor(@Inject('httpRequestService') private httpReq,
+    @Inject('alertService') private alertService: AlertService){
     this.isSearching = false;
+    this.alerts = [];
+    this.alerts$ = this.alertService.getAlerts();
+
+    //Update alerts with the service
+    this.alerts$.subscribe(
+      alerts => {
+        this.alerts = alerts;
+      }
+    );
   }
 
   /**
