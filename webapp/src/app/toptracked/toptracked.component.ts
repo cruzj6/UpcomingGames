@@ -47,13 +47,13 @@ export class TopTrackedComponent implements OnInit {
             res => {
                 if(res.alreadyTracked)
                 {
-                    this.createAlert("danger", game.name + " already tracked!");
+                    this.createAlert("danger", "Cannot Add: " + game.name + " already tracked!");
                 }
                 else
-                    this.createAlert("success", game.name);
+                    this.createAlert("success", "Game Added: " + game.name);
             },
             err => {
-                this.createAlert("danger", err + ": " + game.name)
+                this.createAlert("danger", "Error adding tracked game | " + err + ": " + game.name)
             }
         )
     }
@@ -113,23 +113,14 @@ export class TopTrackedComponent implements OnInit {
     }
 
      /**
-     * Create an alert to be added with the given params, 
-     * and to be closed after timeout
+     * Create an alert that is closed after x seconds using the alertservice
      * 
+     * @param {string} type bootstrap 4 type of alert (success, danger, warning...)
+     * @param {message} message message to be displayed in the alert
      * @memberOf TopTracked
      */
     createAlert(type: string, message: string){
-        //Show alert, build item
-        let alert: AlertItem = {
-            type: type,
-            message: message
-        };
-        this.alertService.addAlert(alert);
-
-        //Remove the alert after x seconds
-        setTimeout(() => {
-            this.alertService.closeAlert(alert);
-        }, 5000);
+        this.alertService.createTimedAlert(type, message, 5000);
     }
 
 

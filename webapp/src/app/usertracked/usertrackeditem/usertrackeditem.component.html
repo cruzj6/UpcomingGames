@@ -2,11 +2,11 @@
 <section id="tracked_game_item">
     <div class="container">
         <div class="row">
-            <span id="span_user_game_img_holder" class="col-md-2">
-                <img class="img rounded" [src]='game.imageLink.icon_url'>
+            <span id="span_user_game_img_holder" class="col-md-2 col-sm-2 col-xs-2">
+                <img class="img rounded align-middle" [src]='game.imageLink.icon_url'>
             </span>
-            <span id="span_game_name" class="col-md-8">{{game.name}}</span>
-            <div class="col-md-2">
+            <span id="span_game_name" class="col-md-8 col-sm-8 col-xs-8">{{game.name}}</span>
+            <div class="col-md-2 col-sm-2 col-xs-2">
                 <span class="tag tag-default float-xs-right">></span>
                 <button class="btn btn-danger" *ngIf="isRemoveMode" (click)="removeTrackedGame($event)">X</button>
             </div>

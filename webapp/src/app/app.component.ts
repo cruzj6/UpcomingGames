@@ -56,7 +56,27 @@ export class AppComponent {
       .do(() => this.isSearching = false);
   }
 
-  addTrackedGame(game: GameItem) {
-    this.httpReq.addTrackedGame(game);
+  /**
+   * Add a tracked game to the user's tracked games
+   * 
+   * @param {GameItem} game game to add
+   * 
+   * @memberOf AppComponent
+   */
+  addTrackedGame(game: GameItem, e) {
+    e.stopPropagation()
+    this.httpReq.addTrackedGame(game).then(
+        res => {
+            if(res.alreadyTracked)
+            {
+                this.alertService.createTimedAlert("danger", "Cannot Add: " + game.name + " already tracked!", AlertService.DEFAULT_ALERT_DURATION);
+            }
+            else
+                this.alertService.createTimedAlert("success", "Game Added: " + game.name, AlertService.DEFAULT_ALERT_DURATION);
+        },
+        err => {
+            this.alertService.createTimedAlert("danger", "Error adding tracked game | " + err + ": " + game.name, AlertService.DEFAULT_ALERT_DURATION)
+        }
+    )
   }
 }

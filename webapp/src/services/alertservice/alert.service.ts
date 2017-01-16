@@ -6,7 +6,9 @@ import { Observable } from 'rxjs/observable';
 @Injectable()
 export class AlertService {
 
-  public alertsSubject: Subject<AlertItem[]>;
+  public static DEFAULT_ALERT_DURATION: number = 5000;
+
+  private alertsSubject: Subject<AlertItem[]>;
 
   private alerts: Array<AlertItem>;
 
@@ -16,7 +18,7 @@ export class AlertService {
   }
 
     /**
-     * Add an alert to the alert to display
+     * Add an alert to the alert to list of alerts to be shown until closed
      *
      * @param alert
      */
@@ -26,7 +28,7 @@ export class AlertService {
     }
 
     /**
-     * Close an alert item by removing it from the array
+     * Remove an alert from the list of alerts
      * 
      * @param {AlertItem} alert alert you want to close
      * 
@@ -37,7 +39,7 @@ export class AlertService {
         this.alerts.splice(index, 1);
         this.alertsSubject.next(this.alerts);
     }
-    
+
     /**
      * Get the app's alerts as an observable
      * 
@@ -47,5 +49,28 @@ export class AlertService {
      */
     getAlerts(): Observable<AlertItem[]>{
       return this.alertsSubject.asObservable();
+    }
+
+    /**
+     * Create an alert that is removed from the list after a given amount of time
+     * 
+     * @param {string} type type of alert, bootstrap alert type
+     * @param {string} message message to display in the alert
+     * @param {number} timeToClose amount of time to keep the alert in the list
+     * 
+     * @memberOf AlertService
+     */
+    createTimedAlert(type: string, message: string, timeToClose: number){
+        //Show alert, build item
+        let alert: AlertItem = {
+            type: type,
+            message: message
+        };
+        this.addAlert(alert);
+
+        //Remove the alert after x seconds
+        setTimeout(() => {
+            this.closeAlert(alert);
+        }, timeToClose);
     }
 }
