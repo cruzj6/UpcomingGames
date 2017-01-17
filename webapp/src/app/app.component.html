@@ -6,50 +6,55 @@
         </ngb-alert>
     </p>
 </section>
-<nav class="navbar navbar-dark bg-inverse">
+<nav class="navbar navbar-toggleable-md navbar-dark bg-inverse">
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
     <a class="navbar-brand" href="#">
         <b>UC Games</b>
     </a>
 
     <!--List of nav items-->
-    <ul class="nav navbar-nav">
-        <li class="nav-item active">
-            <a class="nav-link" [routerLink]="['/usertracked']" [routerLinkActive]="['active']">Tracked Games <span
-                    class=" sr-only ">(current)</span></a>
-        </li>
-        <li class="nav-item ">
-            <a class="nav-link " [routerLink]="['/toptracked']" [routerLinkActive]="['active']">Top Tracked Games</a>
-        </li>
-        <li class="nav-item ">
-            <a class="nav-link " href="#">Link</a>
-        </li>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" [routerLink]="['/usertracked']" [routerLinkActive]="['active']">My Tracked Games <span
+                    class="sr-only ">(current)</span></a>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link " [routerLink]="['/toptracked']" [routerLinkActive]="['active']">Top Tracked Games</a>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link " [routerLink]="['/advancedsearch']">Advanced Search</a>
+            </li>
 
-        <!--Nav bar drop down with tools-->
-        <li ngbDropdown class="nav-item dropdown ">
-            <button class="btn btn-outline-primary" id="dropdownMenu1" ngbDropdownToggle>Tools</button>
-            <div class="dropdown-menu " aria-labelledby="dropdownMenu1">
-                <a class="dropdown-item " href="#">Action</a>
-                <a class="dropdown-item " href="#">Another action</a>
-                <a class="dropdown-item " href="#">Something else here</a>
+            <!--Nav bar drop down with tools-->
+            <li ngbDropdown class="nav-item dropdown ">
+                <button class="btn btn-outline-primary" id="dropdownMenu1" ngbDropdownToggle>Tools</button>
+                <div class="dropdown-menu " aria-labelledby="dropdownMenu1">
+                    <a class="dropdown-item " href="#">Action</a>
+                    <a class="dropdown-item " href="#">Another action</a>
+                    <a class="dropdown-item " href="#">Something else here</a>
+                </div>
+            </li>
+        </ul>
+        <section id="nav_game_search_field">
+            <div class="form-inline float-xs-right">
+                <input [resultTemplate]="rt" [(ngModel)]="searchString" class="form-control " type="text" placeholder="Find Games " [ngbTypeahead]="searchTypeahead">
+                <span [ngClass]="{ 'hidden': !isSearching}"><i class="fa fa-cog fa-spin fa-2x fa-fw align-middle"></i> Searching...</span>
             </div>
-        </li>
-    </ul>
-    <section id="nav_game_search_field">
-        <div class="form-inline float-xs-right">
-            <input [resultTemplate]="rt" [(ngModel)]="searchString" class="form-control " type="text" placeholder="Find Games " [ngbTypeahead]="searchTypeahead">
-            <span [ngClass]="{ 'hidden': !isSearching}"><i class="fa fa-cog fa-spin fa-2x fa-fw align-middle"></i> Searching...</span>
-        </div>
-        <hr>
+            <hr>
 
-        <!--Template for each search result-->
-        <template #rt let-game="result" let-t="term">
+            <!--Template for each search result-->
+            <template #rt let-game="result" let-t="term">
             <div id="div_search_result" class="w-100">
                 <span><img [src]="game.imageLink.icon_url" src="" width="16">
                 {{game.name}}</span>
                 <button class="btn btn-default float-xs-right" (click)="addTrackedGame(game, $event)">Add</button>
             </div>
         </template>
-    </section>
+        </section>
+    </div>
 </nav>
 
 <div class="container">

@@ -9,7 +9,7 @@ import { Observable } from 'rxjs/observable';
 @Component({
     selector: 'app-toptracked',
     templateUrl: './toptracked.component.html',
-    styleUrls: ['./toptracked.component.scss']
+    styleUrls: ['./toptracked.component.scss'],
 })
 export class TopTrackedComponent implements OnInit {
 

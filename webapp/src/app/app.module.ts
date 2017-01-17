@@ -11,7 +11,8 @@ import { UsertrackeditemComponent } from './usertracked/usertrackeditem/usertrac
 import { GameinfoviewComponent } from './usertracked/gameinfoview/gameinfoview.component';
 import { routing } from './app.routes';
 import { TopTrackedComponent } from './toptracked/toptracked.component';
-import { AlertService } from 'services/alertservice/alert.service'
+import { AlertService } from 'services/alertservice/alert.service';
+import { AdvancedSearchComponent } from 'app/advancedsearch/advancedsearch.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { AlertService } from 'services/alertservice/alert.service'
     UsertrackedComponent,
     UsertrackeditemComponent,
     GameinfoviewComponent,
-    TopTrackedComponent
+    TopTrackedComponent,
+    AdvancedSearchComponent
   ],
   imports: [
     NgbModule.forRoot(),
