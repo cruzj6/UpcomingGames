@@ -71,6 +71,7 @@ $ui-color-main: #333;
 }
 
 #section_mode_compliment {
+    float: right;
     .align-middle {
         padding-top: 5px;
     }
@@ -81,4 +82,8 @@ $ui-color-main: #333;
         width: 100%;
         text-align: center;
     }
+}
+
+.breadcrumb {
+    width: 100%;
 }
