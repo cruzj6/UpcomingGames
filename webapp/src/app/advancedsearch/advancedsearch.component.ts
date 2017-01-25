@@ -8,9 +8,22 @@ import {Component, OnInit, Inject} from '@angular/core';
     }
 )
 export class AdvancedSearchComponent implements OnInit{
+
+    private 
+
     constructor(){}
 
     ngOnInit(){
+
+    }
+
+    /**
+     * Submitted to perform an advancedsearch against the UCGames internal API
+     * 
+     * 
+     * @memberOf AdvancedSearchComponent
+     */
+    onSubmitAdvancedSearch(){
 
     }
 }

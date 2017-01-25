@@ -1,1 +1,24 @@
-<p>Advanced Search Component</p>
+<!--Form group for performing an advanced search-->
+<div [FormGroup]="advancedSearch" class="form-group" (ngSubmit)="onSubmitAdvancedSearch()">
+
+    <!--Search terms-->
+    <input formControlName="searchTerms" class="form-control" placeholder="Search Terms..." />
+
+    <!--Platform/console selection-->
+    <select formControlName="selectedPlatform">
+        <option *ngFor="let platform of platforms">{{platform}}</option>
+    </select>
+
+    <!--Start Date picker for the search-->
+    <input class="form-control" formControlName="startDate" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker">
+    <div class="input-group-addon" (click)="d.toggle()">
+        <img src="img/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;" />
+    </div>
+
+    <!--End date picker for the search-->
+    <input class="form-control" formControlName="endDate" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker">
+    <div class="input-group-addon" (click)="d.toggle()">
+        <img src="img/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;" />
+    </div>
+    <button class="btn btn-secondary" type="submit">Search</button>
+</div>

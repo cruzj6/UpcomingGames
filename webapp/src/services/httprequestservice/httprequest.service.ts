@@ -6,6 +6,7 @@ import {GameNewsItem} from 'app/model/gamenewsitem.model'
 import {GameMediaItem} from 'app/model/gamemediaitem.model'
 import {TopTrackedGameItem} from 'app/model/topTrackedGameItem.model'
 import {Subject} from 'rxjs/Subject';
+import {AdvancedSearchRequestItem} from 'app/model/advancedsearchrequestitem.model';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/toPromise';
@@ -50,6 +51,20 @@ export class HttpRequestService {
             })
             .map((res: Response) => res.json())
             .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+    }
+
+
+    /**
+     * Make an advanced search for games
+     * 
+     * @param {AdvancedSearchRequestItem} params parameters to use in the search
+     * @returns {Observable<AdvancedSearchResultItem>} Results of the advanced search
+     * 
+     * @memberOf HttpRequestService
+     */
+    searchGamesAdvanced(searchParams: AdvancedSearchRequestItem): Observable<AdvancedSearchResultItem> {
+        let params = new URLSearchParams();
+
     }
 
     /**
