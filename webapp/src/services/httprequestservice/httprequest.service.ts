@@ -57,14 +57,28 @@ export class HttpRequestService {
     /**
      * Make an advanced search for games
      * 
-     * @param {AdvancedSearchRequestItem} params parameters to use in the search
-     * @returns {Observable<AdvancedSearchResultItem>} Results of the advanced search
+     * @param {AdvancedSearchRequestItem} searchParams parameters to use in the search
+     * @returns {Observable<GameItem[]>} Results of the advanced search
      * 
      * @memberOf HttpRequestService
      */
-    searchGamesAdvanced(searchParams: AdvancedSearchRequestItem): Observable<AdvancedSearchResultItem> {
-        let params = new URLSearchParams();
+    searchGamesAdvanced(searchParams: AdvancedSearchRequestItem): Observable<GameItem[]> {
 
+        console.log("SEARCH: " + JSON.stringify(searchParams));
+        let params = new URLSearchParams();
+        params.set('platform', searchParams.Platform);
+        params.set('filters', JSON.stringify({
+            keywords: searchParams.Keywords
+        }));
+        params.set('month', String(searchParams.Month));
+        params.set('year', String(searchParams.Year));
+
+        return this.http
+            .get("/info/advancedSearch", {
+            search: params
+            })
+            .map((res: Response) => res.json())
+            .catch((err) => Observable.throw(err) || "Error making advanced search query");
     }
 
     /**

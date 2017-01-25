@@ -1,24 +1,24 @@
 <!--Form group for performing an advanced search-->
-<div [FormGroup]="advancedSearch" class="form-group" (ngSubmit)="onSubmitAdvancedSearch()">
+<div [formGroup]="advancedSearchForm" class="form-group" (ngSubmit)="onSubmitAdvancedSearch()">
 
     <!--Search terms-->
     <input formControlName="searchTerms" class="form-control" placeholder="Search Terms..." />
 
     <!--Platform/console selection-->
-    <select formControlName="selectedPlatform">
-        <option *ngFor="let platform of platforms">{{platform}}</option>
-    </select>
-
+    <label>Platforms: </label><br>
+    <span  *ngFor="let platform of platformKeys()">
+        <input type="radio" formControlName="selectedPlatform" value="{{platform}}">{{platforms[platform]}}<br>
+    </span>
     <!--Start Date picker for the search-->
     <input class="form-control" formControlName="startDate" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker">
     <div class="input-group-addon" (click)="d.toggle()">
-        <img src="img/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;" />
+        <i class="fa fa-calendar-o" aria-hidden="true"></i>
     </div>
 
     <!--End date picker for the search-->
-    <input class="form-control" formControlName="endDate" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker">
-    <div class="input-group-addon" (click)="d.toggle()">
-        <img src="img/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;" />
+    <input class="form-control" formControlName="endDate" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="model" ngbDatepicker #d2="ngbDatepicker">
+    <div class="input-group-addon" (click)="d2.toggle()">
+        <i class="fa fa-calendar-o" aria-hidden="true"></i>
     </div>
-    <button class="btn btn-secondary" type="submit">Search</button>
+    <button class="btn btn-secondary" type="submit" (click)="onSubmitAdvancedSearch()">Search</button>
 </div>
