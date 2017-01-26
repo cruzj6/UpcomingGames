@@ -27,8 +27,13 @@ $ui-color-accent: #0275d8;
 /* Ids */
 
 #nav_game_search_field {
-    color: white;
+    color: #333;
     display: inline;
+    .form-inline {
+        width: 100%;
+        padding-left: 10px;
+        float: right;
+    }
 }
 
 #div_search_result {

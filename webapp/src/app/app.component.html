@@ -41,8 +41,8 @@
             </li>
         </ul>
         <section id="nav_game_search_field">
-            <div class="form-inline float-xs-right">
-                <input [resultTemplate]="rt " [(ngModel)]="searchString" class="form-control" type="text" placeholder="Find Games" [ngbTypeahead]="searchTypeahead">
+            <div class="form-inline float-right">
+                <input [resultTemplate]="rt " [(ngModel)]="searchString" class="form-control float-xs-right" type="text" placeholder="Find Games to track..." [ngbTypeahead]="searchTypeahead">
                 <span [ngClass]="{ 'hidden': !isSearching} "><i class="fa fa-cog fa-spin fa-2x fa-fw align-middle "></i> Searching...</span>
             </div>
 

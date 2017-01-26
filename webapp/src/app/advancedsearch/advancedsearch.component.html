@@ -1,24 +1,45 @@
 <!--Form group for performing an advanced search-->
-<div [formGroup]="advancedSearchForm" class="form-group" (ngSubmit)="onSubmitAdvancedSearch()">
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <section id="advanced_search_form">
+                <div [formGroup]="advancedSearchForm" class="form-group" (ngSubmit)="onSubmitAdvancedSearch()">
 
-    <!--Search terms-->
-    <input formControlName="searchTerms" class="form-control" placeholder="Search Terms..." />
+                    <!--Search terms-->
+                    <input formControlName="searchTerms" class="form-control" placeholder="Search Terms..." />
 
-    <!--Platform/console selection-->
-    <label>Platforms: </label><br>
-    <span  *ngFor="let platform of platformKeys()">
-        <input type="radio" formControlName="selectedPlatform" value="{{platform}}">{{platforms[platform]}}<br>
-    </span>
-    <!--Start Date picker for the search-->
-    <input class="form-control" formControlName="startDate" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker">
-    <div class="input-group-addon" (click)="d.toggle()">
-        <i class="fa fa-calendar-o" aria-hidden="true"></i>
+                    <!--Platform/console selection-->
+                    <label>Platforms: </label><br>
+                    <span *ngFor="let platform of platformKeys()">
+                    <input type="radio" formControlName="selectedPlatform" value="{{platform}}">{{platforms[platform]}}<br>
+                </span>
+                    <!--Start Date picker for the search-->
+                    <input class="form-control" formControlName="startDate" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker">
+                    <div class="input-group-addon" (click)="d.toggle()">
+                        <i class="fa fa-calendar-o" aria-hidden="true"></i>
+                    </div>
+
+                    <!--End date picker for the search-->
+                    <input class="form-control" formControlName="endDate" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="model" ngbDatepicker #d2="ngbDatepicker">
+                    <div class="input-group-addon" (click)="d2.toggle()">
+                        <i class="fa fa-calendar-o" aria-hidden="true"></i>
+                    </div>
+                    <button class="btn btn-secondary" type="submit" (click)="onSubmitAdvancedSearch()">Search</button>
+                </div>
+            </section>
+        </div>
     </div>
-
-    <!--End date picker for the search-->
-    <input class="form-control" formControlName="endDate" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="model" ngbDatepicker #d2="ngbDatepicker">
-    <div class="input-group-addon" (click)="d2.toggle()">
-        <i class="fa fa-calendar-o" aria-hidden="true"></i>
+    <div class="row">
+        <div class="col-12">
+            <section id="advanced_search_results">
+                <div class="card-group">
+                    <div id="div_result_card" class="card" *ngFor="let game of searchResults" [ngStyle]="{'background-image': 'url(' + game.imageLink.screen_url + ')'}">
+                        <div class="card-block">
+                            <span class="card-title">{{game.name}}</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
     </div>
-    <button class="btn btn-secondary" type="submit" (click)="onSubmitAdvancedSearch()">Search</button>
 </div>
