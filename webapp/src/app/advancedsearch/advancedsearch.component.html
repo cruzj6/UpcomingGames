@@ -36,6 +36,7 @@
                     <div id="div_result_card" class="card" *ngFor="let game of searchResults" [ngStyle]="{'background-image': 'url(' + game.imageLink.screen_url + ')'}">
                         <div class="card-block">
                             <span class="card-title">{{game.name}}</span>
+                            <button class="btn btn-secondary" (click)="addTrackedGame(game)">Add</button>
                         </div>
                     </div>
                 </div>

@@ -24,6 +24,8 @@ export class AdvancedSearchComponent implements OnInit{
     constructor(@Inject('httpRequestService') private httpReqService: HttpRequestService,
                 @Inject('alertService') private alertService: AlertService,
                 private formBuilder: FormBuilder){
+
+        //Add all of the platform types to the dictionary
         this.platforms["xbone"] = "Xbox One";
         this.platforms["ps4"] = "Playstation 4";
         this.platforms["wiiu"] = "Wii U";
@@ -33,7 +35,7 @@ export class AdvancedSearchComponent implements OnInit{
     }
 
     ngOnInit(){
-
+        //Set up forms for advanced search
         this.advancedSearchForm = this.formBuilder.group({
             searchTerms: new FormControl(""),
             selectedPlatform: new FormControl("xbone"),
@@ -72,12 +74,41 @@ export class AdvancedSearchComponent implements OnInit{
         );
     }
 
+    /**
+     * Add a tracked game
+     * 
+     * @param {GameItem} game game to add
+     * 
+     * @memberOf AdvancedSearchComponent
+     */
+    addTrackedGame(game: GameItem) {
+        this.httpReqService.addTrackedGame(game).then(
+            res => {
+                if(res.alreadyTracked)
+                {
+                    this.alertService.createTimedAlert("danger", "Cannot Add: " + game.name + " already tracked!", AlertService.DEFAULT_ALERT_DURATION);
+                }
+                else
+                    this.alertService.createTimedAlert("success", "Game Added: " + game.name, AlertService.DEFAULT_ALERT_DURATION);
+            },
+            err => {
+                this.alertService.createTimedAlert("danger", "Error adding tracked game | " + err + ": " + game.name, AlertService.DEFAULT_ALERT_DURATION);
+            }
+        );
+    }
+
+    /**
+     * Used to get the list of keys in the platforms dictionary
+     * 
+     * @returns {string[]} Array of keys for the platforms dictionar
+     * 
+     * @memberOf AdvancedSearchComponent
+     */
     platformKeys(): string[]{
         let keys = [];
         for(let key in this.platforms){
             keys.push(key);
         }
-
         return keys;
     }
 }
