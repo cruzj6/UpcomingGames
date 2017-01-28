@@ -10,7 +10,7 @@
             "assets",
             "favicon.ico"
         ],
-        "index": "index.html",
+        "index": "main.html",
         "deployUrl": "/public",
         "main": "main.ts",
         "test": "test.ts",

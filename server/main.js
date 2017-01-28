@@ -53,7 +53,7 @@ app.get(['/', '/usertracked', '/toptracked', '/advancedsearch'], function(req, r
     console.log(JSON.stringify(req.isAuthenticated()));
     //If the user is signed in render the app's main template
     if (req.isAuthenticated()) {
-        res.sendFile(path.join(__dirname, '../webapp/dist/index.html'));
+        res.sendFile(path.join(__dirname, '../webapp/dist/main.html'));
     } else {
         //If the user is not signed in send them the welcome page
         res.render('welcomepage');

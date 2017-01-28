@@ -1,46 +1,76 @@
 <!--Form group for performing an advanced search-->
 <div class="container">
-    <div class="row">
-        <div class="col-12">
-            <section id="advanced_search_form">
-                <div [formGroup]="advancedSearchForm" class="form-group" (ngSubmit)="onSubmitAdvancedSearch()">
+    <section id="advanced_search_form">
+        <div [formGroup]="advancedSearchForm" class="form-group" (ngSubmit)="onSubmitAdvancedSearch()">
+            <div class="row">
+                <div class="col-sm-12 col-xs-12 col-md-6">
 
                     <!--Search terms-->
+                    <label>Search Keywords</label>
                     <input formControlName="searchTerms" class="form-control" placeholder="Search Terms..." />
+                    <br>
 
-                    <!--Platform/console selection-->
-                    <label>Platforms: </label><br>
-                    <span *ngFor="let platform of platformKeys()">
-                    <input type="radio" formControlName="selectedPlatform" value="{{platform}}">{{platforms[platform]}}<br>
-                </span>
                     <!--Start Date picker for the search-->
-                    <input class="form-control" formControlName="startDate" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker">
-                    <div class="input-group-addon" (click)="d.toggle()">
-                        <i class="fa fa-calendar-o" aria-hidden="true"></i>
+                    <label>Release Month/Year</label>
+                    <div class="input-group">
+                        <input class="form-control" formControlName="startDate" placeholder="yyyy-mm" name="dp" [(ngModel)]="releaseDate" ngbDatepicker
+                            [dayTemplate]="customDay" #d="ngbDatepicker">
+                        <span class="input-group-addon" (click)="d.toggle()">
+                            <i class="fa fa-calendar-o" aria-hidden="true"></i>
+                        </span>
                     </div>
-
-                    <!--End date picker for the search-->
-                    <input class="form-control" formControlName="endDate" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="model" ngbDatepicker #d2="ngbDatepicker">
-                    <div class="input-group-addon" (click)="d2.toggle()">
-                        <i class="fa fa-calendar-o" aria-hidden="true"></i>
-                    </div>
-                    <button class="btn btn-secondary" type="submit" (click)="onSubmitAdvancedSearch()">Search</button>
                 </div>
-            </section>
+                <div class="col-sm-12 col-xs-12 col-md-6">
+                    <section id="platform_selection">
+                        <!--Platform/console selection-->
+                        <label>Platforms: </label><br>
+                        <div class="card-group">
+                            <span *ngFor="let platform of platformKeys()">
+                            <div class="card">
+                                <label>
+                                <div class="card-block">
+                                    <input type="radio" formControlName="selectedPlatform" autocomplete="off" value="{{platform}}">{{platforms[platform]}}
+                                </div>
+                                </label>
+                            </div>
+                        </span>
+                        </div>
+                    </section>
+                </div>
+            </div>
+            <br>
+
+            <hr>
+            <!--Submit Advanced Search btn-->
+            <button class="btn btn-primary" type="submit" (click)="onSubmitAdvancedSearch()">Search</button>
+            <hr>
         </div>
-    </div>
+    </section>
+
+    <!--Advanced Search Results-->
     <div class="row">
         <div class="col-12">
-            <section id="advanced_search_results">
+            <section *ngIf="!isLoading" id="advanced_search_results">
                 <div class="card-group">
                     <div id="div_result_card" class="card" *ngFor="let game of searchResults" [ngStyle]="{'background-image': 'url(' + game.imageLink.screen_url + ')'}">
                         <div class="card-block">
                             <span class="card-title">{{game.name}}</span>
-                            <button class="btn btn-secondary" (click)="addTrackedGame(game)">Add</button>
+                            <div class="card-text">
+                                <button class="btn btn-secondary" (click)="addTrackedGame(game)">Add</button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </section>
+            <section id="loading_indicator" *ngIf="isLoading">
+                <i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i>
+                <span class="sr-only">Searching...</span>
+            </section>
         </div>
     </div>
 </div>
+
+<!--Template for datepicker-->
+<template #customDay let-date="date" let-currentMonth="currentMonth" let-selected="selected" let-disabled="disabled">
+    <span *ngIf="date.day === 15"> <button class="btn btn-primary">Confirm</button> </span>
+</template>

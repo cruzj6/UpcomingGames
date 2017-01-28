@@ -2,11 +2,13 @@ import {Component, OnInit, Input, Inject} from '@angular/core';
 import {GameItem} from 'app/model/game.model'
 import {GameNewsItem} from 'app/model/gamenewsitem.model'
 import {GameMediaItem} from 'app/model/gamemediaitem.model'
+import {DomSanitizer} from '@angular/platform-browser';
+import {TemplateRef} from '@angular/core';
 
 @Component({
     selector: 'app-gameinfoview',
     templateUrl: './gameinfoview.component.html',
-    styleUrls: ['./gameinfoview.component.scss']
+    styleUrls: ['./gameinfoview.component.scss'],
 })
 export class GameinfoviewComponent implements OnInit {
 
@@ -68,5 +70,4 @@ export class GameinfoviewComponent implements OnInit {
             }
         );
     }
-
 }
