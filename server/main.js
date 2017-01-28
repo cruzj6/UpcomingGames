@@ -49,7 +49,17 @@ app.set('view engine', 'hbs');
 require('./route').default(app);
 
 //Root request hanlder
-app.get(['/', '/usertracked', '/toptracked', '/advancedsearch'], function(req, res) {
+app.get('/', function(req, res){
+    if (req.isAuthenticated()) {
+        res.redirect('/usertracked');
+    } else {
+        //If the user is not signed in send them the welcome page
+        res.render('welcomepage');
+    }
+});
+
+//Page routes handler
+app.get(['/usertracked', '/toptracked', '/advancedsearch'], function(req, res) {
     console.log(JSON.stringify(req.isAuthenticated()));
     //If the user is signed in render the app's main template
     if (req.isAuthenticated()) {
@@ -58,11 +68,6 @@ app.get(['/', '/usertracked', '/toptracked', '/advancedsearch'], function(req, r
         //If the user is not signed in send them the welcome page
         res.render('welcomepage');
     }
-});
-
-//TODO: TEMP
-app.get('/loginpage', function(req, res) {
-    res.render('welcomepage');
 });
 
 //The 404 Route

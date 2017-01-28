@@ -29,7 +29,7 @@ router.get('/isLoggedIn', (req, res) => {
  * Renders the sign up page
  */
 router.get('/signup', (req,res) => {
-    res.redirect('/login/signup.html');
+    res.render('signup');
 });
 
 /**
