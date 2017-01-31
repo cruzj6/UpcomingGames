@@ -8,7 +8,7 @@ import {TemplateRef} from '@angular/core';
 @Component({
     selector: 'app-gameinfoview',
     templateUrl: './gameinfoview.component.html',
-    styleUrls: ['./gameinfoview.component.scss'],
+    styleUrls: ['./gameinfoview.component.scss']
 })
 export class GameinfoviewComponent implements OnInit {
 
@@ -18,7 +18,7 @@ export class GameinfoviewComponent implements OnInit {
 
     private gameMediaItems: GameMediaItem[];
 
-    constructor(@Inject('httpRequestService') public httpRequestService) {
+    constructor(@Inject('httpRequestService') public httpRequestService, private sanitizer:DomSanitizer) {
     }
 
     ngOnInit() {
@@ -35,7 +35,7 @@ export class GameinfoviewComponent implements OnInit {
     loadGameMedia() {
         this.httpRequestService.getGameMedia(this.activeGame).subscribe(
             mediaItems => {
-                let youtubeHost = 'http://www.youtube.com/embed/';
+                let youtubeHost = 'https://www.youtube.com/embed/';
 
                 this.gameMediaItems = mediaItems.filter((item: GameMediaItem) => {
                     return item.url.indexOf('https://www.youtube.com') > -1;
@@ -69,5 +69,9 @@ export class GameinfoviewComponent implements OnInit {
                 console.error("Error setting game news items: " + err);
             }
         );
+    }
+
+    sanitizeUrl(url: string){
+        return this.sanitizer.bypassSecurityTrustUrl(url);
     }
 }

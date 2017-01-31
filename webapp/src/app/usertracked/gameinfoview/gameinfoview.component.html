@@ -23,7 +23,7 @@
                     <div class="card-header"><a href="{{mediaItem.url}}">{{mediaItem.title}}</a></div>
                     <div class="card-block">
                         <div id="div_youtube_video">
-                            <iframe [src]="mediaItem.url"></iframe>
+                            <iframe [src]="mediaItem.url | safe"></iframe>
                         </div>
                     </div>
                 </div>

@@ -13,6 +13,7 @@ import { routing } from './app.routes';
 import { TopTrackedComponent } from './toptracked/toptracked.component';
 import { AlertService } from 'services/alertservice/alert.service';
 import { AdvancedSearchComponent } from 'app/advancedsearch/advancedsearch.component';
+import {SafePipe} from 'app/model/safeurl.pipe';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { AdvancedSearchComponent } from 'app/advancedsearch/advancedsearch.compo
     UsertrackeditemComponent,
     GameinfoviewComponent,
     TopTrackedComponent,
-    AdvancedSearchComponent
+    AdvancedSearchComponent,
+    SafePipe
   ],
   imports: [
     NgbModule.forRoot(),
