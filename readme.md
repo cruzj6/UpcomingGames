@@ -2,14 +2,19 @@
 A web app for tracking info about upcoming video games, your favorite video games and more!
 
 ###Track Info on upcoming, and currently released Games
-<img src="https://raw.githubusercontent.com/cruzj6/UpcomingGames/master/client/media/ss_tracked.png" width="750"><br/>
+<img src="https://raw.githubusercontent.com/cruzj6/UpcomingGames/master/webapp/media/ss_tracked.png" width="750"><br/>
+
+###Search for Games To Track
+<img src="https://raw.githubusercontent.com/cruzj6/UpcomingGames/master/webapp/media/ss_search.png" width="750"><br/>
 
 ###Advanced Games Search
-<img src="https://raw.githubusercontent.com/cruzj6/UpcomingGames/master/client/media/ss_advanced.png" width="750"><br/>
+<img src="https://raw.githubusercontent.com/cruzj6/UpcomingGames/master/webapp/media/ss_advanced.png" width="750"><br/>
+
+###View Most Tracked Games
+<img src="https://raw.githubusercontent.com/cruzj6/UpcomingGames/master/webapp/media/ss_top.png" width="750"><br/>
 
 ###Mobile Friendly
-<img src="https://raw.githubusercontent.com/cruzj6/UpcomingGames/master/client/media/ss_top.png" width="750"><br/>
-
+<img src="https://raw.githubusercontent.com/cruzj6/UpcomingGames/master/webapp/media/ss_mobile.png" width="750"><br/>
 
 ###To Build Locally
 PreReqs:
