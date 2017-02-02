@@ -23,6 +23,9 @@ export class AdvancedSearchComponent implements OnInit{
     private searchResults: GameItem[];
     private releaseDate: string;
     private isLoading: boolean;
+    private years: number[] = new Array(100);
+    private static START_YEAR = 1970;
+    private static months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
     constructor(@Inject('httpRequestService') private httpReqService: HttpRequestService,
                 @Inject('alertService') private alertService: AlertService,
@@ -37,6 +40,11 @@ export class AdvancedSearchComponent implements OnInit{
         this.platforms["ios"] = "iOS";
         this.platforms[""] = "Any";
 
+        //Set up years options
+        for(var i = 0; i < this.years.length - 1; i++){
+            this.years[i] = AdvancedSearchComponent.START_YEAR + i;
+        }
+
         //DatePicker config
         config.showWeekdays = false;
         config.navigation = "select";
@@ -50,16 +58,23 @@ export class AdvancedSearchComponent implements OnInit{
         this.advancedSearchForm = this.formBuilder.group({
             searchTerms: new FormControl(""),
             selectedPlatform: new FormControl(""),
-            startDate: new FormControl(null),
-            endDate: new FormControl(null)
+            month: new FormControl(1),
+            year: new FormControl(new Date().getFullYear())
         });
+
+        this.advancedSearchItem = new AdvancedSearchRequestItem(
+                this.advancedSearchForm.get('selectedPlatform').value,
+                this.advancedSearchForm.get('month').value,
+                this.advancedSearchForm.get('year').value,
+                this.advancedSearchForm.get('searchTerms').value
+            )
 
         //When the search data changes
         this.advancedSearchForm.valueChanges.subscribe(data => {
             this.advancedSearchItem = new AdvancedSearchRequestItem(
                 data.selectedPlatform,
-                data.startDate ? data.startDate.month : null,
-                data.startDate ? data.startDate.year : null,
+                data.month,
+                data.year,
                 data.searchTerms
             )
         });
@@ -127,5 +142,9 @@ export class AdvancedSearchComponent implements OnInit{
             keys.push(key);
         }
         return keys;
+    }
+
+    get Months(){
+        return AdvancedSearchComponent.months;
     }
 }

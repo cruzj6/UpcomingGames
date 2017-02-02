@@ -18,6 +18,8 @@ export class GameinfoviewComponent implements OnInit {
 
     private gameMediaItems: GameMediaItem[];
 
+    private mediaPage: number = 0;
+
     constructor(@Inject('httpRequestService') public httpRequestService, private sanitizer:DomSanitizer) {
     }
 

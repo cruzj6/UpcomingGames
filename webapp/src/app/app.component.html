@@ -8,7 +8,7 @@
 </section>
 
 
-<nav class="navbar navbar-toggleable-md navbar-light bg-faded">
+<nav class="navbar navbar-toggleable-md navbar-light bg-faded fixed-top">
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -29,7 +29,7 @@
             <li class="nav-item">
                 <a class="nav-link" [routerLink]="['/advancedsearch']">Advanced Search</a>
             </li>
-                <a class="nav-link" href="/auth/logout">Sign Out</a>
+            <a class="nav-link" href="/auth/logout">Sign Out</a>
             <li class="nav-item">
 
             </li>
@@ -55,7 +55,7 @@
                 <div id="div_search_result " class="w-100 ">
                     <span><img [src]="game.imageLink.icon_url " src=" " width="16 ">
                     {{game.name}}</span>
-                    <button class="btn btn-default float-xs-right " (click)="addTrackedGame(game, $event) ">Add</button>
+                    <button id="btn_add_game" class="btn btn-default" (click)="addTrackedGame(game, $event) ">Add</button>
                 </div>
             </template>
         </section>

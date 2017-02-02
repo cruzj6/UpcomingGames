@@ -46,9 +46,13 @@ $ui-color-accent: #0275d8;
         max-width: 70%;
         word-wrap: break-word;
     }
-    .btn {
-        width: 30%;
-    }
+}
+
+#btn_add_game {
+    width: 30%;
+    float: right;
+    background-color: $ui-color-main;
+    color: white;
 }
 
 #info_alerts {
