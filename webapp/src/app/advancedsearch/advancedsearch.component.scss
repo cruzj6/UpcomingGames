@@ -1,0 +1,45 @@
+#div_result_card {
+    font-weight: bold;
+    .card-block {
+        .card-title {
+            background: #333;
+            color: white;
+            height: 3em !important;
+            font-size: 1.5em !important;
+            line-height: 1.2em !important;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    }
+}
+
+#platform_selection {
+    .card {
+        background-color: #333;
+        color: white;
+        font-weight: bold;
+        input[type="radio"] {
+            width: 2em;
+        }
+    }
+}
+
+#loading_indicator {
+    color: black;
+}
+
+#select_month {
+    option {
+        -ms-box-sizing: content-box;
+        -moz-box-sizing: content-box;
+        -webkit-box-sizing: content-box;
+        box-sizing: content-box;
+    }
+}
+
+#select_year {
+    -ms-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    -webkit-box-sizing: content-box;
+    box-sizing: content-box;
+}

@@ -1,0 +1,87 @@
+<!--Template for usertracked component, Contains interactions for the user's tracked games-->
+<!--Contains a few of the top tracked games-->
+<section id="top_tracked_summary">
+    <div id="row_top_tracked_summary_header" class="row">
+        <h2>Top 5 Tracked Games</h2>
+    </div>
+    <div id="top_tracked_summary_row" class="row rounded">
+        <div class="col-md-12">
+            <!--Few top tracked-->
+            <div id="div_top_tracked_summary">
+                <div class="card-group">
+                    <div id="div_top_tracked_card" class="card" *ngFor="let game of someTopTracked" [ngStyle]="{'background-image': 'url(' + game.imageLink.screen_url + ')'}">
+                        <div class="card-block">
+                            <span class="card-title">{{game.name}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!--Contains the users tracked games and interactions for them-->
+<section id="tracked_games">
+    <div class="row" id="div_row_tracked_main">
+        <div class="col-md-12 col-sm-12">
+            <div class="card tracking_card">
+                <h3 id="card-header_my_tracked" class="card-header">My Tracked Games |
+                    <small>Manage Tracked Games</small>
+                </h3>
+                <div class="card-block">
+                    <!-- Card Body-->
+                    <!-- Card Title Containing nav buttons for modes-->
+                    <h4 class="card-title">
+                        <div class="breadcrumb">
+                            <div class="row">
+                                <div class="col-md-7">
+                                    <button type="button" class="btn btn-primary" *ngIf="ModeStack && ModeStack.length > 0" (click)="selectPrevMode()">
+                                        <i class="fa fa-chevron-left" aria-hidden="true"></i> <span
+                                            class="align-center">Back</span>
+                                    </button>
+                                    <span class="text-center align-middle" id="span_cur_mode_text">{{ModeDisplayNames[CurMode]}}</span>
+                                    <button *ngIf="CurMode == GAME_MODE && !isLoadingTrackedGames" class="btn btn-outline-danger" (click)="toggleRemoveMode()">{{removeMode ? 'End Remove' : 'Remove Mode'}} </button>
+                                </div>
+                                <div class="col-md-5">
+                                    <section id="section_mode_compliment">
+                                        <div [formGroup]="searchMyTrackedForm" class="input-group" id="input_group_search_my_tracked" *ngIf="CurMode == GAME_MODE">
+                                            <input [(ngModel)]="searchTrackedInput" formControlName="searchText" type="text" class="form-control" placeholder="Filter My Tracked...">
+                                            <span class="input-group-btn">
+                                                    <button class="btn btn-secondary" type="submit"><i
+                                                            class="fa fa-search" aria-hidden="true"></i>
+                                                    </button>
+                                                 </span>
+                                        </div>
+                                        <span *ngIf="CurMode == INFO_MODE" class="align-middle float-xs-right"><strong>{{selectedGame.name}}</strong></span>
+                                    </section>
+                                </div>
+                            </div>
+                        </div>
+                    </h4>
+                    <div class="card-text">
+                        <div id="div_modes">
+                            <!--Game Mode div, which shows the users currently tracked games-->
+                            <div id="div_game_mode" *ngIf="CurMode == GAME_MODE">
+                                <div class="list-group">
+                                    <div *ngFor='let game of displayTrackedGames' (click)="selectTrackedGame(game)" class="list-group-item list-group-item-action rounded">
+                                        <app-usertrackeditem [removeMode$]="getRemoveMode()" [game]="game"></app-usertrackeditem>
+                                    </div>
+                                </div>
+                                <section id="loading_my_tracked" *ngIf="!displayTrackedGames && isLoadingTrackedGames">
+                                    <div id="div_loading_my_tracked">
+                                        <h2>Loading</h2>
+                                        <i class="fa fa-cog fa-spin fa-3x fa-fw"></i>
+                                    </div>
+                                </section>
+                            </div>
+                            <!--Info Mode div, which shows info for the currently selected game-->
+                            <div id="div_info_mode" *ngIf="CurMode == INFO_MODE">
+                                <app-gameinfoview class="h-100" [activeGame]="selectedGame"></app-gameinfoview>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

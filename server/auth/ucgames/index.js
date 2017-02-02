@@ -29,7 +29,7 @@ router.get('/isLoggedIn', (req, res) => {
  * Renders the sign up page
  */
 router.get('/signup', (req,res) => {
-    res.redirect('/login/signup.html');
+    res.render('signup');
 });
 
 /**
@@ -47,7 +47,7 @@ router.post('/signup', passport.authenticate('ucgames-signup', {
  */
 router.post('/signin', passport.authenticate('ucgames-signin', {
     successRedirect: '/',
-    failureRedirect: '/' //Should route to welcomepage
+    failureRedirect: '/loginpage' //Should route to welcomepage
 }));
 
 export default router;

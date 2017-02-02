@@ -5,6 +5,7 @@ var LocalStrategy = require('passport-local').Strategy;
 var session = require('express-session');
 var express = require('express');
 var User = require('./useraccountsmodel');
+import validator from 'validator';
 export var router = express.Router();
 
 export var authSetup = (passport) => {
@@ -17,11 +18,20 @@ export var authSetup = (passport) => {
         passwordField: 'password',
         //passReqToCallback: true
     }, (email, password, done) => {
+        //Clean input
+        validator.escape(email);
+        validator.escape(password);
 
         //Only passwords greater than 8 characters
         if (password.length < 8) {
-            done(null, false, "PASSWORD TOO SHORT")
+            return done(null, false, "PASSWORD TOO SHORT");
         }
+        if (!validator.isEmail(email)) {
+            return done(null, false, "NOT AN EMAIL ADDRESS");
+        }
+
+        email = validator.normalizeEmail(email);
+
         //Check if user already exists
         User.findUser(email, (exists, err) => {
             if (exists) {
@@ -50,6 +60,16 @@ export var authSetup = (passport) => {
         usernameField: 'email',
         passwordField: 'password'
     }, (email, password, done) => {
+
+        //Clean input
+        validator.escape(email);
+        validator.escape(password);
+        
+        if (!validator.isEmail(email)) {
+            return done(null, false, "NOT AN EMAIL ADDRESS");
+        }
+        validator.normalizeEmail(email);
+
         //Check if user exists
         User.findUser(email, (exists, err) => {
             if (!exists) {

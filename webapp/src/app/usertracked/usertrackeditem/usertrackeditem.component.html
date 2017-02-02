@@ -1,0 +1,14 @@
+<!--Template for each item in the list of user tracked games in the usertracked component's card for user tracked games-->
+<section id="tracked_game_item">
+    <div class="container">
+        <div class="row">
+            <div id="span_user_game_img_holder" class="col-md-2 col-sm-2 col-xs-2">
+                <img class="img rounded align-middle" [src]='game.imageLink.icon_url'>
+            </div>
+            <div id="span_game_name" class="col-md-8 col-sm-8 col-xs-8">
+                {{game.name}}
+                <button class="btn btn-danger" *ngIf="isRemoveMode" (click)="removeTrackedGame($event)">X</button>
+            </div>
+        </div>
+    </div>
+</section>

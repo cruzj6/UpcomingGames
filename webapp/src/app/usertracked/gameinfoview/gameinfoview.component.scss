@@ -1,0 +1,44 @@
+#card_news_item {
+    #card_news_item_title {
+        font-size: 0.9em;
+    }
+    .card {
+        border-color: #333;
+    }
+    .card-header {
+        background-color: #333;
+        color: white;
+        font-weight: bold;
+    }
+    .card-block {}
+}
+
+#card_media_item {
+    height: 30em;
+    width: 100%;
+    .card-block {
+        height: 90%;
+    }
+}
+
+#div_news_cards {
+    overflow: scroll;
+}
+
+#div_media_cards {
+    width: 100%;
+    overflow: scroll;
+}
+
+#div_youtube_video {
+    height: 100%;
+    text-align: center;
+}
+
+
+/* Classes */
+
+iframe {
+    width: 70%;
+    height: 100%;
+}

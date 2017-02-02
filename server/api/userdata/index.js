@@ -3,14 +3,14 @@
  */
 'use strict'
 
-var express = require('express');
+import express from 'express';
+import UserDataController from './userdatacontroller';
 var router = express.Router();
-var controller = require('./userdatacontroller');
 
-router.get('/trackedGames', controller.getUserTrackedGames);
-router.delete('/trackedGames', controller.removeTrackedGame);
-router.post('/trackedGames', controller.addTrackedGame);
-router.get('/friendsTrackedGames', controller.getFriendsTrackedGames);
-router.get('/aUsersTrackedGames', controller.getAUsersTrackedGames);
+router.get('/trackedGames', UserDataController.getUserTrackedGames);
+router.delete('/trackedGames', UserDataController.removeTrackedGame);
+router.post('/trackedGames', UserDataController.addTrackedGame);
+router.get('/friendsTrackedGames', UserDataController.getFriendsTrackedGames);
+router.get('/aUsersTrackedGames', UserDataController.getAUsersTrackedGames);
 
 module.exports = router;

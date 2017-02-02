@@ -10,7 +10,7 @@ var _ = require('underscore-node');
 var moment = require('moment');
 moment().format();
 
-export function searchForGameByName(searchTerms, callback){
+export function searchForGameByName(searchTerms, callback) {
     gameAPI.searchForGameByName(searchTerms, (response) => {
         callback(response);
     });
@@ -31,7 +31,11 @@ export function getMediaData(gameName, callback) {
 }
 
 export function getTopTrackedGamesData(numToGet, handleTopTrackedData) {
-    getTopTrackedGamesIds(numToGet, (topTrackedArray) => {
+    getTopTrackedGamesIds(20, (topTrackedArray) => {
+
+        //Just return the amount needed
+        topTrackedArray = topTrackedArray.slice(0, numToGet);
+
         //Contains actual data for each game
         var topTrackedGameData = [];
         var numGotten = 0;
@@ -45,8 +49,7 @@ export function getTopTrackedGamesData(numToGet, handleTopTrackedData) {
             //call handleTopTRackedData sooner
             if (!topTrackedArray[i]) {
                 numGotten++;
-            }
-            else {
+            } else {
                 //Current ID we are getting data for
                 curID = topTrackedArray[i].id;
 
@@ -71,6 +74,9 @@ export function getTopTrackedGamesIds(numToGet, handleTopTrackedGames) {
     console.log("Entered Top tracked");
     dbm.getAllTrackedIdsColumn((gameIds) => {
         console.log("All Tracked Game IDs: " + JSON.stringify(gameIds));
+
+        //Filter out any null or undefined entries
+        gameIds = _.filter(gameIds, (id) => id.gameid != undefined && id.gameid != "undefined" && id.gameid);
 
         //Array for counting the number of times each game occurs
         var countArray = [];
@@ -108,7 +114,7 @@ export function getTopTrackedGamesIds(numToGet, handleTopTrackedGames) {
 
         //Build array to return with only the required number of elements
         var limitedArray = [];
-        for (var k = cArraySorted.length - 1; k >=  cArraySorted.length - numToGet; k--) {
+        for (var k = cArraySorted.length - 1; k >= cArraySorted.length - numToGet; k--) {
             limitedArray.push(cArraySorted[k]);
         }
 
@@ -129,8 +135,7 @@ export function getUpdatedReleaseDate(gameid, callback) {
             };
 
             callback(dateInfo);
-        }
-        else {
+        } else {
             callback(null);
         }
     });
@@ -152,26 +157,24 @@ export function getAdvancedSearchData(query, callback) {
 
     console.log(query.platform);
     //Check for platform and convert to giant bomb Platform id
-    if(query.platform !== "all")
-    {
-        switch(query.platform)
-        {
+    if (query.platform !== "all") {
+        switch (query.platform) {
             case 'xbone':
                 gbQuery.platform = gameAPI.ID_XBOX;
                 break;
-            case 'ps4' :
+            case 'ps4':
                 gbQuery.platform = gameAPI.ID_PS4;
                 break;
-            case 'pc' :
+            case 'pc':
                 gbQuery.platform = gameAPI.ID_PC;
                 break;
-            case 'wiiu' :
+            case 'wiiu':
                 gbQuery.platform = gameAPI.ID_WIIU;
                 break;
-            case 'ios' :
+            case 'ios':
                 gbQuery.platform = gameAPI.ID_IOS;
                 break;
-            case 'android' :
+            case 'android':
                 gbQuery.platform = gameAPI.ID_ANDROID;
                 break;
             default:
@@ -187,15 +190,13 @@ export function getAdvancedSearchData(query, callback) {
     //Keywords
     gbQuery.query = filters.keywords;
     console.log(filters);
-    
+
     try {
         //Make request through games API
         gameAPI.advancedGamesQuery(gbQuery, (data) => {
             callback(data);
         });
-    }
-    catch(e)
-    {
+    } catch (e) {
         console.log("Error making Giant Bomb API Query: " + e.message);
     }
 

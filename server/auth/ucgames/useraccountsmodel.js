@@ -12,7 +12,7 @@ module.exports = class User {
      * Check if the user exists in the database
      */
     static findUser(email, callback) {
-        var username = email.toLowerCase()
+        var username = email.toLowerCase();
         pg.connect(process.env.DATABASE_URL, function(err, client, done) {
             if (err) {
                 console.log(err);

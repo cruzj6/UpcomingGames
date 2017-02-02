@@ -1,0 +1,41 @@
+/* Classes */
+
+.card {
+    width: 3em;
+    height: 3em;
+}
+
+.tag {
+    vertical-align: middle;
+}
+
+
+/* Ids */
+
+#span_user_game_img_holder {
+    overflow: hidden;
+}
+
+#span_game_name {
+    display: inline-block;
+    padding-left: 5px;
+    font-size: 2em;
+    line-height: 2em;
+    max-height: 4em;
+    text-overflow: ellipsis;
+    float: left;
+    text-align: center;
+}
+
+#tracked_game_item {
+    .tag {
+        margin-top: 3.25em;
+        float: right;
+        background-color: #0275d8;
+    }
+
+    button.btn{
+        display: inline;
+        float: right;
+    }
+}

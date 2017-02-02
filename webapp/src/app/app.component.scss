@@ -1,0 +1,65 @@
+$ui-color-main: #333;
+$ui-color-secondary: #A561F2;
+$ui-color-accent: #0275d8;
+
+/* Classes */
+
+.navbar-default {
+    background-color: $ui-color-main;
+    color: $ui-color-accent;
+}
+
+.tracking_card {
+    height: 800px;
+    .card-header {}
+}
+
+.button-primary {
+    background-color: #0275d8;
+    font-weight: bold;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+
+/* Ids */
+
+#nav_game_search_field {
+    color: #333;
+    display: inline;
+    .form-inline {
+        width: 100%;
+        padding-left: 10px;
+        float: right;
+    }
+}
+
+#div_search_result {
+    span {
+        display: inline-block;
+        width: 70%;
+        text-overflow: ellipsis;
+        line-height: 1em;
+        max-height: 1em;
+        max-width: 70%;
+        word-wrap: break-word;
+    }
+}
+
+#btn_add_game {
+    width: 30%;
+    float: right;
+    background-color: $ui-color-main;
+    color: white;
+}
+
+#info_alerts {
+    text-align: center;
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+    width: 30%;
+    left: 35%;
+}

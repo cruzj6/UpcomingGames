@@ -1,0 +1,87 @@
+$ui-color-main: #333;
+#div_row_tracked_main {
+    padding-top: 10px;
+}
+
+#card-header_my_tracked {
+    background-color: $ui-color-main;
+    color: white;
+}
+
+#div_modes {}
+
+#div_game_mode {
+    overflow: scroll;
+    height: 100%;
+    .list-group-item {
+        background-color: #333;
+        color: white;
+        overflow: hidden;
+        border-color: #555;
+        margin-bottom: 2px;
+        &:hover {
+            background-color: #444
+        }
+    }
+}
+
+#div_top_tracked_card {
+    width: 20em;
+    background-size: 20em;
+}
+
+#top_tracked_summary_row {
+    overflow: scroll;
+    .card-group {}
+    .card-title {
+        background: #333;
+        color: white;
+        text-align: center;
+        font-size: 20pt;
+    }
+}
+
+#row_top_tracked_summary_header {
+    padding-top: 10px;
+}
+
+#top_tracked_summary {}
+
+#div_info_mode {
+    height: 100%;
+}
+
+#span_cur_mode_text {
+    padding-top: 20px;
+    padding-right: 10px;
+    display: inline;
+}
+
+#input_group_search_my_tracked {
+    input {
+        border-color: #333;
+    }
+    button {
+        background-color: #0275d8;
+        color: white;
+        border-color: #333;
+    }
+}
+
+#section_mode_compliment {
+    float: right;
+    .align-middle {
+        padding-top: 5px;
+    }
+}
+
+#loading_my_tracked {
+    #div_loading_my_tracked {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+.breadcrumb {
+    width: 100%;
+}

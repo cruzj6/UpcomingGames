@@ -1,0 +1,68 @@
+<!--Contains navbar and container for content of each route-->
+<section id="info_alerts">
+    <p *ngFor="let alert of alerts">
+        <ngb-alert class="fade in" [type]="alert.type" (close)="closeAlert(alert)">
+            {{alert.message}}
+        </ngb-alert>
+    </p>
+</section>
+
+
+<nav class="navbar navbar-toggleable-md navbar-light bg-faded fixed-top">
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" href="# ">
+        <b>UC Games</b>
+    </a>
+
+    <!--List of nav items-->
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link" [routerLink]="['/usertracked']" [routerLinkActive]="[ 'active'] ">My Tracked Games <span
+                    class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" [routerLink]="['/toptracked']" [routerLinkActive]="[ 'active'] ">Top Tracked Games</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" [routerLink]="['/advancedsearch']">Advanced Search</a>
+            </li>
+            <a class="nav-link" href="/auth/logout">Sign Out</a>
+            <li class="nav-item">
+
+            </li>
+
+            <!--Nav bar drop down with tools>
+            <li ngbDropdown class="nav-item dropdown">
+                <button class="btn btn-outline-primary " id="dropdownMenu1 " ngbDropdownToggle>Tools</button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenu1 ">
+                    <a class="dropdown-item" href="# ">Action</a>
+                    <a class="dropdown-item" href="# ">Another action</a>
+                    <a class="dropdown-item" href="# ">Something else here</a>
+                </div>
+            </li-->
+        </ul>
+        <section id="nav_game_search_field">
+            <div class="form-inline float-right">
+                <input [resultTemplate]="rt " [(ngModel)]="searchString" class="form-control float-xs-right" type="text" placeholder="Find Games to track..." [ngbTypeahead]="searchTypeahead">
+                <span [ngClass]="{ 'hidden': !isSearching} "><i class="fa fa-cog fa-spin fa-2x fa-fw align-middle "></i> Searching...</span>
+            </div>
+
+            <!--Template for each search result-->
+            <template #rt let-game="result " let-t="term ">
+                <div id="div_search_result " class="w-100 ">
+                    <span><img [src]="game.imageLink.icon_url " src=" " width="16 ">
+                    {{game.name}}</span>
+                    <button id="btn_add_game" class="btn btn-default" (click)="addTrackedGame(game, $event) ">Add</button>
+                </div>
+            </template>
+        </section>
+    </div>
+</nav>
+
+<div class="container ">
+    <!--Where our route view goes-->
+    <router-outlet></router-outlet>
+</div>

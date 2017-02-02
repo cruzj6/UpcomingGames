@@ -1,0 +1,61 @@
+@import "../../../../node_modules/bootstrap/scss/bootstrap-grid.scss";
+.card-columns {
+    column-gap: 0.5rem;
+    @include media-breakpoint-only(lg) {
+        column-count: 4;
+    }
+    @include media-breakpoint-only(md) {
+        column-count: 4;
+    }
+    @include media-breakpoint-only(sm) {
+        column-count: 2;
+    }
+}
+
+.card-group {
+    .card {
+        background-color: #333;
+        border-color: white;
+        .card-title {
+            height: 5em;
+            p {
+                line-height: 1.8em;
+                text-align: center;
+                vertical-align: middle;
+            }
+        }
+        .card-img-top {
+            width: 100%;
+        }
+        .card-header {
+            text-overflow: ellipsis;
+            word-wrap: break-word;
+            overflow: hidden;
+            height: 5em;
+            line-height: 1.8em;
+            color: black;
+            img {
+                width: 40px;
+                height: 40px;
+            }
+        }
+    }
+}
+
+#card_img_holder {
+    height: 10em;
+    overflow: hidden;
+}
+
+#btn_add_tracked {
+    padding-top: 5px;
+}
+
+#loading_top_tracked {
+    padding-top: 50px;
+    width: 100%;
+    #div_loading_tracked {
+        width: 100%;
+        text-align: center;
+    }
+}

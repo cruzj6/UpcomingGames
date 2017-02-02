@@ -1,0 +1,35 @@
+<!--Info view for info_mode in the usertracked component's user tracked games card-->
+<ngb-tabset>
+    <ngb-tab title="News">
+        <template ngbTabContent>
+            <div id="div_news_cards">
+                <div id="card_news_item" class="card card-outline-primary" *ngFor="let newsItem of gameNewsItems">
+                    <div class="card-header"><a href="{{newsItem.url}}">{{newsItem.title}}</a></div>
+                    <div class="card-block">
+                        <span id="card_news_item_title" class="card-title"><em>{{newsItem.date}}</em></span>
+                        <hr>
+                        <p>
+                            {{newsItem.desc}}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </template>
+    </ngb-tab>
+    <ngb-tab title="Media">
+        <template ngbTabContent>
+            <ngb-pagination [collectionSize]="gameMediaItems.length" [(page)]="mediaPage" [pageSize]="5" [boundaryLinks]="true"></ngb-pagination>
+            <div id="div_media_cards">
+                <div id="card_media_item" class="card card-outline-primary" *ngFor="let mediaItem of gameMediaItems.slice(mediaPage*2, mediaPage*5 + 2)">
+                    <div class="card-header"><a href="{{mediaItem.url}}">{{mediaItem.title}}</a></div>
+                    <div class="card-block">
+                        <div id="div_youtube_video">
+                            <iframe [src]="mediaItem.url | safe"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <ngb-pagination [collectionSize]="gameMediaItems.length" [(page)]="mediaPage" [pageSize]="5" [boundaryLinks]="true"></ngb-pagination>
+        </template>
+    </ngb-tab>
+</ngb-tabset>

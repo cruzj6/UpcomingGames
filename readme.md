@@ -28,12 +28,16 @@ PGSSLMODE=require
 Next run
 ```
 npm install
-bower install
 ```
 to install node modules
 
-Finally run (requires gulp installed):
+Finally run (requires angular-cli installed):
 ```
-gulp
+ng build --watch
 ```
 to begin watching for code changes
+
+Run to start the express server:
+```
+npm start
+```
