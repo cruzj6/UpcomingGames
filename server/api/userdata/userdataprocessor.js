@@ -10,18 +10,20 @@ var PATH_EXTERNAL_API = __dirname + '/../../libs/externalapis/';
 var gameAPI = require(PATH_EXTERNAL_API + 'giantAPI');
 var bingAPI = require(PATH_EXTERNAL_API + 'newsAPI');
 var steamAPI = require(PATH_EXTERNAL_API + 'steamAPI');
-var dbm = require('./userdatamodel');
+import {UserDataModel} from './userdatamodel';
 import _ from 'underscore-node';
 
 //"public" functions, these are usable by any module that "requires" this module
 module.exports = class UserDataProcessor {
     static getUserTrackedGameData(userId, handleTrackedGameData) {
-        dbm.getUsersTrackedGameIds(userId, function(err, ids) {
+        var dbm = new UserDataModel(userId);
+        dbm.getUsersTrackedGameIds((err, ids) => {
             if(err){
                 handleTrackedGameData(err, null);
             }
+            console.log("IDS" + ids);
             //Filter out undefined or null items
-            ids = _.filter(ids, (id) => id.gameid != undefined && id.gameid != "undefined" && id.gameid);
+            ids = _.filter(ids, (id) => id != undefined && id != "undefined" && id);
 
             //If we get any track gameIds
             if (ids && ids.length > 0) {
@@ -33,7 +35,7 @@ module.exports = class UserDataProcessor {
                 //For each gameId we got back
                 for (var i = 0; i < ids.length; i++) {
                     //Now request data about each game using the ID, and the giantBombAPI Module
-                    gameAPI.getDataForGameById(ids[i].gameid, (gameData) => {
+                    gameAPI.getDataForGameById(ids[i], (gameData) => {
 
                         //Track attempts to get game data, and number actually gotten (successful)
                         //We need to keep track since this is Async, so we know when to make callback
@@ -56,13 +58,22 @@ module.exports = class UserDataProcessor {
     }
 
     //Use database manager module to add a tracked game for a user
-    static addTrackedGameId(gameId, userid, doneCallback) {
-        dbm.addGameIDToUser(gameId, userid, doneCallback);
+    static addTrackedGameId(gameid, userid, doneCallback) {
+        var dbm = new UserDataModel(userid);
+        dbm.addGameIDToUser(gameid, doneCallback);
     }
 
     //Use database manager module to remove a tracked game
-    static removeTrackedGameId(gameId, userId, doneCallback) {
-        dbm.removeGameIDFromUser(gameId, userId, doneCallback);
+    static removeTrackedGameId(gameid, userid, doneCallback) {
+        var dbm = new UserDataModel(userid);
+        dbm.removeGameIDFromUser(gameid, doneCallback);
+    }
+
+    static getUserSteamId(userid, handleSteamId){
+        var dbm = new UserDataModel(userid);
+        dbm.getSteamId((err, id) => {
+            handleSteamId(err, id);
+        })
     }
 
     static getSteamFriendsTrackedGames(usersteamid, handleFriendsTrackedGames) {

@@ -24,7 +24,7 @@ module.exports = class GameDataController {
                 res.send(data);
             });
         } catch (e) {
-            console.log("Error Searching for Games: " + e.msg);
+            console.log("Error Searching for Games: " + e.message);
         }
     }
 
@@ -53,7 +53,7 @@ module.exports = class GameDataController {
                 res.send(data);
             });
         } catch (e) {
-            console.log("Error getting game Media: " + e.msg);
+            console.log("Error getting game Media: " + e.message);
         }
     }
 
@@ -72,12 +72,17 @@ module.exports = class GameDataController {
 
         try {
             console.log("Getting " + req.query.number + " top games");
-            gameData.getTopTrackedGamesData(req.query.number, (topArray) => {
-                console.log("Top Games List: " + topArray);
-                res.send(topArray);
+            gameData.getTopTrackedGamesData(req.query.number, (err, topArray) => {
+                if(err){
+                    res.sendStatus(500).send(err);
+                }
+                else{
+                    console.log("Top Games List: " + topArray);
+                    res.send(topArray);
+                }
             });
         } catch (e) {
-            console.log("Error getting top tracked games: " + e.msg);
+            console.log("Error getting top tracked games: " + e.message);
         }
 
     }

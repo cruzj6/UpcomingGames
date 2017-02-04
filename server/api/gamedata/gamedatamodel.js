@@ -3,19 +3,28 @@
  */
 import pg from 'pg';
 import _ from 'underscore-node';
+import mongojs from 'mongojs';
 
-export function getAllTrackedIdsColumn(handleTrackedIds) {
-    try {
-        pg.connect(process.env.DATABASE_URL, (err, client, done) => {
-            client.query("CREATE TABLE if not exists tracked_games(userid TEXT, gameId TEXT)");
+export class GameDataModel {
 
-            client.query("SELECT gameId FROM tracked_games", (err, res) => {
-                done();
-                handleTrackedIds(res.rows);
-            });
+    /**
+     * Get all tracked games id's in the database, including duplicated
+     * 
+     * @static
+     * @param {any} handleTrackedIds callback with ids (err, ids)
+     * 
+     * @memberOf GameDataModel
+     */
+    static getAllTrackedIdsColumn(handleTrackedIds) {
+        var db = mongojs(process.env.DATABASE_URL2, ['userdata']);
+        db.userdata.find((err, data) => {
+            if(err){
+                handleTrackedIds(err, null);
+            }
+            else{
+                var ids = _.flatten(_.pluck(data, 'gameids'));
+                handleTrackedIds(err, ids);
+            }
         });
-    } catch (ex) {
-        console.log(ex.trace());
-        console.log(ex);
     }
 }

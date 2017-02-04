@@ -7,7 +7,7 @@ module.exports = class UserDataController {
     static getUserTrackedGames(req, res) {
 
         gameData.getUserTrackedGameData(req.user.userid, (err, gameDatas) => {
-            if(err){
+            if (err) {
                 res.sendStatus(500).send({});
             }
             res.send(gameDatas);
@@ -53,15 +53,18 @@ module.exports = class UserDataController {
     }
 
     static getFriendsTrackedGames(req, res) {
-
-        /*gameData.getSteamFriendsTrackedGames(req.user.id, function (tGames) {
-            //Use this to show list on front end
-            console.log("Friends Tracked Games for " + req.user.id + ": " + JSON.stringify(tGames));
-            res.send(tGames);
-            res.end();
-        });*/
-        //TODO
-        res.send(401);
-        res.end();
+        gameData.getUserSteamId(req.user.userid, (err, id) => {
+            if (err) {
+                res.sendStatus(404);
+            }
+            else {
+                gameData.getSteamFriendsTrackedGames(req.user.id, function (tGames) {
+                    //Use this to show list on front end
+                    console.log("Friends Tracked Games for " + req.user.id + ": " + JSON.stringify(tGames));
+                    res.send(tGames);
+                    res.end();
+                });
+            }
+        });
     }
 }
