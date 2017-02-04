@@ -2,11 +2,81 @@
  * Created by Joey on 4/4/16.
  */
 'use strict'
-import pg from 'pg';
+import mongojs from 'mongojs';
 import _ from 'underscore-node';
 
-//Add a gameId to the database for a user that they wish to track
 module.exports = class UserDataModel {
+    constructor() {
+        this.db = mongojs(process.env.DATABASE_URL2, ['usertrackedgames']);
+    }
+
+    /**
+     * Get all of a user's tracked games by user id
+     * 
+     * @static
+     * @param {any} userid id of the user
+     * @param {any} handleUserIds callback function (err, ids)
+     */
+    static getUsersTrackedGameIds(userid, handleUserIds) {
+        db.usertrackedgames.find({ userid: userid }, (err, games) => {
+            if (err) {
+                handleUserIds(err, null);
+            }
+            else handleUserIds(err, _.filter(games, (item) => item.gameid != "undefined"));
+        });
+    }
+
+    /**
+     * Add a game to a user's tracked games
+     * 
+     * @static
+     * @param {any} gameid game to add by GB id
+     * @param {any} userid id of the user
+     * @param {any} doneCallback called when game has been added or error occurs (err)
+     */
+    static addGameIDToUser(gameid, userid, doneCallback) {
+        this.getUsersTrackedGameIds(userid, (err, ids) => {
+            if(_.findWhere(ids, {gameid: gameid})){
+                doneCallback("Game Already Tracked");
+            }
+            
+            //Add if it isnt already tracked
+            db.usertrackedgames.save({
+                userid: userid,
+                gameid: gameid
+            }, (err, game) => {
+                if (err) {
+                    doneCallback(err);
+                }
+                else doneCallback();
+            })
+        });
+
+    }
+
+     /**
+      * Remove a tracked game from a user
+      * 
+      * @static
+      * @param {any} gameId game to remove by gb id
+      * @param {any} userId id of user to remove it from
+      * @param {any} doneCallback called when deletion happend or error occurs
+      */
+     static removeGameIDFromUser(gameId, userId, doneCallback) {
+            db.usertrackedgames.remove({
+                userid: userid,
+                gameid: gameid
+            }, (err, game) => {
+                if (err) {
+                    doneCallback(err);
+                }
+                else doneCallback();
+            });
+     }
+}
+
+//Add a gameId to the database for a user that they wish to track
+/*module.exports = class UserDataModel {
     static addGameIDToUser(gameId, userId, doneCallback) {
         pg.defaults.ssl = true;
 
@@ -83,4 +153,4 @@ module.exports = class UserDataModel {
             }
         });
     }
-}
+}*/

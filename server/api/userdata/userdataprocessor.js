@@ -16,8 +16,10 @@ import _ from 'underscore-node';
 //"public" functions, these are usable by any module that "requires" this module
 module.exports = class UserDataProcessor {
     static getUserTrackedGameData(userId, handleTrackedGameData) {
-        dbm.getUsersTrackedGameIds(userId, function(ids) {
-
+        dbm.getUsersTrackedGameIds(userId, function(err, ids) {
+            if(err){
+                handleTrackedGameData(err, null);
+            }
             //Filter out undefined or null items
             ids = _.filter(ids, (id) => id.gameid != undefined && id.gameid != "undefined" && id.gameid);
 
@@ -44,11 +46,11 @@ module.exports = class UserDataProcessor {
                         //If we made all our attempts, call the original callback for the getUserTrackedGameData() functions
                         //and send it all of the tracked games data
                         if (returnGameData.length == successfulGets && attempts == ids.length)
-                            handleTrackedGameData(returnGameData);
+                            handleTrackedGameData(err, returnGameData);
                     });
                 }
             } else {
-                handleTrackedGameData([]);
+                handleTrackedGameData(err, []);
             }
         });
     }

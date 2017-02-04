@@ -6,7 +6,10 @@ import gameData from './userdataprocessor.js';
 module.exports = class UserDataController {
     static getUserTrackedGames(req, res) {
 
-        gameData.getUserTrackedGameData(req.user.userid, (gameDatas) => {
+        gameData.getUserTrackedGameData(req.user.userid, (err, gameDatas) => {
+            if(err){
+                res.sendStatus(500).send({});
+            }
             res.send(gameDatas);
         });
     }
