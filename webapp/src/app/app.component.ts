@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { GameItem } from 'app/model/game.model'
-import { AlertItem } from 'app/model/alertitem.interface';
+import { AlertItem } from 'app/model/alertItem.interface';
 import { AlertService } from 'services/alertservice/alert.service';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';

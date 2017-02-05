@@ -4,7 +4,7 @@ import {TopTrackedGameItem} from 'app/model/topTrackedGameItem.model'
 import {HttpRequestService} from 'services/httprequestservice/httprequest.service';
 import {AlertItem} from "../model/alertItem.interface";
 import { AlertService } from 'services/alertservice/alert.service';
-import { Observable } from 'rxjs/observable';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
     selector: 'app-toptracked',
