@@ -7,7 +7,7 @@ import _ from 'underscore-node';
 
 export class UserDataModel {
     constructor(userid) {
-        this.db = mongojs(process.env.DATABASE_URL2, ['userdata']);
+        this.db = mongojs(process.env.DATABASE_URL, ['userdata']);
         this.userid = userid;
     }
 
@@ -22,11 +22,7 @@ export class UserDataModel {
             if (err) {
                 handleUserIds(err, null);
             }
-            else if(!data){
-                handleUserIds(err, []);
-            }
             else {
-                console.log("GOT: " + JSON.stringify(data));
                 var ids = data.gameids;
                 handleUserIds(err, ids);
             }
@@ -38,26 +34,23 @@ export class UserDataModel {
      * 
      * @static
      * @param {any} gameid game to add by GB id
-     * @param {any} doneCallback called when game has been added or error occurs (err)
+     * @param {any} done called when game has been added or error occurs (err, game)
      */
-    addGameIDToUser(gameid, doneCallback) {
+    addGameIDToUser(gameid, done) {
         this.getUsersTrackedGameIds((err, ids) => {
             if (_.findWhere(ids, gameid)) {
-                doneCallback("Game Already Tracked");
+                done("Game Already Tracked");
             }
-            else if(!ids){
-                
-            }
-            else {
+            else{
                 //Add if it isnt already tracked
                 this.db.userdata.update({ userid: this.userid }, {
                     "$push": { "gameids": gameid }
                 }, (err, game) => {
                     if (err) {
-                        doneCallback(err);
+                        done(err, game);
                     }
-                    else doneCallback(err);
-                })
+                    else done(err, game);
+                });
             }
         });
 
@@ -69,16 +62,16 @@ export class UserDataModel {
      * @static
      * @param {any} gameId game to remove by gb id
      * @param {any} userId id of user to remove it from
-     * @param {any} doneCallback called when deletion happend or error occurs
+     * @param {any} done called when deletion happend or error occurs
      */
-    removeGameIDFromUser(gameid, doneCallback) {
+    removeGameIDFromUser(gameid, done) {
         this.db.userdata.update({ userid: this.userid }, {
             "$pull": { "gameids": gameid }
         }, (err, game) => {
             if (err) {
-                doneCallback(err);
+                done(err, game);
             }
-            else doneCallback();
+            else done(err, game);
         });
     }
 
@@ -86,33 +79,52 @@ export class UserDataModel {
      * Add a steam id to associate with a user
      * 
      * @param {any} steamid steamid to associate
-     * @param {any} doneCallback called with error or when done
+     * @param {any} done called with error or when done
      * 
      * @memberOf UserDataModel
      */
-    addSteamIdToUser(steamid, doneCallback) {
+    addSteamIdToUser(steamid, done) {
         this.db.userdata.update({ userid: this.userid }, {
             "$set": { "steamid": steamid }
         }, (err, game) => {
-            doneCallback(err);
+            done(err, game);
         });
     }
 
     /**
      * Get the user's steam id if it exists, else null is passed (err, id)
      * 
-     * @param {any} handleSteamId handle the steam id (err, id)
+     * @param {any} callback handle the steam id (err, id)
      * 
      * @memberOf UserDataModel
      */
-    getSteamId(handleSteamId) {
+    getSteamId(callback) {
         this.userdata.findOne({ userid: this.userid }, (err, data) => {
             if (err || !data.steamid) {
-                handleSteamId(err, null);
+                callback(err, null);
             }
             else {
-                handleSteamId(err, data.steamid);
+                callback(err, data.steamid);
             }
+        });
+    }
+
+    /**
+     * Add a new user element to the collection, if they don't exist
+     * 
+     * @param {any} done called when done adding
+     * 
+     * @memberOf UserDataModel
+     */
+    addUserForData(done) {
+        this.db.userdata.findOne({ userid: this.userid }, (err, data) => {
+            //Add if they don't exist
+            if (!data) {
+                this.db.userdata.save({ userid: this.userid, gameids: [24024] }, (err, user) => {
+                    done(err, user);
+                });
+            }
+            done(err, data);
         });
     }
 }

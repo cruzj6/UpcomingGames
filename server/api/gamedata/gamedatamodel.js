@@ -1,7 +1,6 @@
 /**
  * Created by Joey on 2/19/16.
  */
-import pg from 'pg';
 import _ from 'underscore-node';
 import mongojs from 'mongojs';
 
@@ -16,7 +15,7 @@ export class GameDataModel {
      * @memberOf GameDataModel
      */
     static getAllTrackedIdsColumn(handleTrackedIds) {
-        var db = mongojs(process.env.DATABASE_URL2, ['userdata']);
+        var db = mongojs(process.env.DATABASE_URL, ['userdata']);
         db.userdata.find((err, data) => {
             if(err){
                 handleTrackedIds(err, null);

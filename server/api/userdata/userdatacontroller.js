@@ -28,7 +28,7 @@ module.exports = class UserDataController {
         console.log("REMOVING: " + req.body.gameid);
         console.log("REMOVING: " + req.param('gameid'));
 
-        gameData.removeTrackedGameId(req.body.gameid, req.user.userid, () => {
+        gameData.removeTrackedGameId(req.body.gameid, req.user.userid, (err, data) => {
             res.sendStatus(200);
             res.end();
         });
@@ -37,7 +37,7 @@ module.exports = class UserDataController {
     static addTrackedGame(req, res) {
         console.log("GAME ID TO ADD IS" + req.body.gameid);
         if (req.body.gameid != null && req.body.gameid != undefined && req.body.gameid != "undefined" && req.body.gameid) {
-            gameData.addTrackedGameId(req.body.gameid, req.user.userid, (err) => {
+            gameData.addTrackedGameId(req.body.gameid, req.user.userid, (err, data) => {
                 let isAlreadyTracked = false;
                 if (err) {
                     isAlreadyTracked = true;
@@ -64,7 +64,7 @@ module.exports = class UserDataController {
     }
 
     static setSteamId(req, res) {
-        gameData.addSteam((err) => {
+        gameData.addSteam((err, data) => {
             if (err) {
                 res.sendStatus(404);
             }

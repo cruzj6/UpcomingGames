@@ -1,6 +1,7 @@
-var bcrypt = require('bcrypt-nodejs');
-var db = mongojs(process.env.DATABASE_URL2, ['useraccounts']);
+import {UserDataModel} from '../../api/userdata/userdatamodel';
 import mongojs from 'mongojs';
+var bcrypt = require('bcrypt-nodejs');
+var db = mongojs(process.env.DATABASE_URL, ['useraccounts']);
 
 module.exports = class User {
     constructor(userid, password) {
@@ -36,7 +37,16 @@ module.exports = class User {
             userid: this.userid,
             hashedpass: this.password
         }, (err) => {
-            callback(err);
+            if(!err){
+                //Add user for the data model
+                var userDataModel = new UserDataModel(this.userid);
+                userDataModel.addUserForData((err, data) => {
+                    callback(err);
+                });
+            }
+            else{
+                callback(err);
+            }
         });
     };
 
