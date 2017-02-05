@@ -14,7 +14,6 @@ export class UserDataModel {
     /**
      * Get all of a user's tracked games by user id
      * 
-     * @static
      * @param {any} handleUserIds callback function (err, ids)
      */
     getUsersTrackedGameIds(handleUserIds) {
@@ -32,7 +31,6 @@ export class UserDataModel {
     /**
      * Add a game to a user's tracked games
      * 
-     * @static
      * @param {any} gameid game to add by GB id
      * @param {any} done called when game has been added or error occurs (err, game)
      */
@@ -59,9 +57,7 @@ export class UserDataModel {
     /**
      * Remove a tracked game from a user
      * 
-     * @static
      * @param {any} gameId game to remove by gb id
-     * @param {any} userId id of user to remove it from
      * @param {any} done called when deletion happend or error occurs
      */
     removeGameIDFromUser(gameid, done) {
