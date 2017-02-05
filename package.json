@@ -12,6 +12,7 @@
     "e2e": "protractor",
     "build:nodeserver": "ng build",
     "build:nodeserver-prod": "ng build -prod",
+    "preinstall": "npm install -g @angular/cli",
     "postinstall": "ng build"
   },
   "private": true,
