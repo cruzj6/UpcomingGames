@@ -6,7 +6,10 @@ import gameData from './userdataprocessor.js';
 module.exports = class UserDataController {
     static getUserTrackedGames(req, res) {
 
-        gameData.getUserTrackedGameData(req.user.userid, (gameDatas) => {
+        gameData.getUserTrackedGameData(req.user.userid, (err, gameDatas) => {
+            if (err) {
+                res.sendStatus(500).send({});
+            }
             res.send(gameDatas);
         });
     }
@@ -25,7 +28,7 @@ module.exports = class UserDataController {
         console.log("REMOVING: " + req.body.gameid);
         console.log("REMOVING: " + req.param('gameid'));
 
-        gameData.removeTrackedGameId(req.body.gameid, req.user.userid, () => {
+        gameData.removeTrackedGameId(req.body.gameid, req.user.userid, (err, data) => {
             res.sendStatus(200);
             res.end();
         });
@@ -34,7 +37,7 @@ module.exports = class UserDataController {
     static addTrackedGame(req, res) {
         console.log("GAME ID TO ADD IS" + req.body.gameid);
         if (req.body.gameid != null && req.body.gameid != undefined && req.body.gameid != "undefined" && req.body.gameid) {
-            gameData.addTrackedGameId(req.body.gameid, req.user.userid, (err) => {
+            gameData.addTrackedGameId(req.body.gameid, req.user.userid, (err, data) => {
                 let isAlreadyTracked = false;
                 if (err) {
                     isAlreadyTracked = true;
@@ -49,16 +52,41 @@ module.exports = class UserDataController {
         }
     }
 
-    static getFriendsTrackedGames(req, res) {
+    static getSteamId(req, res) {
+        gameData.getUserSteamId(req.user.userid, (err, id) => {
+            if (err) {
+                res.sendStatus(404);
+            }
+            else {
+                res.send(id);
+            }
+        });
+    }
 
-        /*gameData.getSteamFriendsTrackedGames(req.user.id, function (tGames) {
-            //Use this to show list on front end
-            console.log("Friends Tracked Games for " + req.user.id + ": " + JSON.stringify(tGames));
-            res.send(tGames);
-            res.end();
-        });*/
-        //TODO
-        res.send(401);
-        res.end();
+    static setSteamId(req, res) {
+        gameData.addSteam((err, data) => {
+            if (err) {
+                res.sendStatus(404);
+            }
+            else {
+                res.sendStatus(200);
+            }
+        });
+    }
+
+    static getFriendsTrackedGames(req, res) {
+        gameData.getUserSteamId(req.user.userid, (err, id) => {
+            if (err) {
+                res.sendStatus(404);
+            }
+            else {
+                gameData.getSteamFriendsTrackedGames(req.user.id, function (tGames) {
+                    //Use this to show list on front end
+                    console.log("Friends Tracked Games for " + req.user.id + ": " + JSON.stringify(tGames));
+                    res.send(tGames);
+                    res.end();
+                });
+            }
+        });
     }
 }

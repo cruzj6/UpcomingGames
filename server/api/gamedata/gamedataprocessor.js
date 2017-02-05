@@ -1,11 +1,11 @@
 /**
  * Created by Joey on 4/4/16.
  */
+import {GameDataModel} from './gamedatamodel';
 var externalAPIPath = '/../../libs/externalapis/';
 var gameAPI = require(__dirname + externalAPIPath + 'giantAPI');
 var bingAPI = require(__dirname + externalAPIPath + 'newsAPI');
 var steamAPI = require(__dirname + externalAPIPath + 'steamAPI');
-var dbm = require(__dirname + '/gamedatamodel');
 var _ = require('underscore-node');
 var moment = require('moment');
 moment().format();
@@ -31,7 +31,10 @@ export function getMediaData(gameName, callback) {
 }
 
 export function getTopTrackedGamesData(numToGet, handleTopTrackedData) {
-    getTopTrackedGamesIds(20, (topTrackedArray) => {
+    getTopTrackedGamesIds(20, (err, topTrackedArray) => {
+        if(err){
+            handleTopTrackedData(err, topTrackedArray);
+        }
 
         //Just return the amount needed
         topTrackedArray = topTrackedArray.slice(0, numToGet);
@@ -61,7 +64,7 @@ export function getTopTrackedGamesData(numToGet, handleTopTrackedData) {
                     //Once we have gotten data for each game in the array
                     if (numGotten === topTrackedArray.length) {
                         console.log("Top Tracked Data: " + topTrackedGameData);
-                        handleTopTrackedData(topTrackedGameData);
+                        handleTopTrackedData(err, topTrackedGameData);
                     }
                 });
             }
@@ -72,18 +75,21 @@ export function getTopTrackedGamesData(numToGet, handleTopTrackedData) {
 //Callsback with array, each element containing id and count
 export function getTopTrackedGamesIds(numToGet, handleTopTrackedGames) {
     console.log("Entered Top tracked");
-    dbm.getAllTrackedIdsColumn((gameIds) => {
+    GameDataModel.getAllTrackedIdsColumn((err, gameIds) => {
+        if(err){
+            handleTopTrackedGames(err, gameIds);
+        }
         console.log("All Tracked Game IDs: " + JSON.stringify(gameIds));
 
         //Filter out any null or undefined entries
-        gameIds = _.filter(gameIds, (id) => id.gameid != undefined && id.gameid != "undefined" && id.gameid);
+        gameIds = _.filter(gameIds, (id) => id != undefined && id != "undefined" && id);
 
         //Array for counting the number of times each game occurs
         var countArray = [];
 
         //For each Id in the DB first we need to count how many times it occurs
         for (var i = 0; i < gameIds.length; i++) {
-            var curGameId = gameIds[i].gameid;
+            var curGameId = gameIds[i];
             var gameAccountedFor = false;
 
             //Check if we have started counting for this game
@@ -119,7 +125,7 @@ export function getTopTrackedGamesIds(numToGet, handleTopTrackedGames) {
         }
 
         //Finally return our data
-        handleTopTrackedGames(limitedArray);
+        handleTopTrackedGames(err, limitedArray);
 
     });
 }

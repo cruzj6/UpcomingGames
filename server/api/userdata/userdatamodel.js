@@ -2,85 +2,125 @@
  * Created by Joey on 4/4/16.
  */
 'use strict'
-import pg from 'pg';
+import mongojs from 'mongojs';
 import _ from 'underscore-node';
 
-//Add a gameId to the database for a user that they wish to track
-module.exports = class UserDataModel {
-    static addGameIDToUser(gameId, userId, doneCallback) {
-        pg.defaults.ssl = true;
-
-        pg.connect(process.env.DATABASE_URL, (err, client, done) => {
-            if (err) throw err;
-            console.log('Connected to postgres! Getting schemas...');
-
-            client.query("CREATE TABLE if not exists tracked_games (userid TEXT, gameId TEXT);");
-            done();
-        });
-
-        //Make self call to get the tracked games for the user
-        this.getUsersTrackedGameIds(userId, (ids) => {
-            console.log('INTO CALLBACK');
-            var pluckedIds = _.pluck(ids, 'gameid');
-            console.log("gameid: " + gameId + "\r\nids : " + JSON.stringify(pluckedIds));
-
-            var isAlreadyContained = false;
-
-            for (var i = 0; i < ids.length; i++) {
-                if (ids[i].gameid != null && ids[i].gameid.indexOf(gameId) > -1) {
-                    isAlreadyContained = true;
-                    break;
-                }
-            }
-
-            //If the game isn't already tracked by the user, add its
-            if (!isAlreadyContained) {
-                pg.connect(process.env.DATABASE_URL, (err, client, done) => {
-                    console.log('inserting data for user: ' + userId);
-                    //Prep our query
-                    client.query("INSERT INTO tracked_games VALUES ($1, $2);", [userId, gameId], (err, res) => {
-                        doneCallback();
-                        done();
-                    });
-                });
-            } else {
-                doneCallback("Game Already Added");
-            }
-        });
+export class UserDataModel {
+    constructor(userid) {
+        this.db = mongojs(process.env.DATABASE_URL, ['userdata']);
+        this.userid = userid;
     }
 
-    //Remove a game from the database for a userId
-    static removeGameIDFromUser(gameId, userId, doneCallback) {
-        pg.connect(process.env.DATABASE_URL, (err, client, done) => {
-
-            client.query("CREATE TABLE if not exists tracked_games (userid TEXT, gameId TEXT);");
-
-            client.query("DELETE FROM tracked_games WHERE userid=($1) AND gameId=($2);", [userId, gameId], () => {
-                doneCallback();
-                done();
-            });
-        });
-
-    }
-
-    static getUsersTrackedGameIds(userid, handleUserIds) {
-        console.log(process.env.DATABASE_URL);
-        console.log("Entered get user tracked games");
-        pg.connect(process.env.DATABASE_URL, (err, client, done) => {
+    /**
+     * Get all of a user's tracked games by user id
+     * 
+     * @param {any} handleUserIds callback function (err, ids)
+     */
+    getUsersTrackedGameIds(handleUserIds) {
+        this.db.userdata.findOne({ userid: this.userid }, (err, data) => {
             if (err) {
-                console.log(err);
-            } else {
-                client.query("CREATE TABLE if not exists tracked_games (userid TEXT, gameId TEXT);");
+                handleUserIds(err, null);
+            }
+            else {
+                var ids = data.gameids;
+                handleUserIds(err, ids);
+            }
+        });
+    }
 
-                console.log('GETTING USER TRACKED GAMES');
-                //Select all tracked gameId's for that userId
-                client.query("SELECT gameId FROM tracked_games WHERE userid=($1);", [userid], (err, res) => {
-                    console.log("got FROM DATABASE: " + JSON.stringify(_.filter(res.rows, (item) => item.gameid != "undefined")));
-                    //Send back the rows
-                    done();
-                    handleUserIds(_.filter(res.rows, (item) => item.gameid != "undefined"));
+    /**
+     * Add a game to a user's tracked games
+     * 
+     * @param {any} gameid game to add by GB id
+     * @param {any} done called when game has been added or error occurs (err, game)
+     */
+    addGameIDToUser(gameid, done) {
+        this.getUsersTrackedGameIds((err, ids) => {
+            if (_.findWhere(ids, gameid)) {
+                done("Game Already Tracked");
+            }
+            else{
+                //Add if it isnt already tracked
+                this.db.userdata.update({ userid: this.userid }, {
+                    "$push": { "gameids": gameid }
+                }, (err, game) => {
+                    if (err) {
+                        done(err, game);
+                    }
+                    else done(err, game);
                 });
             }
+        });
+
+    }
+
+    /**
+     * Remove a tracked game from a user
+     * 
+     * @param {any} gameId game to remove by gb id
+     * @param {any} done called when deletion happend or error occurs
+     */
+    removeGameIDFromUser(gameid, done) {
+        this.db.userdata.update({ userid: this.userid }, {
+            "$pull": { "gameids": gameid }
+        }, (err, game) => {
+            if (err) {
+                done(err, game);
+            }
+            else done(err, game);
+        });
+    }
+
+    /**
+     * Add a steam id to associate with a user
+     * 
+     * @param {any} steamid steamid to associate
+     * @param {any} done called with error or when done
+     * 
+     * @memberOf UserDataModel
+     */
+    addSteamIdToUser(steamid, done) {
+        this.db.userdata.update({ userid: this.userid }, {
+            "$set": { "steamid": steamid }
+        }, (err, game) => {
+            done(err, game);
+        });
+    }
+
+    /**
+     * Get the user's steam id if it exists, else null is passed (err, id)
+     * 
+     * @param {any} callback handle the steam id (err, id)
+     * 
+     * @memberOf UserDataModel
+     */
+    getSteamId(callback) {
+        this.userdata.findOne({ userid: this.userid }, (err, data) => {
+            if (err || !data.steamid) {
+                callback(err, null);
+            }
+            else {
+                callback(err, data.steamid);
+            }
+        });
+    }
+
+    /**
+     * Add a new user element to the collection, if they don't exist
+     * 
+     * @param {any} done called when done adding
+     * 
+     * @memberOf UserDataModel
+     */
+    addUserForData(done) {
+        this.db.userdata.findOne({ userid: this.userid }, (err, data) => {
+            //Add if they don't exist
+            if (!data) {
+                this.db.userdata.save({ userid: this.userid, gameids: [24024] }, (err, user) => {
+                    done(err, user);
+                });
+            }
+            done(err, data);
         });
     }
 }
