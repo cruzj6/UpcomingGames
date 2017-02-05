@@ -87,7 +87,6 @@ module.exports = class GameDataController {
 
     }
 
-    //Object
     /*
     {
         platform: (all, pc, xbone, ps4, wiiu, ios, android),
