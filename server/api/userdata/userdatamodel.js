@@ -22,6 +22,9 @@ export class UserDataModel {
             if (err) {
                 handleUserIds(err, null);
             }
+            else if(!data){
+                handleUserIds(err, []);
+            }
             else {
                 console.log("GOT: " + JSON.stringify(data));
                 var ids = data.gameids;
@@ -41,6 +44,9 @@ export class UserDataModel {
         this.getUsersTrackedGameIds((err, ids) => {
             if (_.findWhere(ids, gameid)) {
                 doneCallback("Game Already Tracked");
+            }
+            else if(!ids){
+                
             }
             else {
                 //Add if it isnt already tracked
