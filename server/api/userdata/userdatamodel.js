@@ -87,10 +87,7 @@ export class UserDataModel {
         this.db.userdata.update({ userid: this.userid }, {
             "$set": { "steamid": steamid }
         }, (err, game) => {
-            if (err) {
                 doneCallback(err);
-            }
-            else doneCallback();
         });
     }
 

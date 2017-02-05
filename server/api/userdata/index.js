@@ -12,5 +12,7 @@ router.delete('/trackedGames', UserDataController.removeTrackedGame);
 router.post('/trackedGames', UserDataController.addTrackedGame);
 router.get('/friendsTrackedGames', UserDataController.getFriendsTrackedGames);
 router.get('/aUsersTrackedGames', UserDataController.getAUsersTrackedGames);
+router.get('/steamid', UserDataController.getSteamId);
+router.post('/steamid', UserDataController.setSteamId);
 
 module.exports = router;

@@ -52,6 +52,28 @@ module.exports = class UserDataController {
         }
     }
 
+    static getSteamId(req, res) {
+        gameData.getUserSteamId(req.user.userid, (err, id) => {
+            if (err) {
+                res.sendStatus(404);
+            }
+            else {
+                res.send(id);
+            }
+        });
+    }
+
+    static setSteamId(req, res) {
+        gameData.addSteam((err) => {
+            if (err) {
+                res.sendStatus(404);
+            }
+            else {
+                res.sendStatus(200);
+            }
+        });
+    }
+
     static getFriendsTrackedGames(req, res) {
         gameData.getUserSteamId(req.user.userid, (err, id) => {
             if (err) {

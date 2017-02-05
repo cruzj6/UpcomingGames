@@ -73,7 +73,14 @@ module.exports = class UserDataProcessor {
         var dbm = new UserDataModel(userid);
         dbm.getSteamId((err, id) => {
             handleSteamId(err, id);
-        })
+        });
+    }
+
+    static setUserSteamId(userid, doneCallback){
+         var dbm = new UserDataModel(userid);
+        dbm.addSteamIdToUser((err) => {
+           doneCallback(err);
+        });
     }
 
     static getSteamFriendsTrackedGames(usersteamid, handleFriendsTrackedGames) {
