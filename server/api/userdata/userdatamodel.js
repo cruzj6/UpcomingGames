@@ -39,19 +39,20 @@ export class UserDataModel {
      */
     addGameIDToUser(gameid, doneCallback) {
         this.getUsersTrackedGameIds((err, ids) => {
-            if (_.findWhere(ids, { gameid: gameid })) {
+            if (_.findWhere(ids, gameid)) {
                 doneCallback("Game Already Tracked");
             }
-
-            //Add if it isnt already tracked
-            this.db.userdata.update({ userid: this.userid }, {
-                "$push": { "gameids": gameid }
-            }, (err, game) => {
-                if (err) {
-                    doneCallback(err);
-                }
-                else doneCallback();
-            })
+            else {
+                //Add if it isnt already tracked
+                this.db.userdata.update({ userid: this.userid }, {
+                    "$push": { "gameids": gameid }
+                }, (err, game) => {
+                    if (err) {
+                        doneCallback(err);
+                    }
+                    else doneCallback(err);
+                })
+            }
         });
 
     }
@@ -87,7 +88,7 @@ export class UserDataModel {
         this.db.userdata.update({ userid: this.userid }, {
             "$set": { "steamid": steamid }
         }, (err, game) => {
-                doneCallback(err);
+            doneCallback(err);
         });
     }
 
@@ -98,14 +99,14 @@ export class UserDataModel {
      * 
      * @memberOf UserDataModel
      */
-    getSteamId(handleSteamId){
-        this.userdata.findOne({userid: this.userid}, (err, data) => {
-             if (err || !data.steamid) {
+    getSteamId(handleSteamId) {
+        this.userdata.findOne({ userid: this.userid }, (err, data) => {
+            if (err || !data.steamid) {
                 handleSteamId(err, null);
-             }
-             else{
-                 handleSteamId(err, data.steamid);
-             }
+            }
+            else {
+                handleSteamId(err, data.steamid);
+            }
         });
     }
 }
