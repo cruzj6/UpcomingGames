@@ -7,18 +7,18 @@
             </div>
             <div id="span_game_name" class="col-8">
                 <span>{{game.name}}</span>
-            </div>
-            <div class="col-2" id="remove_button_col">
-                <div id="remove_button_container">
-                    <button class="btn btn-danger" *ngIf="isRemoveMode" (click)="removeTrackedGame($event)">X</button>
-                </div>
-            </div>
-        </div>
-        <!--Countdown to game release if the game has one/ isn't out yet-->
+                 <!--Countdown to game release if the game has one/ isn't out yet-->
         <div id="countdown_timer">
             <span *ngIf="timeToRelease">
                 <strong>{{timeToRelease.days}} days {{timeToRelease.hours}} hours {{timeToRelease.minutes}} mins. {{timeToRelease.seconds}}secs.</strong>
             </span>
+        </div>
+            </div>
+            <div class="col-2" id="remove_button_col">
+                <div id="remove_button_container">
+                    <button [ngClass]="{'slide-in': isRemoveMode}" class="btn btn-danger" *ngIf="isRemoveMode" (click)="removeTrackedGame($event)">X</button>
+                </div>
+            </div>
         </div>
     </div>
 </section>

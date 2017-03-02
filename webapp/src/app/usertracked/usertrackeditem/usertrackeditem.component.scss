@@ -9,6 +9,17 @@
     vertical-align: middle;
 }
 
+.slide-in{
+    position: relative;
+    left: 2%;
+    animation-name: slide;
+    animation-duration: 0.5s;
+}
+
+@keyframes slide{
+    0% {left: 75%};
+    100% {left: 2%};
+}
 
 /* Ids */
 

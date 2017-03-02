@@ -3,3 +3,11 @@
 body {
     padding-top: 70px;
 }
+
+.btn{
+    cursor: pointer;
+}
+
+input [type="radio"]{
+    cursor: pointer;
+}
