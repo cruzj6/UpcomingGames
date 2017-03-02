@@ -1,0 +1,17 @@
+<section id="nav_game_search_field">
+  <div id="div_search" class="form-inline">
+    <span id="searching_indicator" [ngClass]="{ 'hidden': !isSearching} "><i class="fa fa-cog fa-spin fa-2x fa-fw align-middle "></i> Searching...</span>
+    <span><i class="fa fa-search-plus" aria-hidden="true"></i></span>
+    <input [resultTemplate]="rt " [(ngModel)]="searchString" class="form-control" type="text" placeholder="Find Games to track..."
+      [ngbTypeahead]="searchTypeahead">
+  </div>
+
+  <!--Template for each search result-->
+  <template #rt let-game="result " let-t="term ">
+    <div id="div_search_result " class="w-100 ">
+      <span><img [src]="game.imageLink.icon_url " src=" " width="16 ">
+                    {{game.name}}</span>
+      <button id="btn_add_game" class="btn btn-default" (click)="addTrackedGame(game, $event) ">Add</button>
+    </div>
+  </template>
+</section>

@@ -50,6 +50,8 @@ export class UsertrackedComponent implements OnInit {
 
     public searchMyTrackedForm: FormGroup;
 
+    public isFilterEnabled: Boolean = false;
+
     //static values
     private static NUM_TOP_TRACKED: number = 5;
 
@@ -226,5 +228,9 @@ export class UsertrackedComponent implements OnInit {
 
     toggleRemoveMode(){
         this.RemoveMode = !this.removeMode;
+    }
+
+    toggleFilterEnabled(){
+        this.isFilterEnabled = !this.isFilterEnabled;
     }
 }

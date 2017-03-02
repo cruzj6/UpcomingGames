@@ -1,14 +1,18 @@
 $ui-color-main: #333;
 #div_row_tracked_main {
     padding-top: 10px;
+    margin-top: 5px;
+    border-top: 1px solid #0275d8;
 }
 
 #card-header_my_tracked {
     background-color: $ui-color-main;
     color: white;
+    @media only screen and (max-width: 700px){
+        text-align: center;
+        padding-top: 5px;
+    }
 }
-
-#div_modes {}
 
 #div_game_mode {
     overflow: scroll;
@@ -35,9 +39,6 @@ $ui-color-main: #333;
 
 #row_top_tracked_summary_header {
     padding-top: 10px;
-}
-
-#top_tracked_summary {
 }
 
 #div_info_mode {
@@ -102,4 +103,60 @@ $ui-color-main: #333;
 
 #tracked_main_col{
     padding: 0px;
+}
+
+.gamesearch{
+    display: inline-block;
+    margin-left: 5px;
+}
+
+#toggle_filter_tracked{
+    display: none;
+}
+
+.enabled{
+    display: flex !important;
+}
+
+.disabled{
+    display: none !important;
+}
+
+ @media screen and (max-width: 700px){
+
+     #row_top_tracked_summary_header{
+         h2{
+             width: 100%;
+             text-align: center;
+         }
+     }
+
+     #input_group_search_my_tracked{
+         display: none;
+     }
+
+    .gamesearch{
+        width: 100%;
+        float: none;
+        margin-top: 5px
+    }
+
+    #tracking_card_nav{
+        text-align: center;
+        #back_button{
+            position: absolute;
+            left: 5px;
+        }
+    }
+
+    #toggle_filter_tracked{
+        display: inline-block;
+        text-align: center;
+        background: transparent;
+        color: #0275d8;
+        border: 0px;
+        outline: none;
+        cursor: pointer;
+        font-size: 20px;
+    }
 }

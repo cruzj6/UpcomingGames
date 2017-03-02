@@ -1,0 +1,51 @@
+$ui-color-main: #333;
+$ui-color-secondary: #A561F2;
+$ui-color-accent: #0275d8;
+
+#nav_game_search_field {
+    color: #333;
+    display: inline-block;}
+
+#searching_indicator{
+    color: white;
+    font-size: 20px;
+    @media screen and (max-width: 700px){
+        display: none;
+    }
+}
+
+#div_search_result {
+    span {
+        display: inline-block;
+        width: 70%;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        line-height: 1em;
+        max-height: 1em;
+        max-width: 70%;
+        word-wrap: break-word;
+    }
+}
+
+#btn_add_game {
+    width: 30%;
+    float: right;
+    background-color: $ui-color-main;
+    color: white;
+}
+
+#div_search{
+    width: auto;
+    input{
+        width: auto;
+    }
+}
+
+.fa-search-plus{
+    color: #FFFFFF;
+    padding: 0px 7px 0px 5px;
+}
+
+.hidden {
+    visibility: hidden;
+}

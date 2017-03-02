@@ -7,12 +7,12 @@
             </div>
             <div id="span_game_name" class="col-8">
                 <span>{{game.name}}</span>
-                 <!--Countdown to game release if the game has one/ isn't out yet-->
-        <div id="countdown_timer">
-            <span *ngIf="timeToRelease">
+                <!--Countdown to game release if the game has one/ isn't out yet-->
+                <div id="countdown_timer">
+                    <span *ngIf="timeToRelease">
                 <strong>{{timeToRelease.days}} days {{timeToRelease.hours}} hours {{timeToRelease.minutes}} mins. {{timeToRelease.seconds}}secs.</strong>
             </span>
-        </div>
+                </div>
             </div>
             <div class="col-2" id="remove_button_col">
                 <div id="remove_button_container">
