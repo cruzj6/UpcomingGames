@@ -1,8 +1,10 @@
-import {Component, OnInit, Input, Inject} from '@angular/core';
-import {GameItem} from 'app/model/game.model'
-import {HttpRequestService} from "../../../services/httprequestservice/httprequest.service";
-import {Observable} from "rxjs";
-import {AlertService} from 'services/alertservice/alert.service';
+import { Component, OnInit, Input, Inject } from '@angular/core';
+import { GameItem } from 'app/model/game.model'
+import { HttpRequestService } from "../../../services/httprequestservice/httprequest.service";
+import { Observable } from "rxjs";
+import { AlertService } from 'services/alertservice/alert.service';
+import { CountdownService } from 'services/countdownservice/countdown.service';
+import {SimpleDate} from 'app/model/simpledate.model';
 
 @Component({
     selector: 'app-usertrackeditem',
@@ -17,15 +19,46 @@ export class UsertrackeditemComponent implements OnInit {
 
     private isRemoveMode: Boolean;
 
-    constructor(@Inject('httpRequestService') private httpReq: HttpRequestService,
-     @Inject('alertService') private alertService: AlertService) {}
+    private gameDate;
+
+    private timeToRelease: SimpleDate = null;
+
+    constructor( @Inject('httpRequestService') private httpReq: HttpRequestService,
+        @Inject('alertService') private alertService: AlertService,
+        @Inject('countdownService') private countdownService: CountdownService) { }
 
     ngOnInit() {
+        this.initGameDate();
         this.removeMode$.subscribe(
             isMode => {
                 this.isRemoveMode = isMode;
             }
         );
+        this.startCountdownTimer();
+    }
+
+    startCountdownTimer() {
+        //Start countdown if the game isn't out yet
+        if (this.updatedTimeToRelease() > 0) {
+            setInterval(() => this.timeToRelease = this.countdownService.convertMSToSimpleDate(this.updatedTimeToRelease()), 1000);
+        }
+    }
+
+    updatedTimeToRelease(): number {
+        let ttRelease = this.countdownService.getTimeFromNow(this.gameDate.getTime());
+        return ttRelease;
+    }
+
+    initGameDate(){
+        var gameDate = new Date();
+        gameDate.setDate(this.game.releaseDay);
+        gameDate.setMonth(this.game.releaseMonth - 1);
+        gameDate.setFullYear(this.game.releaseYear);
+        gameDate.setMinutes(0);
+        gameDate.setHours(0);
+        gameDate.setSeconds(0);
+
+        this.gameDate = gameDate;
     }
 
     removeTrackedGame(e) {

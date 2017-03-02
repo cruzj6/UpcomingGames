@@ -13,6 +13,7 @@ import { routing } from './app.routes';
 import { TopTrackedComponent } from './toptracked/toptracked.component';
 import { AlertService } from 'services/alertservice/alert.service';
 import { AdvancedSearchComponent } from 'app/advancedsearch/advancedsearch.component';
+import { CountdownService } from 'services/countdownservice/countdown.service';
 import {SafePipe} from 'app/model/safeurl.pipe';
 
 @NgModule({
@@ -33,7 +34,7 @@ import {SafePipe} from 'app/model/safeurl.pipe';
     routing,
     ReactiveFormsModule
   ],
-  providers: [{provide:'httpRequestService', useClass: HttpRequestService}, {provide:'alertService', useClass: AlertService}],
+  providers: [{provide:'httpRequestService', useClass: HttpRequestService}, {provide:'alertService', useClass: AlertService}, {provide:'countdownService', useClass: CountdownService}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

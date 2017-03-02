@@ -14,5 +14,11 @@
                 </div>
             </div>
         </div>
+        <!--Countdown to game release if the game has one/ isn't out yet-->
+        <div id="countdown_timer">
+            <span *ngIf="timeToRelease">
+                <strong>{{timeToRelease.days}} days {{timeToRelease.hours}} hours {{timeToRelease.minutes}} mins. {{timeToRelease.seconds}}secs.</strong>
+            </span>
+        </div>
     </div>
 </section>
