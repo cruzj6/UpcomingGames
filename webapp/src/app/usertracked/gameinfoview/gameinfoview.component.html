@@ -2,6 +2,12 @@
 <ngb-tabset>
     <ngb-tab title="News">
         <template ngbTabContent>
+            <section id="loading_news" *ngIf="!gameNewsItems && isLoadingNewsItems">
+                <div id="div_loading_news">
+                    <h2>Loading</h2>
+                    <i class="fa fa-cog fa-spin fa-3x fa-fw"></i>
+                </div>
+            </section>
             <div id="div_news_cards">
                 <div id="card_news_item" class="card card-outline-primary" *ngFor="let newsItem of gameNewsItems">
                     <div class="card-header"><a href="{{newsItem.url}}">{{newsItem.title}}</a></div>
@@ -18,9 +24,15 @@
     </ngb-tab>
     <ngb-tab title="Media">
         <template ngbTabContent>
+            <section id="loading_media" *ngIf="!gameMediaItems && isLoadingMediaItems">
+                <div id="div_loading_media">
+                    <h2>Loading</h2>
+                    <i class="fa fa-cog fa-spin fa-3x fa-fw"></i>
+                </div>
+            </section>
             <ngb-pagination [collectionSize]="gameMediaItems.length" [(page)]="mediaPage" [pageSize]="5" [boundaryLinks]="true"></ngb-pagination>
             <div id="div_media_cards">
-                <div id="card_media_item" class="card card-outline-primary" *ngFor="let mediaItem of gameMediaItems.slice(mediaPage*2, mediaPage*5 + 2)">
+                <div id="card_media_item" class="card card-outline-primary" *ngFor="let mediaItem of gameMediaItems.slice(mediaPage*5, mediaPage*5 + 5)">
                     <div class="card-header"><a href="{{mediaItem.url}}">{{mediaItem.title}}</a></div>
                     <div class="card-block">
                         <div id="div_youtube_video">

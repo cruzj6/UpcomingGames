@@ -14,7 +14,6 @@
 }
 
 #card_media_item {
-    height: 30em;
     width: 100%;
     .card-block {
         height: 90%;
@@ -25,6 +24,10 @@
     overflow: scroll;
 }
 
+#div_loading_news{
+    text-align: center;
+}
+
 #div_media_cards {
     width: 100%;
     overflow: scroll;
@@ -32,6 +35,15 @@
 
 #div_youtube_video {
     height: 100%;
+    text-align: center;
+
+    iframe{
+        width: 100%;
+        height: 50vw;
+    }
+}
+
+#div_loading_media{
     text-align: center;
 }
 
