@@ -4,27 +4,24 @@
  */
 let apiKey = process.env.BING_KEY;
 let rootUri = 'https://api.cognitive.microsoft.com/bing/v5.0/';
-let request = require('request');
+let request = require('request-promise');
 
 //Requests media data from the Bing web API
-export const getGameMedia = (gameName, mediaDataHandler) => {
+export const getGameMedia = gameName => {
     var url = `${rootUri}videos/search`;
 
     //Configure options and make request
-    request({
+    return request({
 			url,
 			headers: {'Ocp-Apim-Subscription-Key': apiKey},
 			qs: {
 				q: gameName
-			}
-		}, (err, res, body) => {
-        if (err) {
-            console.log("ERROR: ", err);
-        }
+			},
+			json: true
+		}).then(body => {
         //Init our results array we will send to callback
         console.log("RESPONSE MEDIA: ", body);
-        const jsonRes = JSON.parse(body);
-				const results = jsonRes.value;
+				const results = body.value;
 
         //Process each result into something usable for us
         const resultsArray = results.map(result => ({
@@ -34,9 +31,8 @@ export const getGameMedia = (gameName, mediaDataHandler) => {
         	})
 				);
 
-        //callback
-        mediaDataHandler(resultsArray);
-    });
+        return resultsArray;
+    }).catch(err => console.log("ERROR: ", err));
 }
 
 //Request news articles from the BingAPI

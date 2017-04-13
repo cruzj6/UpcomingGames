@@ -49,9 +49,7 @@ module.exports = class GameDataController {
 
         try {
             //Request media data from gameDataProcessor, providing it the requested gameName
-            gameData.getMediaData(req.query.gameName, (data) => {
-                res.send(data);
-            });
+            gameData.getMediaData(req.query.gameName).then(data => res.send(data));
         } catch (e) {
             console.log("Error getting game Media: " + e.message);
         }

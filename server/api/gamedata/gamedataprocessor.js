@@ -24,10 +24,8 @@ export function getNewsArticleInfo(gameName, callback) {
 }
 
 //Use bing API module to get media data
-export function getMediaData(gameName, callback) {
-    bingAPI.getGameMedia(gameName, (res) => {
-        callback(res);
-    });
+export function getMediaData(gameName) {
+    return bingAPI.getGameMedia(gameName);
 }
 
 export function getTopTrackedGamesData(numToGet, handleTopTrackedData) {
