@@ -3,10 +3,10 @@
  * This module handles all requests to the GiantBomb API
  */
 //require('dotenv').config();
-let apiKey = process.env.GB_KEY;
-let giantBombAPI = 'http://www.giantbomb.com/api';
 import request from 'request';
 import _ from 'underscore-node';
+let apiKey = process.env.GB_KEY;
+let giantBombAPI = 'http://www.giantbomb.com/api';
 
 export let ID_XBOX = '145';
 export let ID_PS4 = '146';

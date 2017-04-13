@@ -40,7 +40,7 @@ module.exports = class GameDataController {
                 res.send(data);
             });
         } catch (e) {
-            console.log("Error getting Articles for: " + gameName + ": " + e.message);
+            console.log("Error getting Articles: " + e.message);
         }
     }
 
@@ -63,7 +63,7 @@ module.exports = class GameDataController {
      * {
      *  number: <number>
      * }
-     * 
+     *
      * @static
      * @param {any} req
      * @param {any} res
