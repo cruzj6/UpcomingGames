@@ -56,6 +56,7 @@
     "passport-local": "^1.0.0",
     "passport-steam": "*",
     "request": "^2.69.0",
+    "request-promise": "^4.2.0",
     "run-sequence": "^1.1.5",
     "rxjs": "^5.0.1",
     "sqlite3": "^3.1.1",
