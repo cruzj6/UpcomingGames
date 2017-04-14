@@ -10,25 +10,19 @@ var _ = require('underscore-node');
 var moment = require('moment');
 moment().format();
 
-export function searchForGameByName(searchTerms, callback) {
+export const searchForGameByName = (searchTerms, callback) => {
     gameAPI.searchForGameByName(searchTerms, (response) => {
         callback(response);
     });
 }
 
 //Use bing API module to get News Article data
-export function getNewsArticleInfo(gameName, callback) {
-    bingAPI.getGameNews(gameName, (res) => {
-        callback(res);
-    });
-}
+export const getNewsArticleInfo = gameName => bingAPI.getGameNews(gameName);
 
 //Use bing API module to get media data
-export function getMediaData(gameName) {
-    return bingAPI.getGameMedia(gameName);
-}
+export const getMediaData = gameName => bingAPI.getGameMedia(gameName);
 
-export function getTopTrackedGamesData(numToGet, handleTopTrackedData) {
+export const getTopTrackedGamesData = (numToGet, handleTopTrackedData) => {
     getTopTrackedGamesIds(20, (err, topTrackedArray) => {
         if(err){
             handleTopTrackedData(err, topTrackedArray);
@@ -71,7 +65,7 @@ export function getTopTrackedGamesData(numToGet, handleTopTrackedData) {
 }
 
 //Callsback with array, each element containing id and count
-export function getTopTrackedGamesIds(numToGet, handleTopTrackedGames) {
+export const getTopTrackedGamesIds = (numToGet, handleTopTrackedGames) => {
     console.log("Entered Top tracked");
     GameDataModel.getAllTrackedIdsColumn((err, gameIds) => {
         if(err){
@@ -128,7 +122,7 @@ export function getTopTrackedGamesIds(numToGet, handleTopTrackedGames) {
     });
 }
 
-export function getUpdatedReleaseDate(gameid, callback) {
+export const getUpdatedReleaseDate = (gameid, callback) => {
     gameAPI.getDataForGameById(gameid, (results) => {
         //If we get data, format it and send it back to the callback
         if (results != null) {
@@ -155,7 +149,7 @@ export function getUpdatedReleaseDate(gameid, callback) {
  }
  }
  */
-export function getAdvancedSearchData(query, callback) {
+export const getAdvancedSearchData = (query, callback) => {
 
     var gbQuery = {};
 

@@ -32,13 +32,8 @@ module.exports = class GameDataController {
     static getArticles(req, res) {
 
         try {
-            //Get the name of the game from the request
-            let gameName = req.query.gameName;
-
             //Reqeust news article data from the gameDataProcessor
-            gameData.getNewsArticleInfo(gameName, (data) => {
-                res.send(data);
-            });
+            gameData.getNewsArticleInfo(req.query.gameName).then(data => res.send(data));
         } catch (e) {
             console.log("Error getting Articles: " + e.message);
         }
