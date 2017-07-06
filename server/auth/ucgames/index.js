@@ -38,10 +38,23 @@ const getRouter = io => {
 	 * Redirects the user to the app if sign up is successful
 	 * Redirects back to sign up if unsuccessful
 	 */
-	router.post('/signup', passport.authenticate('ucgames-signup', {
-	    successRedirect: '/',
-	    failureRedirect: '/auth/ucgames/signup'
-	}));
+	router.post('/signup', passport.authenticate('ucgames-signup', (err, user, info) => {
+		if (err) {
+			io.emit('loginError', `Error in signup: ${err}`)
+			console.log('hey!')
+		}
+		else if (!user) {
+			io.emit('loginError', `Not able to signup: ${info || ''}`);
+			console.log('hi!')
+		}
+		else {
+			res.redirect('/');
+		}
+	}))
+	// {
+	//     successRedirect: '/',
+	//     failureRedirect: '/auth/ucgames/signup'
+	// }));
 
 	/**
 	 * Redirects the user to the app if sign in is successful
