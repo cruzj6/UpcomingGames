@@ -6,11 +6,11 @@ import { HttpRequestService } from './httprequest.service';
 describe('HttpRequestService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [HttprequestService]
+      providers: [HttpRequestService]
     });
   });
 
-  it('should ...', inject([HttprequestService], (service: HttprequestService) => {
+  it('should ...', inject([HttpRequestService], (service: HttpRequestService) => {
     expect(service).toBeTruthy();
   }));
 });

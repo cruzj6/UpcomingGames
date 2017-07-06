@@ -3,21 +3,21 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { ToptrackedComponent } from './toptracked.component';
+import { TopTrackedComponent } from './toptracked.component';
 
 describe('ToptrackedComponent', () => {
-  let component: ToptrackedComponent;
-  let fixture: ComponentFixture<ToptrackedComponent>;
+  let component: TopTrackedComponent;
+  let fixture: ComponentFixture<TopTrackedComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ToptrackedComponent ]
+      declarations: [ TopTrackedComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ToptrackedComponent);
+    fixture = TestBed.createComponent(TopTrackedComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -14,7 +14,7 @@ import { TopTrackedComponent } from './toptracked/toptracked.component';
 import { AlertService } from 'services/alertservice/alert.service';
 import { AdvancedSearchComponent } from 'app/advancedsearch/advancedsearch.component';
 import { CountdownService } from 'services/countdownservice/countdown.service';
-import {SafePipe} from 'app/model/safeurl.pipe';
+import { SafePipe } from 'app/model/safeurl.pipe';
 import { GameSearchComponent } from './gamesearch/gamesearch.component';
 
 @NgModule({

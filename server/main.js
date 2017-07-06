@@ -4,14 +4,15 @@
  * Node server entry file
  */
 require('babel-core/register');
-let express = require('express');
-let exphbs = require('express-handlebars');
-let path = require('path');
-let app = express();
-let bodyparser = require('body-parser');
-let session = require('express-session');
-let passport = require('passport');
-let dotenv = require('dotenv');
+const express = require('express');
+const exphbs = require('express-handlebars');
+const path = require('path');
+const app = express();
+const bodyparser = require('body-parser');
+const session = require('express-session');
+const passport = require('passport');
+const dotenv = require('dotenv');
+
 dotenv.load();
 require('./auth/ucgames/ucgamesauth').authSetup(passport);
 
@@ -49,29 +50,23 @@ app.set('view engine', 'hbs');
 require('./route').default(app);
 
 //Root request hanlder
-app.get('/', function(req, res){
-    if (req.isAuthenticated()) {
-        res.redirect('/usertracked');
-    } else {
-        //If the user is not signed in send them the welcome page
-        res.render('welcomepage');
-    }
+app.get('/', (req, res) => {
+    req.isAuthenticated()
+			? res.redirect('/usertracked')
+    	: res.render('welcomepage');
 });
 
 //Page routes handler
 app.get(['/usertracked', '/toptracked', '/advancedsearch'], function(req, res) {
     console.log(JSON.stringify(req.isAuthenticated()));
     //If the user is signed in render the app's main template
-    if (req.isAuthenticated()) {
-        res.sendFile(path.join(__dirname, '../webapp/dist/main.html'));
-    } else {
-        //If the user is not signed in send them the welcome page
-        res.render('welcomepage');
-    }
+    req.isAuthenticated()
+    	? res.sendFile(path.join(__dirname, '../webapp/dist/main.html'))
+      : res.render('welcomepage');
 });
 
 //The 404 Route
-app.get('*', function(req, res) {
+app.get('*', (req, res) => {
     res.send('Not Found', 404);
 });
 
