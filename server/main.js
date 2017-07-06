@@ -8,6 +8,8 @@ const express = require('express');
 const exphbs = require('express-handlebars');
 const path = require('path');
 const app = express();
+const server = require('http').createServer(app);
+const io = require('socket.io')(server);
 const bodyparser = require('body-parser');
 const session = require('express-session');
 const passport = require('passport');
@@ -47,7 +49,7 @@ app.engine('hbs', exphbs({
 app.set('view engine', 'hbs');
 
 //Set up routes
-require('./route').default(app);
+require('./route').default(app, io);
 
 //Root request hanlder
 app.get('/', (req, res) => {
@@ -70,4 +72,4 @@ app.get('*', (req, res) => {
     res.send('Not Found', 404);
 });
 
-app.listen(process.env.PORT || 5000);
+server.listen(process.env.PORT || 5000);

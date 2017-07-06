@@ -3,7 +3,7 @@
  */
 'use strict'
 
-export default function (app) {
+export default function (app, io) {
     //Set up our routes
     let extDataRouter = require('./api/gamedata');
     let userDataRouter = require('./api/userdata');
@@ -11,6 +11,6 @@ export default function (app) {
     app.use('/userdata', userDataRouter);
 
     //Authentication Route
-    app.use('/auth', require('./auth'));
+    app.use('/auth', require('./auth')(io));
 
 }

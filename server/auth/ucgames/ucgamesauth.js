@@ -1,12 +1,11 @@
 /**
  * Created by Joey on 4/4/16.
  */
-var LocalStrategy = require('passport-local').Strategy;
-var session = require('express-session');
-var express = require('express');
-var User = require('./useraccountsmodel');
+const LocalStrategy = require('passport-local').Strategy;
+const session = require('express-session');
+const express = require('express');
+const User = require('./useraccountsmodel');
 import validator from 'validator';
-export var router = express.Router();
 
 export var authSetup = (passport) => {
 
@@ -64,7 +63,7 @@ export var authSetup = (passport) => {
         //Clean input
         validator.escape(email);
         validator.escape(password);
-        
+
         if (!validator.isEmail(email)) {
             return done(null, false, "NOT AN EMAIL ADDRESS");
         }
@@ -88,6 +87,7 @@ export var authSetup = (passport) => {
                             console.log("AUTHENTICATED");
                             return done(null, user);
                         } else {
+
                             return done(null, false, "INVALID PASSWORD");
                         }
                     }
