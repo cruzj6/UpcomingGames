@@ -26,6 +26,7 @@
   },
   "homepage": "https://github.com/cruzj6/UpcomingGames#readme",
   "dependencies": {
+		"@angular/cli": "^1.2.0",
     "@angular/common": "^4.0.0",
     "@angular/compiler": "^4.0.0",
     "@angular/core": "^4.0.0",
@@ -66,7 +67,6 @@
     "zone.js": "^0.7.2"
   },
   "devDependencies": {
-    "@angular/cli": "^1.2.0",
     "@angular/compiler-cli": "^4.0.0",
     "@types/jasmine": "2.5.38",
     "@types/node": "^6.0.60",
