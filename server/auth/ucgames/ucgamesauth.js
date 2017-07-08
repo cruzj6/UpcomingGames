@@ -1,14 +1,10 @@
-/**
- * Created by Joey on 4/4/16.
- */
-var LocalStrategy = require('passport-local').Strategy;
-var session = require('express-session');
-var express = require('express');
-var User = require('./useraccountsmodel');
-import validator from 'validator';
-export var router = express.Router();
+const LocalStrategy = require('passport-local').Strategy;
+const session = require('express-session');
+const express = require('express');
+const validator = require('validator');
+const User = require('./useraccountsmodel');
 
-export var authSetup = (passport) => {
+export const authSetup = (passport) => {
 
     /**
      * Strategy to create a new user in the database (Signup)
@@ -18,31 +14,28 @@ export var authSetup = (passport) => {
         passwordField: 'password',
         //passReqToCallback: true
     }, (email, password, done) => {
+			
         //Clean input
         validator.escape(email);
         validator.escape(password);
 
         //Only passwords greater than 8 characters
-        if (password.length < 8) {
-            return done(null, false, "PASSWORD TOO SHORT");
-        }
-        if (!validator.isEmail(email)) {
-            return done(null, false, "NOT AN EMAIL ADDRESS");
-        }
+        if (password.length < 8) return done(null, false, { message: 'Password too short, must be 8 or more characters' });
+        if (!validator.isEmail(email)) return done(null, false, { message: 'Not a valid email address' });
 
-        email = validator.normalizeEmail(email);
+        validator.normalizeEmail(email);
 
         //Check if user already exists
         User.findUser(email, (exists, err) => {
             if (exists) {
                 console.log("USER ALREADY EXISTS: " + email);
 
-                return done(null, false, "ACCOUNT ALREADY EXISTS")
+                return done(null, false, { message: 'Account already exists for this email' })
             } else {
                 console.log("CREATING USER" + email);
 
                 //User doesn't exist, create the user
-                var user = new User(email, User.generateHash(password));
+                const user = new User(email, User.generateHash(password));
                 user.addUser((err) => {
                     if (!err) {
                         //Success
@@ -64,31 +57,31 @@ export var authSetup = (passport) => {
         //Clean input
         validator.escape(email);
         validator.escape(password);
-        
-        if (!validator.isEmail(email)) {
-            return done(null, false, "NOT AN EMAIL ADDRESS");
-        }
+
+        if (!validator.isEmail(email)) return done(null, false, { message: 'Not a valid email address' });
+
         validator.normalizeEmail(email);
 
         //Check if user exists
         User.findUser(email, (exists, err) => {
             if (!exists) {
                 //User does not exist, exit
-                console.log("USER DOESNT EXIST: " + email);
+                console.log('USER DOESNT EXIST: ' + email);
 
-                return done(null, false, "User does not exist")
+                return done(null, false, { message: 'User does not exist' })
             } else {
-                console.log("SIGNING IN USER" + email)
+                console.log('SIGNING IN USER' + email)
 
                 //User exists, check if password is valid
-                var user = new User(email, password);
+                const user = new User(email, password);
                 user.checkValidPassword(password, (isValidPass, err) => {
                     if (!err) {
                         if (isValidPass) {
                             console.log("AUTHENTICATED");
                             return done(null, user);
                         } else {
-                            return done(null, false, "INVALID PASSWORD");
+
+                            return done(null, false, { message: 'Invalid Password' });
                         }
                     }
                 });

@@ -1,8 +1,5 @@
-/**
- * Created by Joey on 4/3/16.
- */
-import express from 'express';
 import controller from './gamedatacontroller';
+import express from 'express';
 
 var router = express.Router();
 
