@@ -1,7 +1,6 @@
-/**
- * Created by Joey on 3/1/2016.
- */
 const gameData = require('./gamedataprocessor.js');
+
+const sendDataCallback = res => data => res.send(data);
 
 module.exports = class GameDataController {
     /**
@@ -14,15 +13,10 @@ module.exports = class GameDataController {
      * @param {any} res
      */
     static searchGames(req, res) {
-        try {
-            //Get the search term from the request
-            let searchTerm = req.query.searchTerm;
-            console.log("Searching for: " + searchTerm);
 
+        try {
             //Make a call to the gameData module
-            gameData.searchForGameByName(searchTerm, (data) => {
-                res.send(data);
-            });
+            gameData.searchForGameByName(req.query.searchTerm, sendDataCallback(res));
         } catch (e) {
             console.log("Error Searching for Games: " + e.message);
         }
@@ -32,13 +26,8 @@ module.exports = class GameDataController {
     static getArticles(req, res) {
 
         try {
-            //Get the name of the game from the request
-            let gameName = req.query.gameName;
-
             //Reqeust news article data from the gameDataProcessor
-            gameData.getNewsArticleInfo(gameName, (data) => {
-                res.send(data);
-            });
+            gameData.getNewsArticleInfo(req.query.gameName, sendDataCallback(res));
         } catch (e) {
             console.log("Error getting Articles: " + e.message);
         }
@@ -49,9 +38,7 @@ module.exports = class GameDataController {
 
         try {
             //Request media data from gameDataProcessor, providing it the requested gameName
-            gameData.getMediaData(req.query.gameName, (data) => {
-                res.send(data);
-            });
+            gameData.getMediaData(req.query.gameName, sendDataCallback(res));
         } catch (e) {
             console.log("Error getting game Media: " + e.message);
         }
@@ -72,15 +59,11 @@ module.exports = class GameDataController {
 
         try {
             console.log("Getting " + req.query.number + " top games");
-            gameData.getTopTrackedGamesData(req.query.number, (err, topArray) => {
-                if(err){
-                    res.sendStatus(500).send(err);
-                }
-                else{
-                    console.log("Top Games List: " + topArray);
-                    res.send(topArray);
-                }
-            });
+            gameData.getTopTrackedGamesData(req.query.number, (err, topArray) => (
+							err
+								? res.sendStatus(500).send(err)
+								: res.send(topArray)
+            ));
         } catch (e) {
             console.log("Error getting top tracked games: " + e.message);
         }
@@ -97,12 +80,10 @@ module.exports = class GameDataController {
     }
      */
     static getAdvancedSearch(req, res) {
+
         try {
             console.log("Gettting games Coming Soon: \nRequested: " + req);
-            gameData.getAdvancedSearchData(req.query, (data) => {
-                console.log("Soon Coming Res: " + data);
-                res.send(data);
-            });
+            gameData.getAdvancedSearchData(req.query, sendDataCallback(res));
         } catch (e) {
             console.log("Error performing advanced search: " + e.message);
         }

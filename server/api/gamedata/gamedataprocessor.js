@@ -1,14 +1,9 @@
-/**
- * Created by Joey on 4/4/16.
- */
-import {GameDataModel} from './gamedatamodel';
-var externalAPIPath = '/../../libs/externalapis/';
-var gameAPI = require(__dirname + externalAPIPath + 'giantAPI');
-var bingAPI = require(__dirname + externalAPIPath + 'newsAPI');
-var steamAPI = require(__dirname + externalAPIPath + 'steamAPI');
-var _ = require('underscore-node');
-var moment = require('moment');
-moment().format();
+const GameDataModel = require('./gamedatamodel');
+const externalAPIPath = '/../../libs/externalapis/';
+const gameAPI = require(__dirname + externalAPIPath + 'giantAPI');
+const bingAPI = require(__dirname + externalAPIPath + 'newsAPI');
+const steamAPI = require(__dirname + externalAPIPath + 'steamAPI');
+const _ = require('underscore-node');
 
 export function searchForGameByName(searchTerms, callback) {
     gameAPI.searchForGameByName(searchTerms, (response) => {
@@ -40,12 +35,12 @@ export function getTopTrackedGamesData(numToGet, handleTopTrackedData) {
         topTrackedArray = topTrackedArray.slice(0, numToGet);
 
         //Contains actual data for each game
-        var topTrackedGameData = [];
-        var numGotten = 0;
+        let topTrackedGameData = [];
+        let numGotten = 0;
 
         //For each top game (each elemnt has id and count)
-        for (var i = 0; i < topTrackedArray.length; i++) {
-            var curID;
+        for (let i = 0; i < topTrackedArray.length; i++) {
+            let curID;
 
             //If this is null (We have <5 tracked games)
             //increment the num gotten to let the callback know to
@@ -74,15 +69,14 @@ export function getTopTrackedGamesData(numToGet, handleTopTrackedData) {
 
 //Callsback with array, each element containing id and count
 export function getTopTrackedGamesIds(numToGet, handleTopTrackedGames) {
-    console.log("Entered Top tracked");
+
     GameDataModel.getAllTrackedIdsColumn((err, gameIds) => {
-        if(err){
-            handleTopTrackedGames(err, gameIds);
+        if (err) {
+            return handleTopTrackedGames(err, gameIds);
         }
-        console.log("All Tracked Game IDs: " + JSON.stringify(gameIds));
 
         //Filter out any null or undefined entries
-        gameIds = _.filter(gameIds, (id) => id != undefined && id != "undefined" && id);
+        gameIds = _.filter(gameIds, id => id != undefined && id != "undefined" && id);
 
         //Array for counting the number of times each game occurs
         var countArray = [];
@@ -131,20 +125,15 @@ export function getTopTrackedGamesIds(numToGet, handleTopTrackedGames) {
 }
 
 export function getUpdatedReleaseDate(gameid, callback) {
-    gameAPI.getDataForGameById(gameid, (results) => {
-        //If we get data, format it and send it back to the callback
-        if (results != null) {
-            var dateInfo = {
-                month: results.releaseMonth,
-                day: results.releaseDay,
-                year: results.releaseYear
-            };
-
-            callback(dateInfo);
-        } else {
-            callback(null);
-        }
-    });
+    gameAPI.getDataForGameById(gameid, results => (
+		  results
+				? callback({
+						month: results.releaseMonth,
+						day: results.releaseDay,
+						year: results.releaseYear
+				})
+				: callback(null)
+    ));
 }
 
 /*
@@ -159,9 +148,9 @@ export function getUpdatedReleaseDate(gameid, callback) {
  */
 export function getAdvancedSearchData(query, callback) {
 
-    var gbQuery = {};
+    const gbQuery = {};
+		const filters = JSON.parse(query.filters);
 
-    console.log(query.platform);
     //Check for platform and convert to giant bomb Platform id
     if (query.platform !== "all") {
         switch (query.platform) {
@@ -192,16 +181,12 @@ export function getAdvancedSearchData(query, callback) {
     gbQuery.expected_release_month = query.month;
     gbQuery.expected_release_year = query.year;
 
-    var filters = JSON.parse(query.filters);
     //Keywords
     gbQuery.query = filters.keywords;
-    console.log(filters);
 
     try {
         //Make request through games API
-        gameAPI.advancedGamesQuery(gbQuery, (data) => {
-            callback(data);
-        });
+        gameAPI.advancedGamesQuery(gbQuery, data => callback(data));
     } catch (e) {
         console.log("Error making Giant Bomb API Query: " + e.message);
     }
