@@ -66,8 +66,6 @@ export class TopTrackedComponent implements OnInit {
         this.httpRequestService.getTopTrackedGames(20).subscribe(
             games => {
                 this.isLoadingTopTracked = false;
-                console.log("GOT!");
-                console.log(JSON.stringify(games));
                 this.topTrackedGames = games.filter(g => {
                     return g != null
                 });
@@ -114,7 +112,7 @@ export class TopTrackedComponent implements OnInit {
 
      /**
      * Create an alert that is closed after x seconds using the alertservice
-     * 
+     *
      * @param {string} type bootstrap 4 type of alert (success, danger, warning...)
      * @param {message} message message to be displayed in the alert
      * @memberOf TopTracked

@@ -49,7 +49,6 @@ export class GameinfoviewComponent implements OnInit {
                 })
                 .map((item: GameMediaItem) => {
                         item.url = youtubeHost + item.url.split('?')[1].replace('v=', '');
-                        console.log(item.url);
                         return item;
                 });
                 this.isLoadingMediaItems = false;
