@@ -15,8 +15,10 @@ module.exports = class UserDataController {
     }
 
     static getAUsersTrackedGames(req, res) {
+
         console.log('getting A users tracked games' + req.param('id'));
         console.log('Full id: ' + req.param('id'));
+
         gameData.getUserTrackedGameData(req.param('id'), (gameDatas) => {
             console.log(JSON.stringify(gameDatas));
             res.send(gameDatas);
@@ -35,7 +37,9 @@ module.exports = class UserDataController {
     }
 
     static addTrackedGame(req, res) {
+			
         console.log("GAME ID TO ADD IS" + req.body.gameid);
+
         if (req.body.gameid != null && req.body.gameid != undefined && req.body.gameid != "undefined" && req.body.gameid) {
             gameData.addTrackedGameId(req.body.gameid, req.user.userid, (err, data) => {
                 let isAlreadyTracked = false;
@@ -48,7 +52,6 @@ module.exports = class UserDataController {
         } else {
             //Missing param
             res.sendStatus(500);
-            res.end();
         }
     }
 

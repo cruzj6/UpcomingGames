@@ -41,20 +41,26 @@ const getRouter = io => {
 	 * Redirects the user to the app if sign up is successful
 	 * Redirects back to sign up if unsuccessful
 	 */
-	router.post('/signup', (req, res) => {
+	router.post('/signup', (req, res, next) => {
 		passport.authenticate('ucgames-signup', (err, user, info) => {
 			if (err) {
 				emitLoginError('Server Error in signup', err.message);
-				res.sendStatus(204); // No content to respond with, using socket.io instead
+
+				return res.sendStatus(204); // No content to respond with, using socket.io instead
 			}
 			else if (!user) {
 				emitLoginError(`Not able to signup`, info.message);
-				res.sendStatus(204);
+
+				return res.sendStatus(204);
 			}
 			else {
-				res.redirect('/');
+				req.logIn(user, err => {
+	      	if (err) return next(err);
+					
+	      	return res.redirect('/');
+    		});
 			}
-		})(req, res)
+		})(req, res, next)
 	});
 
 	/**

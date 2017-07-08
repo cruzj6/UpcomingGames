@@ -6,11 +6,34 @@
 		<script>
 			// Handle POST error/signup fail with socket.io
 			// Why? To Learn and for fun
-			var socket = io(window.location.protocol + '//' + window.location.hostname + ':' + window.location.port);
+			var socket = io(window.location.protocol + '//' + window.location.hostname + (window.location.port ? (':' + window.location.port) : ''));
 
 			socket.on('loginError', function (data) {
 				var loginDiv = document.getElementById('login');
 				var errorSpan = document.createElement('span');
+
+				var errorSpanStyle = {
+					'background-color': '#fc6a6a',
+					'border-radius': '3px',
+					'border': '1px solid #f64141',
+					'color': 'white',
+					'display': 'block',
+					'font-family': 'Helvetica,sans-serif',
+					'font-size': '14px',
+					'font-weight': 'bold',
+					'height': '45px',
+					'left': '25%',
+					'line-height': '45px',
+					'position': 'absolute',
+					'right': '25%',
+					'text-align': 'center',
+					'top': '0px',
+					'width': '50%'
+				};
+
+				for (key in errorSpanStyle) {
+					errorSpan.style[key] = errorSpanStyle[key];
+				}
 
 				errorSpan.innerHTML = data.err + ': ' + data.reason;
 				loginDiv.appendChild(errorSpan);
@@ -26,8 +49,6 @@
                     <input class='form-control' name='email' /><br>
                     <label>Password</label>
                     <input class='form-control' type='password' name='password' /><br>
-                    <label>Confirm Password</label>
-                    <input class='form-control' type='password' name='confirmpassword' />
                 </div>
                 <button type="submit" id='button_sign_up' class="btn btn-info" role="button">Sign Up</a>
             </form>
