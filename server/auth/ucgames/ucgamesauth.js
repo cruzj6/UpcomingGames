@@ -14,26 +14,23 @@ export const authSetup = (passport) => {
         passwordField: 'password',
         //passReqToCallback: true
     }, (email, password, done) => {
+			
         //Clean input
         validator.escape(email);
         validator.escape(password);
 
         //Only passwords greater than 8 characters
-        if (password.length < 8) {
-            return done(null, false, { message: "PASSWORD TOO SHORT" });
-        }
-        if (!validator.isEmail(email)) {
-            return done(null, false, { message: "NOT AN EMAIL ADDRESS" });
-        }
+        if (password.length < 8) return done(null, false, { message: 'Password too short, must be 8 or more characters' });
+        if (!validator.isEmail(email)) return done(null, false, { message: 'Not a valid email address' });
 
-        email = validator.normalizeEmail(email);
+        validator.normalizeEmail(email);
 
         //Check if user already exists
         User.findUser(email, (exists, err) => {
             if (exists) {
                 console.log("USER ALREADY EXISTS: " + email);
 
-                return done(null, false, { message: "ACCOUNT ALREADY EXISTS" })
+                return done(null, false, { message: 'Account already exists for this email' })
             } else {
                 console.log("CREATING USER" + email);
 
@@ -61,20 +58,19 @@ export const authSetup = (passport) => {
         validator.escape(email);
         validator.escape(password);
 
-        if (!validator.isEmail(email)) {
-            return done(null, false, { message: "NOT AN EMAIL ADDRESS" });
-        }
+        if (!validator.isEmail(email)) return done(null, false, { message: 'Not a valid email address' });
+
         validator.normalizeEmail(email);
 
         //Check if user exists
         User.findUser(email, (exists, err) => {
             if (!exists) {
                 //User does not exist, exit
-                console.log("USER DOESNT EXIST: " + email);
+                console.log('USER DOESNT EXIST: ' + email);
 
-                return done(null, false, { message: "User does not exist" })
+                return done(null, false, { message: 'User does not exist' })
             } else {
-                console.log("SIGNING IN USER" + email)
+                console.log('SIGNING IN USER' + email)
 
                 //User exists, check if password is valid
                 const user = new User(email, password);
@@ -85,7 +81,7 @@ export const authSetup = (passport) => {
                             return done(null, user);
                         } else {
 
-                            return done(null, false, { message: "INVALID PASSWORD" });
+                            return done(null, false, { message: 'Invalid Password' });
                         }
                     }
                 });
