@@ -7,11 +7,11 @@
   </div>
 
   <!--Template for each search result-->
-  <template #rt let-game="result " let-t="term ">
+  <ng-template #rt let-game="result " let-t="term ">
     <div id="div_search_result " class="w-100 ">
       <span><img [src]="game.imageLink.icon_url " src=" " width="16 ">
                     {{game.name}}</span>
       <button id="btn_add_game" class="btn btn-default" (click)="addTrackedGame(game, $event) ">Add</button>
     </div>
-  </template>
+  </ng-template>
 </section>

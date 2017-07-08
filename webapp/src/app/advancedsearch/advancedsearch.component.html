@@ -73,6 +73,6 @@
 </div>
 
 <!--Template for datepicker-->
-<template #customDay let-date="date" let-currentMonth="currentMonth" let-selected="selected" let-disabled="disabled">
+<ng-template #customDay let-date="date" let-currentMonth="currentMonth" let-selected="selected" let-disabled="disabled">
     <span *ngIf="date.day === 15"> <button class="btn btn-primary">Confirm</button> </span>
-</template>
+</ng-template>

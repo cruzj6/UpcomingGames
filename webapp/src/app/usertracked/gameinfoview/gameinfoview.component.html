@@ -1,7 +1,7 @@
 <!--Info view for info_mode in the usertracked component's user tracked games card-->
 <ngb-tabset>
     <ngb-tab title="News">
-        <template ngbTabContent>
+        <ng-template ngbTabContent>
             <section id="loading_news" *ngIf="!gameNewsItems && isLoadingNewsItems">
                 <div id="div_loading_news">
                     <h2>Loading</h2>
@@ -20,10 +20,10 @@
                     </div>
                 </div>
             </div>
-        </template>
+        </ng-template>
     </ngb-tab>
     <ngb-tab title="Media">
-        <template ngbTabContent>
+        <ng-template ngbTabContent>
             <section id="loading_media" *ngIf="!gameMediaItems && isLoadingMediaItems">
                 <div id="div_loading_media">
                     <h2>Loading</h2>
@@ -42,6 +42,6 @@
                 </div>
             </div>
             <ngb-pagination [collectionSize]="gameMediaItems.length" [(page)]="mediaPage" [pageSize]="5" [boundaryLinks]="true"></ngb-pagination>
-        </template>
+        </ng-template>
     </ngb-tab>
 </ngb-tabset>
