@@ -5,8 +5,11 @@ var express = require('express');
 var passport = require('passport');
 require('connect-flash');
 
+const ioLoginError = io => (err, reason) => io.emit('loginError', { err, reason });
+
 const getRouter = io => {
 	const router = express.Router();
+	const emitLoginError = ioLoginError(io);
 
 	/**
 	 * Returns true if the user is logged in
@@ -38,23 +41,21 @@ const getRouter = io => {
 	 * Redirects the user to the app if sign up is successful
 	 * Redirects back to sign up if unsuccessful
 	 */
-	router.post('/signup', passport.authenticate('ucgames-signup', (err, user, info) => {
-		if (err) {
-			io.emit('loginError', `Error in signup: ${err}`)
-			console.log('hey!')
-		}
-		else if (!user) {
-			io.emit('loginError', `Not able to signup: ${info || ''}`);
-			console.log('hi!')
-		}
-		else {
-			res.redirect('/');
-		}
-	}))
-	// {
-	//     successRedirect: '/',
-	//     failureRedirect: '/auth/ucgames/signup'
-	// }));
+	router.post('/signup', (req, res) => {
+		passport.authenticate('ucgames-signup', (err, user, info) => {
+			if (err) {
+				emitLoginError('Server Error in signup', err.message);
+				res.sendStatus(204); // No content to respond with, using socket.io instead
+			}
+			else if (!user) {
+				emitLoginError(`Not able to signup`, info.message);
+				res.sendStatus(204);
+			}
+			else {
+				res.redirect('/');
+			}
+		})(req, res)
+	});
 
 	/**
 	 * Redirects the user to the app if sign in is successful
