@@ -9,9 +9,9 @@
   <!--Template for each search result-->
   <ng-template #rt let-game="result " let-t="term ">
     <div id="div_search_result " class="w-100 ">
-      <span><img [src]="game.imageLink.icon_url " src=" " width="16 ">
-                    {{game.name}}</span>
-      <button id="btn_add_game" class="btn btn-default" (click)="addTrackedGame(game, $event) ">Add</button>
+      <img [src]="game.imageLink.icon_url " src=" " width="16 ">
+      <span>{{game.name}}</span>
+      <button id="btn_add_game" class="btn btn-default" (click)="addTrackedGame(game, $event)">Add</button>
     </div>
   </ng-template>
 </section>
