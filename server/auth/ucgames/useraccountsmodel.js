@@ -2,8 +2,9 @@ import {UserDataModel} from '../../api/userdata/userdatamodel';
 import mongojs from 'mongojs';
 const bcrypt = require('bcrypt-nodejs');
 
+let db;
 try {
-  let db = mongojs(process.env.DATABASE_URL, ['useraccounts']);
+  db = mongojs(process.env.DATABASE_URL, ['useraccounts']);
 }
 catch (e) {}
 
@@ -20,7 +21,7 @@ module.exports = class User {
     static findUser(email, callback) {
         const userid = email.toLowerCase();
 
-        this.db.useraccounts.findOne({ userid }, (err, acc) => {
+        db.useraccounts.findOne({ userid }, (err, acc) => {
             if (err) {
                 callback(false, err);
             }
@@ -37,7 +38,7 @@ module.exports = class User {
      * Adds a user to the database
      */
     addUser(callback) {
-        this.db.useraccounts.save({
+        db.useraccounts.save({
             userid: this.userid,
             hashedpass: this.password
         }, (err) => {
@@ -65,7 +66,7 @@ module.exports = class User {
      * Check if the password is valid against the user's hashed password
      */
     checkValidPassword(password, callback) {
-        this.db.useraccounts.findOne({ userid: this.userid }, (err, acc) => {
+        db.useraccounts.findOne({ userid: this.userid }, (err, acc) => {
 
             if (err) callback(false, err);
 
