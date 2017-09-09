@@ -68,25 +68,31 @@ const getRouter = io => {
 	 * Redirects back to sign up if unsuccessful
 	 */
 	router.post('/signin', (req, res, next) => {
-		passport.authenticate('ucgames-signin', (err, user, info) => {
-			if (err) {
-				emitLoginError('Server Error in login', err.message);
+		try {
+			passport.authenticate('ucgames-signin', (err, user, info) => {
+				if (err) {
+					emitLoginError('Server Error in login', err.message);
 
-				return res.sendStatus(204); // No content to respond with, using socket.io instead
-			}
-			else if (!user) {
-				emitLoginError(`Not able to login`, info.message);
+					return res.sendStatus(204); // No content to respond with, using socket.io instead
+				}
+				else if (!user) {
+					emitLoginError(`Not able to login`, info.message);
 
-				return res.sendStatus(204);
-			}
-			else {
-				req.logIn(user, err => {
-	      	if (err) return next(err);
+					return res.sendStatus(204);
+				}
+				else {
+					req.logIn(user, err => {
+		      	if (err) return next(err);
 
-	      	return res.redirect('/');
-    		});
-			}
-		})(req, res, next)
+		      	return res.redirect('/');
+	    		});
+				}
+			})(req, res, next)
+		}
+		catch (e) {
+			res.sendStatus(500);
+			console.log('Signin error');
+		}
 	});
 
 	return router;

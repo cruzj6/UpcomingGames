@@ -53,9 +53,15 @@ require('./route').default(app, io);
 
 //Root request hanlder
 app.get('/', (req, res) => {
+  try {
     req.isAuthenticated()
 			? res.redirect('/usertracked')
     	: res.render('welcomepage');
+  }
+  catch (e) {
+    res.sendStatus(500);
+    console.log('Unknown error');
+  }
 });
 
 //Page routes handler
