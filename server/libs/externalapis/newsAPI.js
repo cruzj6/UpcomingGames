@@ -3,7 +3,7 @@
  * Handles all requests to the BingAPI
  */
 let apiKey = process.env.BING_KEY;
-let rootUri = 'https://api.cognitive.microsoft.com/bing/v5.0/';
+let rootUri = 'https://api.cognitive.microsoft.com/bing/v7.0/';
 let request = require('request');
 
 //Requests media data from the Bing web API
