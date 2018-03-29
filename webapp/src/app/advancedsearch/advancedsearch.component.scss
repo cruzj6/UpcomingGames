@@ -1,5 +1,6 @@
 #div_result_card {
     font-weight: bold;
+    flex: 0 0 200px;
     .card-block {
         .card-title {
             background: #333;
@@ -11,6 +12,9 @@
             text-overflow: ellipsis;
         }
     }
+    .card-text {
+
+    }
 }
 
 #platform_selection {
@@ -21,6 +25,10 @@
         input[type="radio"] {
             width: 2em;
         }
+        display: flex;
+        height: 50px;
+        width: 200px;
+        justify-content: center;
     }
 }
 
