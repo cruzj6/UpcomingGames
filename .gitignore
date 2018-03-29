@@ -18,4 +18,5 @@ client/builds/
 npm-debug.log
 client/bower_components/**/*
 .vscode
+package-lock.json
 yarn.lock
