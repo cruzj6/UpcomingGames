@@ -23,7 +23,10 @@ app.use(session({
     secret: 'ilikeandescandies',
     name: 'ucgamessession',
     resave: true,
-    saveUninitialized: true
+    saveUninitialized: true,
+    cookie: {
+        maxAge: 1.21e+9 // 2 weeks to expire
+    }
 }));
 
 //Passport middleware
