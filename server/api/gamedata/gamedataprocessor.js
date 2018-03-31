@@ -182,11 +182,13 @@ export function getAdvancedSearchData(query, callback) {
                 break;
             case 'switch':
                 advancedQueryBuilder.platform(gameAPI.ID_SWITCH);
+                break;
             case 'ios':
                 advancedQueryBuilder.platform(gameAPI.ID_IOS);
                 break;
             case '':
                 advancedQueryBuilder.platform(gameAPI.ID_3DS);
+                break;
             case 'android':
                 advancedQueryBuilder.platform(gameAPI.ID_ANDROID);
                 break;
