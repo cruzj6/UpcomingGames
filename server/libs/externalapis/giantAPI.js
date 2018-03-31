@@ -117,22 +117,22 @@ export class AdvancedQueryBuilder {
     }
 
     platformType (platform) {
-        query.platform = platform;
+        this.query.platform = platform;
         return this;
     }
 
     month (releaseMonth) {
-        query.expected_release_month = releaseMonth;
+        this.query.expected_release_month = releaseMonth;
         return this;
     }
 
     year (releaseYear) {
-        query.expected_release_year = releaseYear;
+        this.query.expected_release_year = releaseYear;
         return this;
     }
 
     keywords (queryKeywords) {
-        query.query = queryKeywords;
+        this.query.query = queryKeywords;
         return this;
     }
 
