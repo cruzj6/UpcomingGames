@@ -62,13 +62,11 @@ export class UserDataModel {
      */
     removeGameIDFromUser(gameid, done) {
         this.db.userdata.update({ userid: this.userid }, {
-            "$pull": { "gameids": gameid }
-        }, (err, game) => {
-            console.log('PULLED GAME: ', game)
-            if (err) {
-                done(err, game);
+            "$pull": {
+                "gameids": { "$in": [gameid, Number(gameid)] }
             }
-            else done(err, game);
+        }, (err, game) => {
+            done(err, game);
         });
     }
 
