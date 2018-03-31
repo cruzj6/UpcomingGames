@@ -199,7 +199,7 @@ export function getAdvancedSearchData(query, callback) {
 
     try {
         //Make request through games API
-        gameAPI.advancedGamesQuery(gbQuery, (data) => {
+        gameAPI.advancedGamesQuery(advancedQueryBuilder.getQuery(), (data) => {
             callback(data);
         });
     } catch (e) {
