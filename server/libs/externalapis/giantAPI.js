@@ -8,12 +8,14 @@ import _ from 'underscore-node';
 let apiKey = process.env.GB_KEY;
 let giantBombAPI = 'http://www.giantbomb.com/api';
 
-export let ID_XBOX = '145';
-export let ID_PS4 = '146';
-export let ID_WIIU = '139';
-export let ID_PC = '94';
-export let ID_IOS = '96';
-export let ID_ANDROID = '123';
+export const ID_XBOX = '145';
+export const ID_PS4 = '146';
+export const ID_WIIU = '139';
+export const ID_PC = '94';
+export const ID_IOS = '96';
+export const ID_ANDROID = '123';
+export const ID_SWITCH = '157';
+export const ID_3DS = '117';
 
 //Giantbomb API search request and filters results to just upcoming games
 //and returns an object with the info we want

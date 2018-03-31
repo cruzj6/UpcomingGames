@@ -2,10 +2,10 @@
  * Created by Joey on 4/4/16.
  */
 import {GameDataModel} from './gamedatamodel';
-var externalAPIPath = '/../../libs/externalapis/';
-var gameAPI = require(__dirname + externalAPIPath + 'giantAPI');
-var bingAPI = require(__dirname + externalAPIPath + 'newsAPI');
-var steamAPI = require(__dirname + externalAPIPath + 'steamAPI');
+var externalAPIPath = '../../libs/externalapis/';
+var gameAPI = require('../../libs/externalapis/giantAPI');
+var bingAPI = require('../../libs/externalapis/newsAPI');
+var steamAPI = require('../../libs/externalapis/steamAPI');
 var _ = require('underscore-node');
 var moment = require('moment');
 moment().format();
@@ -177,9 +177,13 @@ export function getAdvancedSearchData(query, callback) {
             case 'wiiu':
                 gbQuery.platform = gameAPI.ID_WIIU;
                 break;
+            case 'switch':
+                gbQuery.platform = gameAPI.ID_SWITCH;
             case 'ios':
                 gbQuery.platform = gameAPI.ID_IOS;
                 break;
+            case '':
+                gbQuery.platform = gameAPI.ID_3DS;
             case 'android':
                 gbQuery.platform = gameAPI.ID_ANDROID;
                 break;

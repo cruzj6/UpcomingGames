@@ -38,6 +38,8 @@ export class AdvancedSearchComponent implements OnInit{
         this.platforms["pc"] = "PC";
         this.platforms["android"] = "Android";
         this.platforms["ios"] = "iOS";
+        this.platforms["switch"] = "Switch";
+        this.platforms["3DS"] = "3DS"
         this.platforms[""] = "Any";
 
         //Set up years options
@@ -82,8 +84,8 @@ export class AdvancedSearchComponent implements OnInit{
 
     /**
      * Submitted to perform an advancedsearch against the UCGames internal API
-     * 
-     * 
+     *
+     *
      * @memberOf AdvancedSearchComponent
      */
     onSubmitAdvancedSearch(){
@@ -108,9 +110,9 @@ export class AdvancedSearchComponent implements OnInit{
 
     /**
      * Add a tracked game
-     * 
+     *
      * @param {GameItem} game game to add
-     * 
+     *
      * @memberOf AdvancedSearchComponent
      */
     addTrackedGame(game: GameItem) {
@@ -131,9 +133,9 @@ export class AdvancedSearchComponent implements OnInit{
 
     /**
      * Used to get the list of keys in the platforms dictionary
-     * 
+     *
      * @returns {string[]} Array of keys for the platforms dictionar
-     * 
+     *
      * @memberOf AdvancedSearchComponent
      */
     platformKeys(): string[]{
