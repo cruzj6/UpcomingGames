@@ -13,7 +13,7 @@ export class UserDataModel {
 
     /**
      * Get all of a user's tracked games by user id
-     * 
+     *
      * @param {any} handleUserIds callback function (err, ids)
      */
     getUsersTrackedGameIds(handleUserIds) {
@@ -30,7 +30,7 @@ export class UserDataModel {
 
     /**
      * Add a game to a user's tracked games
-     * 
+     *
      * @param {any} gameid game to add by GB id
      * @param {any} done called when game has been added or error occurs (err, game)
      */
@@ -56,7 +56,7 @@ export class UserDataModel {
 
     /**
      * Remove a tracked game from a user
-     * 
+     *
      * @param {any} gameId game to remove by gb id
      * @param {any} done called when deletion happend or error occurs
      */
@@ -64,6 +64,7 @@ export class UserDataModel {
         this.db.userdata.update({ userid: this.userid }, {
             "$pull": { "gameids": gameid }
         }, (err, game) => {
+            console.log('PULLED GAME: ', game)
             if (err) {
                 done(err, game);
             }
@@ -73,10 +74,10 @@ export class UserDataModel {
 
     /**
      * Add a steam id to associate with a user
-     * 
+     *
      * @param {any} steamid steamid to associate
      * @param {any} done called with error or when done
-     * 
+     *
      * @memberOf UserDataModel
      */
     addSteamIdToUser(steamid, done) {
@@ -89,9 +90,9 @@ export class UserDataModel {
 
     /**
      * Get the user's steam id if it exists, else null is passed (err, id)
-     * 
+     *
      * @param {any} callback handle the steam id (err, id)
-     * 
+     *
      * @memberOf UserDataModel
      */
     getSteamId(callback) {
@@ -107,16 +108,16 @@ export class UserDataModel {
 
     /**
      * Add a new user element to the collection, if they don't exist
-     * 
+     *
      * @param {any} done called when done adding
-     * 
+     *
      * @memberOf UserDataModel
      */
     addUserForData(done) {
         this.db.userdata.findOne({ userid: this.userid }, (err, data) => {
             //Add if they don't exist
             if (!data) {
-                this.db.userdata.save({ userid: this.userid, gameids: [24024] }, (err, user) => {
+                this.db.userdata.save({ userid: this.userid, gameids: ["24024"] }, (err, user) => {
                     done(err, user);
                 });
             }
