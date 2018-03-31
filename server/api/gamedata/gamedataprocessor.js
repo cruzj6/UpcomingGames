@@ -169,31 +169,31 @@ export function getAdvancedSearchData(query, callback) {
     if (query.platform !== "all") {
         switch (query.platform) {
             case 'xbone':
-                advancedQueryBuilder.platform(gameAPI.ID_XBOX);
+                advancedQueryBuilder.platformType(gameAPI.ID_XBOX);
                 break;
             case 'ps4':
-                advancedQueryBuilder.platform(gameAPI.ID_PS4);
+                advancedQueryBuilder.platformType(gameAPI.ID_PS4);
                 break;
             case 'pc':
-                advancedQueryBuilder.platform(gameAPI.ID_PC);
+                advancedQueryBuilder.platformType(gameAPI.ID_PC);
                 break;
             case 'wiiu':
-                advancedQueryBuilder.platform(gameAPI.ID_WIIU);
+                advancedQueryBuilder.platformType(gameAPI.ID_WIIU);
                 break;
             case 'switch':
-                advancedQueryBuilder.platform(gameAPI.ID_SWITCH);
+                advancedQueryBuilder.platformType(gameAPI.ID_SWITCH);
                 break;
             case 'ios':
-                advancedQueryBuilder.platform(gameAPI.ID_IOS);
+                advancedQueryBuilder.platformType(gameAPI.ID_IOS);
                 break;
             case '':
-                advancedQueryBuilder.platform(gameAPI.ID_3DS);
+                advancedQueryBuilder.platformType(gameAPI.ID_3DS);
                 break;
             case 'android':
-                advancedQueryBuilder.platform(gameAPI.ID_ANDROID);
+                advancedQueryBuilder.platformType(gameAPI.ID_ANDROID);
                 break;
             default:
-                advancedQueryBuilder.platform(null);
+                advancedQueryBuilder.platformType(null);
         }
     }
 
