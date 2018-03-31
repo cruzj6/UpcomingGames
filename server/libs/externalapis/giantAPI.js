@@ -111,6 +111,36 @@ export function getDataForGameById(gameId, handleIdGameData) {
 
 }
 
+export class AdvancedQueryBuilder {
+    constructor () {
+        this.query = {};
+    }
+
+    platformType (platform) {
+        query.platform = platform;
+        return this;
+    }
+
+    month (releaseMonth) {
+        query.expected_release_month = releaseMonth;
+        return this;
+    }
+
+    year (releaseYear) {
+        query.expected_release_year = releaseYear;
+        return this;
+    }
+
+    keywords (queryKeywords) {
+        query.query = queryKeywords;
+        return this;
+    }
+
+    getQuery () {
+        return this.query;
+    }
+}
+
 export function advancedGamesQuery(gbQuery, callback) {
     let gameResponses = [];
     let queryURI = giantBombAPI + '/games/?api_key=' + apiKey + '&filter=';

@@ -159,47 +159,41 @@ export function getUpdatedReleaseDate(gameid, callback) {
  */
 export function getAdvancedSearchData(query, callback) {
 
-    var gbQuery = {};
+    var advancedQueryBuilder = new gameAPI.AdvancedQueryBuilder()
+        .month(query.month)
+        .year(query.year)
+        .keywords(JSON.parse(query.filters).keywords)
 
     console.log(query.platform);
     //Check for platform and convert to giant bomb Platform id
     if (query.platform !== "all") {
         switch (query.platform) {
             case 'xbone':
-                gbQuery.platform = gameAPI.ID_XBOX;
+                advancedQueryBuilder.platform(gameAPI.ID_XBOX);
                 break;
             case 'ps4':
-                gbQuery.platform = gameAPI.ID_PS4;
+                advancedQueryBuilder.platform(gameAPI.ID_PS4);
                 break;
             case 'pc':
-                gbQuery.platform = gameAPI.ID_PC;
+                advancedQueryBuilder.platform(gameAPI.ID_PC);
                 break;
             case 'wiiu':
-                gbQuery.platform = gameAPI.ID_WIIU;
+                advancedQueryBuilder.platform(gameAPI.ID_WIIU);
                 break;
             case 'switch':
-                gbQuery.platform = gameAPI.ID_SWITCH;
+                advancedQueryBuilder.platform(gameAPI.ID_SWITCH);
             case 'ios':
-                gbQuery.platform = gameAPI.ID_IOS;
+                advancedQueryBuilder.platform(gameAPI.ID_IOS);
                 break;
             case '':
-                gbQuery.platform = gameAPI.ID_3DS;
+                advancedQueryBuilder.platform(gameAPI.ID_3DS);
             case 'android':
-                gbQuery.platform = gameAPI.ID_ANDROID;
+                advancedQueryBuilder.platform(gameAPI.ID_ANDROID);
                 break;
             default:
-                gbQuery.platform = null;
+                advancedQueryBuilder.platform(null);
         }
     }
-
-    //Timeframe
-    gbQuery.expected_release_month = query.month;
-    gbQuery.expected_release_year = query.year;
-
-    var filters = JSON.parse(query.filters);
-    //Keywords
-    gbQuery.query = filters.keywords;
-    console.log(filters);
 
     try {
         //Make request through games API
